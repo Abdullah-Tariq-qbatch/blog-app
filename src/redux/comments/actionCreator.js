@@ -2,15 +2,15 @@
 import actions from './actions';
 import api from '../../fetchData';
 
-const { fetchUsersBegin, fetchUsersSuccess, apiError } = actions;
+const { fetchCommentsBegin, fetchCommentsSuccess, apiError } = actions;
 
-const fetchUsers = () => {
+const fetchComments = () => {
   return async (dispatch) => {
     try {
-      dispatch(fetchUsersBegin());
-      const response = await api.users.getAll();
+      dispatch(fetchCommentsBegin());
+      const response = await api.comments.getAll();
       if (response.status >= 200 && response.status <= 299) {
-        dispatch(fetchUsersSuccess(response.data.data));
+        dispatch(fetchCommentsSuccess(response.data.data));
       }
     } catch (error) {
       dispatch(apiError(error.message));
@@ -18,4 +18,4 @@ const fetchUsers = () => {
   };
 };
 
-export default fetchUsers;
+export default fetchComments;

@@ -1,24 +1,26 @@
 /* eslint-disable default-param-last */
 import actions from './actions';
 
-const { FETCH_USERS_BEGINS, FETCH_USERS_SUCCESS, API_ERROR } = actions;
+const { FETCH_COMMENTS_BEGINS, FETCH_COMMENTS_SUCCESS, API_ERROR } = actions;
 
 const initState = {
-  users: [],
+  comments: [],
   loading: false,
   success: null,
   error: null,
 };
 
-const Users = (state = initState, action) => {
+const Comments = (state = initState, action) => {
   const { type, data, err } = action;
   switch (type) {
-    case FETCH_USERS_BEGINS:
+    case FETCH_COMMENTS_BEGINS:
       return {
         ...state, loading: true, success: null, error: null,
       };
-    case FETCH_USERS_SUCCESS:
-      return { ...state, users: data, loading: false };
+    case FETCH_COMMENTS_SUCCESS:
+      return {
+        ...state, comments: data, loading: false,
+      };
     case API_ERROR:
       return { ...state, loading: false, error: err };
     default:
@@ -26,4 +28,4 @@ const Users = (state = initState, action) => {
   }
 };
 
-export default Users;
+export default Comments;
