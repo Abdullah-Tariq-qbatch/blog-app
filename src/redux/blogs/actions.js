@@ -2,15 +2,6 @@ const actions = {
   FETCH_BLOGS_BEGIN: 'FETCH_BLOGS_BEGIN',
   FETCH_BLOGS_SUCCESS: 'FETCH_BLOGS_SUCCESS',
 
-  FETCH_BLOG_BY_ID_BEGIN: 'FETCH_BLOG_BY_ID_BEGIN',
-  FETCH_BLOG_BY_ID_SUCCESS: 'FETCH_BLOG_BY_ID_SUCCESS',
-
-  FETCH_BLOG_BY_TAG_BEGIN: 'FETCH_BLOG_BY_TAG_BEGIN',
-  FETCH_BLOG_BY_TAG_SUCCESS: 'FETCH_BLOG_BY_TAG_SUCCESS',
-
-  FETCH_BLOG_BY_USER_ID_BEGIN: 'FETCH_BLOG_BY_USER_ID_BEGIN',
-  FETCH_BLOG_BY_USER_ID_SUCCESS: 'FETCH_BLOG_BY_USER_ID_SUCCESS',
-
   CREATE_BLOG_BEGIN: 'CREATE_BLOG_BEGIN',
   CREATE_BLOG_SUCCESS: 'CREATE_BLOG_SUCCESS',
 
@@ -28,33 +19,6 @@ const actions = {
 
   fetchBlogsSuccess: (data) => ({
     type: actions.FETCH_BLOGS_SUCCESS,
-    data,
-  }),
-
-  fetchBlogByIdBegin: () => ({
-    type: actions.FETCH_BLOG_BY_ID_BEGIN,
-  }),
-
-  fetchBlogByIdSuccess: (data) => ({
-    type: actions.FETCH_BLOG_BY_ID_SUCCESS,
-    data,
-  }),
-
-  fetchBlogByTagBegin: () => ({
-    type: actions.FETCH_BLOG_BY_TAG_BEGIN,
-  }),
-
-  fetchBlogByTagSuccess: (data) => ({
-    type: actions.FETCH_BLOG_BY_TAG_SUCCESS,
-    data,
-  }),
-
-  fetchBlogByUserIdBegin: () => ({
-    type: actions.FETCH_BLOG_BY_USER_ID_BEGIN,
-  }),
-
-  fetchBlogByUserIdSuccess: (data) => ({
-    type: actions.FETCH_BLOG_BY_USER_ID_SUCCESS,
     data,
   }),
 
@@ -92,3 +56,39 @@ const actions = {
 };
 
 export default actions;
+
+// FETCH_BLOG_BY_ID_BEGIN: 'FETCH_BLOG_BY_ID_BEGIN',
+// FETCH_BLOG_BY_ID_SUCCESS: 'FETCH_BLOG_BY_ID_SUCCESS',
+
+// FETCH_BLOG_BY_TAG_BEGIN: 'FETCH_BLOG_BY_TAG_BEGIN',
+// FETCH_BLOG_BY_TAG_SUCCESS: 'FETCH_BLOG_BY_TAG_SUCCESS',
+
+// FETCH_BLOG_BY_USER_ID_BEGIN: 'FETCH_BLOG_BY_USER_ID_BEGIN',
+// FETCH_BLOG_BY_USER_ID_SUCCESS: 'FETCH_BLOG_BY_USER_ID_SUCCESS',
+
+// fetchBlogByIdBegin: () => ({
+//   type: actions.FETCH_BLOG_BY_ID_BEGIN,
+// }),
+
+// fetchBlogByIdSuccess: (data) => ({
+//   type: actions.FETCH_BLOG_BY_ID_SUCCESS,
+//   data,
+// }),
+
+// fetchBlogByTagBegin: () => ({
+//   type: actions.FETCH_BLOG_BY_TAG_BEGIN,
+// }),
+
+// fetchBlogByTagSuccess: (data) => ({
+//   type: actions.FETCH_BLOG_BY_TAG_SUCCESS,
+//   data,
+// }),
+
+// fetchBlogByUserIdBegin: () => ({
+//   type: actions.FETCH_BLOG_BY_USER_ID_BEGIN,
+// }),
+
+// fetchBlogByUserIdSuccess: (data) => ({
+//   type: actions.FETCH_BLOG_BY_USER_ID_SUCCESS,
+//   data,
+// }),

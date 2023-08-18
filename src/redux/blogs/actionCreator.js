@@ -1,17 +1,13 @@
+/* eslint-disable import/prefer-default-export */
 /* eslint-disable no-unused-vars */
 /* eslint-disable arrow-body-style */
 import actions from './actions';
 import api from '../../fetchData';
+import sendErrorNotification from '../../slackNotification';
 
 const {
   fetchBlogsBegin,
   fetchBlogsSuccess,
-  fetchBlogByIdBegin,
-  fetchBlogByIdSuccess,
-  fetchBlogByTagBegin,
-  fetchBlogByTagSuccess,
-  fetchBlogByUserIdBegin,
-  fetchBlogByUserIdSuccess,
   createBlogBegin,
   createBlogSuccess,
   updateBlogBegin,
@@ -21,57 +17,55 @@ const {
   apiError,
 } = actions;
 
+const isSuccess = (response) => response.status >= 200 && response.status <= 299;
+
 export const fetchBlogs = () => {
   return async (dispatch) => {
     try {
       dispatch(fetchBlogsBegin());
       const response = await api.blogs.getAll();
-      if (response.status >= 200 && response.status <= 299) {
-        dispatch(fetchBlogsSuccess(response.data.data));
-      }
+      if (isSuccess(response)) dispatch(fetchBlogsSuccess(response.data.data));
     } catch (error) {
+      sendErrorNotification(error, import.meta.url, 'fetch blogs');
       dispatch(apiError(error.message));
     }
   };
 };
 
-export const fetchBlogById = (id) => {
+export const createBlog = (data) => {
   return async (dispatch) => {
     try {
-      dispatch(fetchBlogByIdBegin());
-      const response = await api.blogs.getById(id);
-      if (response.status >= 200 && response.status <= 299) {
-        dispatch(fetchBlogByIdSuccess(response.data.data));
-      }
+      dispatch(createBlogBegin());
+      const response = await api.blogs.create(data);
+      if (isSuccess(response)) dispatch(createBlogSuccess(response.data));
     } catch (error) {
+      sendErrorNotification(error, import.meta.url, 'create blog');
       dispatch(apiError(error.message));
     }
   };
 };
 
-export const fetchBlogsByTag = (tagID) => {
+export const updateBlog = (id, data) => {
   return async (dispatch) => {
     try {
-      dispatch(fetchBlogByTagBegin());
-      const response = await api.blogs.getByTag(tagID);
-      if (response.status >= 200 && response.status <= 299) {
-        dispatch(fetchBlogByTagSuccess(response.data.data));
-      }
+      dispatch(updateBlogBegin());
+      const response = await api.blogs.update(id, data);
+      if (isSuccess(response)) dispatch(updateBlogSuccess(response.data));
     } catch (error) {
+      sendErrorNotification(error, import.meta.url, 'update blog');
       dispatch(apiError(error.message));
     }
   };
 };
 
-export const fetchBlogsByUserId = (userID) => {
+export const deleteBlog = (id) => {
   return async (dispatch) => {
     try {
-      dispatch(fetchBlogByUserIdBegin());
-      const response = await api.blogs.getByUserId(userID);
-      if (response.status >= 200 && response.status <= 299) {
-        dispatch(fetchBlogByUserIdSuccess(response.data.data));
-      }
+      dispatch(deleteBlogBegin());
+      const response = await api.blogs.delete(id);
+      if (isSuccess(response)) dispatch(deleteBlogSuccess(response.data));
     } catch (error) {
+      sendErrorNotification(error, import.meta.url, 'delete blog');
       dispatch(apiError(error.message));
     }
   };

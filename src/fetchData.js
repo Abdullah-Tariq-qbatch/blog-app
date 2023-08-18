@@ -4,52 +4,24 @@ import axios from 'axios';
 
 const api = {
   axiosInstance: axios.create({
-    baseURL: 'https://dummyapi.io/data/v1/',
+    baseURL: process.env.REACT_APP_BACKEND_URL,
     headers: {
-      'app-id': '64de0213af145b50ebc78e35',
+      'app-id': process.env.REACT_APP_BACKEND_API_KEY,
     },
   }),
   blogs: {
-    getAll: async () => {
-      const response = await api.axiosInstance.get('post');
-      return response;
-    },
-    getById: async (id) => {
-      const response = await api.axiosInstance.get(`post/${id}`);
-      return response;
-    },
-    getByTag: async (id) => {
-      const response = await api.axiosInstance.get(`/tag/${id}/post`);
-      return response;
-    },
-    getByUserId: async (id) => {
-      const response = await api.axiosInstance.get(`/user/${id}/post`);
-      return response;
-    },
-    create: async (data) => {
-      const response = await api.axiosInstance.post('/post/create', data);
-      return response;
-    },
-    update: async (id, data) => {
-      const response = await api.axiosInstance.put(`/post/${id}`, data);
-      return response;
-    },
-    delete: async (id) => {
-      const response = await api.axiosInstance.delete(`/post/${id}`);
-      return response;
-    },
+    getAll: async () => api.axiosInstance.get('post'),
+    create: async (data) => api.axiosInstance.post('post/create', data),
+    update: async (id, data) => api.axiosInstance.put(`post/${id}`, data),
+    delete: async (id) => api.axiosInstance.delete(`post/${id}`),
   },
   users: {
-    getAll: async () => {
-      const response = await api.axiosInstance.get('user');
-      return response;
-    },
+    getAll: async () => api.axiosInstance.get('user'),
   },
   comments: {
-    getAll: async () => {
-      const response = await api.axiosInstance.get('comment');
-      return response;
-    },
+    getAll: async () => api.axiosInstance.get('comment'),
+    create: async (data) => api.axiosInstance.post('comment/create', data),
+    delete: async (id) => api.axiosInstance.delete(`comment/${id}`),
   },
 };
 

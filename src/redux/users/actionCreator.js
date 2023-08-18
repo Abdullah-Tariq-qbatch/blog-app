@@ -1,6 +1,7 @@
 /* eslint-disable arrow-body-style */
 import actions from './actions';
 import api from '../../fetchData';
+import sendErrorNotification from '../../slackNotification';
 
 const { fetchUsersBegin, fetchUsersSuccess, apiError } = actions;
 
@@ -13,6 +14,7 @@ const fetchUsers = () => {
         dispatch(fetchUsersSuccess(response.data.data));
       }
     } catch (error) {
+      sendErrorNotification(error, import.meta.url, 'fetch users');
       dispatch(apiError(error.message));
     }
   };
