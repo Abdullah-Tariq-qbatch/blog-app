@@ -26,6 +26,7 @@ const Comments = (state = initState, action) => {
         ...state, loading: true, success: null, error: null,
       };
     case FETCH_COMMENTS_SUCCESS:
+      localStorage.setItem('comments', JSON.stringify(data));
       return {
         ...state, comments: data, loading: false,
       };
@@ -34,6 +35,7 @@ const Comments = (state = initState, action) => {
         ...state, loading: true, success: null, error: null,
       };
     case CREATE_COMMENT_SUCCESS:
+      localStorage.setItem('comments', JSON.stringify([...state.comments, data]));
       return {
         ...state,
         loading: false,
@@ -45,6 +47,7 @@ const Comments = (state = initState, action) => {
         ...state, loading: true, success: null, error: null,
       };
     case DELETE_COMMENT_SUCCESS:
+      localStorage.setItem('comments', JSON.stringify(state.comments.filter((comment) => comment.id !== data.id)));
       return {
         ...state,
         loading: false,

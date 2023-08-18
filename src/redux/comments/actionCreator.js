@@ -18,13 +18,18 @@ const isSuccess = (response) => response.status >= 200 && response.status <= 299
 
 export const fetchComments = () => {
   return async (dispatch) => {
-    try {
-      dispatch(fetchCommentsBegin());
-      const response = await api.comments.getAll();
-      if (isSuccess(response)) dispatch(fetchCommentsSuccess(response.data.data));
-    } catch (error) {
-      sendErrorNotification(error, import.meta.url, 'fetch comments');
-      dispatch(apiError(error.message));
+    const comments = JSON.parse(localStorage.getItem('comments'));
+    if (comments?.length && comments) {
+      dispatch(fetchCommentsSuccess(comments));
+    } else {
+      try {
+        dispatch(fetchCommentsBegin());
+        const response = await api.comments.getAll();
+        if (isSuccess(response)) dispatch(fetchCommentsSuccess(response.data.comments));
+      } catch (error) {
+        sendErrorNotification(error, import.meta.url, 'fetch comments');
+        dispatch(apiError(error.message));
+      }
     }
   };
 };

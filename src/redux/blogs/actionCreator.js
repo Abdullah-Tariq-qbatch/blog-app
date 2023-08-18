@@ -21,13 +21,18 @@ const isSuccess = (response) => response.status >= 200 && response.status <= 299
 
 export const fetchBlogs = () => {
   return async (dispatch) => {
-    try {
-      dispatch(fetchBlogsBegin());
-      const response = await api.blogs.getAll();
-      if (isSuccess(response)) dispatch(fetchBlogsSuccess(response.data.data));
-    } catch (error) {
-      sendErrorNotification(error, import.meta.url, 'fetch blogs');
-      dispatch(apiError(error.message));
+    const blogs = JSON.parse(localStorage.getItem('blogs'));
+    if (blogs?.length && blogs) {
+      dispatch(fetchBlogsSuccess(blogs));
+    } else {
+      try {
+        dispatch(fetchBlogsBegin());
+        const response = await api.blogs.getAll();
+        if (isSuccess(response)) dispatch(fetchBlogsSuccess(response.data.posts));
+      } catch (error) {
+        sendErrorNotification(error, import.meta.url, 'fetch blogs');
+        dispatch(apiError(error.message));
+      }
     }
   };
 };

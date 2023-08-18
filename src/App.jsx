@@ -1,22 +1,45 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { lazy, Suspense } from 'react';
 import './App.css';
-import { fetchBlogs } from './redux/blogs/actionCreator';
-import fetchUsers from './redux/users/actionCreator';
-import { fetchComments } from './redux/comments/actionCreator';
+import {
+  BrowserRouter, Route, Routes,
+} from 'react-router-dom';
+import Navbar from './components/Navbar';
+import MainLayout from './layout/MainLayout';
+
+const Home = lazy(() => import('./pages/Home'));
+// const BlogDetail = lazy(() => import('./pages/BlogDetail'));
+const CreateBlog = lazy(() => import('./pages/CreateBlog'));
 
 function App() {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchBlogs());
-    dispatch(fetchUsers());
-    dispatch(fetchComments());
-  }, []);
   return (
-    <div className="App">
-      dfa
-    </div>
+    <BrowserRouter>
+      <Navbar />
+      <MainLayout>
+        <Routes>
+          <Route
+            exact
+            path="/"
+            element={(
+              <Suspense fallback={<>...</>}>
+                {' '}
+                <Home />
+              </Suspense>
+)}
+          />
+          <Route
+            exact
+            path="/create-blog"
+            element={(
+              <Suspense fallback={<>...</>}>
+                {' '}
+                <CreateBlog />
+              </Suspense>
+)}
+          />
+        </Routes>
+      </MainLayout>
+    </BrowserRouter>
   );
 }
 

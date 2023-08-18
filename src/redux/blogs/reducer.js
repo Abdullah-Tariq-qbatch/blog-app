@@ -31,6 +31,7 @@ const Blogs = (state = initState, action) => {
         error: null,
       };
     case FETCH_BLOGS_SUCCESS:
+      localStorage.setItem('blogs', JSON.stringify(data));
       return { ...state, blogs: data, loading: false };
     case CREATE_BLOG_BEGIN:
       return {
@@ -40,6 +41,7 @@ const Blogs = (state = initState, action) => {
         error: null,
       };
     case CREATE_BLOG_SUCCESS:
+      localStorage.setItem('blogs', JSON.stringify([...state.blogs, data]));
       return {
         ...state,
         loading: false,
@@ -54,6 +56,7 @@ const Blogs = (state = initState, action) => {
         error: null,
       };
     case UPDATE_BLOG_SUCCESS:
+      localStorage.setItem('blogs', JSON.stringify(state.blogs.map((blog) => (blog.id === data.id ? data : blog))));
       return {
         ...state,
         loading: false,
@@ -68,6 +71,7 @@ const Blogs = (state = initState, action) => {
         error: null,
       };
     case DELETE_BLOG_SUCCESS:
+      localStorage.setItem('blogs', JSON.stringify(state.blogs.filter((blog) => blog.id !== data.id)));
       return {
         ...state,
         loading: false,

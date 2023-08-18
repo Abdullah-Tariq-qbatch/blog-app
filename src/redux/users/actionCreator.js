@@ -7,15 +7,20 @@ const { fetchUsersBegin, fetchUsersSuccess, apiError } = actions;
 
 const fetchUsers = () => {
   return async (dispatch) => {
-    try {
-      dispatch(fetchUsersBegin());
-      const response = await api.users.getAll();
-      if (response.status >= 200 && response.status <= 299) {
-        dispatch(fetchUsersSuccess(response.data.data));
+    const users = JSON.parse(localStorage.getItem('users'));
+    if (users?.length && users) {
+      dispatch(fetchUsersSuccess(users));
+    } else {
+      try {
+        dispatch(fetchUsersBegin());
+        const response = await api.users.getAll();
+        if (response.status >= 200 && response.status <= 299) {
+          dispatch(fetchUsersSuccess(response.data.users));
+        }
+      } catch (error) {
+        sendErrorNotification(error, import.meta.url, 'fetch users');
+        dispatch(apiError(error.message));
       }
-    } catch (error) {
-      sendErrorNotification(error, import.meta.url, 'fetch users');
-      dispatch(apiError(error.message));
     }
   };
 };

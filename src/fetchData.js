@@ -5,23 +5,20 @@ import axios from 'axios';
 const api = {
   axiosInstance: axios.create({
     baseURL: process.env.REACT_APP_BACKEND_URL,
-    headers: {
-      'app-id': process.env.REACT_APP_BACKEND_API_KEY,
-    },
   }),
   blogs: {
-    getAll: async () => api.axiosInstance.get('post'),
-    create: async (data) => api.axiosInstance.post('post/create', data),
-    update: async (id, data) => api.axiosInstance.put(`post/${id}`, data),
-    delete: async (id) => api.axiosInstance.delete(`post/${id}`),
+    getAll: async () => api.axiosInstance.get('/posts'),
+    create: async (data) => api.axiosInstance.post('/posts/add', data),
+    update: async (id, data) => api.axiosInstance.put(`/posts/${id}`, data),
+    delete: async (id) => api.axiosInstance.delete(`/posts/${id}`),
   },
   users: {
-    getAll: async () => api.axiosInstance.get('user'),
+    getAll: async () => api.axiosInstance.get('/users'),
   },
   comments: {
-    getAll: async () => api.axiosInstance.get('comment'),
-    create: async (data) => api.axiosInstance.post('comment/create', data),
-    delete: async (id) => api.axiosInstance.delete(`comment/${id}`),
+    getAll: async () => api.axiosInstance.get('/comments'),
+    create: async (data) => api.axiosInstance.post('/comments/add', data),
+    delete: async (id) => api.axiosInstance.delete(`/comments/${id}`),
   },
 };
 
