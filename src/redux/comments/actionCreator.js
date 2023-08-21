@@ -25,6 +25,7 @@ export const fetchComments = () => {
       try {
         dispatch(fetchCommentsBegin());
         const response = await api.comments.getAll();
+
         if (isSuccess(response)) dispatch(fetchCommentsSuccess(response.data.comments));
       } catch (error) {
         sendErrorNotification(error, import.meta.url, 'fetch comments');
@@ -38,7 +39,7 @@ export const createComment = (data) => {
   return async (dispatch) => {
     try {
       dispatch(createCommentBegin());
-      const response = api.comments.create(data);
+      const response = await api.comments.create(data);
       if (isSuccess(response)) dispatch(createCommentSuccess(response.data));
     } catch (error) {
       sendErrorNotification(error, import.meta.url, 'create comments');
@@ -51,8 +52,8 @@ export const deleteComment = (id) => {
   return async (dispatch) => {
     try {
       dispatch(deleteCommentBegin());
-      const response = api.comments.delete(id);
-      if (isSuccess(response)) dispatch(deleteCommentSuccess((await response).data));
+      const response = await api.comments.delete(id);
+      if (isSuccess(response)) dispatch(deleteCommentSuccess(response.data));
     } catch (error) {
       sendErrorNotification(error, import.meta.url, 'delete comments');
       dispatch(apiError(error.message));

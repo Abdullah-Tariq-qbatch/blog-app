@@ -5,6 +5,9 @@ import axios from 'axios';
 const api = {
   axiosInstance: axios.create({
     baseURL: process.env.REACT_APP_BACKEND_URL,
+    params: {
+      limit: 0,
+    },
   }),
   blogs: {
     getAll: async () => api.axiosInstance.get('/posts'),

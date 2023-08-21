@@ -1,9 +1,12 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable max-len */
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable no-unused-vars */
 /* eslint-disable arrow-body-style */
 import actions from './actions';
 import api from '../../fetchData';
 import sendErrorNotification from '../../slackNotification';
+import uploadImage from '../../imageUpload';
 
 const {
   fetchBlogsBegin,
@@ -41,8 +44,13 @@ export const createBlog = (data) => {
   return async (dispatch) => {
     try {
       dispatch(createBlogBegin());
-      const response = await api.blogs.create(data);
-      if (isSuccess(response)) dispatch(createBlogSuccess(response.data));
+      const response = await api.blogs.create({
+        title: data.title, body: data.body, userId: data.userId, reactions: 0,
+      });
+      const imgResponse = await uploadImage.upload(data.file);
+      const blog = response.data;
+      blog.image = imgResponse.data.url;
+      if (isSuccess(response)) dispatch(createBlogSuccess(blog));
     } catch (error) {
       sendErrorNotification(error, import.meta.url, 'create blog');
       dispatch(apiError(error.message));
@@ -54,8 +62,17 @@ export const updateBlog = (id, data) => {
   return async (dispatch) => {
     try {
       dispatch(updateBlogBegin());
-      const response = await api.blogs.update(id, data);
-      if (isSuccess(response)) dispatch(updateBlogSuccess(response.data));
+      if (data?.file) {
+        const imgResponse = await uploadImage.upload(data.file);
+        delete data.file;
+        const response = await api.blogs.update(id, data);
+        const blog = response.data;
+        blog.image = imgResponse.data.url;
+        if (isSuccess(response)) dispatch(updateBlogSuccess(blog));
+      } else {
+        const response = await api.blogs.update(id, data);
+        if (isSuccess(response)) dispatch(updateBlogSuccess(response.data));
+      }
     } catch (error) {
       sendErrorNotification(error, import.meta.url, 'update blog');
       dispatch(apiError(error.message));

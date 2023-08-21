@@ -8,7 +8,7 @@ import Navbar from './components/Navbar';
 import MainLayout from './layout/MainLayout';
 
 const Home = lazy(() => import('./pages/Home'));
-// const BlogDetail = lazy(() => import('./pages/BlogDetail'));
+const BlogDetail = lazy(() => import('./pages/BlogDetail'));
 const CreateBlog = lazy(() => import('./pages/CreateBlog'));
 
 function App() {
@@ -34,6 +34,16 @@ function App() {
               <Suspense fallback={<>...</>}>
                 {' '}
                 <CreateBlog />
+              </Suspense>
+)}
+          />
+          <Route
+            exact
+            path="/blog/:id"
+            element={(
+              <Suspense fallback={<>...</>}>
+                {' '}
+                <BlogDetail />
               </Suspense>
 )}
           />

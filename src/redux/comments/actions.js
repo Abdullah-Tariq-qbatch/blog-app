@@ -33,7 +33,7 @@ const actions = {
   }),
 
   deleteCommentSuccess: (data) => ({
-    type: actions.DELETE_COMMENT_BEGIN,
+    type: actions.DELETE_COMMENT_SUCCESS,
     data,
   }),
 

@@ -16,3 +16,5 @@ const uploadImage = {
     return uploadImage.axiosInstance.post('/image/upload', formData);
   },
 };
+
+export default uploadImage;
