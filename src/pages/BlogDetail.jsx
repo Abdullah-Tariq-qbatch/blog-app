@@ -16,6 +16,7 @@ import Cover from '../components/BlogDetailsPage/Cover';
 import Comment from '../components/BlogDetailsPage/CommentCard';
 import { updateBlog } from '../redux/blogs/actionCreator';
 import { createComment } from '../redux/comments/actionCreator';
+import likeAudio from '../assets/likeSound.mp3';
 
 function getInitials(user) {
   return user?.firstName ? `${user?.firstName[0]}${user?.maidenName[0]}${user?.lastName[0]}` : 'ABC';
@@ -64,6 +65,8 @@ function BlogDetail() {
 
   const handleLike = () => {
     setLike((state) => !state);
+    const audio = new Audio(likeAudio); // Adjust the path to your audio file
+    audio.play();
   };
 
   useEffect(() => {

@@ -3,6 +3,7 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable no-unused-vars */
 /* eslint-disable arrow-body-style */
+import _ from 'lodash';
 import actions from './actions';
 import api from '../../fetchData';
 import sendErrorNotification from '../../slackNotification';
