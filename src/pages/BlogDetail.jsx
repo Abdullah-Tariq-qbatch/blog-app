@@ -45,17 +45,17 @@ function BlogDetail() {
   useEffect(() => {
     if (!BlogsData.loading) {
       const filteredBlog = BlogsData.blogs.find((obj) => obj.id === parseInt(id));
-      setBlog(filteredBlog);
+      setBlog((state) => filteredBlog);
     }
 
     if (!BlogsData.loading && !UserData.loading) {
       const usersById = _.keyBy(UserData.users, 'id');
-      setUserList(usersById);
+      setUserList((state) => usersById);
     }
 
     if (!BlogsData.loading && !CommentData.loading) {
       const commentsByPostId = _.groupBy(CommentData.comments, 'postId');
-      setCommentList(commentsByPostId);
+      setCommentList((state) => commentsByPostId);
     }
   }, [BlogsData, UserData, CommentData, id]);
 
@@ -63,14 +63,12 @@ function BlogDetail() {
   const comments = commentList[blog.id] || [];
 
   const handleLike = () => {
-    setLike((prevLike) => !prevLike);
+    setLike((state) => !state);
   };
 
   useEffect(() => {
-    if (like) {
-      dispatch(updateBlog(blog.id, { ...blog, reactions: blog.reactions + 1 }));
-    }
-  }, [like, blog]);
+    if (like) dispatch(updateBlog(blog.id, { ...blog, reactions: blog.reactions + 1 }));
+  }, [like]);
 
   const handleScroll = () => {
     window.scroll({
@@ -80,10 +78,9 @@ function BlogDetail() {
     });
   };
 
-  const imageSrc = blog?.image || 'https://img.freepik.com/free-photo/old-camera-notebook-laptop-with-blue-pencil-cup-cappuccino-white-background_23-2147979092.jpg';
+  const imageSrc = blog?.image ? blog.image : 'https://img.freepik.com/free-photo/old-camera-notebook-laptop-with-blue-pencil-cup-cappuccino-white-background_23-2147979092.jpg';
 
   const handleAddComment = () => {
-    setCommentText('');
     dispatch(createComment({ body: commentText, postId: blog.id, userId: 1 }));
   };
 
