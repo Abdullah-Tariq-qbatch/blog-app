@@ -7,6 +7,7 @@ import {
 import Navbar from './components/Navbar';
 import MainLayout from './layout/MainLayout';
 import Toast from './components/Toast';
+import Spinner from './components/Spinner';
 
 const Home = lazy(() => import('./pages/Home'));
 const BlogDetail = lazy(() => import('./pages/BlogDetail'));
@@ -23,7 +24,7 @@ function App() {
             exact
             path="/"
             element={(
-              <Suspense fallback={<>...</>}>
+              <Suspense fallback={<Spinner />}>
                 {' '}
                 <Home />
               </Suspense>
@@ -33,7 +34,7 @@ function App() {
             exact
             path="/create-blog"
             element={(
-              <Suspense fallback={<>...</>}>
+              <Suspense fallback={<Spinner />}>
                 {' '}
                 <CreateBlog />
               </Suspense>
@@ -43,7 +44,7 @@ function App() {
             exact
             path="/blog/:id"
             element={(
-              <Suspense fallback={<>...</>}>
+              <Suspense fallback={<Spinner />}>
                 {' '}
                 <BlogDetail />
               </Suspense>

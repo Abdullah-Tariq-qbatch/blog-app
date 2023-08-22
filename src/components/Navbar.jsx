@@ -1,13 +1,16 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/button-has-type */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../assets/logo512.png';
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-
+  const navigate = useNavigate();
   const handleClick = () => {
     setIsOpen(!isOpen);
   };
@@ -15,7 +18,7 @@ function Navbar() {
   return (
     <nav className="fixed top-0 left-0 w-full z-10 bg-gray-200 p-5 mb-8">
       <div className="flex items-center justify-between flex-wrap mx-10">
-        <div className="flex items-center flex-shrink-0 text-white mr-16">
+        <div className="flex items-center flex-shrink-0 text-white mr-16 cursor-pointer" onClick={() => navigate('/')}>
           <img src={logo} className="w-100 h-10" alt="Logo" />
         </div>
         <div className="block lg:hidden">
