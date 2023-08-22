@@ -2,11 +2,12 @@
 /* eslint-disable max-len */
 import React, { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { createBlog, updateBlog } from '../redux/blogs/actionCreator';
 
 function CreateBlog() {
   const location = useLocation();
+  const navigate = useNavigate();
   const blog = location.state;
   const [selectedImage, setSelectedImage] = useState(blog?.image ? blog.image : null);
   const [title, setTitle] = useState(blog?.title ? blog.title : '');
@@ -27,9 +28,6 @@ function CreateBlog() {
   };
 
   const handleSubmit = () => {
-    console.log(title);
-    console.log(body);
-    console.log(selectedImage);
     if (title && body && selectedImage) {
       if (blog) {
         dispatch(updateBlog(blog.id, {
@@ -41,7 +39,9 @@ function CreateBlog() {
         }));
       }
     }
+    navigate('/');
   };
+
   return (
     <div className="mt-24">
       <h1 className="mx-10 text-4xl mb-10">{blog ? 'Update Blog' : 'Write Your Own Blog'}</h1>
@@ -90,7 +90,7 @@ function CreateBlog() {
           />
 
           <button type="button" onClick={handleSubmit} className=" mt-10 px-6 py-3.5 text-base font-medium text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-            Publish Blog
+            {blog ? 'Update Blog' : 'Publish Blog'}
           </button>
         </div>
 

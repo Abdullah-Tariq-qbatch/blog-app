@@ -18,6 +18,7 @@ const {
   deleteBlogBegin,
   deleteBlogSuccess,
   apiError,
+  clearMessageError,
 } = actions;
 
 const isSuccess = (response) => response.status >= 200 && response.status <= 299;
@@ -90,5 +91,11 @@ export const deleteBlog = (id) => {
       sendErrorNotification(error, import.meta.url, 'delete blog');
       dispatch(apiError(error.message));
     }
+  };
+};
+
+export const clearMessage = () => {
+  return async (dispatch) => {
+    dispatch(clearMessageError());
   };
 };

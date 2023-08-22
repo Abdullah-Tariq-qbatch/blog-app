@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import fetchUsers from '../redux/users/actionCreator';
+import { fetchUsers } from '../redux/users/actionCreator';
 import { fetchBlogs } from '../redux/blogs/actionCreator';
 import { fetchComments } from '../redux/comments/actionCreator';
 

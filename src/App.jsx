@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import MainLayout from './layout/MainLayout';
+import Toast from './components/Toast';
 
 const Home = lazy(() => import('./pages/Home'));
 const BlogDetail = lazy(() => import('./pages/BlogDetail'));
@@ -15,6 +16,7 @@ function App() {
   return (
     <BrowserRouter>
       <Navbar />
+      <Toast />
       <MainLayout>
         <Routes>
           <Route

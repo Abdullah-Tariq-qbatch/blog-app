@@ -10,10 +10,10 @@ import {
   HeartOutlined, CommentOutlined, ShareAltOutlined, HeartFilled, EditOutlined,
 } from '@ant-design/icons';
 
-import Image from '../components/image';
-import Avatar from '../components/avatar';
+import Image from '../components/Image';
+import Avatar from '../components/Avatar';
 import Cover from '../components/BlogDetailsPage/Cover';
-import Comment from '../components/BlogDetailsPage/commentCard';
+import Comment from '../components/BlogDetailsPage/CommentCard';
 import { updateBlog } from '../redux/blogs/actionCreator';
 import { createComment } from '../redux/comments/actionCreator';
 
@@ -45,17 +45,17 @@ function BlogDetail() {
   useEffect(() => {
     if (!BlogsData.loading) {
       const filteredBlog = BlogsData.blogs.find((obj) => obj.id === parseInt(id));
-      setBlog((state) => filteredBlog);
+      setBlog(filteredBlog);
     }
 
     if (!BlogsData.loading && !UserData.loading) {
       const usersById = _.keyBy(UserData.users, 'id');
-      setUserList((state) => usersById);
+      setUserList(usersById);
     }
 
     if (!BlogsData.loading && !CommentData.loading) {
       const commentsByPostId = _.groupBy(CommentData.comments, 'postId');
-      setCommentList((state) => commentsByPostId);
+      setCommentList(commentsByPostId);
     }
   }, [BlogsData, UserData, CommentData, id]);
 
@@ -63,12 +63,14 @@ function BlogDetail() {
   const comments = commentList[blog.id] || [];
 
   const handleLike = () => {
-    setLike((state) => !state);
+    setLike((prevLike) => !prevLike);
   };
 
   useEffect(() => {
-    if (like) dispatch(updateBlog(blog.id, { ...blog, reactions: blog.reactions + 1 }));
-  }, [like]);
+    if (like) {
+      dispatch(updateBlog(blog.id, { ...blog, reactions: blog.reactions + 1 }));
+    }
+  }, [like, blog]);
 
   const handleScroll = () => {
     window.scroll({
@@ -78,14 +80,16 @@ function BlogDetail() {
     });
   };
 
-  const imageSrc = blog?.image ? blog.image : 'https://img.freepik.com/free-photo/old-camera-notebook-laptop-with-blue-pencil-cup-cappuccino-white-background_23-2147979092.jpg';
+  const imageSrc = blog?.image || 'https://img.freepik.com/free-photo/old-camera-notebook-laptop-with-blue-pencil-cup-cappuccino-white-background_23-2147979092.jpg';
 
   const handleAddComment = () => {
+    setCommentText('');
     dispatch(createComment({ body: commentText, postId: blog.id, userId: 1 }));
   };
 
   return (
     <div className="h-full pb-14">
+
       <Cover coverImageSrc={imageSrc} />
       <div className="mx-10 bg-gray-200 rounded-bl-lg rounded-br-lg">
         <p className="text-4xl pt-10 pb-5 pl-5 font-semibold">{blog.title}</p>
@@ -127,7 +131,7 @@ function BlogDetail() {
         {comments.map((comment) => <Comment commentDetails={comment} key={comment.id} />)}
       </div>
       <div className="mx-10 bg-gray-200 border-gray-400 py-5 px-3 h-24 rounded-bl-lg rounded-br-lg">
-        <input type="text" onChange={handleInputChange} className="w-full rounded-sm border border-gray-400" name="Comment" id="comment" placeholder="Enter Your Comment" />
+        <input type="text" value={commentText} onChange={handleInputChange} className="w-full rounded-sm border border-gray-400" name="Comment" id="comment" placeholder="Enter Your Comment" />
         <button type="button" onClick={handleAddComment} className="text-white mt-2 float-right bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-sm text-xs px-3 py-1.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Add</button>
       </div>
     </div>

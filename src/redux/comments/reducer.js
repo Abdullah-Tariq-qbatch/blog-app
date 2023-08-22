@@ -9,6 +9,7 @@ const {
   DELETE_COMMENT_BEGIN,
   DELETE_COMMENT_SUCCESS,
   API_ERROR,
+  CLEAR_MESSAGE_ERROR,
 } = actions;
 
 const initState = {
@@ -56,6 +57,8 @@ const Comments = (state = initState, action) => {
       };
     case API_ERROR:
       return { ...state, loading: false, error: err };
+    case CLEAR_MESSAGE_ERROR:
+      return { ...state, success: null, error: null };
     default:
       return state;
   }

@@ -13,6 +13,8 @@ const actions = {
 
   API_ERROR: 'API_ERROR',
 
+  CLEAR_MESSAGE_ERROR: 'CLEAR_MESSAGE_ERROR',
+
   fetchBlogsBegin: () => ({
     type: actions.FETCH_BLOGS_BEGIN,
   }),
@@ -53,42 +55,10 @@ const actions = {
     type: actions.API_ERROR,
     err: errorMessage,
   }),
+
+  clearMessageError: () => ({
+    type: actions.CLEAR_MESSAGE_ERROR,
+  }),
 };
 
 export default actions;
-
-// FETCH_BLOG_BY_ID_BEGIN: 'FETCH_BLOG_BY_ID_BEGIN',
-// FETCH_BLOG_BY_ID_SUCCESS: 'FETCH_BLOG_BY_ID_SUCCESS',
-
-// FETCH_BLOG_BY_TAG_BEGIN: 'FETCH_BLOG_BY_TAG_BEGIN',
-// FETCH_BLOG_BY_TAG_SUCCESS: 'FETCH_BLOG_BY_TAG_SUCCESS',
-
-// FETCH_BLOG_BY_USER_ID_BEGIN: 'FETCH_BLOG_BY_USER_ID_BEGIN',
-// FETCH_BLOG_BY_USER_ID_SUCCESS: 'FETCH_BLOG_BY_USER_ID_SUCCESS',
-
-// fetchBlogByIdBegin: () => ({
-//   type: actions.FETCH_BLOG_BY_ID_BEGIN,
-// }),
-
-// fetchBlogByIdSuccess: (data) => ({
-//   type: actions.FETCH_BLOG_BY_ID_SUCCESS,
-//   data,
-// }),
-
-// fetchBlogByTagBegin: () => ({
-//   type: actions.FETCH_BLOG_BY_TAG_BEGIN,
-// }),
-
-// fetchBlogByTagSuccess: (data) => ({
-//   type: actions.FETCH_BLOG_BY_TAG_SUCCESS,
-//   data,
-// }),
-
-// fetchBlogByUserIdBegin: () => ({
-//   type: actions.FETCH_BLOG_BY_USER_ID_BEGIN,
-// }),
-
-// fetchBlogByUserIdSuccess: (data) => ({
-//   type: actions.FETCH_BLOG_BY_USER_ID_SUCCESS,
-//   data,
-// }),

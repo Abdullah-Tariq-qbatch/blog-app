@@ -7,7 +7,7 @@ import React, {
   useState, useEffect, useCallback, useMemo,
 } from 'react';
 import { useSelector } from 'react-redux';
-import { ColorRing } from 'react-loader-spinner';
+import { Oval } from 'react-loader-spinner';
 import _ from 'lodash';
 import Card from './Card';
 
@@ -43,18 +43,11 @@ function Blogs() {
   const memoizedFilteredItems = useMemo(() => list, [list]);
 
   const [currentPage, setCurrentPage] = useState(1);
-
   const itemsPerPage = 6;
-
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = memoizedFilteredItems.slice(indexOfFirstItem, indexOfLastItem);
-
   const totalPages = Math.ceil(memoizedFilteredItems.length / itemsPerPage);
-
-  const handlePageChange = (newPage) => {
-    setCurrentPage(newPage);
-  };
 
   return (
     <div className="mt-10 text-center text-2xl font-serif">
@@ -68,16 +61,19 @@ function Blogs() {
       />
 
       <div className="flex justify-center mt-10">
-        {BlogsData.loading && UserData.loading && CommentData.loading ? (
-          <div className="w-full h-full mt-10">
-            <ColorRing
-              visible
-              height="80"
-              width="80"
-              ariaLabel="blocks-loading"
+        {BlogsData.loading || UserData.loading || CommentData.loading ? (
+          <div className="w-full flex justify-center h-full mt-10">
+            <Oval
+              height={80}
+              width={80}
+              color="#0066ff"
               wrapperStyle={{}}
-              wrapperClass="blocks-wrapper"
-              colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+              wrapperClass=""
+              visible
+              ariaLabel="oval-loading"
+              secondaryColor="#001f4d"
+              strokeWidth={2}
+              strokeWidthSecondary={2}
             />
           </div>
         ) : (

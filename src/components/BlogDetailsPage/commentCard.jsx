@@ -5,7 +5,7 @@ import React from 'react';
 import { DeleteFilled } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { deleteComment } from '../../redux/comments/actionCreator';
-import Avatar from '../avatar';
+import Avatar from '../Avatar';
 
 function Comment({ commentDetails }) {
   const dispatch = useDispatch();

@@ -5,8 +5,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { HeartOutlined, CommentOutlined } from '@ant-design/icons';
-import Image from '../image';
-import Avatar from '../avatar';
+import Image from '../Image';
+import Avatar from '../Avatar';
 
 function getInitials(user) {
   return `${user?.firstName[0]}${user?.maidenName[0]}${user?.lastName[0]}`;

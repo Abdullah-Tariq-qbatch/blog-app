@@ -1,7 +1,9 @@
 /* eslint-disable default-param-last */
 import actions from './actions';
 
-const { FETCH_USERS_BEGINS, FETCH_USERS_SUCCESS, API_ERROR } = actions;
+const {
+  FETCH_USERS_BEGINS, FETCH_USERS_SUCCESS, API_ERROR, CLEAR_MESSAGE_ERROR,
+} = actions;
 
 const initState = {
   users: [],
@@ -22,6 +24,8 @@ const Users = (state = initState, action) => {
       return { ...state, users: data, loading: false };
     case API_ERROR:
       return { ...state, loading: false, error: err };
+    case CLEAR_MESSAGE_ERROR:
+      return { ...state, success: null, error: null };
     default:
       return state;
   }

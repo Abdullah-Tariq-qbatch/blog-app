@@ -12,6 +12,7 @@ const {
   deleteCommentBegin,
   deleteCommentSuccess,
   apiError,
+  clearMessageError,
 } = actions;
 
 const isSuccess = (response) => response.status >= 200 && response.status <= 299;
@@ -58,5 +59,11 @@ export const deleteComment = (id) => {
       sendErrorNotification(error, import.meta.url, 'delete comments');
       dispatch(apiError(error.message));
     }
+  };
+};
+
+export const clearMessageComments = () => {
+  return async (dispatch) => {
+    dispatch(clearMessageError());
   };
 };

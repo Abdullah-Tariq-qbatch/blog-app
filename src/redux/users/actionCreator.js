@@ -3,9 +3,11 @@ import actions from './actions';
 import api from '../../fetchData';
 import sendErrorNotification from '../../slackNotification';
 
-const { fetchUsersBegin, fetchUsersSuccess, apiError } = actions;
+const {
+  fetchUsersBegin, fetchUsersSuccess, apiError, clearMessageError,
+} = actions;
 
-const fetchUsers = () => {
+export const fetchUsers = () => {
   return async (dispatch) => {
     const users = JSON.parse(localStorage.getItem('users'));
     if (users?.length && users) {
@@ -25,4 +27,8 @@ const fetchUsers = () => {
   };
 };
 
-export default fetchUsers;
+export const clearMessageUser = () => {
+  return async (dispatch) => {
+    dispatch(clearMessageError());
+  };
+};
