@@ -8,6 +8,7 @@ import Navbar from './components/Navbar';
 import MainLayout from './layout/MainLayout';
 import Toast from './components/Toast';
 import Spinner from './components/Spinner';
+import Footer from './components/Footer';
 
 const Home = lazy(() => import('./pages/Home'));
 const BlogDetail = lazy(() => import('./pages/BlogDetail'));
@@ -52,6 +53,7 @@ function App() {
           />
         </Routes>
       </MainLayout>
+      <Footer />
     </BrowserRouter>
   );
 }

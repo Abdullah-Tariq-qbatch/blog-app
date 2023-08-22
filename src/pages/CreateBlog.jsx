@@ -13,6 +13,8 @@ function CreateBlog() {
   const [title, setTitle] = useState(blog?.title ? blog.title : '');
   const [body, setBody] = useState(blog?.body ? blog.body : '');
 
+  const imageInputRef = useRef(null);
+
   const dispatch = useDispatch();
 
   const handleImageChange = (event) => {
@@ -33,13 +35,14 @@ function CreateBlog() {
         dispatch(updateBlog(blog.id, {
           ...blog, file: selectedImage, title, body,
         }));
+        navigate(`/blog/${blog.id}`);
       } else {
         dispatch(createBlog({
           file: selectedImage, title, body, userId: 1,
         }));
+        navigate('/');
       }
     }
-    navigate('/');
   };
 
   return (
@@ -47,12 +50,16 @@ function CreateBlog() {
       <h1 className="mx-10 text-4xl mb-10">{blog ? 'Update Blog' : 'Write Your Own Blog'}</h1>
 
       <div className="bg-gray-200 mx-5 py-5 rounded-lg">
-        <div className="mx-10 ">
-          <h3 className="mt-10 text-xl mb-3">Cover Photo</h3>
+        <form className="mx-10 ">
+          <h3 className="mt-10 text-xl mb-3">
+            Cover Photo
+            {' '}
+            <span>{ }</span>
+          </h3>
           <div className="flex items-center justify-center w-full">
             <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 ">
               {selectedImage ? (
-                <img src={selectedImage} className="w-full h-full" alt="Uploaded" />
+                <img src={selectedImage} ref={imageInputRef} className="w-full h-full" alt="Uploaded" />
               ) : (
                 <div className="flex flex-col items-center justify-center pt-5 pb-6">
                   <svg className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
@@ -67,6 +74,7 @@ function CreateBlog() {
                 </div>
               )}
               <input
+                required
                 id="dropzone-file"
                 type="file"
                 className="hidden"
@@ -77,10 +85,11 @@ function CreateBlog() {
           </div>
 
           <h3 className="mt-10 text-xl mb-3">Title</h3>
-          <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} id="helper-text" aria-describedby="helper-text-explanation" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Title" />
+          <input required type="text" value={title} onChange={(e) => setTitle(e.target.value)} id="helper-text" aria-describedby="helper-text-explanation" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Title" />
 
           <h3 className="mt-10 text-xl mb-3">Body</h3>
           <textarea
+            required
             id="body"
             value={body}
             onChange={(e) => setBody(e.target.value)}
@@ -89,10 +98,10 @@ function CreateBlog() {
             placeholder="Write your thoughts here..."
           />
 
-          <button type="button" onClick={handleSubmit} className=" mt-10 px-6 py-3.5 text-base font-medium text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+          <button type="submit" onClick={handleSubmit} className=" mt-10 px-6 py-3.5 text-base font-medium text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             {blog ? 'Update Blog' : 'Publish Blog'}
           </button>
-        </div>
+        </form>
 
       </div>
     </div>

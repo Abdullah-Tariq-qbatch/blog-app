@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable radix */
+/* eslint-disable no-use-before-define */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/button-has-type */
 /* eslint-disable no-unused-vars */
@@ -8,11 +11,17 @@ import React, {
   useState, useEffect, useCallback, useMemo,
 } from 'react';
 import { useSelector } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
 import { Oval } from 'react-loader-spinner';
 import _ from 'lodash';
 import Card from './Card';
+import Pagination from './Pagination';
 
 function Blogs() {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const currentPage = parseInt(searchParams.get('page')) || 1;
+
   const BlogsData = useSelector((state) => state.Blogs);
   const UserData = useSelector((state) => state.Users);
   const CommentData = useSelector((state) => state.Comments);
@@ -43,7 +52,6 @@ function Blogs() {
 
   const memoizedFilteredItems = useMemo(() => list, [list]);
 
-  const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -87,7 +95,7 @@ function Blogs() {
           </div>
         )}
       </div>
-      <div className="flex flex-col items-center float-right mt-5 mr-20 mb-20">
+      <div className="flex flex-col justify-center items-end mt-5 mr-20 mb-10">
         <span className="text-sm text-gray-700 ">
           Showing
           {' '}
@@ -103,20 +111,10 @@ function Blogs() {
           {' '}
           Entries
         </span>
-        <div className="inline-flex mt-2 xs:mt-0">
-          <button onClick={() => setCurrentPage((state) => (state === 1 ? 1 : state - 1))} className="flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-blue-500 rounded-l hover:bg-blue-900">
-            <svg className="w-3.5 h-3.5 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-              <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 5H1m0 0 4 4M1 5l4-4" />
-            </svg>
-            Prev
-          </button>
-          <button onClick={() => setCurrentPage((state) => (state < totalPages ? state + 1 : state))} className="flex items-center justify-center px-3 h-8 text-sm font-medium text-white bg-blue-500 border-0 border-l border-gray-700 rounded-r hover:bg-blue-900">
-            Next
-            <svg className="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-              <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
-            </svg>
-          </button>
-        </div>
+
+        <nav aria-label="Page navigation example">
+          <Pagination currentPage={currentPage} totalPages={totalPages} setSearchParams={setSearchParams} />
+        </nav>
       </div>
     </div>
   );
