@@ -5,9 +5,9 @@
 /* eslint-disable arrow-body-style */
 import _ from 'lodash';
 import actions from './actions';
-import api from '../../fetchData';
-import sendErrorNotification from '../../slackNotification';
-import uploadImage from '../../imageUpload';
+import api from '../../utils/fetchData';
+import sendErrorNotification from '../../utils/slackNotification';
+import uploadImage from '../../utils/imageUpload';
 
 const {
   fetchBlogsBegin,
