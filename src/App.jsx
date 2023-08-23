@@ -10,10 +10,10 @@ import Toast from './components/Toast';
 import Spinner from './components/Spinner';
 import Footer from './components/Footer';
 
-const Home = lazy(() => import('./pages/Home'));
-const BlogDetail = lazy(() => import('./pages/BlogDetail'));
-const CreateBlog = lazy(() => import('./pages/CreateBlog'));
-const UserBlogs = lazy(() => import('./pages/UserBlogs'));
+const Home = lazy(() => import(/* webpackChunkName: "Home" */ './pages/Home'));
+const BlogDetail = lazy(() => import(/* webpackChunkName: "BlogDetail" */ './pages/BlogDetail'));
+const CreateBlog = lazy(() => import(/* webpackChunkName: "CreateBlog" */ './pages/CreateBlog'));
+const UserBlogs = lazy(() => import(/* webpackChunkName: "UserBlogs" */ './pages/UserBlogs'));
 
 function App() {
   return (
