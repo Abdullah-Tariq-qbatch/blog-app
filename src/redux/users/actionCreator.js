@@ -1,7 +1,7 @@
 /* eslint-disable arrow-body-style */
 import actions from './actions';
-import api from '../../fetchData';
-import sendErrorNotification from '../../slackNotification';
+import api from '../../utils/fetchData';
+import sendErrorNotification from '../../utils/slackNotification';
 
 const {
   fetchUsersBegin, fetchUsersSuccess, apiError, clearMessageError,
