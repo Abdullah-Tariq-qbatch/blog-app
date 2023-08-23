@@ -57,7 +57,7 @@ function CreateBlog() {
             <span>{ }</span>
           </h3>
           <div className="flex items-center justify-center w-full">
-            <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center  h-96 w-2/3 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 ">
+            <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center  md:h-96 md:w-2/3 sm:w-96 sm:h-60 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 ">
               {selectedImage ? (
                 <img src={selectedImage} ref={imageInputRef} className=" w-full h-full object-cover" alt="Uploaded" />
               ) : (

@@ -98,8 +98,8 @@ function BlogDetail() {
   ) : (
     <div className="h-full pb-14 mx-10">
       <Cover coverImageSrc={imageSrc} />
-      <div className="w-2/3 m-auto bg-gray-200 rounded-bl-lg rounded-br-lg">
-        <p className="text-4xl pt-10 pb-5 pl-5 font-semibold">
+      <div className="md:w-2/3 sm:w-96  m-auto bg-gray-200 rounded-bl-lg rounded-br-lg">
+        <p className="md:text-4xl sm:text-xl pt-10 pb-5 pl-5 font-semibold">
           {blog.title}
         </p>
         <div className="flex justify-between">
