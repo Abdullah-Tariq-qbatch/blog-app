@@ -13,7 +13,7 @@ function getInitials(user) {
 }
 
 function Card({ blog, user, comments }) {
-  const imageSrc = blog?.image ? blog.image : 'https://img.freepik.com/free-photo/old-camera-notebook-laptop-with-blue-pencil-cup-cappuccino-white-background_23-2147979092.jpg';
+  const imageSrc = blog?.file ? blog.file : 'https://img.freepik.com/free-photo/old-camera-notebook-laptop-with-blue-pencil-cup-cappuccino-white-background_23-2147979092.jpg';
   return (
     <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow flex flex-col">
       <img className="rounded-t-lg w-96 h-60" src={imageSrc} alt="" />

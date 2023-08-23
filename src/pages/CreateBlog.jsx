@@ -9,7 +9,7 @@ function CreateBlog() {
   const location = useLocation();
   const navigate = useNavigate();
   const blog = location.state;
-  const [selectedImage, setSelectedImage] = useState(blog?.image ? blog.image : null);
+  const [selectedImage, setSelectedImage] = useState(blog?.file ? blog.file : null);
   const [title, setTitle] = useState(blog?.title ? blog.title : '');
   const [body, setBody] = useState(blog?.body ? blog.body : '');
 
@@ -50,7 +50,7 @@ function CreateBlog() {
       <h1 className="mx-10 text-4xl mb-10">{blog ? 'Update Blog' : 'Write Your Own Blog'}</h1>
 
       <div className="bg-gray-200 mx-5 py-5 rounded-lg">
-        <form className="mx-10 ">
+        <div className="mx-10">
           <h3 className="mt-10 text-xl mb-3">
             Cover Photo
             {' '}
@@ -98,10 +98,10 @@ function CreateBlog() {
             placeholder="Write your thoughts here..."
           />
 
-          <button type="submit" onClick={handleSubmit} className=" mt-10 px-6 py-3.5 text-base font-medium text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+          <button type="button" onClick={handleSubmit} className=" mt-10 px-6 py-3.5 text-base font-medium text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             {blog ? 'Update Blog' : 'Publish Blog'}
           </button>
-        </form>
+        </div>
 
       </div>
     </div>

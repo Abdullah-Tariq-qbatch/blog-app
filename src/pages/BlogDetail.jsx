@@ -51,8 +51,8 @@ function BlogDetail() {
   const [like, setLike] = useState(false);
   const [commentText, setCommentText] = useState('');
 
-  const imageSrc = blog?.image
-    ? blog.image
+  const imageSrc = blog?.file
+    ? blog.file
     : 'https://img.freepik.com/free-photo/old-camera-notebook-laptop-with-blue-pencil-cup-cappuccino-white-background_23-2147979092.jpg';
 
   const handleInputChange = (event) => {

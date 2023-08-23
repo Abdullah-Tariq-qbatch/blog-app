@@ -52,7 +52,7 @@ export const createBlog = (data) => {
       });
       const imgResponse = await uploadImage.upload(data.file);
       const blog = response.data;
-      blog.image = imgResponse.data.url;
+      blog.file = imgResponse.data.url;
       if (isSuccess(response)) dispatch(createBlogSuccess(blog));
     } catch (error) {
       sendErrorNotification(error, import.meta.url, 'create blog');
@@ -65,13 +65,13 @@ export const updateBlog = (id, data) => {
   return async (dispatch) => {
     try {
       dispatch(updateBlogBegin());
-      if (data.image) {
-        const imgResponse = await uploadImage.upload(data.image);
-        delete data.image;
+      if (data.file) {
+        const imgResponse = await uploadImage.upload(data.file);
+        delete data.file;
         const response = await api.blogs.update(id, data);
         if (isSuccess(response)) {
           const blog = response.data;
-          blog.image = imgResponse.data.url;
+          blog.file = imgResponse.data.url;
           dispatch(updateBlogSuccess(blog));
         }
       } else {
@@ -88,13 +88,13 @@ export const updateBlog = (id, data) => {
 export const likeBlog = (id, data) => {
   return async (dispatch) => {
     try {
-      if (data.image) {
-        const { image } = data;
-        delete data.image;
+      if (data.file) {
+        const { file } = data;
+        delete data.file;
         const response = await api.blogs.update(id, data);
         if (isSuccess(response)) {
           const blog = response.data;
-          blog.image = image;
+          blog.file = file;
           dispatch(likeBlogSuccess(blog));
         }
       } else {
