@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable radix */
@@ -71,19 +72,21 @@ function Blogs({ userId }) {
   const totalPages = Math.ceil(memoizedFilteredItems.length / itemsPerPage);
 
   return (
-    <div className="mt-10 text-center text-2xl font-serif">
-      <h1 className="text-3xl">
-        Some Interesting Reads
-        {' '}
-        {userId ? `by ${user?.firstName} ${user?.maidenName} ${user?.lastName}` : ''}
-      </h1>
+    <div className="mt-10 text-center text-2xl">
+      <div className="text-center mt-12">
+        <h3 className="text-4xl font-semibold leading-normal text-gray-700 mb-2">
+          Some Interesting Reads
+          {' '}
+          {userId ? `by ${user?.firstName} ${user?.maidenName} ${user?.lastName}` : ''}
+        </h3>
+      </div>
       <div className="flex justify-end">
         <input
           type="search"
           value={searchTerm}
           onChange={handleSearchChange}
           id="default-search"
-          className="block md:w-72 mt-5 mr-10 p-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+          className="block md:w-72 mt-5 mr-10 p-4 text-sm outline-none text-gray-900 border-2 border-gray-300 rounded-lg bg-gray-50 focus:ring-pink-500 focus:border-pink-500"
           placeholder="Search Blogs..."
           required
         />
@@ -91,46 +94,44 @@ function Blogs({ userId }) {
 
       <div className="flex justify-center mt-10">
         {BlogsData.loading || UserData.loading || CommentData.loading ? (
-          <div className="w-full flex justify-center items-center h-screen mt-10">
+          <div className="w-full flex justify-center items-center h-60 mt-10">
             <Oval
               height={80}
               width={80}
-              color="#0066ff"
+              color="#FE02CA"
               wrapperStyle={{}}
               wrapperClass=""
               visible
               ariaLabel="oval-loading"
-              secondaryColor="#001f4d"
+              secondaryColor="#FF9EEB"
               strokeWidth={2}
               strokeWidthSecondary={2}
             />
           </div>
-        ) : (
+        ) : currentItems.length ? (
           <div className="grid md:grid-cols-3 sm:grid-cols-1 gap-4">
-            {currentItems.map((blog) => (<Card blog={blog} user={users[blog.userId]} key={blog.id} comments={postComments[blog.id]} />))}
+            {currentItems.map((blog) => (<Card blog={blog} user={users[blog.userId]} key={`${blog.id} + ${blog.title}`} comments={postComments[blog.id]} />))}
+          </div>
+        ) : (
+          <div className="w-full flex justify-center items-center mt-10">
+            <h1>Sorry, Your search has yielded no results</h1>
           </div>
         )}
       </div>
       <div className="flex flex-col justify-center items-end mt-5 mr-20 mb-10">
-        <span className="text-sm text-gray-700 ">
-          Showing
-          {' '}
-          <span className="font-semibold text-gray-900 ">{indexOfFirstItem + 1}</span>
-          {' '}
-          to
-          {' '}
-          <span className="font-semibold text-gray-900 ">{indexOfLastItem < memoizedFilteredItems.length ? indexOfLastItem : memoizedFilteredItems.length}</span>
-          {' '}
-          of
-          {' '}
-          <span className="font-semibold text-gray-900 ">{memoizedFilteredItems.length}</span>
-          {' '}
-          Entries
-        </span>
 
         <nav aria-label="Page navigation example">
           <Pagination currentPage={currentPage} totalPages={totalPages} setSearchParams={setSearchParams} />
         </nav>
+        <span className="text-sm text-gray-700 mt-3">
+          Page Number :
+          {' '}
+          <span className="font-semibold text-pink-400 ">{currentPage}</span>
+          {' '}
+          out of
+          {' '}
+          <span className="font-semibold text-pink-400 ">{totalPages}</span>
+        </span>
       </div>
     </div>
   );

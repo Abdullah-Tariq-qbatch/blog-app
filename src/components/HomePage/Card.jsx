@@ -18,41 +18,51 @@ function Card({ blog, user, comments }) {
     <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow flex flex-col">
       <img className="rounded-t-lg w-96 h-60" src={imageSrc} alt="" />
 
-      <div className="mt-2 mx-3">
-        <Link to={`/blog/${blog.id}`} state={{ blog, user, comments }}>
-          <p className="mb-2 text-xl font-bold tracking-tight text-gray-900 text-left hover:text-blue-500">{blog.title}</p>
-        </Link>
-      </div>
-      <div className="flex items-center mt-3 ml-2">
-        {user?.image ? <Image src={user.image} /> : <Avatar initials={getInitials(user)} bgColor="bg-blue-500" />}
-        <Link to={`/user/${user.id}/blogs`}>
-          <p className="mx-2 text-base text-gray-700 flex items-center hover:text-blue-500">
-            {user?.firstName}
-            {' '}
-            {user?.maidenName}
-            {' '}
-            {user?.lastName}
-          </p>
-        </Link>
-      </div>
-
-      <footer className="mt-auto p-4">
-        <hr />
-        <div className="flex items-center justify-between">
-          <div className="text-lg">
-            {' '}
-            <HeartOutlined />
-            {'  '}
-            {blog.reactions}
-          </div>
-          <div className="text-lg">
-            <CommentOutlined />
-            {'  '}
-            {comments || 0}
-          </div>
+      <div className="bg-gray-50 rounded-lg px-5 -mt-5 mx-auto w-11/12 mb-5">
+        <div className="flex justify-center -mt-7">
+          {user?.image ? <Image src={user.image} /> : <Avatar initials={getInitials(user)} bgColor="bg-blue-500" />}
         </div>
 
-      </footer>
+        <div className="flex justify-center mt-1">
+          <Link to={`/user/${user.id}/blogs`}>
+            <p className="mx-2 text-base text-gray-400 flex items-center hover:text-pink-500">
+              {user?.firstName}
+              {' '}
+              {user?.maidenName}
+              {' '}
+              {user?.lastName}
+            </p>
+          </Link>
+        </div>
+
+        <div className="mt-2 mx-3 max-h-20 h-20">
+          <Link to={`/blog/${blog.id}`} state={{ blog, user, comments }}>
+            <p className="mb-2 text-xl font-bold text-center tracking-tight text-gray-700 hover:text-pink-500">{blog.title}</p>
+          </Link>
+        </div>
+
+        <footer className="mt-5 p-4">
+          <hr />
+          <div className="flex items-center justify-between">
+            <div className="text-lg flex items-center">
+              {' '}
+              <HeartOutlined className="text-pink-400" />
+              {'  '}
+              <span className="pl-1 pb-1 text-gray-500">
+                {' '}
+
+                {blog.reactions}
+              </span>
+            </div>
+            <div className="text-lg flex items-center">
+              <CommentOutlined className="text-pink-400" />
+              {'  '}
+              <span className="pl-1 pb-1 text-gray-500">{comments || 0}</span>
+            </div>
+          </div>
+        </footer>
+      </div>
+
     </div>
 
   );

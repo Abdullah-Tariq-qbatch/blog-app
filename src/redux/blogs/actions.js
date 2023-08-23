@@ -12,6 +12,7 @@ const actions = {
   DELETE_BLOG_SUCCESS: 'DELETE_BLOG_SUCCESS',
 
   LIKE_BLOG: 'LIKE_BLOG',
+  LINK_COPIED_SUCCESS: 'LINK_COPIED_SUCCESS',
 
   API_ERROR: 'API_ERROR',
 
@@ -56,6 +57,11 @@ const actions = {
   likeBlogSuccess: (data) => ({
     type: actions.LIKE_BLOG,
     data,
+  }),
+
+  copyLinkSuccess: (message) => ({
+    type: actions.LINK_COPIED_SUCCESS,
+    err: message,
   }),
 
   apiError: (errorMessage) => ({

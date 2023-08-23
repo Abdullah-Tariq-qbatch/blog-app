@@ -1,6 +1,10 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable max-len */
-import React, { useState, useRef } from 'react';
+/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+import React from 'react';
+import {
+  Formik, Form, Field, ErrorMessage,
+} from 'formik';
 import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { createBlog, updateBlog } from '../redux/blogs/actionCreator';
@@ -9,102 +13,154 @@ function CreateBlog() {
   const location = useLocation();
   const navigate = useNavigate();
   const blog = location.state;
-  const [selectedImage, setSelectedImage] = useState(blog?.file ? blog.file : null);
-  const [title, setTitle] = useState(blog?.title ? blog.title : '');
-  const [body, setBody] = useState(blog?.body ? blog.body : '');
-
-  const imageInputRef = useRef(null);
 
   const dispatch = useDispatch();
-
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setSelectedImage(e.target.result);
-      };
-      reader.readAsDataURL(file);
-    }
+  const initialValues = {
+    title: blog?.title || '',
+    body: blog?.body || '',
+    file: blog?.file || null,
   };
 
-  const handleSubmit = () => {
-    if (title && body && selectedImage) {
-      if (blog) {
-        dispatch(updateBlog(blog.id, {
-          ...blog, file: selectedImage, title, body,
-        }));
-        navigate(`/blog/${blog.id}`);
-      } else {
-        dispatch(createBlog({
-          file: selectedImage, title, body, userId: 1,
-        }));
-        navigate('/');
-      }
+  const onSubmit = (values, { setSubmitting }) => {
+    if (blog) {
+      dispatch(updateBlog(blog.id, { ...blog, ...values }));
+      navigate(`/blog/${blog.id}`);
+    } else {
+      dispatch(createBlog({ ...values, userId: 1 }));
+      navigate('/');
     }
+    setSubmitting(false);
+  };
+
+  const validate = (values) => {
+    const errors = {};
+
+    if (!values.title) {
+      errors.title = 'Title';
+    }
+    if (!values.body) {
+      errors.body = 'Body';
+    }
+    if (!values.file) {
+      errors.file = 'Cover Photo';
+    }
+
+    return errors;
   };
 
   return (
-    <div className="mt-24 mb-5">
-      <h1 className="mx-10 text-4xl mb-10">{blog ? 'Update Blog' : 'Write Your Own Blog'}</h1>
-
-      <div className="bg-gray-200 mx-5 py-5 rounded-lg">
-        <div className="mx-10">
-          <h3 className="mt-10 text-xl mb-3">
-            Cover Photo
-            {' '}
-            <span>{ }</span>
-          </h3>
-          <div className="flex items-center justify-center w-full">
-            <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center  md:h-96 md:w-2/3 sm:w-96 sm:h-60 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 ">
-              {selectedImage ? (
-                <img src={selectedImage} ref={imageInputRef} className=" w-full h-full object-cover" alt="Uploaded" />
-              ) : (
-                <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                  <svg className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
-                  </svg>
-                  <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                    <span className="font-semibold">Click to upload</span>
-                    {' '}
-                    or drag and drop
-                  </p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
-                </div>
+    <section className="bg-white">
+      <div className="py-8 px-4 mx-auto max-w-2xl lg:py-16">
+        <h2 className="mb-4 text-xl font-bold text-gray-700">
+          {blog ? 'Update Blog' : 'Write Your Own Blog'}
+        </h2>
+        <Formik initialValues={initialValues} onSubmit={onSubmit} validate={validate}>
+          {({
+            values, isSubmitting, setFieldValue, errors, touched,
+          }) => (
+            <Form>
+              {errors.file && touched.file ? (<ErrorMessage name="file" component="h3" className="text-red-500 mb-3 animate-pulse text-sm font-medium" />) : (
+                <h3 className="text-sm font-medium text-gray-700 mb-3">
+                  Cover Photo
+                </h3>
               )}
-              <input
-                required
-                id="dropzone-file"
-                type="file"
-                className="hidden"
-                accept="image/*"
-                onChange={handleImageChange}
-              />
-            </label>
-          </div>
 
-          <h3 className="mt-10 text-xl mb-3">Title</h3>
-          <input required type="text" value={title} onChange={(e) => setTitle(e.target.value)} id="helper-text" aria-describedby="helper-text-explanation" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Title" />
+              <div className={`flex items-center justify-center w-full ${errors.file && touched.file ? 'animate-pulse' : ''}`}>
+                <label
+                  htmlFor="dropzone-file"
+                  className={`flex flex-col items-center justify-center md:h-96 md:w-full sm:w-96 sm:h-60 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 ${values.file ? 'border-pink-600' : 'border-gray-300'}`}
+                >
+                  {values.file ? (
+                    <img
+                      src={values.file}
+                      className="w-full h-full object-cover rounded-lg"
+                      alt="Uploaded"
+                    />
+                  ) : (
+                    <div className="flex w-full h-full flex-col items-center justify-center pt-5 pb-6">
+                      <svg className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                        {' '}
+                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                        {' '}
+                      </svg>
+                      <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                        <span className="font-semibold">Click to upload</span>
+                        {' '}
+                        or drag and drop
+                      </p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                        SVG, PNG, JPG or GIF (MAX. 800x400px)
+                      </p>
+                    </div>
+                  )}
+                  <input
+                    id="dropzone-file"
+                    name="file"
+                    type="file"
+                    className="hidden"
+                    accept="image/*"
+                    onChange={(event) => {
+                      const file = event.currentTarget.files[0];
+                      if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                          setFieldValue('file', e.target.result);
+                        };
+                        reader.readAsDataURL(file);
+                      }
+                    }}
+                  />
+                </label>
+              </div>
 
-          <h3 className="mt-10 text-xl mb-3">Body</h3>
-          <textarea
-            required
-            id="body"
-            value={body}
-            onChange={(e) => setBody(e.target.value)}
-            rows="8"
-            className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-            placeholder="Write your thoughts here..."
-          />
+              <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 mt-5">
+                <div className="sm:col-span-2">
+                  {errors.title && touched.title ? (<ErrorMessage name="title" component="label" className="text-red-500 block mb-2 text-sm font-medium animate-pulse" />) : (
+                    <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-700">
+                      Title
+                    </label>
+                  )}
 
-          <button type="button" onClick={handleSubmit} className=" mt-10 px-6 py-3.5 text-base font-medium text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-            {blog ? 'Update Blog' : 'Publish Blog'}
-          </button>
-        </div>
+                  <Field
+                    type="text"
+                    name="title"
+                    id="title"
+                    className={`bg-gray-50 border-2 outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-pink-600 focus:border-pink-600 block w-full p-2.5 ${errors.title && touched.title ? 'animate-pulse' : ''}`}
+                    placeholder="Type blog title"
+                  />
 
+                </div>
+
+                <div className="sm:col-span-2">
+                  {errors.body && touched.body ? (<ErrorMessage name="body" component="label" className="text-red-500 block mb-2 text-sm font-medium animate-pulse" />) : (
+                    <label htmlFor="body" className="block mb-2 text-sm font-medium text-gray-700">
+                      Body
+                    </label>
+                  )}
+
+                  <Field
+                    as="textarea"
+                    id="body"
+                    name="body"
+                    rows="8"
+                    className={`block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border-2 border-gray-300 outline-none focus:ring-pink-500 focus:border-pink-500 ${errors.body && touched.body ? 'animate-pulse' : ''}`}
+                    placeholder="Your blog content here"
+                  />
+
+                </div>
+              </div>
+              <button
+                type="submit"
+                className="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 bg-pink-500"
+                disabled={isSubmitting}
+              >
+                {blog ? 'Update Blog' : 'Publish Blog'}
+              </button>
+            </Form>
+          )}
+        </Formik>
       </div>
-    </div>
+    </section>
   );
 }
 

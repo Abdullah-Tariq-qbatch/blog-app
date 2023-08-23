@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 /* eslint-disable max-len */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/anchor-is-valid */
@@ -21,7 +22,7 @@ import Image from '../components/Image';
 import Avatar from '../components/Avatar';
 import Cover from '../components/BlogDetailsPage/Cover';
 import Comment from '../components/BlogDetailsPage/CommentCard';
-import { updateBlog, likeBlog } from '../redux/blogs/actionCreator';
+import { copyLink, likeBlog } from '../redux/blogs/actionCreator';
 import { createComment } from '../redux/comments/actionCreator';
 import likeAudio from '../assets/likeSound.mp3';
 
@@ -49,6 +50,7 @@ function BlogDetail() {
   const comments = commentsListedByPost[blog.id];
 
   const [like, setLike] = useState(false);
+  const [dislike, setDislike] = useState(true);
   const [commentText, setCommentText] = useState('');
 
   const imageSrc = blog?.file
@@ -67,10 +69,24 @@ function BlogDetail() {
     }
   }, [like]);
 
+  useEffect(() => {
+    if (!dislike) {
+      dispatch(
+        likeBlog(blog.id, { ...blog, reactions: blog.reactions - 1 }),
+      );
+    }
+  }, [dislike]);
+
   const handleLike = () => {
-    setLike((state) => !state);
+    setLike((state) => true);
+    setDislike((state) => true);
     const audio = new Audio(likeAudio);
     audio.play();
+  };
+
+  const handleDisLike = () => {
+    setDislike((state) => false);
+    setLike((state) => false);
   };
 
   const handleAddComment = () => {
@@ -80,105 +96,120 @@ function BlogDetail() {
     );
   };
 
+  const handleShare = () => {
+    const currentURL = window.location.href;
+    const tempInput = document.createElement('input');
+    tempInput.value = currentURL;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand('copy');
+    document.body.removeChild(tempInput);
+    dispatch(copyLink('Link Copied'));
+  };
+
   return BlogsData.loading ? (
     <div className="w-full flex justify-center items-center h-screen mt-10">
       <Oval
         height={80}
         width={80}
-        color="#0066ff"
+        color="#FE02CA"
         wrapperStyle={{}}
         wrapperClass=""
         visible
         ariaLabel="oval-loading"
-        secondaryColor="#001f4d"
+        secondaryColor="#FF9EEB"
         strokeWidth={2}
         strokeWidthSecondary={2}
       />
     </div>
   ) : (
-    <div className="h-full pb-14 mx-10">
-      <Cover coverImageSrc={imageSrc} />
-      <div className="md:w-2/3 sm:w-96  m-auto bg-gray-200 rounded-bl-lg rounded-br-lg">
-        <p className="md:text-4xl sm:text-xl pt-10 pb-5 pl-5 font-semibold">
+    <div className="w-full bg-white border border-gray-200 rounded-lg shadow flex flex-col">
+      <img className="rounded-t-lg w-full h-full" src={imageSrc} alt="" />
+
+      <div className="bg-gray-50 rounded-lg px-5 md:-mt-96 mx-auto w-11/12 mb-5">
+        <div className="flex justify-center -mt-7">
+          {user?.image ? <Image src={user.image} /> : <Avatar initials={getInitials(user)} bgColor="bg-blue-500" />}
+        </div>
+        <div className="flex items-center justify-center mt-5">
+          <Link to={`/user/${user.id}/blogs`}>
+            <p className="mx-2 text-base text-black flex items-center hover:text-blue-500">
+              {user?.firstName}
+              {' '}
+              {user?.maidenName}
+              {' '}
+              {user?.lastName}
+            </p>
+          </Link>
+        </div>
+        <p className="md:text-4xl text-center sm:text-xl pt-10 pb-5 pl-5 font-semibold text-gray-700">
           {blog.title}
         </p>
-        <div className="flex justify-between">
-
-          <div className="flex items-center pl-5 pb-5">
-            {user?.image ? (
-              <Image src={user.image} />
-            ) : (
-              <Avatar
-                initials={getInitials(user)}
-                bgColor="bg-blue-500"
-              />
-            )}
-            <Link to={`/user/${user.id}/blogs`}>
-              <p className="mx-2 text-base text-black flex items-center hover:text-blue-500">
-                {user?.firstName}
-                {' '}
-                {user?.maidenName}
-                {' '}
-                {user?.lastName}
-              </p>
-            </Link>
-          </div>
-          <div className="flex justify-center">
-            {like ? (
+        <div className="flex justify-center w-2/3 m-auto">
+          <div className="w-1/3 flex justify-center">
+            {like && dislike ? (
               <HeartFilled
-                onClick={handleLike}
+                onClick={handleDisLike}
                 className="pr-2 pt-2"
-                style={{ color: '#fc0703' }}
+                style={{ color: '#FE02CA' }}
               />
             ) : (
-              <HeartOutlined className="pr-2 pt-2" onClick={handleLike} />
+              <HeartOutlined className="pr-2 pt-2" onClick={handleLike} style={{ color: '#FE02CA' }} />
             )}
-            <p className="pr-5 pt-1">{blog.reactions}</p>
+            <p className="pt-1 text-gray-600">{blog.reactions}</p>
+          </div>
+
+          <div className="w-1/3 flex justify-center">
             <Link to="/create-blog" state={blog}>
-              <EditOutlined className="pr-3" />
+              <EditOutlined className="text-gray-600" />
             </Link>
-            <ShareAltOutlined className="pr-8 pt-2" />
+          </div>
+          <div className="w-1/3 flex justify-center">
+            <ShareAltOutlined onClick={handleShare} className="pt-2 text-gray-600" />
           </div>
         </div>
-      </div>
 
-      <div className="max-w-3xl mx-auto px-4 text-xl text-justify leading-relaxed my-10">
-        <p>{blog.body}</p>
-        <p className="my-2">In sunt eiusmod ipsum ad pariatur reprehenderit est ut. Cupidatat velit cupidatat incididunt pariatur sit eiusmod. Minim cupidatat sint irure culpa voluptate veniam quis magna est. Non in cupidatat culpa magna eiusmod. Labore culpa aliqua consectetur ipsum reprehenderit nulla qui aute quis.</p>
-        <p className="my-2">In sunt eiusmod ipsum ad pariatur reprehenderit est ut. Cupidatat velit cupidatat incididunt pariatur sit eiusmod. Minim cupidatat sint irure culpa voluptate veniam quis magna est. Non in cupidatat culpa magna eiusmod. Labore culpa aliqua consectetur ipsum reprehenderit nulla qui aute quis.</p>
-        <p className="my-2">In sunt eiusmod ipsum ad pariatur reprehenderit est ut. Cupidatat velit cupidatat incididunt pariatur sit eiusmod. Minim cupidatat sint irure culpa voluptate veniam quis magna est. Non in cupidatat culpa magna eiusmod. Labore culpa aliqua consectetur ipsum reprehenderit nulla qui aute quis.</p>
-      </div>
+        <hr className="w-4/5 m-auto my-8" />
 
-      <section className="bg-white py-8 lg:py-8">
-        <div className="max-w-3xl mx-auto px-4 border-b border-gray-200">
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-lg lg:text-2xl font-bold text-gray-900">
-              Discussion
-              {' '}
-              (
-              {comments?.length || 0}
-              )
-            </h2>
-          </div>
-          <form>
-            <div className="w-full mb-4 border border-gray-200 rounded-lg bg-gray-200">
-              <div className="px-4 py-2 bg-gray-100 rounded-t-lg">
-                <label htmlFor="comment" className="sr-only">Your comment</label>
-                <textarea id="comment" value={commentText} onChange={handleInputChange} rows="4" className="rounded-lg pl-2 pt-2 pr-2 pb-2 w-full px-0 text-sm text-gray-900 bg-white border-0 focus:ring-0" placeholder="Write a comment..." required />
-              </div>
-              <div className="flex items-center justify-between px-3 py-2 border-t">
-                <button type="button" onClick={handleAddComment} className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800">
-                  Post comment
-                </button>
-                <div className="flex pl-0 space-x-1 sm:pl-2" />
-              </div>
+        <div className="max-w-3xl mx-auto px-4 text-xl text-justify leading-relaxed my-10 text-gray-600">
+          <p>{blog.body}</p>
+          <p className="my-2">In sunt eiusmod ipsum ad pariatur reprehenderit est ut. Cupidatat velit cupidatat incididunt pariatur sit eiusmod. Minim cupidatat sint irure culpa voluptate veniam quis magna est. Non in cupidatat culpa magna eiusmod. Labore culpa aliqua consectetur ipsum reprehenderit nulla qui aute quis.</p>
+          <p className="my-2">In sunt eiusmod ipsum ad pariatur reprehenderit est ut. Cupidatat velit cupidatat incididunt pariatur sit eiusmod. Minim cupidatat sint irure culpa voluptate veniam quis magna est. Non in cupidatat culpa magna eiusmod. Labore culpa aliqua consectetur ipsum reprehenderit nulla qui aute quis.</p>
+          <p className="my-2">In sunt eiusmod ipsum ad pariatur reprehenderit est ut. Cupidatat velit cupidatat incididunt pariatur sit eiusmod. Minim cupidatat sint irure culpa voluptate veniam quis magna est. Non in cupidatat culpa magna eiusmod. Labore culpa aliqua consectetur ipsum reprehenderit nulla qui aute quis.</p>
+        </div>
+
+        <hr className="w-4/5 m-auto my-8" />
+
+        <section className=" py-8 lg:py-8">
+          <div className="max-w-3xl mx-auto px-4 border-b border-gray-200">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-lg lg:text-2xl font-bold text-gray-700">
+                Discussion
+                {' '}
+                (
+                {comments?.length || 0}
+                )
+              </h2>
             </div>
-          </form>
-          {comments?.map((comment) => (
-            <Comment commentDetails={comment} key={`${comment.body} + ${blog.id}`} />
-          ))}
-        </div>
-      </section>
+            <form>
+              <div className="w-full mb-4 border border-gray-200 rounded-lg bg-gray-200">
+                <div className="px-4 py-2 bg-gray-100 rounded-t-lg">
+                  <label htmlFor="comment" className="sr-only">Your comment</label>
+                  <textarea id="comment" value={commentText} onChange={handleInputChange} rows="4" className="rounded-lg pl-2 pt-2 pr-2 pb-2 w-full px-0 text-sm text-gray-900 bg-white border-2 outline-none focus:border-pink-500 focus:ring-0" placeholder="Write a comment..." required />
+                </div>
+                <div className="flex items-center justify-between px-3 py-2 border-t">
+                  <button type="button" onClick={handleAddComment} className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-pink-500 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-pink-800">
+                    Post comment
+                  </button>
+                  <div className="flex pl-0 space-x-1 sm:pl-2" />
+                </div>
+              </div>
+            </form>
+            {comments?.map((comment) => (
+              <Comment commentDetails={comment} key={`${comment.body} + ${blog.id}`} />
+            ))}
+          </div>
+        </section>
+      </div>
     </div>
   );
 }

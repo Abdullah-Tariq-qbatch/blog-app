@@ -13,6 +13,7 @@ const {
   LIKE_BLOG,
   API_ERROR,
   CLEAR_MESSAGE_ERROR,
+  LINK_COPIED_SUCCESS,
 } = actions;
 
 const initState = {
@@ -90,6 +91,8 @@ const Blogs = (state = initState, action) => {
       };
     case API_ERROR:
       return { ...state, loading: false, error: err };
+    case LINK_COPIED_SUCCESS:
+      return { ...state, loading: false, success: err };
     case CLEAR_MESSAGE_ERROR:
       return { ...state, success: null, error: null };
     default:

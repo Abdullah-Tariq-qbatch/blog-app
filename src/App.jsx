@@ -4,11 +4,8 @@ import './App.css';
 import {
   BrowserRouter, Route, Routes,
 } from 'react-router-dom';
-import Navbar from './components/Navbar';
 import MainLayout from './layout/MainLayout';
-import Toast from './components/Toast';
 import Spinner from './components/Spinner';
-import Footer from './components/Footer';
 
 const Home = lazy(() => import(/* webpackChunkName: "Home" */ './pages/Home'));
 const BlogDetail = lazy(() => import(/* webpackChunkName: "BlogDetail" */ './pages/BlogDetail'));
@@ -18,8 +15,6 @@ const UserBlogs = lazy(() => import(/* webpackChunkName: "UserBlogs" */ './pages
 function App() {
   return (
     <BrowserRouter>
-      <Navbar />
-      <Toast />
       <MainLayout>
         <Routes>
           <Route
@@ -64,7 +59,6 @@ function App() {
           />
         </Routes>
       </MainLayout>
-      <Footer />
     </BrowserRouter>
   );
 }

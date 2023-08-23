@@ -7,11 +7,11 @@ module.exports = {
       keyframes: {
         typing: {
           from: { width: '0' },
-          to: { width: '34ch' },
+          to: { width: '25ch' },
         },
       },
       animation: {
-        typing: 'typing 4s steps(34)',
+        typing: 'typing 3s steps(25)',
       },
     },
   },
