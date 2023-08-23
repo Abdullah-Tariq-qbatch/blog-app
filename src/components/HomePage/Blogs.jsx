@@ -91,7 +91,7 @@ function Blogs({ userId }) {
 
       <div className="flex justify-center mt-10">
         {BlogsData.loading || UserData.loading || CommentData.loading ? (
-          <div className="w-full flex justify-center h-full mt-10">
+          <div className="w-full flex justify-center items-center h-screen mt-10">
             <Oval
               height={80}
               width={80}
