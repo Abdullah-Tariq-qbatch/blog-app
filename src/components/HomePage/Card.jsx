@@ -25,7 +25,7 @@ function Card({ blog, user, comments }) {
       </div>
       <div className="flex items-center mt-3 ml-2">
         {user?.image ? <Image src={user.image} /> : <Avatar initials={getInitials(user)} bgColor="bg-blue-500" />}
-        <Link to="#">
+        <Link to={`/user/${user.id}/blogs`}>
           <p className="mx-2 text-base text-gray-700 flex items-center hover:text-blue-500">
             {user?.firstName}
             {' '}

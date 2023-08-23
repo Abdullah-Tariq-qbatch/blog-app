@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-indent */
+/* eslint-disable max-len */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
@@ -14,17 +16,28 @@ function Comment({ commentDetails }) {
     dispatch(deleteComment(commentDetails.id));
   };
   return (
-    <div className="bg-gray-200 border-b-2 border-gray-400 py-3">
-      <DeleteFilled className="float-right mr-2" style={{ color: 'red' }} onClick={handleDelete} />
-      <div className="flex items-center ml-2">
-        <Avatar initials={`${commentDetails.user.username[0]}${commentDetails.user.username[1]}${commentDetails.user.username[2]}`} bgColor="bg-blue-500" />
-        <p className="mx-2 text-xs text-gray-700 flex items-center hover:text-blue-500">
-          {commentDetails.user.username}
-        </p>
-      </div>
-
-      <p className="mt-1 ml-2">{commentDetails.body}</p>
-    </div>
+    <article className="p-6 mb-6 text-base bg-white border-t border-gray-200">
+      <footer className="flex justify-between items-center mb-2">
+        <div className="flex items-center">
+          <div className="inline-flex items-center mr-3 text-sm text-gray-900">
+            <Avatar initials={`${commentDetails.user.username[0]}${commentDetails.user.username[1]}${commentDetails.user.username[2]}`} bgColor="bg-blue-500" />
+            <span className="ml-2">
+              {' '}
+              {commentDetails.user.username}
+            </span>
+          </div>
+        </div>
+        <button
+          id="dropdownComment3Button"
+          onClick={handleDelete}
+          className="inline-flex items-center p-2 text-sm font-medium text-center text-gray-400 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50"
+          type="button"
+        >
+         <DeleteFilled className="" style={{ color: 'red' }} />
+        </button>
+      </footer>
+      <p className="text-gray-500">{commentDetails.body}</p>
+    </article>
   );
 }
 

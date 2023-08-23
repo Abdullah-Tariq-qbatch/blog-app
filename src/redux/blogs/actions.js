@@ -11,6 +11,8 @@ const actions = {
   DELETE_BLOG_BEGIN: 'DELETE_BLOG_BEGIN',
   DELETE_BLOG_SUCCESS: 'DELETE_BLOG_SUCCESS',
 
+  LIKE_BLOG: 'LIKE_BLOG',
+
   API_ERROR: 'API_ERROR',
 
   CLEAR_MESSAGE_ERROR: 'CLEAR_MESSAGE_ERROR',
@@ -48,6 +50,11 @@ const actions = {
 
   deleteBlogSuccess: (data) => ({
     type: actions.DELETE_BLOG_SUCCESS,
+    data,
+  }),
+
+  likeBlogSuccess: (data) => ({
+    type: actions.LIKE_BLOG,
     data,
   }),
 

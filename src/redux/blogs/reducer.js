@@ -10,6 +10,7 @@ const {
   UPDATE_BLOG_SUCCESS,
   DELETE_BLOG_BEGIN,
   DELETE_BLOG_SUCCESS,
+  LIKE_BLOG,
   API_ERROR,
   CLEAR_MESSAGE_ERROR,
 } = actions;
@@ -78,6 +79,14 @@ const Blogs = (state = initState, action) => {
         loading: false,
         success: 'Blog deleted successfully',
         blogs: state.blogs.filter((blog) => blog.id !== data.id),
+      };
+    case LIKE_BLOG:
+      localStorage.setItem('blogs', JSON.stringify(state.blogs.map((blog) => (blog.id === data.id ? data : blog))));
+      return {
+        ...state,
+        loading: false,
+        success: 'Blog liked successfully',
+        blogs: state.blogs.map((blog) => (blog.id === data.id ? data : blog)),
       };
     case API_ERROR:
       return { ...state, loading: false, error: err };

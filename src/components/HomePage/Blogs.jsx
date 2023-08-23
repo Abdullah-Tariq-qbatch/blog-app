@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable radix */
 /* eslint-disable no-use-before-define */
@@ -17,7 +18,7 @@ import _ from 'lodash';
 import Card from './Card';
 import Pagination from './Pagination';
 
-function Blogs() {
+function Blogs({ userId }) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const currentPage = parseInt(searchParams.get('page')) || 1;
@@ -31,10 +32,21 @@ function Blogs() {
   const [searchTerm, setSearchTerm] = useState('');
   const [list, setList] = useState([]);
 
+  const [user, setUser] = useState({});
+
   useEffect(() => {
-    if (!BlogsData.loading) setList(BlogsData.blogs);
-    if (!BlogsData.loading && !UserData.loading) { setUsers(_.keyBy(UserData.users, 'id')); }
-    if (!BlogsData.loading && !CommentData.loading) { SetPostComments(_.countBy(CommentData.comments, 'postId')); }
+    if (!BlogsData.loading) {
+      if (userId) {
+        const tempList = _.groupBy(BlogsData.blogs, 'userId');
+        setList((state) => tempList[userId]);
+      } else setList((state) => BlogsData.blogs);
+    }
+    if (!BlogsData.loading && !UserData.loading) { setUsers((state) => _.keyBy(UserData.users, 'id')); }
+    if (!BlogsData.loading && !CommentData.loading) { SetPostComments((state) => _.countBy(CommentData.comments, 'postId')); }
+    if (userId) {
+      const tempList = _.keyBy(UserData.users, 'id');
+      setUser(tempList[userId]);
+    }
   }, [BlogsData.loading, UserData.loading, CommentData.loading]);
 
   const debouncedFilter = useCallback(
@@ -60,7 +72,11 @@ function Blogs() {
 
   return (
     <div className="mt-10 text-center text-2xl font-serif">
-      <h1 className="text-3xl">Some Interesting Reads</h1>
+      <h1 className="text-3xl">
+        Some Interesting Reads
+        {' '}
+        {userId ? `by ${user?.firstName} ${user?.maidenName} ${user?.lastName}` : ''}
+      </h1>
       <div className="flex justify-end">
         <input
           type="search"

@@ -13,6 +13,7 @@ import Footer from './components/Footer';
 const Home = lazy(() => import('./pages/Home'));
 const BlogDetail = lazy(() => import('./pages/BlogDetail'));
 const CreateBlog = lazy(() => import('./pages/CreateBlog'));
+const UserBlogs = lazy(() => import('./pages/UserBlogs'));
 
 function App() {
   return (
@@ -48,6 +49,16 @@ function App() {
               <Suspense fallback={<Spinner />}>
                 {' '}
                 <BlogDetail />
+              </Suspense>
+)}
+          />
+          <Route
+            exact
+            path="/user/:id/blogs"
+            element={(
+              <Suspense fallback={<Spinner />}>
+                {' '}
+                <UserBlogs />
               </Suspense>
 )}
           />

@@ -18,6 +18,7 @@ const {
   updateBlogSuccess,
   deleteBlogBegin,
   deleteBlogSuccess,
+  likeBlogSuccess,
   apiError,
   clearMessageError,
 } = actions;
@@ -64,19 +65,44 @@ export const updateBlog = (id, data) => {
   return async (dispatch) => {
     try {
       dispatch(updateBlogBegin());
-      if (data?.file) {
-        const imgResponse = await uploadImage.upload(data.file);
-        delete data.file;
+      if (data.image) {
+        const imgResponse = await uploadImage.upload(data.image);
+        delete data.image;
         const response = await api.blogs.update(id, data);
-        const blog = response.data;
-        blog.image = imgResponse.data.url;
-        if (isSuccess(response)) dispatch(updateBlogSuccess(blog));
+        if (isSuccess(response)) {
+          const blog = response.data;
+          blog.image = imgResponse.data.url;
+          dispatch(updateBlogSuccess(blog));
+        }
       } else {
         const response = await api.blogs.update(id, data);
         if (isSuccess(response)) dispatch(updateBlogSuccess(response.data));
       }
     } catch (error) {
       sendErrorNotification(error, import.meta.url, 'update blog');
+      dispatch(apiError(error.message));
+    }
+  };
+};
+
+export const likeBlog = (id, data) => {
+  return async (dispatch) => {
+    try {
+      if (data.image) {
+        const { image } = data;
+        delete data.image;
+        const response = await api.blogs.update(id, data);
+        if (isSuccess(response)) {
+          const blog = response.data;
+          blog.image = image;
+          dispatch(likeBlogSuccess(blog));
+        }
+      } else {
+        const response = await api.blogs.update(id, data);
+        if (isSuccess(response)) dispatch(likeBlogSuccess(response.data));
+      }
+    } catch (error) {
+      sendErrorNotification(error, import.meta.url, 'like blog');
       dispatch(apiError(error.message));
     }
   };
