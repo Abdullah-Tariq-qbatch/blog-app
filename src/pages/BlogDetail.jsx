@@ -141,12 +141,12 @@ function BlogDetail() {
             {like ? (
               <HeartFilled
                 onClick={handleDisLike}
-                className="pr-2 pt-2 text-pink-custom text-xl"
+                className="pr-2 text-pink-custom text-xl"
               />
             ) : (
-              <HeartOutlined className="pr-2 pt-2 text-pink-custom text-xl" onClick={handleLike} />
+              <HeartOutlined className="pr-2 text-pink-custom text-xl" onClick={handleLike} />
             )}
-            <p className="pt-2 text-gray-600">{blog.reactions}</p>
+            <p className=" text-gray-600">{blog.reactions}</p>
           </div>
 
           <div className="w-1/3 flex justify-center items-center">
@@ -155,7 +155,7 @@ function BlogDetail() {
             </Link>
           </div>
           <div className="w-1/3 flex justify-center items-center">
-            <ShareAltOutlined onClick={handleShare} className="pt-2 text-blue-custom text-xl" />
+            <ShareAltOutlined onClick={handleShare} className=" text-blue-custom text-xl" />
           </div>
         </div>
 

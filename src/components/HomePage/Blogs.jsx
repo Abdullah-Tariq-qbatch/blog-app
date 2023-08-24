@@ -89,8 +89,8 @@ function Blogs({ userId }) {
           {userId ? `by ${user?.firstName} ${user?.maidenName} ${user?.lastName}` : ''}
         </h3>
       </div>
-      <div className="flex justify-between w-full">
-        <select id="countries" value={filter} onChange={(e) => setFilter((state) => e.target.value)} className="block md:w-60 h-11 ml-10 text-sm outline-none dark:bg-gray-600 dark:border-gray-700 text-gray-400 dark:focus:text-gray-200 focus:text-gray-800 border-2 border-gray-300 rounded-lg bg-gray-50 dark:focus:ring-pink-800 dark:focus:border-pink-800 focus:ring-pink-500 focus:border-pink-500">
+      <div className="flex flex-col sm:flex-row justify-between w-full">
+        <select id="countries" value={filter} onChange={(e) => setFilter((state) => e.target.value)} className="block md:w-60 h-11 mx-10 sm:ml-10 text-sm outline-none dark:bg-gray-600 dark:border-gray-700 text-gray-400 dark:focus:text-gray-200 focus:text-gray-800 border-2 border-gray-300 rounded-lg bg-gray-50 dark:focus:ring-pink-800 dark:focus:border-pink-800 focus:ring-pink-500 focus:border-pink-500">
           <option value="">Choose a filter</option>
           <option value="Likeness">Likeness</option>
           <option value="Popularity">Popularity</option>
@@ -101,13 +101,13 @@ function Blogs({ userId }) {
           value={searchTerm}
           onChange={handleSearchChange}
           id="default-search"
-          className="block md:w-60 h-11 mr-10 p-4 text-sm outline-none  dark:bg-gray-600 dark:border-gray-700 dark:text-gray-200 text-gray-900 border-2 border-gray-300 rounded-lg bg-gray-50 focus:ring-pink-500 focus:border-pink-500 dark:focus:ring-pink-800 dark:focus:border-pink-800"
+          className="block md:w-60 h-11 mt-3 sm:mt-0  mx-10 sm:mr-10 p-4 text-sm outline-none  dark:bg-gray-600 dark:border-gray-700 dark:text-gray-200 text-gray-900 border-2 border-gray-300 rounded-lg bg-gray-50 focus:ring-pink-500 focus:border-pink-500 dark:focus:ring-pink-800 dark:focus:border-pink-800"
           placeholder="Search Blogs..."
           required
         />
       </div>
 
-      <div className="flex justify-center mt-8 mx-10">
+      <div className="flex justify-center mt-8 mx-5 sm:mx-10">
         {BlogsData.loading || UserData.loading || CommentData.loading ? (
           <div className="w-full flex justify-center dark:bg-gray-800 items-center h-60 mt-10">
             <Oval
@@ -133,7 +133,7 @@ function Blogs({ userId }) {
           </div>
         )}
       </div>
-      <div className="flex flex-col justify-center items-end mt-5 mr-20 pb-10">
+      <div className="flex flex-col justify-center items-center sm:items-end mt-5 mr-0 sm:mr-20 pb-10">
 
         <nav aria-label="Page navigation example bg-white dark:bg-gray-700">
           <Pagination currentPage={currentPage} totalPages={totalPages} setSearchParams={setSearchParams} />
