@@ -86,7 +86,7 @@ export const updateBlog = (id, data) => {
   };
 };
 
-export const likeBlog = (id, data) => {
+export const likeBlog = (id, data, message) => {
   return async (dispatch) => {
     try {
       if (data.file) {
@@ -96,11 +96,11 @@ export const likeBlog = (id, data) => {
         if (isSuccess(response)) {
           const blog = response.data;
           blog.file = file;
-          dispatch(likeBlogSuccess(blog));
+          dispatch(likeBlogSuccess(blog, message));
         }
       } else {
         const response = await api.blogs.update(id, data);
-        if (isSuccess(response)) dispatch(likeBlogSuccess(response.data));
+        if (isSuccess(response)) dispatch(likeBlogSuccess(response.data, message));
       }
     } catch (error) {
       sendErrorNotification(error, import.meta.url, 'like blog');

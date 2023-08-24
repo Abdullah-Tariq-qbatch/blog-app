@@ -50,7 +50,6 @@ function BlogDetail() {
   const comments = commentsListedByPost[blog.id];
 
   const [like, setLike] = useState(false);
-  const [dislike, setDislike] = useState(true);
   const [commentText, setCommentText] = useState('');
 
   const imageSrc = blog?.file
@@ -61,32 +60,26 @@ function BlogDetail() {
     setCommentText(event.target.value);
   };
 
-  useEffect(() => {
-    if (like) {
-      dispatch(
-        likeBlog(blog.id, { ...blog, reactions: blog.reactions + 1 }),
-      );
-    }
-  }, [like]);
-
-  useEffect(() => {
-    if (!dislike) {
-      dispatch(
-        likeBlog(blog.id, { ...blog, reactions: blog.reactions - 1 }),
-      );
-    }
-  }, [dislike]);
-
   const handleLike = () => {
     setLike((state) => true);
-    setDislike((state) => true);
     const audio = new Audio(likeAudio);
     audio.play();
+    dispatch(
+      likeBlog(blog.id, { ...blog, reactions: blog.reactions + 1 }, 'Blog Liked'),
+    );
   };
 
   const handleDisLike = () => {
-    setDislike((state) => false);
     setLike((state) => false);
+    if (blog.reactions) {
+      dispatch(
+        likeBlog(blog.id, { ...blog, reactions: blog.reactions - 1 }, 'Blog Unliked'),
+      );
+    } else {
+      dispatch(
+        likeBlog(blog.id, { ...blog, reactions: 0 }, 'Blog Unliked'),
+      );
+    }
   };
 
   const handleAddComment = () => {
@@ -123,16 +116,16 @@ function BlogDetail() {
       />
     </div>
   ) : (
-    <div className="w-full bg-white border border-gray-200 rounded-lg shadow flex flex-col">
+    <div className="w-full bg-white border border-gray-200 rounded-lg shadow flex flex-col pb-9">
       <img className="rounded-t-lg w-full h-full" src={imageSrc} alt="" />
 
-      <div className="bg-gray-50 rounded-lg px-5 md:-mt-96 mx-auto w-11/12 mb-5">
+      <div className="bg-gray-50 rounded-lg px-5 -mt-24 sm:-mt-48 md:-mt-96 mx-auto w-11/12 mb-5">
         <div className="flex justify-center -mt-7">
           {user?.image ? <Image src={user.image} /> : <Avatar initials={getInitials(user)} bgColor="bg-blue-500" />}
         </div>
         <div className="flex items-center justify-center mt-5">
           <Link to={`/user/${user.id}/blogs`}>
-            <p className="mx-2 text-base text-black flex items-center hover:text-blue-500">
+            <p className="mx-2 text-base text-gray-500 flex items-center hover:text-pink-custom">
               {user?.firstName}
               {' '}
               {user?.maidenName}
@@ -141,30 +134,29 @@ function BlogDetail() {
             </p>
           </Link>
         </div>
-        <p className="md:text-4xl text-center sm:text-xl pt-10 pb-5 pl-5 font-semibold text-gray-700">
+        <p className="md:text-4xl text-center sm:text-xl py-10 pl-5 font-semibold text-gray-700">
           {blog.title}
         </p>
         <div className="flex justify-center w-2/3 m-auto">
           <div className="w-1/3 flex justify-center">
-            {like && dislike ? (
+            {like ? (
               <HeartFilled
                 onClick={handleDisLike}
-                className="pr-2 pt-2"
-                style={{ color: '#FE02CA' }}
+                className="pr-2 pt-2 text-pink-custom"
               />
             ) : (
-              <HeartOutlined className="pr-2 pt-2" onClick={handleLike} style={{ color: '#FE02CA' }} />
+              <HeartOutlined className="pr-2 pt-2 text-pink-custom" onClick={handleLike} />
             )}
             <p className="pt-1 text-gray-600">{blog.reactions}</p>
           </div>
 
           <div className="w-1/3 flex justify-center">
             <Link to="/create-blog" state={blog}>
-              <EditOutlined className="text-gray-600" />
+              <EditOutlined className="text-indigo-custom" />
             </Link>
           </div>
           <div className="w-1/3 flex justify-center">
-            <ShareAltOutlined onClick={handleShare} className="pt-2 text-gray-600" />
+            <ShareAltOutlined onClick={handleShare} className="pt-2 text-blue-custom" />
           </div>
         </div>
 
@@ -191,13 +183,13 @@ function BlogDetail() {
               </h2>
             </div>
             <form>
-              <div className="w-full mb-4 border border-gray-200 rounded-lg bg-gray-200">
-                <div className="px-4 py-2 bg-gray-100 rounded-t-lg">
+              <div className="w-full mb-4 rounded-lg">
+                <div className="px-4 py-2 rounded-t-lg">
                   <label htmlFor="comment" className="sr-only">Your comment</label>
-                  <textarea id="comment" value={commentText} onChange={handleInputChange} rows="4" className="rounded-lg pl-2 pt-2 pr-2 pb-2 w-full px-0 text-sm text-gray-900 bg-white border-2 outline-none focus:border-pink-500 focus:ring-0" placeholder="Write a comment..." required />
+                  <textarea id="comment" value={commentText} onChange={handleInputChange} rows="4" className="rounded-lg pl-2 pt-2 pr-2 pb-2 w-full px-0 text-sm text-gray-900 bg-white border-2 border-gray-300 outline-none focus:border-pink-500 focus:ring-0" placeholder="Write a comment..." required />
                 </div>
-                <div className="flex items-center justify-between px-3 py-2 border-t">
-                  <button type="button" onClick={handleAddComment} className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-pink-500 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-pink-800">
+                <div className="flex items-center justify-between px-4 pb-2">
+                  <button type="button" onClick={handleAddComment} className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-custom rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800">
                     Post comment
                   </button>
                   <div className="flex pl-0 space-x-1 sm:pl-2" />

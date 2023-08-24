@@ -24,7 +24,7 @@ function Pagination({ currentPage, totalPages, setSearchParams }) {
           onClick={() => setSearchParams({ page: i })}
           className={`flex items-center justify-center px-3 h-8 ${
             isActive
-              ? 'text-pink-600 bg-pink-50 hover:bg-pink-100 hover:text-pink-700 border-gray-300 border'
+              ? 'text-blue-custom bg-blue-50 hover:bg-blue-100 hover:text-blue-custom border-gray-300 border'
               : 'text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700'
           }`}
         >

@@ -16,7 +16,7 @@ function Navbar() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-10 bg-gray-200 p-5 mb-8">
+    <nav className="fixed top-0 left-0 w-full bg-gray-100 p-5 mb-8 z-50">
       <div className="flex items-center justify-between flex-wrap mx-10">
         <div className="flex items-center flex-shrink-0 text-white mr-16 cursor-pointer" onClick={() => navigate('/')}>
           <img src={logo} className="w-100 h-10" alt="Logo" />
@@ -48,8 +48,8 @@ function Navbar() {
           }`}
         >
           <div className="text-sm lg:flex-grow">
-            <Link to="/" className="block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4" onClick={handleClick}>Home</Link>
-            <Link to="/create-blog" className="block mt-4 lg:inline-block lg:mt-0 text-white-200 mr-4" onClick={handleClick}>Write a Blog</Link>
+            <Link to="/" className="block mt-4 lg:inline-block lg:mt-0 text-gray-700 mr-4" onClick={handleClick}>Home</Link>
+            <Link to="/create-blog" className="block mt-4 lg:inline-block lg:mt-0 text-gray-700 mr-4" onClick={handleClick}>Write a Blog</Link>
           </div>
         </div>
       </div>

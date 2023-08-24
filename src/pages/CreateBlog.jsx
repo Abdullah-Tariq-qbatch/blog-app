@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable no-unused-vars */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable jsx-a11y/label-has-associated-control */
@@ -59,7 +60,7 @@ function CreateBlog() {
             values, isSubmitting, setFieldValue, errors, touched,
           }) => (
             <Form>
-              {errors.file && touched.file ? (<ErrorMessage name="file" component="h3" className="text-red-500 mb-3 animate-pulse text-sm font-medium" />) : (
+              {errors.file && touched.file ? (<ErrorMessage name="file" component="h3" className="text-red-custom mb-3 animate-pulse text-sm font-medium" />) : (
                 <h3 className="text-sm font-medium text-gray-700 mb-3">
                   Cover Photo
                 </h3>
@@ -68,7 +69,7 @@ function CreateBlog() {
               <div className={`flex items-center justify-center w-full ${errors.file && touched.file ? 'animate-pulse' : ''}`}>
                 <label
                   htmlFor="dropzone-file"
-                  className={`flex flex-col items-center justify-center md:h-96 md:w-full sm:w-96 sm:h-60 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 ${values.file ? 'border-pink-600' : 'border-gray-300'}`}
+                  className={`flex flex-col items-center justify-center md:h-96 md:w-full sm:w-96 sm:h-60 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 ${errors.file && touched.file ? 'border-red-custom' : values.file ? 'border-indigo-custom' : 'border-gray-300'}`}
                 >
                   {values.file ? (
                     <img
@@ -78,17 +79,17 @@ function CreateBlog() {
                     />
                   ) : (
                     <div className="flex w-full h-full flex-col items-center justify-center pt-5 pb-6">
-                      <svg className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                      <svg className="w-8 h-8 mb-4 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
                         {' '}
                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
                         {' '}
                       </svg>
-                      <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                      <p className="mb-2 text-sm text-gray-400">
                         <span className="font-semibold">Click to upload</span>
                         {' '}
                         or drag and drop
                       </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                      <p className="text-xs text-gray-400">
                         SVG, PNG, JPG or GIF (MAX. 800x400px)
                       </p>
                     </div>
@@ -115,7 +116,7 @@ function CreateBlog() {
 
               <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 mt-5">
                 <div className="sm:col-span-2">
-                  {errors.title && touched.title ? (<ErrorMessage name="title" component="label" className="text-red-500 block mb-2 text-sm font-medium animate-pulse" />) : (
+                  {errors.title && touched.title ? (<ErrorMessage name="title" component="label" className="text-red-custom block mb-2 text-sm font-medium animate-pulse" />) : (
                     <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-700">
                       Title
                     </label>
@@ -125,14 +126,14 @@ function CreateBlog() {
                     type="text"
                     name="title"
                     id="title"
-                    className={`bg-gray-50 border-2 outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-pink-600 focus:border-pink-600 block w-full p-2.5 ${errors.title && touched.title ? 'animate-pulse' : ''}`}
+                    className={`bg-gray-50 border-2 outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-custom focus:border-indigo-custom block w-full p-2.5 ${errors.title && touched.title ? 'animate-pulse border-red-custom' : 'border-gray-300'}`}
                     placeholder="Type blog title"
                   />
 
                 </div>
 
                 <div className="sm:col-span-2">
-                  {errors.body && touched.body ? (<ErrorMessage name="body" component="label" className="text-red-500 block mb-2 text-sm font-medium animate-pulse" />) : (
+                  {errors.body && touched.body ? (<ErrorMessage name="body" component="label" className="text-red-custom block mb-2 text-sm font-medium animate-pulse" />) : (
                     <label htmlFor="body" className="block mb-2 text-sm font-medium text-gray-700">
                       Body
                     </label>
@@ -143,7 +144,7 @@ function CreateBlog() {
                     id="body"
                     name="body"
                     rows="8"
-                    className={`block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border-2 border-gray-300 outline-none focus:ring-pink-500 focus:border-pink-500 ${errors.body && touched.body ? 'animate-pulse' : ''}`}
+                    className={`block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border-2 border-gray-300 outline-none focus:ring-indigo-custom focus:border-indigo-custom ${errors.body && touched.body ? 'animate-pulse border-red-custom' : 'border-gray-300'}`}
                     placeholder="Your blog content here"
                   />
 
@@ -151,7 +152,7 @@ function CreateBlog() {
               </div>
               <button
                 type="submit"
-                className="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 bg-pink-500"
+                className="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 bg-blue-custom hover:bg-blue-800"
                 disabled={isSubmitting}
               >
                 {blog ? 'Update Blog' : 'Publish Blog'}

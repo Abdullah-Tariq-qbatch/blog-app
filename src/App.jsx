@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 import MainLayout from './layout/MainLayout';
 import Spinner from './components/Spinner';
+import ScrollToTop from './utils/scrollToTop';
 
 const Home = lazy(() => import(/* webpackChunkName: "Home" */ './pages/Home'));
 const BlogDetail = lazy(() => import(/* webpackChunkName: "BlogDetail" */ './pages/BlogDetail'));
@@ -15,6 +16,7 @@ const UserBlogs = lazy(() => import(/* webpackChunkName: "UserBlogs" */ './pages
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <MainLayout>
         <Routes>
           <Route

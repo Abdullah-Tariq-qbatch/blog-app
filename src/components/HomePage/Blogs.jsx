@@ -32,8 +32,8 @@ function Blogs({ userId }) {
   const [postComments, SetPostComments] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [list, setList] = useState([]);
-
   const [user, setUser] = useState({});
+  const [filter, setFilter] = useState('');
 
   useEffect(() => {
     if (!BlogsData.loading) {
@@ -66,10 +66,19 @@ function Blogs({ userId }) {
   const memoizedFilteredItems = useMemo(() => list, [list]);
 
   const itemsPerPage = 6;
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = memoizedFilteredItems.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(memoizedFilteredItems.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  let displayedItems = [...memoizedFilteredItems];
+
+  if (filter === 'Likeness') {
+    displayedItems = displayedItems.sort((a, b) => b.reactions - a.reactions);
+  } else if (filter === 'Popularity') {
+    displayedItems = displayedItems.sort((a, b) => (b.reactions + postComments[b.id] || 0) - (a.reactions + postComments[a.id] || 0));
+  }
+
+  const currentItems = displayedItems.slice(startIndex, endIndex);
+  const totalPages = Math.ceil(displayedItems.length / itemsPerPage);
 
   return (
     <div className="mt-10 text-center text-2xl">
@@ -80,7 +89,13 @@ function Blogs({ userId }) {
           {userId ? `by ${user?.firstName} ${user?.maidenName} ${user?.lastName}` : ''}
         </h3>
       </div>
-      <div className="flex justify-end">
+      <div className="flex justify-between w-full">
+        <select id="countries" value={filter} onChange={(e) => setFilter((state) => e.target.value)} className="block md:w-72 mt-5 ml-10 text-sm outline-none text-gray-400 focus:text-gray-800 border-2 border-gray-300 rounded-lg bg-gray-50 focus:ring-pink-500 focus:border-pink-500">
+          <option value="">Choose a filter</option>
+          <option value="Likeness">Likeness</option>
+          <option value="Popularity">Popularity</option>
+        </select>
+
         <input
           type="search"
           value={searchTerm}
@@ -126,11 +141,11 @@ function Blogs({ userId }) {
         <span className="text-sm text-gray-700 mt-3">
           Page Number :
           {' '}
-          <span className="font-semibold text-pink-400 ">{currentPage}</span>
+          <span className="font-semibold text-blue-custom ">{currentPage}</span>
           {' '}
           out of
           {' '}
-          <span className="font-semibold text-pink-400 ">{totalPages}</span>
+          <span className="font-semibold text-blue-custom ">{totalPages}</span>
         </span>
       </div>
     </div>

@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 /* eslint-disable default-param-last */
 import actions from './actions';
 
@@ -49,7 +50,7 @@ const Blogs = (state = initState, action) => {
         ...state,
         loading: false,
         success: 'Blog created successfully',
-        blogs: [...state.blogs, data],
+        blogs: [data, ...state.blogs],
       };
     case UPDATE_BLOG_BEGIN:
       return {
@@ -86,7 +87,7 @@ const Blogs = (state = initState, action) => {
       return {
         ...state,
         loading: false,
-        success: 'Blog liked successfully',
+        success: err,
         blogs: state.blogs.map((blog) => (blog.id === data.id ? data : blog)),
       };
     case API_ERROR:

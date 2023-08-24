@@ -30,10 +30,10 @@ function Comment({ commentDetails }) {
         <button
           id="dropdownComment3Button"
           onClick={handleDelete}
-          className="inline-flex items-center p-2 text-sm font-medium text-center text-gray-400 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50"
+          className="inline-flex items-center p-2 text-sm font-medium text-center text-gray-400 bg-gray-50 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50"
           type="button"
         >
-         <DeleteFilled className="" style={{ color: 'red' }} />
+         <DeleteFilled className="text-red-custom" />
         </button>
       </footer>
       <p className="text-gray-500">{commentDetails.body}</p>
