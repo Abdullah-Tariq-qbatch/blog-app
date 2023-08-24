@@ -21,7 +21,7 @@ function Comment({ commentDetails }) {
         <div className="flex items-center">
           <div className="inline-flex items-center mr-3 text-sm text-gray-900">
             <Avatar initials={`${commentDetails.user.username[0]}${commentDetails.user.username[1]}${commentDetails.user.username[2]}`} bgColor="bg-pink-500" />
-            <span className="ml-2">
+            <span className="ml-2 text-black dark:text-white">
               {' '}
               {commentDetails.user.username}
             </span>
@@ -30,13 +30,13 @@ function Comment({ commentDetails }) {
         <button
           id="dropdownComment3Button"
           onClick={handleDelete}
-          className="inline-flex items-center p-2 text-sm font-medium text-center text-gray-400 bg-gray-50 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50"
+          className="inline-flex items-center p-2 text-sm font-medium text-center text-gray-400 dark:bg-gray-600 bg-gray-50 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50"
           type="button"
         >
          <DeleteFilled className="text-red-custom" />
         </button>
       </footer>
-      <p className="text-gray-500">{commentDetails.body}</p>
+      <p className="text-gray-500 dark:text-gray-200">{commentDetails.body}</p>
     </article>
   );
 }

@@ -15,17 +15,17 @@ function getInitials(user) {
 function Card({ blog, user, comments }) {
   const imageSrc = blog?.file ? blog.file : 'https://img.freepik.com/free-photo/old-camera-notebook-laptop-with-blue-pencil-cup-cappuccino-white-background_23-2147979092.jpg';
   return (
-    <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow flex flex-col">
-      <img className="rounded-t-lg w-96 h-60" src={imageSrc} alt="" />
+    <div className="max-w-sm bg-white dark:bg-gray-950 border dark:border-gray-950 border-gray-200 rounded-lg shadow flex flex-col">
+      <img className="rounded-t-lg w-96 h-44" src={imageSrc} alt="" />
 
-      <div className="bg-gray-50 border-2 border-gray-100 rounded-lg px-5 -mt-5 mx-auto w-11/12 mb-5">
+      <div className="bg-gray-50 dark:bg-gray-800 border-2 border-gray-100 dark:border-gray-900 rounded-lg px-5 -mt-14 mx-auto w-11/12 mb-5">
         <div className="flex justify-center -mt-7">
           {user?.image ? <Image src={user.image} /> : <Avatar initials={getInitials(user)} bgColor="bg-pink-custom" />}
         </div>
 
         <div className="flex justify-center mt-1">
           <Link to={`/user/${user.id}/blogs`}>
-            <p className="mx-2 text-base text-gray-400 flex items-center hover:text-pink-custom">
+            <p className="mx-2 text-xs text-gray-400 dark:text-gray-200 flex items-center dark:hover:text-pink-800 hover:text-pink-custom">
               {user?.firstName}
               {' '}
               {user?.maidenName}
@@ -35,29 +35,29 @@ function Card({ blog, user, comments }) {
           </Link>
         </div>
 
-        <div className="mt-2 mx-3 max-h-20 h-20">
+        <div className="mt-2 mx-3 max-h-14 h-14">
           <Link to={`/blog/${blog.id}`} state={{ blog, user, comments }}>
-            <p className="mb-2 text-xl font-bold text-center tracking-tight text-gray-700 hover:text-pink-custom">{blog.title}</p>
+            <p className="mb-2 text-base font-bold text-center tracking-tight text-gray-700 dark:text-gray-50 hover:text-pink-custom dark:hover:text-pink-800">{blog.title}</p>
           </Link>
         </div>
 
         <footer className="mt-5 p-4">
           <hr />
-          <div className="flex items-center justify-between">
-            <div className="text-lg flex items-center">
+          <div className="flex items-center justify-between text-base">
+            <div className="flex items-center">
               {' '}
               <HeartOutlined className="text-pink-custom" />
               {'  '}
-              <span className="pl-1 pb-1 text-gray-500">
+              <span className="pl-1 pb-1 text-gray-500 dark:text-gray-200">
                 {' '}
 
                 {blog.reactions}
               </span>
             </div>
-            <div className="text-lg flex items-center">
+            <div className="flex items-center">
               <CommentOutlined className="text-blue-custom" />
               {'  '}
-              <span className="pl-1 pb-1 text-gray-500">{comments || 0}</span>
+              <span className="pl-1 pb-1 text-gray-500 dark:text-gray-200">{comments || 0}</span>
             </div>
           </div>
         </footer>

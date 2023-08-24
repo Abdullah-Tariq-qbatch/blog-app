@@ -50,9 +50,9 @@ function CreateBlog() {
   };
 
   return (
-    <section className="bg-white">
+    <section className="bg-white dark:bg-gray-800">
       <div className="py-8 px-4 mx-auto max-w-2xl lg:py-16">
-        <h2 className="mb-4 text-xl font-bold text-gray-700">
+        <h2 className="mb-4 text-xl font-bold text-gray-700 dark:text-gray-200">
           {blog ? 'Update Blog' : 'Write Your Own Blog'}
         </h2>
         <Formik initialValues={initialValues} onSubmit={onSubmit} validate={validate}>
@@ -61,7 +61,7 @@ function CreateBlog() {
           }) => (
             <Form>
               {errors.file && touched.file ? (<ErrorMessage name="file" component="h3" className="text-red-custom mb-3 animate-pulse text-sm font-medium" />) : (
-                <h3 className="text-sm font-medium text-gray-700 mb-3">
+                <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
                   Cover Photo
                 </h3>
               )}
@@ -69,7 +69,7 @@ function CreateBlog() {
               <div className={`flex items-center justify-center w-full ${errors.file && touched.file ? 'animate-pulse' : ''}`}>
                 <label
                   htmlFor="dropzone-file"
-                  className={`flex flex-col items-center justify-center md:h-96 md:w-full sm:w-96 sm:h-60 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 ${errors.file && touched.file ? 'border-red-custom' : values.file ? 'border-indigo-custom' : 'border-gray-300'}`}
+                  className={`flex flex-col items-center justify-center md:h-96 md:w-full sm:w-96 sm:h-60 border-2 border-gray-300 dark:border-gray-700 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-600 ${errors.file && touched.file ? 'border-red-custom dark:border-red-800' : values.file ? 'border-indigo-custom dark:border-indigo-800' : 'border-gray-300 dark:border-gray-700'}`}
                 >
                   {values.file ? (
                     <img
@@ -117,7 +117,7 @@ function CreateBlog() {
               <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 mt-5">
                 <div className="sm:col-span-2">
                   {errors.title && touched.title ? (<ErrorMessage name="title" component="label" className="text-red-custom block mb-2 text-sm font-medium animate-pulse" />) : (
-                    <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-700">
+                    <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
                       Title
                     </label>
                   )}
@@ -126,7 +126,7 @@ function CreateBlog() {
                     type="text"
                     name="title"
                     id="title"
-                    className={`bg-gray-50 border-2 outline-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-custom focus:border-indigo-custom block w-full p-2.5 ${errors.title && touched.title ? 'animate-pulse border-red-custom' : 'border-gray-300'}`}
+                    className={`bg-gray-50 dark:bg-gray-600 border-2 outline-none border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-200 text-sm rounded-lg focus:ring-indigo-custom focus:border-indigo-custom block w-full p-2.5 ${errors.title && touched.title ? 'animate-pulse border-red-custom dark:border-red-800' : 'border-gray-300 dark:border-gray-700'}`}
                     placeholder="Type blog title"
                   />
 
@@ -134,7 +134,7 @@ function CreateBlog() {
 
                 <div className="sm:col-span-2">
                   {errors.body && touched.body ? (<ErrorMessage name="body" component="label" className="text-red-custom block mb-2 text-sm font-medium animate-pulse" />) : (
-                    <label htmlFor="body" className="block mb-2 text-sm font-medium text-gray-700">
+                    <label htmlFor="body" className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
                       Body
                     </label>
                   )}
@@ -144,7 +144,7 @@ function CreateBlog() {
                     id="body"
                     name="body"
                     rows="8"
-                    className={`block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border-2 border-gray-300 outline-none focus:ring-indigo-custom focus:border-indigo-custom ${errors.body && touched.body ? 'animate-pulse border-red-custom' : 'border-gray-300'}`}
+                    className={`block p-2.5 w-full text-sm text-gray-900 dark:text-gray-200 bg-gray-50 dark:bg-gray-600 rounded-lg border-2 border-gray-300 dark:border-gray-700 outline-none focus:ring-indigo-custom focus:border-indigo-custom ${errors.body && touched.body ? 'animate-pulse border-red-custom dark:border-red-800' : 'border-gray-300 dark:border-gray-700'}`}
                     placeholder="Your blog content here"
                   />
 

@@ -65,7 +65,7 @@ function Blogs({ userId }) {
 
   const memoizedFilteredItems = useMemo(() => list, [list]);
 
-  const itemsPerPage = 6;
+  const itemsPerPage = 8;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
 
@@ -81,16 +81,16 @@ function Blogs({ userId }) {
   const totalPages = Math.ceil(displayedItems.length / itemsPerPage);
 
   return (
-    <div className="mt-10 text-center text-2xl">
+    <div className="mt-10 text-center text-2xl bg-white dark:bg-gray-800">
       <div className="text-center mt-12">
-        <h3 className="text-4xl font-semibold leading-normal text-gray-700 mb-2">
+        <h3 className="text-2xl font-semibold leading-normal text-gray-700 dark:text-gray-200 mb-2">
           Some Interesting Reads
           {' '}
           {userId ? `by ${user?.firstName} ${user?.maidenName} ${user?.lastName}` : ''}
         </h3>
       </div>
       <div className="flex justify-between w-full">
-        <select id="countries" value={filter} onChange={(e) => setFilter((state) => e.target.value)} className="block md:w-72 mt-5 ml-10 text-sm outline-none text-gray-400 focus:text-gray-800 border-2 border-gray-300 rounded-lg bg-gray-50 focus:ring-pink-500 focus:border-pink-500">
+        <select id="countries" value={filter} onChange={(e) => setFilter((state) => e.target.value)} className="block md:w-60 h-11 ml-10 text-sm outline-none dark:bg-gray-600 dark:border-gray-700 text-gray-400 dark:focus:text-gray-200 focus:text-gray-800 border-2 border-gray-300 rounded-lg bg-gray-50 dark:focus:ring-pink-800 dark:focus:border-pink-800 focus:ring-pink-500 focus:border-pink-500">
           <option value="">Choose a filter</option>
           <option value="Likeness">Likeness</option>
           <option value="Popularity">Popularity</option>
@@ -101,15 +101,15 @@ function Blogs({ userId }) {
           value={searchTerm}
           onChange={handleSearchChange}
           id="default-search"
-          className="block md:w-72 mt-5 mr-10 p-4 text-sm outline-none text-gray-900 border-2 border-gray-300 rounded-lg bg-gray-50 focus:ring-pink-500 focus:border-pink-500"
+          className="block md:w-60 h-11 mr-10 p-4 text-sm outline-none  dark:bg-gray-600 dark:border-gray-700 dark:text-gray-200 text-gray-900 border-2 border-gray-300 rounded-lg bg-gray-50 focus:ring-pink-500 focus:border-pink-500 dark:focus:ring-pink-800 dark:focus:border-pink-800"
           placeholder="Search Blogs..."
           required
         />
       </div>
 
-      <div className="flex justify-center mt-10">
+      <div className="flex justify-center mt-8 mx-10">
         {BlogsData.loading || UserData.loading || CommentData.loading ? (
-          <div className="w-full flex justify-center items-center h-60 mt-10">
+          <div className="w-full flex justify-center dark:bg-gray-800 items-center h-60 mt-10">
             <Oval
               height={80}
               width={80}
@@ -124,21 +124,21 @@ function Blogs({ userId }) {
             />
           </div>
         ) : currentItems.length ? (
-          <div className="grid md:grid-cols-3 sm:grid-cols-1 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {currentItems.map((blog) => (<Card blog={blog} user={users[blog.userId]} key={`${blog.id} + ${blog.title}`} comments={postComments[blog.id]} />))}
           </div>
         ) : (
-          <div className="w-full flex justify-center items-center mt-10">
+          <div className="w-full flex justify-center items-center mt-10 text-black dark:text-gray-200">
             <h1>Sorry, Your search has yielded no results</h1>
           </div>
         )}
       </div>
-      <div className="flex flex-col justify-center items-end mt-5 mr-20 mb-10">
+      <div className="flex flex-col justify-center items-end mt-5 mr-20 pb-10">
 
-        <nav aria-label="Page navigation example">
+        <nav aria-label="Page navigation example bg-white dark:bg-gray-700">
           <Pagination currentPage={currentPage} totalPages={totalPages} setSearchParams={setSearchParams} />
         </nav>
-        <span className="text-sm text-gray-700 mt-3">
+        <span className="text-sm text-gray-700 dark:text-gray-200 mt-3">
           Page Number :
           {' '}
           <span className="font-semibold text-blue-custom ">{currentPage}</span>
