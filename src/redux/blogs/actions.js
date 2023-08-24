@@ -54,10 +54,9 @@ const actions = {
     data,
   }),
 
-  likeBlogSuccess: (data, message) => ({
+  likeBlogSuccess: (data) => ({
     type: actions.LIKE_BLOG,
     data,
-    err: message,
   }),
 
   copyLinkSuccess: (message) => ({

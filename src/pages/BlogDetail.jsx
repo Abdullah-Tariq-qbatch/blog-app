@@ -1,3 +1,6 @@
+/* eslint-disable arrow-body-style */
+/* eslint-disable semi */
+/* eslint-disable no-plusplus */
 /* eslint-disable jsx-a11y/img-redundant-alt */
 /* eslint-disable max-len */
 /* eslint-disable jsx-a11y/label-has-associated-control */
@@ -55,6 +58,14 @@ function BlogDetail() {
     ? blog.file
     : 'https://img.freepik.com/free-photo/old-camera-notebook-laptop-with-blue-pencil-cup-cappuccino-white-background_23-2147979092.jpg';
 
+  useEffect(() => {
+    return () => {
+      dispatch(
+        likeBlog(blog.id, blog),
+      );
+    }
+  }, []);
+
   const handleInputChange = (event) => {
     setCommentText(event.target.value);
   };
@@ -63,21 +74,15 @@ function BlogDetail() {
     setLike((state) => true);
     const audio = new Audio(likeAudio);
     audio.play();
-    dispatch(
-      likeBlog(blog.id, { ...blog, reactions: blog.reactions + 1 }, 'Blog Liked'),
-    );
+    blog.reactions++;
   };
 
   const handleDisLike = () => {
     setLike((state) => false);
     if (blog.reactions) {
-      dispatch(
-        likeBlog(blog.id, { ...blog, reactions: blog.reactions - 1 }, 'Blog Unliked'),
-      );
+      blog.reactions--;
     } else {
-      dispatch(
-        likeBlog(blog.id, { ...blog, reactions: 0 }, 'Blog Unliked'),
-      );
+      blog.reactions = 0
     }
   };
 
@@ -146,7 +151,7 @@ function BlogDetail() {
             ) : (
               <HeartOutlined className="pr-2 text-pink-custom text-xl" onClick={handleLike} />
             )}
-            <p className=" text-gray-600">{blog.reactions}</p>
+            <p className=" text-gray-600 dark:text-gray-400">{blog.reactions}</p>
           </div>
 
           <div className="w-1/3 flex justify-center items-center">

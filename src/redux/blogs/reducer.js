@@ -87,7 +87,6 @@ const Blogs = (state = initState, action) => {
       return {
         ...state,
         loading: false,
-        success: err,
         blogs: state.blogs.map((blog) => (blog.id === data.id ? data : blog)),
       };
     case API_ERROR:
