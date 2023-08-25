@@ -121,7 +121,7 @@ function BlogDetail() {
         </div>
         <div className="flex items-center justify-center mt-5">
           <Link to={`/user/${user.id}/blogs`}>
-            <p className="mx-2 text-base text-gray-500 dark:text-gray-400 flex items-center dark:hover:text-pink-800 hover:text-pink-custom">
+            <p className="mx-2 text-base text-gray-500 dark:text-gray-400 text-center dark:hover:text-pink-800 hover:text-pink-custom">
               {user?.firstName}
               {' '}
               {user?.maidenName}
@@ -130,7 +130,7 @@ function BlogDetail() {
             </p>
           </Link>
         </div>
-        <p className="md:text-4xl text-center sm:text-xl py-10 pl-5 font-semibold text-gray-700 dark:text-gray-200">
+        <p className="md:text-4xl text-center sm:text-xl py-10 font-semibold text-gray-700 dark:text-gray-200">
           {blog.title}
         </p>
         <div className="flex justify-center w-2/3 m-auto">
@@ -158,7 +158,7 @@ function BlogDetail() {
 
         <hr className="w-4/5 m-auto my-8" />
 
-        <div className="max-w-3xl mx-auto px-4 text-xl text-justify leading-relaxed my-10 text-gray-600 dark:text-gray-50">
+        <div className="max-w-3xl mx-auto px-4 text-xs sm:text-xl text-justify leading-relaxed my-10 text-gray-600 dark:text-gray-50">
           <p>{blog.body}</p>
           <p className="my-2">In sunt eiusmod ipsum ad pariatur reprehenderit est ut. Cupidatat velit cupidatat incididunt pariatur sit eiusmod. Minim cupidatat sint irure culpa voluptate veniam quis magna est. Non in cupidatat culpa magna eiusmod. Labore culpa aliqua consectetur ipsum reprehenderit nulla qui aute quis.</p>
           <p className="my-2">In sunt eiusmod ipsum ad pariatur reprehenderit est ut. Cupidatat velit cupidatat incididunt pariatur sit eiusmod. Minim cupidatat sint irure culpa voluptate veniam quis magna est. Non in cupidatat culpa magna eiusmod. Labore culpa aliqua consectetur ipsum reprehenderit nulla qui aute quis.</p>
@@ -170,7 +170,7 @@ function BlogDetail() {
         <section className=" py-8 lg:py-8">
           <div className="max-w-3xl mx-auto px-4 border-b border-gray-200">
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-lg lg:text-2xl font-bold text-gray-700 dark:text-gray-200">
+              <h2 className="text-base sm:text-lg lg:text-2xl font-bold text-gray-700 dark:text-gray-200">
                 Discussion
                 {' '}
                 (
@@ -182,7 +182,7 @@ function BlogDetail() {
               <div className="w-full mb-4 rounded-lg">
                 <div className="px-4 py-2 rounded-t-lg">
                   <label htmlFor="comment" className="sr-only">Your comment</label>
-                  <textarea id="comment" value={commentText} onChange={handleInputChange} rows="4" className="rounded-lg pl-2 pt-2 pr-2 pb-2 w-full px-0 text-sm text-gray-900 dark:bg-gray-600 bg-white border-2 dark:border-gray-800 border-gray-300 outline-none focus:border-pink-500 focus:ring-0" placeholder="Write a comment..." required />
+                  <textarea id="comment" value={commentText} onChange={handleInputChange} rows="4" className="rounded-lg pl-2 pt-2 pr-2 pb-2 w-full px-0 text-sm text-gray-900 dark:text-gray-200 dark:bg-gray-600 bg-white border-2 dark:border-gray-800 border-gray-300 outline-none focus:border-pink-500 focus:ring-0" placeholder="Write a comment..." required />
                 </div>
                 <div className="flex items-center justify-between px-4 pb-2">
                   <button type="button" onClick={handleAddComment} className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-custom rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800">

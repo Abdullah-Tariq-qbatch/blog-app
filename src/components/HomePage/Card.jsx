@@ -27,7 +27,7 @@ function Card({ blog, user, comments }) {
         </div>
 
         <div className="flex justify-center mt-1">
-          <Link to={`/user/${user.id}/blogs`}>
+          <Link to={`/user/${user?.id}/blogs`}>
             <p className="mx-2 text-xs text-gray-400 dark:text-gray-200 flex items-center dark:hover:text-pink-800 hover:text-pink-custom">
               {user?.firstName}
               {' '}
@@ -39,7 +39,7 @@ function Card({ blog, user, comments }) {
         </div>
 
         <div className="mt-2 mx-3 max-h-14 h-14">
-          <Link to={`/blog/${blog.id}`} state={{ blog, user, comments }}>
+          <Link to={`/blog/${blog?.id}`} state={{ blog, user, comments }}>
             <p className="mb-2 text-base font-bold text-center tracking-tight text-gray-700 dark:text-gray-50 hover:text-pink-custom dark:hover:text-pink-800">{blog.title}</p>
           </Link>
         </div>
