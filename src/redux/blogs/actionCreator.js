@@ -87,12 +87,13 @@ export const updateBlog = (id, data) => {
 };
 
 export const likeBlog = (id, data) => {
+  const tempBlog = _.cloneDeep(data);
   return async (dispatch) => {
     try {
-      if (data.file) {
-        const { file } = data;
-        delete data.file;
-        const response = await api.blogs.update(id, data);
+      if (tempBlog.file) {
+        const { file } = tempBlog;
+        delete tempBlog.file;
+        const response = await api.blogs.update(id, tempBlog);
         if (isSuccess(response)) {
           const blog = response.data;
           blog.file = file;

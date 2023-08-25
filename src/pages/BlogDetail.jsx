@@ -8,7 +8,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable radix */
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import _ from 'lodash';
@@ -58,10 +58,16 @@ function BlogDetail() {
     ? blog.file
     : 'https://img.freepik.com/free-photo/old-camera-notebook-laptop-with-blue-pencil-cup-cappuccino-white-background_23-2147979092.jpg';
 
+  const blogRef = useRef(blog);
+
+  useEffect(() => {
+    blogRef.current = blog;
+  }, [blog])
+
   useEffect(() => {
     return () => {
       dispatch(
-        likeBlog(blog.id, blog),
+        likeBlog(blog.id, blogRef.current),
       );
     }
   }, []);
