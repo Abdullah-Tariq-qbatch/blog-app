@@ -14,10 +14,13 @@ import React, {
 } from 'react';
 import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
-import { Oval } from 'react-loader-spinner';
+import { Oval, ColorRing } from 'react-loader-spinner';
 import _ from 'lodash';
+
+import Header from './Header';
 import Card from './Card';
 import Pagination from './Pagination';
+import Spinner from '../Spinner';
 
 function Blogs({ userId }) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -82,47 +85,10 @@ function Blogs({ userId }) {
 
   return (
     <div className="mt-10 text-center text-2xl bg-white dark:bg-gray-800">
-      <div className="text-center mt-12">
-        <h3 className="text-2xl font-semibold leading-normal text-gray-700 dark:text-gray-200 mb-2">
-          Some Interesting Reads
-          {' '}
-          {userId ? `by ${user?.firstName} ${user?.maidenName} ${user?.lastName}` : ''}
-        </h3>
-      </div>
-      <div className="flex flex-col sm:flex-row justify-between w-full">
-        <select id="countries" value={filter} onChange={(e) => setFilter((state) => e.target.value)} className="block md:w-60 h-11 mx-10 sm:ml-10 text-sm outline-none dark:bg-gray-600 dark:border-gray-700 text-gray-400 dark:focus:text-gray-200 focus:text-gray-800 border-2 border-gray-300 rounded-lg bg-gray-50 dark:focus:ring-pink-800 dark:focus:border-pink-800 focus:ring-pink-500 focus:border-pink-500">
-          <option value="">Choose a filter</option>
-          <option value="Likeness">Likeness</option>
-          <option value="Popularity">Popularity</option>
-        </select>
-
-        <input
-          type="search"
-          value={searchTerm}
-          onChange={handleSearchChange}
-          id="default-search"
-          className="block md:w-60 h-11 mt-3 sm:mt-0  mx-10 sm:mr-10 p-4 text-sm outline-none  dark:bg-gray-600 dark:border-gray-700 dark:text-gray-200 text-gray-900 border-2 border-gray-300 rounded-lg bg-gray-50 focus:ring-pink-500 focus:border-pink-500 dark:focus:ring-pink-800 dark:focus:border-pink-800"
-          placeholder="Search Blogs..."
-          required
-        />
-      </div>
-
+      <Header userId={userId} user={user} filter={filter} setFilter={setFilter} searchTerm={searchTerm} handleSearchChange={handleSearchChange} />
       <div className="flex justify-center mt-8 mx-5 sm:mx-10">
         {BlogsData.loading || UserData.loading || CommentData.loading ? (
-          <div className="w-full flex justify-center dark:bg-gray-800 items-center h-60 mt-10">
-            <Oval
-              height={80}
-              width={80}
-              color="#FE02CA"
-              wrapperStyle={{}}
-              wrapperClass=""
-              visible
-              ariaLabel="oval-loading"
-              secondaryColor="#FF9EEB"
-              strokeWidth={2}
-              strokeWidthSecondary={2}
-            />
-          </div>
+          <Spinner />
         ) : currentItems.length ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {currentItems.map((blog) => (<Card blog={blog} user={users[blog.userId]} key={`${blog.id} + ${blog.title}`} comments={postComments[blog.id]} />))}

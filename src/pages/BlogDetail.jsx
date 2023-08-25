@@ -12,10 +12,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import _ from 'lodash';
-import { Oval } from 'react-loader-spinner';
 import {
   HeartOutlined,
-  CommentOutlined,
   ShareAltOutlined,
   HeartFilled,
   EditOutlined,
@@ -27,6 +25,7 @@ import Comment from '../components/BlogDetailsPage/CommentCard';
 import { copyLink, likeBlog } from '../redux/blogs/actionCreator';
 import { createComment } from '../redux/comments/actionCreator';
 import likeAudio from '../assets/likeSound.mp3';
+import Spinner from '../components/Spinner';
 
 function getInitials(user) {
   return user?.firstName
@@ -111,20 +110,7 @@ function BlogDetail() {
   };
 
   return BlogsData.loading ? (
-    <div className="w-full flex justify-center items-center dark:bg-gray-800 h-screen mt-10">
-      <Oval
-        height={80}
-        width={80}
-        color="#FE02CA"
-        wrapperStyle={{}}
-        wrapperClass=""
-        visible
-        ariaLabel="oval-loading"
-        secondaryColor="#FF9EEB"
-        strokeWidth={2}
-        strokeWidthSecondary={2}
-      />
-    </div>
+    <Spinner />
   ) : (
     <div className="w-full bg-white dark:bg-gray-800 flex flex-col pb-9">
       <img className="rounded-t-lg w-full h-full" src={imageSrc} alt="" />

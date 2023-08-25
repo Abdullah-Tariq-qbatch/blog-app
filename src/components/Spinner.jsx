@@ -4,7 +4,7 @@ import { Oval } from 'react-loader-spinner';
 
 function Spinner() {
   return (
-    <div className="w-full flex justify-center h-screen pt-10">
+    <div className="w-full flex justify-center items-center dark:bg-gray-800 h-screen mt-10">
       <Oval
         height={80}
         width={80}

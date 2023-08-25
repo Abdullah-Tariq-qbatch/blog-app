@@ -1,8 +1,9 @@
+/* eslint-disable max-len */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-unused-vars */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   Formik, Form, Field, ErrorMessage,
 } from 'formik';
@@ -16,6 +17,7 @@ function CreateBlog() {
   const blog = location.state;
 
   const dispatch = useDispatch();
+
   const initialValues = {
     title: blog?.title || '',
     body: blog?.body || '',
@@ -55,7 +57,7 @@ function CreateBlog() {
         <h2 className="mb-4 text-xl font-bold text-gray-700 dark:text-gray-200">
           {blog ? 'Update Blog' : 'Write Your Own Blog'}
         </h2>
-        <Formik initialValues={initialValues} onSubmit={onSubmit} validate={validate}>
+        <Formik initialValues={initialValues} onSubmit={onSubmit} validate={validate} enableReinitialize>
           {({
             values, isSubmitting, setFieldValue, errors, touched,
           }) => (

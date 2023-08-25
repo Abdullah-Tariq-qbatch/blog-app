@@ -29,10 +29,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "custom start": "react-app-rewired start",
-    "custom build": "react-app-rewired build",
-    "custom test": "react-app-rewired test",
-    "custom eject": "react-scripts eject"
+    "custom-start": "react-app-rewired start",
+    "custom-build": "react-app-rewired build",
+    "custom-test": "react-app-rewired test",
+    "custom-eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
