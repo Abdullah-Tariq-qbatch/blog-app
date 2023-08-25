@@ -16,9 +16,12 @@ function Card({ blog, user, comments }) {
   const imageSrc = blog?.file ? blog.file : 'https://img.freepik.com/free-photo/old-camera-notebook-laptop-with-blue-pencil-cup-cappuccino-white-background_23-2147979092.jpg';
   return (
     <div className="max-w-sm bg-white dark:bg-gray-950 border dark:border-gray-950 border-gray-200 rounded-lg shadow flex flex-col">
-      <img className="rounded-t-lg w-96 h-44" src={imageSrc} alt="" />
+      <div className="relative z-0">
+        <img className="rounded-t-lg w-96 h-44" src={imageSrc} alt="" />
+        <span id="blackOverlay" className="w-full rounded-t-lg h-full absolute top-0 left-1/2 transform -translate-x-1/2 bg-black opacity-0 dark:opacity-30 flex justify-center items-center" />
+      </div>
 
-      <div className="bg-gray-50 dark:bg-gray-800 border-2 border-gray-100 dark:border-gray-900 rounded-lg px-5 -mt-14 mx-auto w-11/12 mb-5">
+      <div className="bg-gray-50 dark:bg-gray-800 border-2 border-gray-100 dark:border-gray-900 rounded-lg px-5 -mt-14 mx-auto w-11/12 mb-5 z-10">
         <div className="flex justify-center -mt-7">
           {user?.image ? <Image src={user.image} /> : <Avatar initials={getInitials(user)} bgColor="bg-pink-custom" />}
         </div>

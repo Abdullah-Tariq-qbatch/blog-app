@@ -7,7 +7,7 @@ import {
   Formik, Form, Field, ErrorMessage,
 } from 'formik';
 import { useDispatch } from 'react-redux';
-import { redirect, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { createBlog, updateBlog } from '../redux/blogs/actionCreator';
 
 function CreateBlog() {

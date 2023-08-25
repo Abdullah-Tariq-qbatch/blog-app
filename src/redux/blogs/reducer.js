@@ -45,7 +45,7 @@ const Blogs = (state = initState, action) => {
         error: null,
       };
     case CREATE_BLOG_SUCCESS:
-      localStorage.setItem('blogs', JSON.stringify([...state.blogs, data]));
+      localStorage.setItem('blogs', JSON.stringify([data, ...state.blogs]));
       return {
         ...state,
         loading: false,

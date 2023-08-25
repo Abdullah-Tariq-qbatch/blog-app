@@ -17,7 +17,7 @@ export default function MainLayout({ children }) {
     dispatch(fetchComments());
   }, []);
   return (
-    <div className="mt-20 h-full w-full bg-white dark:bg-gray-800">
+    <div className="mt-20 h-full w-full bg-white dark:bg-gray-800 ease-linear">
       <Navbar />
       <Toast />
       {children}

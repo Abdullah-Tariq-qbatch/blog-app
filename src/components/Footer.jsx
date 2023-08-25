@@ -4,7 +4,6 @@ import logo from '../assets/logo512.png';
 
 function Footer() {
   return (
-
     <footer className="bg-gray-100 dark:bg-gray-900 w-full shadow">
       <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
         <div className="sm:flex flex flex-col sm:flex-row items-center sm:items-center sm:justify-between">
