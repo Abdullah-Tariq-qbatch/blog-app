@@ -1,12 +1,14 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { fetchUsers } from '../redux/users/actionCreator';
-import { fetchBlogs } from '../redux/blogs/actionCreator';
-import { fetchComments } from '../redux/comments/actionCreator';
+
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Toast from '../components/Toast';
+
+import { fetchUsers } from '../redux/users/actionCreator';
+import { fetchBlogs } from '../redux/blogs/actionCreator';
+import { fetchComments } from '../redux/comments/actionCreator';
 
 export default function MainLayout({ children }) {
   document.title = 'Blogs';

@@ -1,7 +1,5 @@
-/* eslint-disable import/no-extraneous-dependencies */
-// rootReducer.js
-
 import { combineReducers } from 'redux';
+
 import Blogs from './blogs/reducer';
 import Users from './users/reducer';
 import Comments from './comments/reducer';

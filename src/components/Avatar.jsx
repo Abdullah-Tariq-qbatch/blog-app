@@ -1,7 +1,7 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default function Avatar({ initials, bgColor }) {
+function Avatar({ initials, bgColor }) {
   return (
     <div
       className={`w-6 h-6 flex items-center justify-center rounded-full text-white ${bgColor}`}
@@ -10,3 +10,10 @@ export default function Avatar({ initials, bgColor }) {
     </div>
   );
 }
+
+Avatar.propTypes = {
+  initials: PropTypes.string.isRequired,
+  bgColor: PropTypes.string.isRequired,
+};
+
+export default Avatar;

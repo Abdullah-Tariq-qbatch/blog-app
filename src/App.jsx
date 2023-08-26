@@ -1,9 +1,9 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import React, { lazy, Suspense } from 'react';
-import './App.css';
 import {
   BrowserRouter, Route, Routes,
 } from 'react-router-dom';
+
+import './App.css';
 import MainLayout from './layout/MainLayout';
 import Spinner from './components/Spinner';
 import ScrollToTop from './utils/scrollToTop';

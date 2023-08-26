@@ -1,13 +1,12 @@
-/* eslint-disable react/jsx-indent */
-/* eslint-disable max-len */
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
+/* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import { DeleteFilled } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
-import { deleteComment } from '../../redux/comments/actionCreator';
+import PropTypes from 'prop-types';
+
 import Avatar from '../Avatar';
+
+import { deleteComment } from '../../redux/comments/actionCreator';
 
 function Comment({ commentDetails }) {
   const dispatch = useDispatch();
@@ -33,12 +32,16 @@ function Comment({ commentDetails }) {
           className="inline-flex items-center p-2 text-sm font-medium text-center text-gray-400 dark:bg-gray-600 bg-gray-50 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50"
           type="button"
         >
-         <DeleteFilled className="text-red-custom" />
+          <DeleteFilled className="text-red-custom" />
         </button>
       </footer>
       <p className="text-gray-500 dark:text-gray-200">{commentDetails.body}</p>
     </article>
   );
 }
+
+Comment.propTypes = {
+  commentDetails: PropTypes.object.isRequired,
+};
 
 export default Comment;

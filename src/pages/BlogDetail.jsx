@@ -1,17 +1,7 @@
-/* eslint-disable arrow-body-style */
-/* eslint-disable semi */
-/* eslint-disable no-plusplus */
-/* eslint-disable jsx-a11y/img-redundant-alt */
-/* eslint-disable max-len */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable no-unused-vars */
-/* eslint-disable radix */
-/* eslint-disable import/no-extraneous-dependencies */
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import _ from 'lodash';
+import { memoize, find, groupBy } from 'lodash';
 import {
   HeartOutlined,
   ShareAltOutlined,
@@ -19,12 +9,13 @@ import {
   EditOutlined,
 } from '@ant-design/icons';
 
-import Image from '../components/Image';
+import Image from '../components/ProfileImage';
 import Avatar from '../components/Avatar';
 import Comment from '../components/BlogDetailsPage/CommentCard';
+
 import { copyLink, likeBlog } from '../redux/blogs/actionCreator';
 import { createComment } from '../redux/comments/actionCreator';
-import likeAudio from '../assets/likeSound.mp3';
+import likeAudio from '../assets/audio/likeSound.mp3';
 import Spinner from '../components/Spinner';
 
 function getInitials(user) {
@@ -41,9 +32,11 @@ function BlogDetail() {
   const UserData = useSelector((state) => state.Users);
   const CommentData = useSelector((state) => state.Comments);
 
-  const memoizedFindBlog = _.memoize((Id) => _.find(BlogsData.blogs, (obj) => obj.id === parseInt(Id)));
-  const memoizedFindUser = _.memoize((userId) => _.find(UserData.users, { id: userId }));
-  const memoizedGroupComments = _.memoize((comments) => _.groupBy(comments, 'postId'));
+  const memoizedFindBlog = memoize(
+    (Id) => find(BlogsData.blogs, (obj) => obj.id === parseInt(Id, 10)),
+  );
+  const memoizedFindUser = memoize((userId) => find(UserData.users, { id: userId }));
+  const memoizedGroupComments = memoize((comments) => groupBy(comments, 'postId'));
 
   const blog = memoizedFindBlog(id);
   const user = memoizedFindUser(blog.userId);
@@ -61,14 +54,12 @@ function BlogDetail() {
 
   useEffect(() => {
     blogRef.current = blog;
-  }, [blog])
+  }, [blog]);
 
-  useEffect(() => {
-    return () => {
-      dispatch(
-        likeBlog(blog.id, blogRef.current),
-      );
-    }
+  useEffect(() => () => {
+    dispatch(
+      likeBlog(blog.id, blogRef.current),
+    );
   }, []);
 
   const handleInputChange = (event) => {
@@ -76,18 +67,18 @@ function BlogDetail() {
   };
 
   const handleLike = () => {
-    setLike((state) => true);
+    setLike(() => true);
     const audio = new Audio(likeAudio);
     audio.play();
-    blog.reactions++;
+    blog.reactions += blog.reactions;
   };
 
   const handleDisLike = () => {
-    setLike((state) => false);
+    setLike(() => false);
     if (blog.reactions) {
-      blog.reactions--;
+      blog.reactions -= blog.reactions;
     } else {
-      blog.reactions = 0
+      blog.reactions = 0;
     }
   };
 
@@ -181,7 +172,6 @@ function BlogDetail() {
             <form>
               <div className="w-full mb-4 rounded-lg">
                 <div className="px-4 py-2 rounded-t-lg">
-                  <label htmlFor="comment" className="sr-only">Your comment</label>
                   <textarea id="comment" value={commentText} onChange={handleInputChange} rows="4" className="rounded-lg pl-2 pt-2 pr-2 pb-2 w-full px-0 text-sm text-gray-900 dark:text-gray-200 dark:bg-gray-600 bg-white border-2 dark:border-gray-800 border-gray-300 outline-none focus:border-pink-500 focus:ring-0" placeholder="Write a comment..." required />
                 </div>
                 <div className="flex items-center justify-between px-4 pb-2">

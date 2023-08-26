@@ -1,6 +1,9 @@
-/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable jsx-a11y/interactive-supports-focus */
 import React, { useState } from 'react';
-import { DarkModeSwitch } from 'react-toggle-dark-mode';
+
+import { ReactComponent as SunSvg } from '../assets/svg/sun.svg';
+import { ReactComponent as MoonSvg } from '../assets/svg/moon.svg';
+
 import useDarkSide from '../utils/useDarkSide';
 
 export default function Switcher() {
@@ -9,18 +12,25 @@ export default function Switcher() {
     colorTheme === 'light',
   );
 
-  const toggleDarkMode = (checked) => {
+  const toggleDarkMode = () => {
     setTheme(colorTheme);
-    setDarkSide(checked);
+    setDarkSide(!darkSide);
   };
 
   return (
-    <DarkModeSwitch
-      checked={darkSide}
-      sunColor="#111828"
-      moonColor="#F3F4F6"
-      onChange={toggleDarkMode}
-      size={30}
-    />
+    <div
+      role="checkbox"
+      aria-checked={darkSide ? 'true' : 'false'}
+      onClick={toggleDarkMode}
+      onKeyDown={toggleDarkMode}
+      className={`cursor-pointer w-12 h-5 ${darkSide ? 'bg-gray-100' : 'bg-gray-900'} rounded-full relative px-1.5 flex items-center${darkSide ? '' : ' justify-end'}`}
+    >
+      <div className={`w-4 h-4 rounded-full absolute transform duration-200 ease-out ${darkSide ? 'bg-gray-900' : 'bg-gray-100'} left-0.5 ${darkSide ? 'translate-x-7' : 'translate-x-0'}`} />
+      {darkSide ? (
+        <MoonSvg />
+      ) : (
+        <SunSvg />
+      )}
+    </div>
   );
 }

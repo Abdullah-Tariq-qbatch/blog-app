@@ -1,14 +1,12 @@
-/* eslint-disable max-len */
-/* eslint-disable no-nested-ternary */
-/* eslint-disable no-unused-vars */
-/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   Formik, Form, Field, ErrorMessage,
 } from 'formik';
 import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
+
+import { ReactComponent as FileUploadIconSvg } from '../assets/svg/uploadFileIcon.svg';
 import { createBlog, updateBlog } from '../redux/blogs/actionCreator';
 
 function CreateBlog() {
@@ -57,7 +55,12 @@ function CreateBlog() {
         <h2 className="mb-4 text-xl font-bold text-gray-700 dark:text-gray-200">
           {blog ? 'Update Blog' : 'Write Your Own Blog'}
         </h2>
-        <Formik initialValues={initialValues} onSubmit={onSubmit} validate={validate} enableReinitialize>
+        <Formik
+          initialValues={initialValues}
+          onSubmit={onSubmit}
+          validate={validate}
+          enableReinitialize
+        >
           {({
             values, isSubmitting, setFieldValue, errors, touched,
           }) => (
@@ -71,7 +74,7 @@ function CreateBlog() {
               <div className={`flex items-center justify-center w-full ${errors.file && touched.file ? 'animate-pulse' : ''}`}>
                 <label
                   htmlFor="dropzone-file"
-                  className={`flex flex-col items-center justify-center md:h-96 md:w-full sm:w-96 sm:h-60 border-2 border-gray-300 dark:border-gray-700 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-600 ${errors.file && touched.file ? 'border-red-custom dark:border-red-800' : values.file ? 'border-indigo-custom dark:border-indigo-800' : 'border-gray-300 dark:border-gray-700'}`}
+                  className={`flex flex-col items-center justify-center md:h-96 md:w-full sm:w-96 sm:h-60 border-2 border-gray-300 dark:border-gray-700 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-600 focus:ring-indigo-custom focus:border-indigo-custom ${errors.file && touched.file ? 'border-red-custom dark:border-red-800' : 'border-gray-300 dark:border-gray-700'}`}
                 >
                   {values.file ? (
                     <img
@@ -81,11 +84,7 @@ function CreateBlog() {
                     />
                   ) : (
                     <div className="flex w-full h-full flex-col items-center justify-center pt-5 pb-6">
-                      <svg className="w-8 h-8 mb-4 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                        {' '}
-                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
-                        {' '}
-                      </svg>
+                      <FileUploadIconSvg />
                       <p className="mb-2 text-sm text-gray-400">
                         <span className="font-semibold">Click to upload</span>
                         {' '}

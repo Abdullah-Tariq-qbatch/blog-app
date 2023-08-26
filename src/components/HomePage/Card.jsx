@@ -1,11 +1,10 @@
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
+/* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { HeartOutlined, CommentOutlined } from '@ant-design/icons';
-import Image from '../Image';
+import PropTypes from 'prop-types';
+
+import Image from '../ProfileImage';
 import Avatar from '../Avatar';
 
 function getInitials(user) {
@@ -70,5 +69,11 @@ function Card({ blog, user, comments }) {
 
   );
 }
+
+Card.propTypes = {
+  blog: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+  comments: PropTypes.number.isRequired,
+};
 
 export default Card;

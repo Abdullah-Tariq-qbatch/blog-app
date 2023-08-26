@@ -1,28 +1,29 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
-import logo from '../assets/logo512.png';
+import { Link } from 'react-router-dom';
+
+import logo from '../assets/image/png/logo512.png';
 
 function Footer() {
   return (
-    <footer className="bg-gray-100 dark:bg-gray-900 w-full shadow">
-      <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+    <footer className="bg-gray-100 dark:bg-gray-900 w-full shadow p-5 px-16">
+      <div className="w-full mx-auto">
         <div className="sm:flex flex flex-col sm:flex-row items-center sm:items-center sm:justify-between">
-          <a href="#" className="flex items-center mb-4 sm:mb-0">
+          <Link to="/" className="flex items-center mb-4 sm:mb-0">
             <img src={logo} className="h-8 mr-3" alt="Logo" />
             <span className="self-center text-2xl text-gray-700 dark:text-gray-100 font-semibold whitespace-nowrap">Blog App</span>
-          </a>
+          </Link>
           <ul className="flex flex-wrap items-center justify-center sm:justify-start mb-1 text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-200 sm:mb-0 leading-loose">
             <li>
-              <a href="#" className="mr-2 hover:underline md:mr-6 ">About</a>
+              <Link href="/" className="mr-2 hover:underline md:mr-6 ">About</Link>
             </li>
             <li>
-              <a href="#" className="mr-2 hover:underline md:mr-6">Privacy Policy</a>
+              <Link href="/" className="mr-2 hover:underline md:mr-6">Privacy Policy</Link>
             </li>
             <li>
-              <a href="#" className="mr-2 hover:underline md:mr-6 ">Licensing</a>
+              <Link href="/" className="mr-2 hover:underline md:mr-6 ">Licensing</Link>
             </li>
             <li>
-              <a href="#" className="hover:underline">Contact</a>
+              <Link href="/" className="hover:underline">Contact</Link>
             </li>
           </ul>
         </div>
@@ -30,7 +31,7 @@ function Footer() {
         <span className="block text-sm text-gray-500 dark:text-gray-500 text-center sm:text-center">
           © 2023
           {' '}
-          <a href="#" className="hover:underline">MAT</a>
+          MAT
           . All Rights Reserved.
         </span>
       </div>

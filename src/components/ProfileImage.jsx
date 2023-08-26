@@ -1,8 +1,7 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default function Image({ src }) {
+function ProfileImage({ src }) {
   return (
     <div
       className="w-14 h-14 bg-white dark:bg-gray-900 flex items-center justify-center rounded-full text-white border border-pink-custom dark:border-pink-800"
@@ -11,3 +10,9 @@ export default function Image({ src }) {
     </div>
   );
 }
+
+ProfileImage.propTypes = {
+  src: PropTypes.string.isRequired,
+};
+
+export default ProfileImage;

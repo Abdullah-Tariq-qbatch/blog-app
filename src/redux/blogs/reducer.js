@@ -1,4 +1,3 @@
-/* eslint-disable no-case-declarations */
 /* eslint-disable default-param-last */
 import actions from './actions';
 

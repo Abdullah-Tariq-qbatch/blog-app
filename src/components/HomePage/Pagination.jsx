@@ -1,8 +1,5 @@
-/* eslint-disable radix */
-/* eslint-disable no-plusplus */
-/* eslint-disable react/prop-types */
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function Pagination({ currentPage, totalPages, setSearchParams }) {
   const pagesToShow = 2;
@@ -16,7 +13,7 @@ function Pagination({ currentPage, totalPages, setSearchParams }) {
   }
 
   const paginationLinks = [];
-  for (let i = startPage; i <= endPage; i++) {
+  for (let i = startPage; i <= endPage; i += 1) {
     const isActive = i === currentPage;
     paginationLinks.push(
       <li key={i}>
@@ -43,7 +40,7 @@ function Pagination({ currentPage, totalPages, setSearchParams }) {
           onClick={() => setSearchParams({ page: 1 })}
           className="flex items-center justify-center px-1 sm:px-3 h-8 leading-tight rounded-l-lg dark:text-gray-200 text-gray-500 dark:bg-gray-600 bg-white border dark:border-gray-700 border-gray-300 dark:hover:bg-gray-800 hover:bg-gray-100 dark:hover:text-gray-300 hover:text-gray-700"
         >
-          {parseInt(window.innerWidth) <= 640 ? '<<' : 'First'}
+          {parseInt(window.innerWidth, 10) <= 640 ? '<<' : 'First'}
         </button>
       </li>
       {paginationLinks}
@@ -53,11 +50,17 @@ function Pagination({ currentPage, totalPages, setSearchParams }) {
           onClick={() => setSearchParams({ page: totalPages })}
           className="flex items-center justify-center px-1 sm:px-3 h-8 leading-tight rounded-r-lg dark:text-gray-200 text-gray-500 dark:bg-gray-600 bg-white border dark:border-gray-700 border-gray-300 dark:hover:bg-gray-800 hover:bg-gray-100 dark:hover:text-gray-300 hover:text-gray-700"
         >
-          {parseInt(window.innerWidth) <= 640 ? '>>' : 'Last'}
+          {parseInt(window.innerWidth, 10) <= 640 ? '>>' : 'Last'}
         </button>
       </li>
     </ul>
   );
 }
+
+Pagination.propTypes = {
+  currentPage: PropTypes.number.isRequired,
+  totalPages: PropTypes.number.isRequired,
+  setSearchParams: PropTypes.func.isRequired,
+};
 
 export default Pagination;
