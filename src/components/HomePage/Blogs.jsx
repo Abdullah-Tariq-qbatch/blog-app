@@ -14,8 +14,8 @@ import React, {
 } from 'react';
 import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
-import { Oval, ColorRing } from 'react-loader-spinner';
 import _ from 'lodash';
+import { WarningOutlined } from '@ant-design/icons';
 
 import Header from './Header';
 import Card from './Card';
@@ -94,8 +94,9 @@ function Blogs({ userId }) {
             {currentItems.map((blog) => (<Card blog={blog} user={users[blog.userId]} key={`${blog.id} + ${blog.title}`} comments={postComments[blog.id]} />))}
           </div>
         ) : (
-          <div className="w-full flex justify-center items-center mt-10 text-black dark:text-gray-200">
-            <h1>Sorry, Your search has yielded no results</h1>
+          <div className="w-full flex flex-col justify-center items-center mt-10 text-black dark:text-gray-200">
+            <WarningOutlined className="text-4xl mb-3 text-indigo-custom" />
+            <h1 className="text-gray-700 dark:text-gray-200">Sorry, Your search has yielded no result</h1>
           </div>
         )}
       </div>
