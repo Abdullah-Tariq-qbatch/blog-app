@@ -1,6 +1,7 @@
 import actions from './actions';
 import api from '../../utils/fetchData';
 import sendErrorNotification from '../../utils/slackNotification';
+import isSuccess from '../commonMethods';
 
 const {
   fetchCommentsBegin,
@@ -13,11 +14,9 @@ const {
   clearMessageError,
 } = actions;
 
-const isSuccess = (response) => response.status >= 200 && response.status <= 299;
-
 export const fetchComments = () => async (dispatch) => {
   const comments = JSON.parse(localStorage.getItem('comments'));
-  if (comments?.length && comments) {
+  if (comments) {
     dispatch(fetchCommentsSuccess(comments));
   } else {
     try {

@@ -1,9 +1,11 @@
+/* eslint-disable no-unused-vars */
 import { cloneDeep } from 'lodash';
 
 import actions from './actions';
 import api from '../../utils/fetchData';
 import sendErrorNotification from '../../utils/slackNotification';
 import uploadImage from '../../utils/imageUpload';
+import isSuccess from '../commonMethods';
 
 const {
   fetchBlogsBegin,
@@ -20,11 +22,9 @@ const {
   copyLinkSuccess,
 } = actions;
 
-const isSuccess = (response) => response.status >= 200 && response.status <= 299;
-
 export const fetchBlogs = () => async (dispatch) => {
   const blogs = JSON.parse(localStorage.getItem('blogs'));
-  if (blogs?.length && blogs) {
+  if (blogs) {
     dispatch(fetchBlogsSuccess(blogs));
   } else {
     try {
@@ -38,13 +38,11 @@ export const fetchBlogs = () => async (dispatch) => {
   }
 };
 
-export const createBlog = (data) => async (dispatch) => {
+export const createBlog = (data, file) => async (dispatch) => {
   try {
     dispatch(createBlogBegin());
-    const response = await api.blogs.create({
-      title: data.title, body: data.body, userId: data.userId, reactions: 0,
-    });
-    const imgResponse = await uploadImage.upload(data.file);
+    const imgResponse = await uploadImage.upload(file);
+    const response = await api.blogs.create(data);
     const blog = response.data;
     blog.file = imgResponse.data.url;
     if (isSuccess(response)) dispatch(createBlogSuccess(blog));
@@ -54,22 +52,17 @@ export const createBlog = (data) => async (dispatch) => {
   }
 };
 
-export const updateBlog = (id, data) => async (dispatch) => {
-  const tempBlog = cloneDeep(data);
+export const updateBlog = (id, data, file) => async (dispatch) => {
   try {
     dispatch(updateBlogBegin());
-    if (tempBlog.file) {
-      const imgResponse = await uploadImage.upload(tempBlog.file);
-      delete tempBlog.file;
-      const response = await api.blogs.update(id, tempBlog);
-      if (isSuccess(response)) {
-        const blog = response.data;
+    const response = await api.blogs.update(id, data);
+    if (isSuccess(response)) {
+      const blog = response.data;
+      if (file) {
+        const imgResponse = await uploadImage.upload(file);
         blog.file = imgResponse.data.url;
-        dispatch(updateBlogSuccess(blog));
       }
-    } else {
-      const response = await api.blogs.update(id, data);
-      if (isSuccess(response)) dispatch(updateBlogSuccess(response.data));
+      dispatch(updateBlogSuccess(blog));
     }
   } catch (error) {
     sendErrorNotification(error, import.meta.url, 'update blog');
@@ -77,28 +70,20 @@ export const updateBlog = (id, data) => async (dispatch) => {
   }
 };
 
-export const likeBlog = (id, data) => {
-  const tempBlog = cloneDeep(data);
-  return async (dispatch) => {
-    try {
-      if (tempBlog.file) {
-        const { file } = tempBlog;
-        delete tempBlog.file;
-        const response = await api.blogs.update(id, tempBlog);
-        if (isSuccess(response)) {
-          const blog = response.data;
-          blog.file = file;
-          dispatch(likeBlogSuccess(blog));
-        }
-      } else {
-        const response = await api.blogs.update(id, data);
-        if (isSuccess(response)) dispatch(likeBlogSuccess(response.data));
+export const likeBlog = (id, data, file) => async (dispatch) => {
+  try {
+    const response = await api.blogs.update(id, data);
+    if (isSuccess(response)) {
+      const blog = response.data;
+      if (file) {
+        blog.file = file;
       }
-    } catch (error) {
-      sendErrorNotification(error, import.meta.url, 'like blog');
-      dispatch(apiError(error.message));
+      dispatch(likeBlogSuccess(blog));
     }
-  };
+  } catch (error) {
+    sendErrorNotification(error, import.meta.url, 'like blog');
+    dispatch(apiError(error.message));
+  }
 };
 
 export const deleteBlog = (id) => async (dispatch) => {

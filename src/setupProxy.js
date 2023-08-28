@@ -3,8 +3,8 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 module.exports = (app) => {
   app.use(
-    createProxyMiddleware('/services/T0HHFUDBJ/B05NDL383S7/3z2cRsHPpITQMwVFCPMfShSc', {
-      target: 'https://hooks.slack.com',
+    createProxyMiddleware(process.env.REACT_APP_SLACK_END_POINT, {
+      target: process.env.REACT_APP_SLACK_BASE_URL,
       changeOrigin: true,
     }),
   );

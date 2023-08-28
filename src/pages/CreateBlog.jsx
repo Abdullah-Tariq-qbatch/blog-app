@@ -8,6 +8,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { ReactComponent as FileUploadIconSvg } from '../assets/svg/uploadFileIcon.svg';
 import { createBlog, updateBlog } from '../redux/blogs/actionCreator';
+import { RenderIf } from '../utils/commonMethods';
 
 function CreateBlog() {
   const location = useLocation();
@@ -24,10 +25,15 @@ function CreateBlog() {
 
   const onSubmit = (values, { setSubmitting }) => {
     if (blog) {
-      dispatch(updateBlog(blog.id, { ...blog, ...values }));
+      if (blog?.file) delete blog.file;
+      dispatch(
+        updateBlog(blog.id, { ...blog, title: values.title, body: values.body }, values.file),
+      );
       navigate(`/blog/${blog.id}`);
     } else {
-      dispatch(createBlog({ ...values, userId: 1 }));
+      dispatch(createBlog({
+        title: values.title, body: values.body, reactions: 0, userId: 1,
+      }, values.file));
       navigate('/');
     }
     setSubmitting(false);
@@ -65,36 +71,43 @@ function CreateBlog() {
             values, isSubmitting, setFieldValue, errors, touched,
           }) => (
             <Form>
-              {errors.file && touched.file ? (<ErrorMessage name="file" component="h3" className="text-red-custom mb-3 animate-pulse text-sm font-medium" />) : (
-                <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
-                  Cover Photo
-                </h3>
-              )}
-
+              <RenderIf
+                isTrue={(errors.file && touched.file)}
+                fallback={(
+                  <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+                    Cover Photo
+                  </h3>
+)}
+              >
+                <ErrorMessage name="file" component="h3" className="text-red-custom mb-3 animate-pulse text-sm font-medium" />
+              </RenderIf>
               <div className={`flex items-center justify-center w-full ${errors.file && touched.file ? 'animate-pulse' : ''}`}>
                 <label
                   htmlFor="dropzone-file"
                   className={`flex flex-col items-center justify-center md:h-96 md:w-full sm:w-96 sm:h-60 border-2 border-gray-300 dark:border-gray-700 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-600 focus:ring-indigo-custom focus:border-indigo-custom ${errors.file && touched.file ? 'border-red-custom dark:border-red-800' : 'border-gray-300 dark:border-gray-700'}`}
                 >
-                  {values.file ? (
+                  <RenderIf
+                    isTrue={values.file}
+                    fallback={(
+                      <div className="flex w-full h-full flex-col items-center justify-center pt-5 pb-6">
+                        <FileUploadIconSvg className="w-8 h-8 mb-4 text-gray-400" />
+                        <p className="mb-2 text-sm text-gray-400">
+                          <span className="font-semibold">Click to upload</span>
+                          {' '}
+                          or drag and drop
+                        </p>
+                        <p className="text-xs text-gray-400">
+                          SVG, PNG, JPG or GIF (MAX. 800x400px)
+                        </p>
+                      </div>
+)}
+                  >
                     <img
                       src={values.file}
                       className="w-full h-full object-cover rounded-lg"
                       alt="Uploaded"
                     />
-                  ) : (
-                    <div className="flex w-full h-full flex-col items-center justify-center pt-5 pb-6">
-                      <FileUploadIconSvg />
-                      <p className="mb-2 text-sm text-gray-400">
-                        <span className="font-semibold">Click to upload</span>
-                        {' '}
-                        or drag and drop
-                      </p>
-                      <p className="text-xs text-gray-400">
-                        SVG, PNG, JPG or GIF (MAX. 800x400px)
-                      </p>
-                    </div>
-                  )}
+                  </RenderIf>
                   <input
                     id="dropzone-file"
                     name="file"
@@ -117,12 +130,16 @@ function CreateBlog() {
 
               <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 mt-5">
                 <div className="sm:col-span-2">
-                  {errors.title && touched.title ? (<ErrorMessage name="title" component="label" className="text-red-custom block mb-2 text-sm font-medium animate-pulse" />) : (
-                    <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                      Title
-                    </label>
-                  )}
-
+                  <RenderIf
+                    isTrue={(errors.title && touched.title)}
+                    fallback={(
+                      <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+                        Title
+                      </label>
+)}
+                  >
+                    <ErrorMessage name="title" component="label" className="text-red-custom block mb-2 text-sm font-medium animate-pulse" />
+                  </RenderIf>
                   <Field
                     type="text"
                     name="title"
@@ -130,16 +147,19 @@ function CreateBlog() {
                     className={`bg-gray-50 dark:bg-gray-600 border-2 outline-none border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-200 text-sm rounded-lg focus:ring-indigo-custom focus:border-indigo-custom block w-full p-2.5 ${errors.title && touched.title ? 'animate-pulse border-red-custom dark:border-red-800' : 'border-gray-300 dark:border-gray-700'}`}
                     placeholder="Type blog title"
                   />
-
                 </div>
 
                 <div className="sm:col-span-2">
-                  {errors.body && touched.body ? (<ErrorMessage name="body" component="label" className="text-red-custom block mb-2 text-sm font-medium animate-pulse" />) : (
-                    <label htmlFor="body" className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                      Body
-                    </label>
-                  )}
-
+                  <RenderIf
+                    isTrue={(errors.body && touched.body)}
+                    fallback={(
+                      <label htmlFor="body" className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+                        Body
+                      </label>
+)}
+                  >
+                    <ErrorMessage name="body" component="label" className="text-red-custom block mb-2 text-sm font-medium animate-pulse" />
+                  </RenderIf>
                   <Field
                     as="textarea"
                     id="body"

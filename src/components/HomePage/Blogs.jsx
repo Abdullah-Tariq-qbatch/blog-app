@@ -12,6 +12,7 @@ import PropTypes from 'prop-types';
 import Card from './Card';
 import Pagination from './Pagination';
 import CardSkeleton from './CardSkeleton';
+import { RenderIf } from '../../utils/commonMethods';
 
 function Blogs({ userId }) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -76,38 +77,7 @@ function Blogs({ userId }) {
 
   const currentItems = displayedItems.slice(startIndex, endIndex);
   const totalPages = Math.ceil(displayedItems.length / itemsPerPage);
-
-  function conditionalContent() {
-    let content;
-
-    if (BlogsData.loading || UserData.loading || CommentData.loading) {
-      const tempArray = Array.from({ length: 8 }, (_, index) => index);
-      content = (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {tempArray.map((item) => (
-            <CardSkeleton key={item} />
-          ))}
-        </div>
-      );
-    } else if (currentItems.length) {
-      content = (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {currentItems.map((blog) => (
-            <Card blog={blog} user={users[blog.userId]} key={`${blog.id} + ${blog.title}`} comments={postComments[blog.id]} />
-          ))}
-        </div>
-      );
-    } else {
-      content = (
-        <div className="w-full flex flex-col justify-center items-center mt-10 text-black dark:text-gray-200">
-          <WarningOutlined className="text-4xl mb-3 text-indigo-custom" />
-          <h1 className="text-gray-700 dark:text-gray-200">Sorry, Your search has yielded no result</h1>
-        </div>
-      );
-    }
-
-    return content;
-  }
+  const tempArray = Array.from({ length: 8 }, (_, index) => index);
 
   return (
     <div className="mt-10 text-center text-2xl bg-white dark:bg-gray-800">
@@ -136,7 +106,32 @@ function Blogs({ userId }) {
         />
       </div>
       <div className="flex justify-center mt-8 mx-5 sm:mx-10">
-        {conditionalContent()}
+        <RenderIf
+          isTrue={(BlogsData.loading || UserData.loading || CommentData.loading)}
+          fallback={(
+            <RenderIf
+              isTrue={(currentItems.length)}
+              fallback={(
+                <div className="w-full flex flex-col justify-center items-center mt-10 text-black dark:text-gray-200">
+                  <WarningOutlined className="text-4xl mb-3 text-indigo-custom" />
+                  <h1 className="text-gray-700 dark:text-gray-200">Sorry, Your search has yielded no result</h1>
+                </div>
+)}
+            >
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {currentItems.map((blog) => (
+                  <Card blog={blog} user={users[blog.userId]} key={`${blog.id} + ${blog.title}`} comments={postComments[blog.id]} />
+                ))}
+              </div>
+            </RenderIf>
+)}
+        >
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {tempArray.map((item) => (
+              <CardSkeleton key={item} />
+            ))}
+          </div>
+        </RenderIf>
       </div>
       <div className="flex flex-col justify-center items-center sm:items-end mt-5 mr-0 sm:mr-20 pb-10">
 

@@ -8,10 +8,7 @@ import Image from '../ProfileImage';
 import Avatar from '../Avatar';
 
 import { defaultImageUrl } from '../../constants/constants';
-
-function getInitials(user) {
-  return `${user?.firstName[0]}${user?.maidenName[0]}${user?.lastName[0]}`;
-}
+import { getInitials, RenderIf } from '../../utils/commonMethods';
 
 function Card({ blog, user, comments }) {
   const imageSrc = blog?.file ? blog.file : defaultImageUrl;
@@ -24,7 +21,9 @@ function Card({ blog, user, comments }) {
 
       <div className="bg-gray-50 dark:bg-gray-800 border-2 border-gray-100 dark:border-gray-900 rounded-lg px-5 -mt-14 mx-auto w-11/12 mb-5 z-10">
         <div className="flex justify-center -mt-7">
-          {user?.image ? <Image src={user.image} /> : <Avatar initials={getInitials(user)} bgColor="bg-pink-custom" />}
+          <RenderIf isTrue={user?.image} fallback={<Avatar initials={getInitials(user)} bgColor="bg-pink-custom" />}>
+            <Image src={user.image} />
+          </RenderIf>
         </div>
 
         <div className="flex justify-center mt-1">

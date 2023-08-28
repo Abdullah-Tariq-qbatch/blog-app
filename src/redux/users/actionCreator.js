@@ -1,6 +1,7 @@
 import actions from './actions';
 import api from '../../utils/fetchData';
 import sendErrorNotification from '../../utils/slackNotification';
+import isSuccess from '../commonMethods';
 
 const {
   fetchUsersBegin, fetchUsersSuccess, apiError, clearMessageError,
@@ -8,13 +9,13 @@ const {
 
 export const fetchUsers = () => async (dispatch) => {
   const users = JSON.parse(localStorage.getItem('users'));
-  if (users?.length && users) {
+  if (users) {
     dispatch(fetchUsersSuccess(users));
   } else {
     try {
       dispatch(fetchUsersBegin());
       const response = await api.users.getAll();
-      if (response.status >= 200 && response.status <= 299) {
+      if (isSuccess(response)) {
         dispatch(fetchUsersSuccess(response.data.users));
       }
     } catch (error) {
