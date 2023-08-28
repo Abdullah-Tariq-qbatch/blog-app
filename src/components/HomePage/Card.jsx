@@ -22,7 +22,7 @@ function Card({ blog, user, comments }) {
       <div className="bg-gray-50 dark:bg-gray-800 border-2 border-gray-100 dark:border-gray-900 rounded-lg px-5 -mt-14 mx-auto w-11/12 mb-5 z-10">
         <div className="flex justify-center -mt-7">
           <RenderIf isTrue={user?.image} fallback={<Avatar initials={getInitials(user)} bgColor="bg-pink-custom" />}>
-            <Image src={user.image} />
+            <Image src={user?.image} />
           </RenderIf>
         </div>
 

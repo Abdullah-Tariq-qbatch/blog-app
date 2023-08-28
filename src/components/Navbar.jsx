@@ -43,7 +43,7 @@ function Navbar() {
             isOpen ? 'block' : 'hidden'
           }`}
         >
-          <div className="text-sm lg:flex-grow flex items-center">
+          <div className="text-sm lg:flex-grow flex-col lg:flex-row flex items-start mb-5 lg:mb-0">
             <Link to="/" className="block mt-4 lg:inline-block lg:mt-0 text-gray-700 dark:text-gray-200 mr-4" onClick={handleClick}>Home</Link>
             <Link to="/create-blog" className="block mt-4 lg:inline-block lg:mt-0 text-gray-700 dark:text-gray-200 mr-4" onClick={handleClick}>Write a Blog</Link>
           </div>

@@ -93,7 +93,7 @@ function BlogDetail() {
         <Spinner />
       </RenderIf>
       <div className="w-full bg-white dark:bg-gray-800 flex flex-col pb-9">
-        <img className="rounded-t-lg w-full h-full" src={imageSrc} alt="" />
+        <img className="w-full h-full" src={imageSrc} alt="" />
 
         <div className="bg-gray-50 dark:bg-gray-700 rounded-lg px-5 -mt-24 sm:-mt-48 md:-mt-96 mx-auto w-11/12 mb-5">
           <div className="flex justify-center -mt-7">
