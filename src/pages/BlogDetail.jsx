@@ -12,11 +12,12 @@ import {
 import Image from '../components/ProfileImage';
 import Avatar from '../components/Avatar';
 import Comment from '../components/BlogDetailsPage/CommentCard';
+import Spinner from '../components/Spinner';
 
+import likeAudio from '../assets/audio/likeSound.mp3';
 import { copyLink, likeBlog } from '../redux/blogs/actionCreator';
 import { createComment } from '../redux/comments/actionCreator';
-import likeAudio from '../assets/audio/likeSound.mp3';
-import Spinner from '../components/Spinner';
+import { defaultImageUrl, dummyParagraph } from '../constants/constants';
 
 function getInitials(user) {
   return user?.firstName
@@ -48,7 +49,7 @@ function BlogDetail() {
 
   const imageSrc = blog?.file
     ? blog.file
-    : 'https://img.freepik.com/free-photo/old-camera-notebook-laptop-with-blue-pencil-cup-cappuccino-white-background_23-2147979092.jpg';
+    : defaultImageUrl;
 
   const blogRef = useRef(blog);
 
@@ -151,9 +152,9 @@ function BlogDetail() {
 
         <div className="max-w-3xl mx-auto px-4 text-xs sm:text-xl text-justify leading-relaxed my-10 text-gray-600 dark:text-gray-50">
           <p>{blog.body}</p>
-          <p className="my-2">In sunt eiusmod ipsum ad pariatur reprehenderit est ut. Cupidatat velit cupidatat incididunt pariatur sit eiusmod. Minim cupidatat sint irure culpa voluptate veniam quis magna est. Non in cupidatat culpa magna eiusmod. Labore culpa aliqua consectetur ipsum reprehenderit nulla qui aute quis.</p>
-          <p className="my-2">In sunt eiusmod ipsum ad pariatur reprehenderit est ut. Cupidatat velit cupidatat incididunt pariatur sit eiusmod. Minim cupidatat sint irure culpa voluptate veniam quis magna est. Non in cupidatat culpa magna eiusmod. Labore culpa aliqua consectetur ipsum reprehenderit nulla qui aute quis.</p>
-          <p className="my-2">In sunt eiusmod ipsum ad pariatur reprehenderit est ut. Cupidatat velit cupidatat incididunt pariatur sit eiusmod. Minim cupidatat sint irure culpa voluptate veniam quis magna est. Non in cupidatat culpa magna eiusmod. Labore culpa aliqua consectetur ipsum reprehenderit nulla qui aute quis.</p>
+          <p className="my-2">{dummyParagraph}</p>
+          <p className="my-2">{dummyParagraph}</p>
+          <p className="my-2">{dummyParagraph}</p>
         </div>
 
         <hr className="w-4/5 m-auto my-8" />

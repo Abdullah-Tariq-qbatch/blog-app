@@ -7,12 +7,14 @@ import PropTypes from 'prop-types';
 import Image from '../ProfileImage';
 import Avatar from '../Avatar';
 
+import { defaultImageUrl } from '../../constants/constants';
+
 function getInitials(user) {
   return `${user?.firstName[0]}${user?.maidenName[0]}${user?.lastName[0]}`;
 }
 
 function Card({ blog, user, comments }) {
-  const imageSrc = blog?.file ? blog.file : 'https://img.freepik.com/free-photo/old-camera-notebook-laptop-with-blue-pencil-cup-cappuccino-white-background_23-2147979092.jpg';
+  const imageSrc = blog?.file ? blog.file : defaultImageUrl;
   return (
     <div className="max-w-sm bg-white dark:bg-gray-950 border dark:border-gray-950 border-gray-200 rounded-lg shadow flex flex-col">
       <div className="relative z-0">

@@ -15,7 +15,6 @@ import CardSkeleton from './CardSkeleton';
 
 function Blogs({ userId }) {
   const [searchParams, setSearchParams] = useSearchParams();
-
   const currentPage = parseInt(searchParams.get('page'), 10) || 1;
 
   const BlogsData = useSelector((state) => state.Blogs);

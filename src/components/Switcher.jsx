@@ -27,9 +27,13 @@ export default function Switcher() {
     >
       <div className={`w-4 h-4 rounded-full absolute transform duration-200 ease-out ${darkSide ? 'bg-gray-900' : 'bg-gray-100'} left-0.5 ${darkSide ? 'translate-x-7' : 'translate-x-0'}`} />
       {darkSide ? (
-        <MoonSvg />
+        <div className="h-3 w-3 text-gray-900">
+          <MoonSvg />
+        </div>
       ) : (
-        <SunSvg />
+        <div className="h-3 w-3 text-gray-100">
+          <SunSvg />
+        </div>
       )}
     </div>
   );
