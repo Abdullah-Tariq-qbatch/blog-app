@@ -1,7 +1,7 @@
 import actions from './actions';
 import api from '../../utils/fetchData';
 import sendErrorNotification from '../../utils/slackNotification';
-import isSuccess from '../commonMethods';
+import { isSuccess } from '../../utils/commonMethods';
 
 const {
   fetchCommentsBegin,

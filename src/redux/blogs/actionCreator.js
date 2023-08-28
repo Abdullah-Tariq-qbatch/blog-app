@@ -5,7 +5,7 @@ import actions from './actions';
 import api from '../../utils/fetchData';
 import sendErrorNotification from '../../utils/slackNotification';
 import uploadImage from '../../utils/imageUpload';
-import isSuccess from '../commonMethods';
+import { isSuccess } from '../../utils/commonMethods';
 
 const {
   fetchBlogsBegin,
