@@ -9,7 +9,7 @@ function Footer() {
       <div className="w-full mx-auto">
         <div className="sm:flex flex flex-col sm:flex-row items-center sm:items-center sm:justify-between">
           <Link to="/" className="flex items-center mb-4 sm:mb-0">
-            <img src={logo} className="h-8 mr-3" alt="Logo" />
+            <img src={logo} className="h-8 mr-3 invert-0 dark:invert" alt="Logo" />
             <span className="self-center text-2xl text-gray-700 dark:text-gray-100 font-semibold whitespace-nowrap">Blog App</span>
           </Link>
           <ul className="flex flex-wrap items-center justify-center sm:justify-start mb-1 text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-200 sm:mb-0 leading-loose">

@@ -74,7 +74,11 @@ function Card({ blog, user, comments }) {
 Card.propTypes = {
   blog: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
-  comments: PropTypes.number.isRequired,
+  comments: PropTypes.number,
+};
+
+Card.defaultProps = {
+  comments: 0,
 };
 
 export default Card;
