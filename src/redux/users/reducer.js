@@ -1,5 +1,6 @@
 /* eslint-disable default-param-last */
 import actions from "./actions";
+import { produce } from "immer";
 
 const {
   FETCH_USERS_BEGINS,
@@ -16,68 +17,7 @@ const {
 
 const initState = {
   users: [],
-  currentUser: {
-    id: 1,
-    firstName: "Terry",
-    lastName: "Medhurst",
-    maidenName: "Smitham",
-    age: 50,
-    gender: "male",
-    email: "atuny0@sohu.com",
-    phone: "+63 791 675 8914",
-    username: "atuny0",
-    password: "9uQFF1Lh",
-    birthDate: "2000-12-25",
-    image: "https://robohash.org/hicveldicta.png",
-    bloodGroup: "A-",
-    height: 189,
-    weight: 75.4,
-    eyeColor: "Green",
-    hair: {
-      color: "Black",
-      type: "Strands",
-    },
-    domain: "slashdot.org",
-    ip: "117.29.86.254",
-    address: {
-      address: "1745 T Street Southeast",
-      city: "Washington",
-      coordinates: {
-        lat: 38.867033,
-        lng: -76.979235,
-      },
-      postalCode: "20020",
-      state: "DC",
-    },
-    macAddress: "13:69:BA:56:A3:74",
-    university: "Capitol University",
-    bank: {
-      cardExpire: "06/22",
-      cardNumber: "50380955204220685",
-      cardType: "maestro",
-      currency: "Peso",
-      iban: "NO17 0695 2754 967",
-    },
-    company: {
-      address: {
-        address: "629 Debbie Drive",
-        city: "Nashville",
-        coordinates: {
-          lat: 36.208114,
-          lng: -86.58621199999999,
-        },
-        postalCode: "37076",
-        state: "TN",
-      },
-      department: "Marketing",
-      name: "Blanda-O'Keefe",
-      title: "Help Desk Operator",
-    },
-    ein: "20-9487066",
-    ssn: "661-64-2976",
-    userAgent:
-      "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/12.0.702.0 Safari/534.24",
-  },
+  currentUser: {},
   total: 0,
   loading: false,
   success: null,
@@ -87,6 +27,97 @@ const initState = {
 const Users = (state = initState, action) => {
   const { type, data, err } = action;
   switch (type) {
+    case actions.SIGN_UP_USER_BEGIN:
+      return produce(state, (draftState) => {
+        draftState.loading = true;
+        draftState.success = null;
+        draftState.error = null;
+      });
+
+    case actions.SIGN_UP_USER_SUCCESS:
+      return produce(state, (draftState) => {
+        draftState.currentUser = data;
+        draftState.loading = false;
+        draftState.success = "Sign up successful!";
+      });
+
+    case actions.LOGIN_USER_BEGIN:
+      return produce(state, (draftState) => {
+        draftState.loading = true;
+        draftState.success = null;
+        draftState.error = null;
+      });
+
+    case actions.LOGIN_USER_SUCCESS:
+      return produce(state, (draftState) => {
+        draftState.currentUser = data;
+        draftState.loading = false;
+        draftState.success = "Login successful!";
+      });
+
+    case actions.FETCH_USER_DATA_BEGIN:
+      return produce(state, (draftState) => {
+        draftState.loading = true;
+        draftState.success = null;
+        draftState.error = null;
+      });
+
+    case actions.FETCH_USER_DATA_SUCCESS:
+      return produce(state, (draftState) => {
+        draftState.currentUser = data;
+        draftState.loading = false;
+        draftState.success = "Successfully fetched user data!";
+      });
+
+    case actions.FETCH_GOOGLE_USER_DATA_BEGIN:
+      return produce(state, (draftState) => {
+        draftState.loading = true;
+        draftState.success = null;
+        draftState.error = null;
+      });
+
+    case actions.FETCH_GOOGLE_USER_DATA_SUCCESS:
+      return produce(state, (draftState) => {
+        draftState.currentUser = data;
+        draftState.loading = false;
+        draftState.success = "Successfully fetched google user data!";
+      });
+
+    case actions.FETCH_FACEBOOK_USER_DATA_BEGIN:
+      return produce(state, (draftState) => {
+        draftState.loading = true;
+        draftState.success = null;
+        draftState.error = null;
+      });
+
+    case actions.FETCH_FACEBOOK_USER_DATA_SUCCESS:
+      return produce(state, (draftState) => {
+        draftState.currentUser = data;
+        draftState.loading = false;
+        draftState.success = "Successfully fetched facebook user data!";
+      });
+
+    case actions.LOGOUT_BEGIN:
+      return produce(state, (draftState) => {
+        draftState.loading = true;
+        draftState.success = null;
+        draftState.error = null;
+      });
+
+    case actions.LOGOUT_SUCCESS:
+      return produce(state, (draftState) => {
+        draftState.currentUser = data;
+        draftState.loading = false;
+        draftState.success = "Logout successful";
+      });
+
+    // case actions.API_ERROR:
+    //   return produce(state, (draftState) => {
+    //     draftState.loading = false;
+    //     draftState.success = false;
+    //     draftState.error = data;
+    //   });
+
     case FETCH_USERS_BEGINS:
       return {
         ...state,

@@ -3,9 +3,10 @@ import { NavLink } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import "../../../index.css";
 import Footer from "../Footer/Footer";
-
-import "./Header.css";
 import { ReactComponent as MenuIcon } from "./../../../assets/social-media-feed/svgs/menu-icon.svg";
+import { NavLink } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import React from "react";
 
 const Header = () => {
   return (

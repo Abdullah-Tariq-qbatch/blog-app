@@ -1,13 +1,22 @@
-import React, { lazy } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Layout from "./components/catalogApp/Layout";
-import LazyLoading from "./components/catalogApp/LazyLoading";
-
+import "./App.css";
+import "react-toastify/dist/ReactToastify.css";
 import "./index.css";
 import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer } from "react-toastify";
 
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React, { lazy } from "react";
+
+import AuthGuard from "./components/userAuthApp/AuthGuard";
+import Layout from "./components/catalogApp/Layout";
+import LazyLoading from "./components/catalogApp/LazyLoading";
+import MainLayout from "./layout/blogApp/MainLayout";
+import Notify from "./components/userAuthApp/Notify";
 import Root from "./components/tvShowApp/Root";
+import Spinner from "./components/userAuthApp/Spinner";
+// import { ToastContainer } from "react-toastify";
+import { ToastContext } from "./contexts/userAuthApp/ToastContext";
+import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 const Header = lazy(() =>
   import("./components/social-media-feed/Header/Header")
@@ -61,49 +70,79 @@ const UserBlogs = lazy(() =>
   import(/* webpackChunkName: "UserBlogs" */ "./pages/blogApp/UserBlogs")
 );
 
-import MainLayout from "./layout/blogApp/MainLayout";
-
 function App() {
+  const showLoader = useSelector((state) => state.Users.loading);
   return (
     <BrowserRouter>
       <LazyLoading>
-        <ToastContainer />
-        <Routes>
-          <Route path="/tv-shows" element={<Root />}>
-            <Route path="" element={<AllTvShows />} />
-            <Route path="add-tv-show" element={<AddTvShow />} />
-            <Route path="tv-show-details/:id" element={<TvShowDetails />} />
-            <Route path="*" element={<Page404 />} />
-          </Route>
+        <Spinner show={showLoader} />
+        <Notify />
+        <ToastContext.Provider value={toast}>
+          <AuthGuard>
+            <Routes>
+              <Route path="/tv-shows" element={<Root />}>
+                <Route path="" element={<AllTvShows />} />
+                <Route path="add-tv-show" element={<AddTvShow />} />
+                <Route path="tv-show-details/:id" element={<TvShowDetails />} />
+                <Route path="*" element={<Page404 />} />
+              </Route>
 
-          <Route path="/socialMedia" element={<Header />}>
-            <Route path="postfeed" element={<PostsFeed />} />
-            <Route path="" element={<PostsFeed />} />
-            <Route path="users-feed" element={<UsersFeed />} />
-            <Route
-              path="posts-feed/user"
-              element={<PostsFeed pageLink="user" />}
-            />
-            <Route
-              path="my-posts"
-              element={<PostsFeed pageLink="my-posts" />}
-            />
-            <Route path="add-post" element={<AddPost />} />
-          </Route>
+              <Route path="/socialMedia" element={<Header />}>
+                <Route path="postfeed" element={<PostsFeed />} />
+                <Route path="" element={<PostsFeed />} />
+                <Route path="users-feed" element={<UsersFeed />} />
+                <Route
+                  path="posts-feed/user"
+                  element={<PostsFeed pageLink="user" />}
+                />
+                <Route
+                  path="my-posts"
+                  element={<PostsFeed pageLink="my-posts" />}
+                />
+                <Route path="add-post" element={<AddPost />} />
+              </Route>
 
-          <Route path="/catalog" element={<Layout />}>
-            <Route exact path="" element={<AllProduct />} />
-            <Route path="add" element={<ProductForm />} />
-            <Route path="edit" element={<ProductForm />} />
-          </Route>
+              <Route path="/catalog" element={<Layout />}>
+                <Route exact path="" element={<AllProduct />} />
+                <Route path="add" element={<ProductForm />} />
+                <Route path="edit" element={<ProductForm />} />
+              </Route>
 
-          <Route path="/blog" element={<MainLayout />}>
-            <Route exact path="" element={<BlogHome />} />
-            <Route path=":id" element={<BlogDetails />} />
-            <Route path="create-blog" element={<CreateBlog />} />
-            <Route path="user/:id/blogs" element={<UserBlogs />} />
-          </Route>
-        </Routes>
+              <Route
+                path="/blog/"
+                element={
+                  <MainLayout>
+                    <BlogHome />
+                  </MainLayout>
+                }
+              />
+              <Route
+                path="/blog/:id"
+                element={
+                  <MainLayout>
+                    <BlogDetails />
+                  </MainLayout>
+                }
+              />
+              <Route
+                path="/blog/create-blog"
+                element={
+                  <MainLayout>
+                    <CreateBlog />
+                  </MainLayout>
+                }
+              />
+              <Route
+                path="/blog/user/:id/blogs"
+                element={
+                  <MainLayout>
+                    <UserBlogs />
+                  </MainLayout>
+                }
+              />
+            </Routes>
+          </AuthGuard>
+        </ToastContext.Provider>
       </LazyLoading>
     </BrowserRouter>
   );
