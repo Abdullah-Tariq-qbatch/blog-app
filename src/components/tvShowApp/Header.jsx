@@ -10,7 +10,7 @@ const Header = () => {
     <>
       <nav className=" border-gray-200 bg-gray-800 ">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          <NavLink to="/tvShows/all-tv-shows" className="flex items-center">
+          <NavLink to="/tvShows" className="flex items-center">
             <img src={movie_logo} className="h-8 mr-3" alt="Cinema-site logo" />
             <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">
               CINEMA-VERSE
@@ -22,7 +22,7 @@ const Header = () => {
             className="items-center bg-gray-800 space-x-3 w-screen md:flex md:w-auto md:order-1"
             id="navbar-search"
           >
-            <NavLink to="/tvShows/all-tv-shows" className={navButtonStyle}>
+            <NavLink to="/tvShows" className={navButtonStyle}>
               Home
             </NavLink>
 

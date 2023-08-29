@@ -43,7 +43,7 @@ const AddTvShow = () => {
       ? setFieldValue("status", "Ended")
       : setFieldValue("status", "Running");
     dispatch(addTvShow(values));
-    navigate("/tvShows/all-tv-shows");
+    navigate("/tvShows");
   };
 
   return (

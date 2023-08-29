@@ -10,9 +10,9 @@ const SearchBar = () => {
 
   const handleSearch = () => {
     if (searchInputRef.current.value) {
-      navigate(`/tvShows/all-tv-shows?search=${searchInputRef.current.value}`);
+      navigate(`/tvShows?search=${searchInputRef.current.value}`);
     } else {
-      navigate(`/tvShows/all-tv-shows`);
+      navigate(`/tvShows`);
     }
   };
 
