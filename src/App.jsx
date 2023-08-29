@@ -44,6 +44,13 @@ const AllProduct = lazy(() =>
     )
 );
 
+const BlogDetails = lazy(() => import( /* webpackChunkName: "BlogDetail" */'./pages/blogApp/BlogDetail'));
+const CreateBlog = lazy(() => import( /* webpackChunkName: "CreateBlog" */'./pages/blogApp/CreateBlog'));
+const BlogHome = lazy(() => import( /* webpackChunkName: "BlogHome" */'./pages/blogApp/Home'));
+const UserBlogs = lazy(() => import( /* webpackChunkName: "UserBlogs" */'./pages/blogApp/UserBlogs'));
+
+import MainLayout from './layout/blogApp/MainLayout'
+
 function App() {
     return (
         <BrowserRouter>
@@ -84,6 +91,12 @@ function App() {
                         <Route path="add" element={<ProductForm />} />
                         <Route path="edit" element={<ProductForm />} />
                     </Route>
+
+                    <Route path="/blog/" element={<MainLayout><BlogHome /></MainLayout>} />
+                    <Route path="/blog/:id" element={<MainLayout><BlogDetails /></MainLayout>} />
+                    <Route path="/blog/create-blog" element={<MainLayout><CreateBlog /></MainLayout>} />
+                    <Route path="/blog/user/:id/blogs" element={<MainLayout><UserBlogs /></MainLayout>} />
+                    
                 </Routes>
             </LazyLoading>
         </BrowserRouter>

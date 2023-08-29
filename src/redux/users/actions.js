@@ -17,7 +17,10 @@ const actions = {
 
   fetchUsersSuccess: (data) => ({
     type: actions.FETCH_USERS_SUCCESS,
-    data,
+    data: {
+      users: data,
+      total: data.length
+    },
   }),
   searchUserBegin: () => {
     return {

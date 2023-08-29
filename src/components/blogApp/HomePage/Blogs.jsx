@@ -36,13 +36,18 @@ function Blogs({ userId }) {
         setList(() => tempList[userId]);
       } else setList(() => BlogsData.blogs);
     }
+    console.log(UserData);
     if (!BlogsData.loading && !UserData.loading) { setUsers(() => keyBy(UserData.users, 'id')); }
     if (!BlogsData.loading && !CommentData.loading) { SetPostComments(() => countBy(CommentData.comments, 'postId')); }
     if (userId) {
       const tempList = keyBy(UserData.users, 'id');
       setUser(tempList[userId]);
     }
-  }, [BlogsData.loading, UserData.loading, CommentData.loading]);
+  }, [BlogsData, UserData, CommentData]);
+
+  useEffect(() => {
+    console.log(users);
+  }, [users])
 
   const debouncedFilter = useCallback(
     debounce((value) => {

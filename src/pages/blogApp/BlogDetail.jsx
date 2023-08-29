@@ -102,7 +102,7 @@ function BlogDetail() {
             </RenderIf>
           </div>
           <div className="flex items-center justify-center mt-5">
-            <Link to={`/user/${user.id}/blogs`}>
+            <Link to={`/blog/user/${user?.id}/blogs`}>
               <p className="mx-2 text-base text-gray-500 dark:text-gray-400 text-center dark:hover:text-pink-800 hover:text-pink-custom">
                 {user?.firstName}
                 {' '}
@@ -127,7 +127,7 @@ function BlogDetail() {
             </div>
 
             <div className="w-1/3 flex justify-center items-center">
-              <Link to="/create-blog" state={blog}>
+              <Link to="/blog/create-blog" state={blog}>
                 <EditOutlined className="text-indigo-custom text-xl" />
               </Link>
             </div>
