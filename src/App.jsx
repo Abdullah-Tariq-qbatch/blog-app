@@ -7,7 +7,7 @@ import {
 import './App.css';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import 'react-toastify/dist/ReactToastify.css';
-// eslint-disable-next-line import/no-extraneous-dependencies
+// eslint-disable-next-line import/no-extrganeous-dependencies
 import { ToastContainer } from 'react-toastify';
 import Spinner from './components/social-media-feed/Spinner/Spinner';
 
