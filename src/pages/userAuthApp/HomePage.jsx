@@ -7,22 +7,18 @@ import {
   SettingOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import React, { useCallback, useEffect, useState } from "react";
-import {
-  fetchFacebookUserData,
-  fetchGoogleUserData,
-  fetchUserData,
-  logout,
-} from "../../redux/users/actionCreator";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { ReactComponent as DribbleLogo } from "../../assets/userAuthApp/svgs/dribble-logo.svg";
 import { ReactComponent as FacebookLogo } from "../../assets/userAuthApp/svgs/facebook-logo.svg";
 import { ReactComponent as GitHubLogo } from "../../assets/userAuthApp/svgs/github-logo.svg";
+import { Link } from "react-router-dom";
 import { ReactComponent as LinkedInLogo } from "../../assets/userAuthApp/svgs/linkedin-logo.svg";
 import ThemeSwitcher from "../../components/userAuthApp/ThemeSwitcher";
 import { ReactComponent as TwitterLogo } from "../../assets/userAuthApp/svgs/twitter-logo.svg";
 import _ from "lodash";
+import { logout } from "../../redux/users/actionCreator";
 import { useNavigate } from "react-router-dom";
 import userImage from "../../assets/userAuthApp/images/user.png";
 
@@ -34,26 +30,6 @@ function HomePage() {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
-
-  const getUserDetails = useCallback(async () => {
-    const loginMethod = localStorage.getItem("loginMethod");
-
-    switch (loginMethod) {
-      case "google":
-        dispatch(fetchGoogleUserData(navigate));
-        break;
-      case "facebook":
-        dispatch(fetchFacebookUserData(navigate));
-        break;
-      default:
-        dispatch(fetchUserData(localStorage.getItem("userId"), navigate));
-        break;
-    }
-  }, [dispatch, navigate]);
-
-  useEffect(() => {
-    getUserDetails();
-  }, [getUserDetails]);
 
   function handleLogout() {
     dispatch(logout(navigate));
@@ -91,10 +67,46 @@ function HomePage() {
         <nav>
           <ul className="flex flex-col justify-center space-y-4 p-2">
             <li>
-              <button className="flex w-full cursor-pointer flex-row items-center justify-start space-x-2 rounded-md bg-indigo-custom px-4 py-2 text-start text-white hover:bg-indigo-500 hover:shadow-md">
+              <Link
+                to={"/home"}
+                className="flex w-full cursor-pointer flex-row items-center justify-start space-x-2 rounded-md bg-indigo-custom px-4 py-2 text-start text-white hover:bg-indigo-500 hover:shadow-md"
+              >
                 <UserOutlined />
-                <p>Profile</p>
-              </button>
+                <p>Home</p>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={"/tvShows"}
+                className="flex w-full cursor-pointer flex-row items-center justify-start space-x-2 rounded-md bg-indigo-custom px-4 py-2 text-start text-white hover:bg-indigo-500 hover:shadow-md"
+              >
+                <p>TV Shows</p>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={"/catalog"}
+                className="flex w-full cursor-pointer flex-row items-center justify-start space-x-2 rounded-md bg-indigo-custom px-4 py-2 text-start text-white hover:bg-indigo-500 hover:shadow-md"
+              >
+                <p>Products Catalog</p>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={"/blog"}
+                className="flex w-full cursor-pointer flex-row items-center justify-start space-x-2 rounded-md bg-indigo-custom px-4 py-2 text-start text-white hover:bg-indigo-500 hover:shadow-md"
+              >
+                <p>Blogs</p>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={"/socialMedia"}
+                className="flex w-full cursor-pointer flex-row items-center justify-start space-x-2 rounded-md bg-indigo-custom px-4 py-2 text-start text-white hover:bg-indigo-500 hover:shadow-md"
+              >
+                <UserOutlined />
+                <p>Social Media</p>
+              </Link>
             </li>
             <li>
               <button
