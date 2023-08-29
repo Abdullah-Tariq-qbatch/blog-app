@@ -26,7 +26,7 @@ const Post = (post) => {
   const [like, setLike] = useState(false);
   const { currentUser } = useSelector((state) => state.Users);
   const [alert, setAlert] = useState(false);
-  const { comments } = useSelector((state) => state.Comments);
+  const { comments } = useSelector((state) => state.UserComments);
   const dispatch = useDispatch();
 
   const handlePostLike = () => {
@@ -54,10 +54,10 @@ const Post = (post) => {
       };
       const newComments = _.concat(comment, post.comments);
       const newPost = { ...post, comments: [comment, ...post.comments] };
-      const existingComments = getDataFromLocalStorage("comments");
+      const existingComments = getDataFromLocalStorage("userComments");
       existingComments.push(comment);
       const updatedCommentsJSON = JSON.stringify(existingComments);
-      localStorage.setItem("comments", updatedCommentsJSON);
+      localStorage.setItem("userComments", updatedCommentsJSON);
       dispatch(updateUserPost(newPost));
       dispatch(updateUserComments(newComments));
       userCommentInput.current.value = "";

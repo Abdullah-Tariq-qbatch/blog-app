@@ -8,7 +8,10 @@ const getDataFromLocalStorage = (data) =>
 const makePosts = (postsData, commentsData, usersData, pictureData, userId) => {
   //getting data from browser
   const postIdsComments = _.groupBy(
-    _.concat(commentsData.data.comments, getDataFromLocalStorage("comments")),
+    _.concat(
+      commentsData.data.comments,
+      getDataFromLocalStorage("userComments")
+    ),
     "postId"
   );
   const currentUsers = usersData.data.users.reduce((acc, user) => {
@@ -19,7 +22,7 @@ const makePosts = (postsData, commentsData, usersData, pictureData, userId) => {
     postsData.data.posts,
     getDataFromLocalStorage("posts")
   ).reduce((acc, post) => {
-    let finalComments = [];
+    let finuserClComments = [];
     if (postIdsComments[post.id]) {
       finalComments = postIdsComments[post.id]?.map((comment) => {
         comment.user.firstname = currentUsers[comment.user.id].firstName;

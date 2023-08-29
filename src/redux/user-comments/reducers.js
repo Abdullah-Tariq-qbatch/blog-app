@@ -18,7 +18,7 @@ const {
   API_ERROR,
 } = actions;
 
-const Comments = (state = initialState, action) => {
+const UserComments = (state = initialState, action) => {
   const { type, data } = action;
   switch (type) {
     case FETCH_COMMENTS_BEGIN:
@@ -71,4 +71,4 @@ const Comments = (state = initialState, action) => {
   }
 };
 
-export default Comments;
+export default UserComments;

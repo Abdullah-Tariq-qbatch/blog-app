@@ -1,6 +1,6 @@
 import actions from "./actions";
 import axios from "axios";
-import { isSuccess } from "../common-functions";
+import { isSuccess } from "../../utils/blogApp/commonMethods";
 
 const fetchAllComments = () => {
   return async (dispatch) => {

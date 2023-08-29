@@ -13,7 +13,7 @@ import {
   reInitializePosts,
 } from "./../../../redux/posts/actionCreator";
 import { reInitializeComments } from "./../../../redux/user-comments/actionCreator";
-import { fetchUsers } from "./../../../redux/users/actionCreator";
+import { fetchUsersSocialMediaFeed } from "./../../../redux/users/actionCreator";
 import { updateSingleUserComments } from "./../../../redux/user-comments/actionCreator";
 import { toast } from "react-toastify";
 
@@ -27,14 +27,14 @@ const PostsFeed = ({ pageLink }) => {
   const searchParams = new URLSearchParams(location.search);
   const userId = searchParams.get("userid");
   const { currentUser } = usersData;
-  const comments = useSelector((state) => state.Comments);
+  const comments = useSelector((state) => state.UserComments);
 
   useEffect(() => {
     if (pageLink === "my-posts") {
       dispatch(fetchPosts(currentUser.id));
     } else if (pageLink !== "user") {
       dispatch(fetchPosts());
-      dispatch(fetchUsers());
+      dispatch(fetchUsersSocialMediaFeed());
     } else {
       dispatch(fetchPosts(userId));
     }

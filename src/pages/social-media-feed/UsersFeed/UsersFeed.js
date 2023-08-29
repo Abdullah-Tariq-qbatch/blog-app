@@ -8,7 +8,7 @@ import Alert from "./../../../components/social-media-feed/Alert/Alert";
 import Pagination from "./../../../components/social-media-feed/Pagination/Pagination";
 
 import {
-  fetchUsers,
+  fetchUsersSocialMediaFeed,
   searchAllUsers,
   reInitializeUsers,
 } from "./../../../redux/users/actionCreator";
@@ -33,7 +33,7 @@ const UsersFeed = () => {
   const posts = useSelector((state) => state.Posts);
   const [page, onPageChange] = useState(Number(searchParams.get("page")));
   useEffect(() => {
-    dispatch(fetchUsers(limit, page * limit - limit));
+    dispatch(fetchUsersSocialMediaFeed(limit, page * limit - limit));
   }, [dispatch, page]);
 
   useEffect(() => {
@@ -66,7 +66,7 @@ const UsersFeed = () => {
     searchRef.current.value = text;
     dispatch(searchAllUsers(text));
     if (text === "") {
-      dispatch(fetchUsers(limit, page * limit - limit));
+      dispatch(fetchUsersSocialMediaFeed(limit, page * limit - limit));
     }
   });
   return (
