@@ -43,22 +43,21 @@ function ProductForm() {
     !categories?.length && dispatch(fetchAllCategory());
   }, []);
 
-  const validatorForAPI = Yup.object({
+  const validatorCommon = {
     title: Yup.string().required("Title is Required"),
     brand: Yup.string().required("Brand is Required"),
     description: Yup.string().required("Description is Required"),
     thumbnail: Yup.string().required("Image is Required"),
     category: Yup.string().required("Category is Required"),
+  };
+  const validatorForAPI = Yup.object({
+    validatorCommon,
     price: Yup.number().required("Price is Required"),
     stock: Yup.number().required("Stock is Required"),
   });
 
   const validatorForNew = Yup.object({
-    title: Yup.string().required("Title is Required"),
-    brand: Yup.string().required("Brand is Required"),
-    description: Yup.string().required("Description is Required"),
-    thumbnail: Yup.string().required("Image is Required"),
-    category: Yup.string().required("Category is Required"),
+    validatorCommon,
     sizeData: Yup.array()
       .of(
         Yup.object({
@@ -192,7 +191,6 @@ function ProductForm() {
                 />
               </div>
             </div>
-            {/* RenderIf */}
             <RenderIf
               isTrue={!values?.sizeData}
               fallback={
