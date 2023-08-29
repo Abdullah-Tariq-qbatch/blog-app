@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import actions from "./actions";
 import { getDataFromLocalStorage } from "./api-data";
 import _ from "lodash";

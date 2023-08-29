@@ -94,8 +94,7 @@ const Users = (state = initState, action) => {
         error: null,
       };
     case FETCH_USERS_SUCCESS:
-      localStorage.setItem("users", JSON.stringify(data));
-      // return { ...state, users: data, loading: false };
+      localStorage.setItem("users", JSON.stringify(data.users));
       return {
         ...state,
         loading: false,

@@ -42,7 +42,7 @@ function Blogs({ userId }) {
       const tempList = keyBy(UserData.users, 'id');
       setUser(tempList[userId]);
     }
-  }, [BlogsData.loading, UserData.loading, CommentData.loading]);
+  }, [BlogsData, UserData, CommentData]);
 
   const debouncedFilter = useCallback(
     debounce((value) => {

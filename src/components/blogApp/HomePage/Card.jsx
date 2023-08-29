@@ -1,8 +1,8 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { HeartOutlined, CommentOutlined } from '@ant-design/icons';
-import PropTypes from 'prop-types';
 
 import Image from '../ProfileImage';
 import Avatar from '../Avatar';
@@ -27,7 +27,7 @@ function Card({ blog, user, comments }) {
         </div>
 
         <div className="flex justify-center mt-1">
-          <Link to={`/user/${user?.id}/blogs`}>
+          <Link to={`/blog/user/${user?.id}/blogs`}>
             <p className="mx-2 text-xs text-gray-400 dark:text-gray-200 flex items-center dark:hover:text-pink-800 hover:text-pink-custom">
               {user?.firstName}
               {' '}
@@ -71,14 +71,5 @@ function Card({ blog, user, comments }) {
   );
 }
 
-Card.propTypes = {
-  blog: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired,
-  comments: PropTypes.number,
-};
-
-Card.defaultProps = {
-  comments: 0,
-};
 
 export default Card;
