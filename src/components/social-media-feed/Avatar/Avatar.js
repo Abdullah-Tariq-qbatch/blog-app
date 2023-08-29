@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import _ from "lodash";
+import "../../../index.css";
 
 const PROFILE = "profile";
 const colors = [

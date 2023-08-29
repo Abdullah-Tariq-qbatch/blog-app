@@ -3,6 +3,7 @@ import { Provider } from "react-redux";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import "../../../index.css";
 
 import Spinner from "./../Spinner/Spinner";
 

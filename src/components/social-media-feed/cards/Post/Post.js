@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Heart from "react-heart";
 import _ from "lodash";
+import "../../../../index.css";
 
 import DeleteMessage from "../../DeleteMessage/DeleteMessage";
 import Comment from "../Comment/Comment";
@@ -17,7 +18,7 @@ import {
 } from "./../../../../redux/posts/actionCreator";
 import { ReactComponent as AddIcon } from "./../../../../assets/social-media-feed/svgs/add-icon.svg";
 import { ReactComponent as ViewIcon } from "./../../../../assets/social-media-feed/svgs/view-icon.svg";
-import { ReactComponent as CurveIcon } from "./../../../../assets/social-media-feed/svgs/curve-icon.svg";
+
 import { ReactComponent as DeleteIcon } from "./../../../../assets/social-media-feed/svgs/delete-icon.svg";
 import { getDataFromLocalStorage } from "./../../../../redux/posts/api-data";
 
@@ -77,26 +78,21 @@ const Post = (post) => {
   };
 
   return (
-    <div className="w-3/4 m-auto mt-10 ">
+    <div className="w-3/4 m-auto mt-10">
       <main className="profile-page">
-        <section className="relative block h-500-px">
+        <section className="block h-[500px]">
           <div
-            className="absolute top-0 w-full h-full bg-center bg-cover"
+            className="w-full h-full bg-cover bg-center"
             style={{
               backgroundImage: `url('${post.imageURL}')`,
+              backgroundRepeat: "no-repeat",
             }}
           >
             <span
               id="blackOverlay"
-              className="w-full h-full absolute opacity-50 bg-black"
+              className="w-full h-[1000px] opacity-20 bg-black"
             ></span>
           </div>
-          <div
-            className="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px"
-            style={{ transform: "translateZ(0px)" }}
-          >
-            <CurveIcon />
-          </div>{" "}
         </section>
         <section className="relative py-16 bg-blueGray-200">
           <div className="container mx-auto px-4">

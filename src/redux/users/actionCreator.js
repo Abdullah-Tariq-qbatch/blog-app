@@ -36,7 +36,7 @@ export const fetchUsersSocialMediaFeed = (limit = 0, skip = 0) => {
         dispatch(actions.fetchUsersSuccess(response.data.users));
       }
     } catch (err) {
-      dispatch(actions.API_ERROR(err));
+      dispatch(actions.apiError(err));
     }
   };
 };

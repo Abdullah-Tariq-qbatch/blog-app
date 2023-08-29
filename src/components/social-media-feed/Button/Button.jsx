@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
+import "../../../index.css";
 
 function Button({ onClick, children }) {
   return (

@@ -2,20 +2,30 @@ import React, { lazy } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./components/catalogApp/Layout";
 import LazyLoading from "./components/catalogApp/LazyLoading";
-import "./App.css";
+
+import "./index.css";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+
 import Root from "./components/tvShowApp/Root";
 
 const Header = lazy(() =>
-    import("./components/social-media-feed/Header/Header")
+  import("./components/social-media-feed/Header/Header")
 );
 const UsersFeed = lazy(() =>
-    import("./pages/social-media-feed/UsersFeed/UsersFeed")
+  import("./pages/social-media-feed/UsersFeed/UsersFeed")
 );
 const AddPost = lazy(() => import("./pages/social-media-feed/AddPost/AddPost"));
 const PostsFeed = lazy(() =>
-    import("./pages/social-media-feed/PostsFeed/PostsFeed")
+  import("./pages/social-media-feed/PostsFeed/PostsFeed")
+
+import "./App.css";
+
+
+
+
+
+
 );
 const AllTvShows = lazy(() =>
     import(/* webpackChunkName: "allTvShows" */ "./pages/tvShowApp/AllTvShows")
@@ -43,6 +53,7 @@ const AllProduct = lazy(() =>
         /* webpackChunkName: "allProducts" */ "./pages/catalogApp/AllProducts"
     )
 );
+
 
 const BlogDetails = lazy(() => import( /* webpackChunkName: "BlogDetail" */'./pages/blogApp/BlogDetail'));
 const CreateBlog = lazy(() => import( /* webpackChunkName: "CreateBlog" */'./pages/blogApp/CreateBlog'));
@@ -101,6 +112,7 @@ function App() {
             </LazyLoading>
         </BrowserRouter>
     );
+
 }
 
 export default App;

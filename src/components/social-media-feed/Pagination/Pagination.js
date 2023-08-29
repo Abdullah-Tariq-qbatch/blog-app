@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../../../index.css";
 
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   const navigate = useNavigate();
