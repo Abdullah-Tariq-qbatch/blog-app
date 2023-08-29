@@ -1,29 +1,22 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-import React, { lazy, Suspense } from 'react';
-import {
-  BrowserRouter, Route, Routes,
-} from 'react-router-dom';
 
+import React, { lazy, Suspense } from 'react';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Layout from "./components/catalogApp/Layout";
+import LazyLoading from "./components/catalogApp/LazyLoading";
 import './App.css';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import 'react-toastify/dist/ReactToastify.css';
-// eslint-disable-next-line import/no-extrganeous-dependencies
 import { ToastContainer } from 'react-toastify';
 import Spinner from './components/social-media-feed/Spinner/Spinner';
-
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import Root from "./components/tvShowApp/Root";
-
 import Loader from "./components/tvShowApp/Loader";
+
 
 const Header = lazy(() => import('./components/social-media-feed/Header/Header'));
 const UsersFeed = lazy(() => import('./pages/social-media-feed/UsersFeed/UsersFeed'));
 const AddPost = lazy(() => import('./pages/social-media-feed/AddPost/AddPost'));
 const PostsFeed = lazy(() => import('./pages/social-media-feed/PostsFeed/PostsFeed'));
-
-
-
 const AllTvShows = lazy(() =>
   import(/* webpackChunkName: "allTvShows" */ "./pages/tvShowApp/AllTvShows")
 );
@@ -38,11 +31,20 @@ const Page404 = lazy(() =>
   import(/* webpackChunkName: "page404 " */ "./components/tvShowApp/Page404")
 );
 
+const ProductForm = lazy(() =>
+  import(/* webpackChunkName: "productForm" */ "./pages/catalogApp/ProductForm")
+);
+const AllProduct = lazy(() =>
+  import(/* webpackChunkName: "allProducts" */ "./pages/catalogApp/AllProducts")
+);
+
 function App() {
   return (
     <BrowserRouter>
-      <Provider store={store}>
-        <Suspense fallback={<Loader />}>
+ 
+
+    
+         <LazyLoading>
           <Routes>
             <Route path="/tvShows" element={<Root />}>
               <Route path="add-tv-show" element={<AddTvShow />} />
@@ -68,9 +70,13 @@ function App() {
               element={<AddPost pageLink="edit" />}
             />
           </Route>
+<Route path="/catalog" element={<Layout />}>
+            <Route exact path="" element={<AllProduct />} />
+            <Route path="add" element={<ProductForm />} />
+            <Route path="edit" element={<ProductForm />} />
+          </Route>
           </Routes>
-        </Suspense>
-      </Provider>
+          </LazyLoading>
     </BrowserRouter>
   );
 }
