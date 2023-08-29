@@ -70,13 +70,13 @@ function App() {
         <ToastContainer />
         <Routes>
           <Route path="/tvShows" element={<Root />}>
-            <Route path="" element={<AllTvShows />} />
             <Route path="add-tv-show" element={<AddTvShow />} />
+            <Route path="all-tv-shows" element={<AllTvShows />} />
             <Route path="tv-show-details/:id" element={<TvShowDetails />} />
             <Route path="*" element={<Page404 />} />
           </Route>
 
-          <Route path="/socialMedia" element={<Header />}>
+          <Route path="/social-media" element={<Header />}>
             <Route path="postfeed" element={<PostsFeed />} />
             <Route path="" element={<PostsFeed />} />
             <Route path="users-feed" element={<UsersFeed />} />
