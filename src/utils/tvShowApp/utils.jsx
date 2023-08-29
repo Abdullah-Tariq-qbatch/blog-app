@@ -7,9 +7,11 @@ export const calculateYear = (givenDate) => {
 };
 
 export const slackNotification = (data) => {
+  // eslint-disable-next-line no-undef
+  const slackUrl = process.env.REACT_APP_SLACK_URL;
   const config = {
     method: "post",
-    url: "https://hooks.slack.com/services/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",
+    url: slackUrl,
     headers: {
       "Content-Type": "text/plain",
     },
