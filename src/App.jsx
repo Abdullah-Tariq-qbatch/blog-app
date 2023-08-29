@@ -1,66 +1,29 @@
-import React, { lazy, Suspense } from 'react';
-import {
-  BrowserRouter, Route, Routes,
-} from 'react-router-dom';
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Layout from "./components/catalogApp/Layout";
+import LazyLoading from "./components/catalogApp/LazyLoading";
 
-import './App.css';
-import MainLayout from './layout/blogApp/MainLayout';
-import Spinner from './components/blogApp/Spinner';
-import ScrollToTop from './utils/blogApp/scrollToTop';
+const ProductForm = React.lazy(() =>
+  import(/* webpackChunkName: "productForm" */ "./pages/catalogApp/ProductForm")
+);
+const AllProduct = React.lazy(() =>
+  import(/* webpackChunkName: "allProducts" */ "./pages/catalogApp/AllProducts")
+);
 
-const Home = lazy(() => import(/* webpackChunkName: "Home" */ './pages/blogApp/Home'));
-const BlogDetail = lazy(() => import(/* webpackChunkName: "BlogDetail" */ './pages/blogApp/BlogDetail'));
-const CreateBlog = lazy(() => import(/* webpackChunkName: "CreateBlog" */ './pages/blogApp/CreateBlog'));
-const UserBlogs = lazy(() => import(/* webpackChunkName: "UserBlogs" */ './pages/blogApp/UserBlogs'));
+import "./App.css";
 
 function App() {
   return (
     <BrowserRouter>
-      <ScrollToTop />
-      <MainLayout>
+      <LazyLoading>
         <Routes>
-          <Route
-            exact
-            path="/"
-            element={(
-              <Suspense fallback={<Spinner />}>
-                {' '}
-                <Home />
-              </Suspense>
-)}
-          />
-          <Route
-            exact
-            path="/create-blog"
-            element={(
-              <Suspense fallback={<Spinner />}>
-                {' '}
-                <CreateBlog />
-              </Suspense>
-)}
-          />
-          <Route
-            exact
-            path="/blog/:id"
-            element={(
-              <Suspense fallback={<Spinner />}>
-                {' '}
-                <BlogDetail />
-              </Suspense>
-)}
-          />
-          <Route
-            exact
-            path="/user/:id/blogs"
-            element={(
-              <Suspense fallback={<Spinner />}>
-                {' '}
-                <UserBlogs />
-              </Suspense>
-)}
-          />
+          <Route path="/catalog" element={<Layout />}>
+            <Route exact path="" element={<AllProduct />} />
+            <Route path="add" element={<ProductForm />} />
+            <Route path="edit" element={<ProductForm />} />
+          </Route>
         </Routes>
-      </MainLayout>
+      </LazyLoading>
     </BrowserRouter>
   );
 }
