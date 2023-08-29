@@ -13,7 +13,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
     if (page >= 1 && page <= totalPages) {
       onPageChange(page);
       setSelectedPage(page);
-      navigate(`/users-feed?page=${page}`);
+      navigate(`/socialMedia/users-feed?page=${page}`);
     }
   };
 

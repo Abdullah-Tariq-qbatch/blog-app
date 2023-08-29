@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
@@ -54,7 +53,7 @@ const AddPost = ({ pageLink }) => {
     var raw = `{"text": "New Post have been added"}`;
     slackNotification(raw);
     setSubmitting(false);
-    navigate("/my-posts");
+    navigate("/socialMedia/my-posts");
   };
   return (
     <div className="flex justify-center items-center mt-28 w-screen">

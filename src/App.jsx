@@ -70,25 +70,25 @@ function App() {
         <ToastContainer />
         <Routes>
           <Route path="/tvShows" element={<Root />}>
-            <Route path="" element={<AllTvShows />} />
             <Route path="add-tv-show" element={<AddTvShow />} />
+            <Route path="all-tv-shows" element={<AllTvShows />} />
             <Route path="tv-show-details/:id" element={<TvShowDetails />} />
             <Route path="*" element={<Page404 />} />
           </Route>
 
-          <Route path="/" element={<Header />}>
-            <Route path="/" element={<PostsFeed />} />
-            <Route path="/users-feed" element={<UsersFeed />} />
+          <Route path="/socialMedia" element={<Header />}>
+            <Route path="postfeed" element={<PostsFeed />} />
+            <Route path="" element={<PostsFeed />} />
+            <Route path="users-feed" element={<UsersFeed />} />
             <Route
-              path="/posts-feed/user"
+              path="posts-feed/user"
               element={<PostsFeed pageLink="user" />}
             />
             <Route
-              path="/my-posts"
+              path="my-posts"
               element={<PostsFeed pageLink="my-posts" />}
             />
-            <Route path="/add-post" element={<AddPost />} />
-            <Route path="/edit-post" element={<AddPost pageLink="edit" />} />
+            <Route path="add-post" element={<AddPost />} />
           </Route>
 
           <Route path="/catalog" element={<Layout />}>
@@ -97,12 +97,38 @@ function App() {
             <Route path="edit" element={<ProductForm />} />
           </Route>
 
-          <Route path="/blog" element={<MainLayout />}>
-            <Route exact path="" element={<BlogHome />} />
-            <Route path=":id" element={<BlogDetails />} />
-            <Route path="create-blog" element={<CreateBlog />} />
-            <Route path="user/:id/blogs" element={<UserBlogs />} />
-          </Route>
+          <Route
+            path="/blog/"
+            element={
+              <MainLayout>
+                <BlogHome />
+              </MainLayout>
+            }
+          />
+          <Route
+            path="/blog/:id"
+            element={
+              <MainLayout>
+                <BlogDetails />
+              </MainLayout>
+            }
+          />
+          <Route
+            path="/blog/create-blog"
+            element={
+              <MainLayout>
+                <CreateBlog />
+              </MainLayout>
+            }
+          />
+          <Route
+            path="/blog/user/:id/blogs"
+            element={
+              <MainLayout>
+                <UserBlogs />
+              </MainLayout>
+            }
+          />
         </Routes>
       </LazyLoading>
     </BrowserRouter>
