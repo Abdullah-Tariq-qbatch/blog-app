@@ -33,7 +33,7 @@ export const fetchUsersSocialMediaFeed = (limit = 0, skip = 0) => {
         `https://dummyjson.com/users?limit=${limit}&skip=${skip}`
       );
       if (isSuccess(response)) {
-        dispatch(actions.fetchUsersSuccess(response.data.users));
+        dispatch(actions.fetchUsersSuccessSocialMedia(response.data));
       }
     } catch (err) {
       dispatch(actions.apiError(err));

@@ -9,6 +9,7 @@ const {
   DELETE_USER_SUCCESS,
   SEARCH_USER_BEGIN,
   SEARCH_USER_SUCCESS,
+  FETCH_USERS_SUCCESS_SOCIAL_MEDIA,
   RE_INITIALIZE,
   CLEAR_MESSAGE_ERROR,
 } = actions;
@@ -93,6 +94,14 @@ const Users = (state = initState, action) => {
         success: null,
         error: null,
       };
+    case FETCH_USERS_SUCCESS_SOCIAL_MEDIA:
+      return {
+        ...state,
+        loading: false,
+        users: data.users,
+        total: data.total,
+        error: null,
+      };
     case FETCH_USERS_SUCCESS:
       localStorage.setItem("users", JSON.stringify(data.users));
       return {
@@ -102,6 +111,7 @@ const Users = (state = initState, action) => {
         total: data.total,
         error: null,
       };
+
     case API_ERROR:
       return { ...state, loading: false, error: err };
     case CLEAR_MESSAGE_ERROR:

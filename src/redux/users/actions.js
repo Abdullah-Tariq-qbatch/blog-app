@@ -1,6 +1,7 @@
 const actions = {
   FETCH_USERS_BEGINS: "FETCH_USERS_BEGINS",
   FETCH_USERS_SUCCESS: "FETCH_USERS_SUCCESS",
+  FETCH_USERS_SUCCESS_SOCIAL_MEDIA: "FETCH_USERS_SUCCESS_SOCIAL_MEDIA",
   SEARCH_USER_BEGIN: "SEARCH_USER_BEGIN",
   SEARCH_USER_SUCCESS: "SEARCH_USER_SUCCESS",
   DELETE_USER_BEGIN: "DELETE_USER_BEGIN",
@@ -19,9 +20,15 @@ const actions = {
     type: actions.FETCH_USERS_SUCCESS,
     data: {
       users: data,
-      total: data.length
+      total: data.length,
     },
   }),
+  fetchUsersSuccessSocialMedia: (data) => {
+    return {
+      type: actions.FETCH_USERS_SUCCESS_SOCIAL_MEDIA,
+      data,
+    };
+  },
   searchUserBegin: () => {
     return {
       type: actions.SEARCH_USER_BEGIN,

@@ -1,9 +1,11 @@
 import axios from "axios";
 
 const SlackNotification = async (error) => {
+  // eslint-disable-next-line no-undef
+  const slackAPI = process.env.REACT_APP_SLACK_API;
   const config = {
     method: "post",
-    url: "https://hooks.slack.com/services/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",
+    url: slackAPI,
     headers: {
       "Content-Type": "text/plain",
     },

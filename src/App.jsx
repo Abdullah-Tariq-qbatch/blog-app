@@ -13,11 +13,11 @@ const Header = lazy(() =>
   import("./components/social-media-feed/Header/Header")
 );
 const UsersFeed = lazy(() =>
-  import("./pages/social-media-feed/UsersFeed/UsersFeed")
+  import(/* webpackChunkName: "usersFeed" */"./pages/social-media-feed/UsersFeed/UsersFeed")
 );
-const AddPost = lazy(() => import("./pages/social-media-feed/AddPost/AddPost"));
+const AddPost = lazy(() => import(/* webpackChunkName: "addPost" */"./pages/social-media-feed/AddPost/AddPost"));
 const PostsFeed = lazy(() =>
-  import("./pages/social-media-feed/PostsFeed/PostsFeed")
+  import(/* webpackChunkName: "postsFeed" */"./pages/social-media-feed/PostsFeed/PostsFeed")
 );
 const AllTvShows = lazy(() =>
   import(/* webpackChunkName: "allTvShows" */ "./pages/tvShowApp/AllTvShows")
