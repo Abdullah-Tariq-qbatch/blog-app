@@ -89,38 +89,35 @@ function App() {
             <Route path="edit" element={<ProductForm />} />
           </Route>
 
-          <Route
-            path="/blog/"
+          <Route path='/blog' element={<MainLayout />}>
+            <Route
+              exact
+            path=""
             element={
-              <MainLayout>
                 <BlogHome />
-              </MainLayout>
             }
           />
           <Route
-            path="/blog/:id"
+            path=":id"
             element={
-              <MainLayout>
                 <BlogDetails />
-              </MainLayout>
             }
           />
           <Route
-            path="/blog/create-blog"
+            path="create-blog"
             element={
-              <MainLayout>
                 <CreateBlog />
-              </MainLayout>
             }
           />
           <Route
-            path="/blog/user/:id/blogs"
+            path="user/:id/blogs"
             element={
-              <MainLayout>
                 <UserBlogs />
-              </MainLayout>
             }
           />
+          </Route>
+
+         
         </Routes>
       </LazyLoading>
     </BrowserRouter>
