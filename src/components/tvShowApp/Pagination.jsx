@@ -48,7 +48,7 @@ const Pagination = ({ searchParam, pageParam }) => {
   };
 
   const loadContent = (pageNum) => {
-    navigate(`/tvShows/all-tv-shows?search=${searchParam}&page=${pageNum}`);
+    navigate(`/tvShows?search=${searchParam}&page=${pageNum}`);
     // restore(null);
   };
   const pageNumber = () => {
@@ -80,20 +80,16 @@ const Pagination = ({ searchParam, pageParam }) => {
   const loadNextPageContent = () => {
     if (currPage < totalPages) {
       if (searchParam)
-        navigate(
-          `/tvShows/all-tv-shows?search=${searchParam}&page=${currPage + 1}`
-        );
-      else navigate(`/tvShows/all-tv-shows?page=${currPage + 1}`);
+        navigate(`/tvShows?search=${searchParam}&page=${currPage + 1}`);
+      else navigate(`/tvShows?page=${currPage + 1}`);
       currPage + 1 > currentPageRange.end && goToNextPageRange();
     }
   };
   const loadPrevPageContent = () => {
     if (currPage > 1) {
       if (searchParam)
-        navigate(
-          `/tvShows/all-tv-shows?search=${searchParam}&page=${currPage - 1}`
-        );
-      else navigate(`/tvShows/all-tv-shows?page=${currPage - 1}`);
+        navigate(`/tvShows?search=${searchParam}&page=${currPage - 1}`);
+      else navigate(`/tvShows?page=${currPage - 1}`);
       currPage - 1 < currentPageRange.start && goToPrevPageRange();
     }
   };

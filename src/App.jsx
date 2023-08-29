@@ -13,11 +13,19 @@ const Header = lazy(() =>
   import("./components/social-media-feed/Header/Header")
 );
 const UsersFeed = lazy(() =>
-  import(/* webpackChunkName: "usersFeed" */"./pages/social-media-feed/UsersFeed/UsersFeed")
+  import(
+    /* webpackChunkName: "usersFeed" */ "./pages/social-media-feed/UsersFeed/UsersFeed"
+  )
 );
-const AddPost = lazy(() => import(/* webpackChunkName: "addPost" */"./pages/social-media-feed/AddPost/AddPost"));
+const AddPost = lazy(() =>
+  import(
+    /* webpackChunkName: "addPost" */ "./pages/social-media-feed/AddPost/AddPost"
+  )
+);
 const PostsFeed = lazy(() =>
-  import(/* webpackChunkName: "postsFeed" */"./pages/social-media-feed/PostsFeed/PostsFeed")
+  import(
+    /* webpackChunkName: "postsFeed" */ "./pages/social-media-feed/PostsFeed/PostsFeed"
+  )
 );
 const AllTvShows = lazy(() =>
   import(/* webpackChunkName: "allTvShows" */ "./pages/tvShowApp/AllTvShows")
@@ -62,8 +70,8 @@ function App() {
         <ToastContainer />
         <Routes>
           <Route path="/tvShows" element={<Root />}>
+            <Route path="" element={<AllTvShows />} />
             <Route path="add-tv-show" element={<AddTvShow />} />
-            <Route path="all-tv-shows" element={<AllTvShows />} />
             <Route path="tv-show-details/:id" element={<TvShowDetails />} />
             <Route path="*" element={<Page404 />} />
           </Route>
@@ -89,14 +97,12 @@ function App() {
             <Route path="edit" element={<ProductForm />} />
           </Route>
 
-          <Route path='/blog' element={<MainLayout />}>
-            <Route exact path="" element={<BlogHome />}/>
-            <Route path=":id" element={<BlogDetails />}/>
-            <Route path="create-blog" element={<CreateBlog />}/>
-            <Route path="user/:id/blogs" element={<UserBlogs />}/>
+          <Route path="/blog" element={<MainLayout />}>
+            <Route exact path="" element={<BlogHome />} />
+            <Route path=":id" element={<BlogDetails />} />
+            <Route path="create-blog" element={<CreateBlog />} />
+            <Route path="user/:id/blogs" element={<UserBlogs />} />
           </Route>
-
-         
         </Routes>
       </LazyLoading>
     </BrowserRouter>
