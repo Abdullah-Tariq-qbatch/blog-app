@@ -69,7 +69,7 @@ function App() {
       <LazyLoading>
         <ToastContainer />
         <Routes>
-          <Route path="/tvShows" element={<Root />}>
+          <Route path="/tv-shows" element={<Root />}>
             <Route path="" element={<AllTvShows />} />
             <Route path="add-tv-show" element={<AddTvShow />} />
             <Route path="tv-show-details/:id" element={<TvShowDetails />} />
