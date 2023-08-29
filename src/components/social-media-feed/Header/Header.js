@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { Outlet } from "react-router-dom";
-
+import "../../../index.css";
 import Footer from "../Footer/Footer";
 
 import "./Header.css";

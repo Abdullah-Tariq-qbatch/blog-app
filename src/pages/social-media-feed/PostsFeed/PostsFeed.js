@@ -74,7 +74,7 @@ const PostsFeed = ({ pageLink }) => {
   };
 
   return (
-    <div className="flex flex-col m-auto">
+    <div className="grid grid-cols-1">
       {loading ? (
         <Spinner />
       ) : (

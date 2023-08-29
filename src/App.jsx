@@ -1,22 +1,23 @@
-
-import React, { lazy, Suspense } from 'react';
+import React, { lazy } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./components/catalogApp/Layout";
 import LazyLoading from "./components/catalogApp/LazyLoading";
-import './App.css';
-import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer } from 'react-toastify';
-import Spinner from './components/social-media-feed/Spinner/Spinner';
-import { Provider } from "react-redux";
-import store from "./redux/store";
+import "./index.css";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+
 import Root from "./components/tvShowApp/Root";
-import Loader from "./components/tvShowApp/Loader";
 
-
-const Header = lazy(() => import('./components/social-media-feed/Header/Header'));
-const UsersFeed = lazy(() => import('./pages/social-media-feed/UsersFeed/UsersFeed'));
-const AddPost = lazy(() => import('./pages/social-media-feed/AddPost/AddPost'));
-const PostsFeed = lazy(() => import('./pages/social-media-feed/PostsFeed/PostsFeed'));
+const Header = lazy(() =>
+  import("./components/social-media-feed/Header/Header")
+);
+const UsersFeed = lazy(() =>
+  import("./pages/social-media-feed/UsersFeed/UsersFeed")
+);
+const AddPost = lazy(() => import("./pages/social-media-feed/AddPost/AddPost"));
+const PostsFeed = lazy(() =>
+  import("./pages/social-media-feed/PostsFeed/PostsFeed")
+);
 const AllTvShows = lazy(() =>
   import(/* webpackChunkName: "allTvShows" */ "./pages/tvShowApp/AllTvShows")
 );
@@ -41,19 +42,17 @@ const AllProduct = lazy(() =>
 function App() {
   return (
     <BrowserRouter>
- 
+      <LazyLoading>
+        <ToastContainer />
+        <Routes>
+          <Route path="/tvShows" element={<Root />}>
+            <Route path="add-tv-show" element={<AddTvShow />} />
+            <Route path="all-tv-shows" element={<AllTvShows />} />
+            <Route path="tv-show-details/:id" element={<TvShowDetails />} />
+            <Route path="*" element={<Page404 />} />
+          </Route>
 
-    
-         <LazyLoading>
-          <Routes>
-            <Route path="/tvShows" element={<Root />}>
-              <Route path="add-tv-show" element={<AddTvShow />} />
-              <Route path="all-tv-shows" element={<AllTvShows />} />
-              <Route path="tv-show-details/:id" element={<TvShowDetails />} />
-              <Route path="*" element={<Page404 />} />
-            </Route>
-            <ToastContainer />
-           <Route path="/" element={<Header />}>
+          <Route path="/" element={<Header />}>
             <Route path="/" element={<PostsFeed />} />
             <Route path="/users-feed" element={<UsersFeed />} />
             <Route
@@ -65,18 +64,15 @@ function App() {
               element={<PostsFeed pageLink="my-posts" />}
             />
             <Route path="/add-post" element={<AddPost />} />
-            <Route
-              path="/edit-post"
-              element={<AddPost pageLink="edit" />}
-            />
+            <Route path="/edit-post" element={<AddPost pageLink="edit" />} />
           </Route>
-<Route path="/catalog" element={<Layout />}>
+          <Route path="/catalog" element={<Layout />}>
             <Route exact path="" element={<AllProduct />} />
             <Route path="add" element={<ProductForm />} />
             <Route path="edit" element={<ProductForm />} />
           </Route>
-          </Routes>
-          </LazyLoading>
+        </Routes>
+      </LazyLoading>
     </BrowserRouter>
   );
 }

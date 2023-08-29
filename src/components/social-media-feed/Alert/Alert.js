@@ -1,6 +1,7 @@
 import React from "react";
 
 import "./Alert.css";
+import "../../../index.css";
 
 const Alert = ({ title, message }) => {
   return (

@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../../../../index.css";
 
 import DeleteMessage from "../../DeleteMessage/DeleteMessage";
 import Avatar from "../../Avatar/Avatar";

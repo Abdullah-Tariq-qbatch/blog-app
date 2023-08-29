@@ -11,7 +11,7 @@ const fetchAllComments = () => {
         dispatch(actions.fetchCommentsSuccess(response.data));
       }
     } catch (err) {
-      dispatch(actions.API_ERROR(err));
+      dispatch(actions.apiError(err));
     }
   };
 };
@@ -22,7 +22,7 @@ const updateUserComments = (comments) => {
       await dispatch(actions.updateUserCommentsBegin());
       dispatch(actions.updateUserCommentsSuccess(comments));
     } catch (err) {
-      dispatch(actions.API_ERROR(err));
+      dispatch(actions.apiError(err));
     }
   };
 };
@@ -33,7 +33,7 @@ const updateSingleUserComments = (comments) => {
       await dispatch(actions.updateSingleUserCommentsBegin());
       dispatch(actions.updateSingleUserCommentsSuccess(comments));
     } catch (err) {
-      dispatch(actions.API_ERROR(err));
+      dispatch(actions.apiError(err));
     }
   };
 };

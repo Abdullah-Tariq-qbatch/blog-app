@@ -32,7 +32,7 @@ const fetchPosts = (userId = null) => {
         )
       )
       .catch((err) => {
-        dispatch(actions.API_ERROR(err));
+        dispatch(actions.apiError(err));
       });
   };
 };
@@ -43,7 +43,7 @@ const deleteUserPost = (postId) => {
       dispatch(actions.deletePostBegin());
       dispatch(actions.deletePostSuccess(postId));
     } catch (err) {
-      dispatch(actions.API_ERROR(err));
+      dispatch(actions.apiError(err));
     }
   };
 };
@@ -54,7 +54,7 @@ const updateUserPost = (post) => {
       dispatch(actions.updatePostBegin());
       dispatch(actions.updatePostSuccess(post));
     } catch (err) {
-      dispatch(actions.API_ERROR(err));
+      dispatch(actions.apiError(err));
     }
   };
 };
@@ -65,7 +65,7 @@ const addUserPost = (post) => {
       dispatch(actions.addPostBegin());
       dispatch(actions.addPostSuccess(post));
     } catch (err) {
-      dispatch(actions.API_ERROR(err));
+      dispatch(actions.apiError(err));
     }
   };
 };

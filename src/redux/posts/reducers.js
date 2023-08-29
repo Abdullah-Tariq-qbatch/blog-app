@@ -23,6 +23,7 @@ const {
 } = actions;
 
 const Posts = (state = initialState, action) => {
+  let newPosts;
   const { type, data } = action;
   switch (type) {
     case FETCH_POSTS_BEGIN:
@@ -62,7 +63,7 @@ const Posts = (state = initialState, action) => {
         error: null,
       };
     case DELETE_POST_SUCCESS:
-      const newPosts = getDataFromLocalStorage("posts").filter(
+       newPosts = getDataFromLocalStorage("posts").filter(
         (post) => data.postId !== post.id
       );
       localStorage.setItem("posts", JSON.stringify(newPosts));

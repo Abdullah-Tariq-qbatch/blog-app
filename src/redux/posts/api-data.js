@@ -22,7 +22,7 @@ const makePosts = (postsData, commentsData, usersData, pictureData, userId) => {
     postsData.data.posts,
     getDataFromLocalStorage("posts")
   ).reduce((acc, post) => {
-    let finuserClComments = [];
+    let finalComments = [];
     if (postIdsComments[post.id]) {
       finalComments = postIdsComments[post.id]?.map((comment) => {
         comment.user.firstname = currentUsers[comment.user.id].firstName;

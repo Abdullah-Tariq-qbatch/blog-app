@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Heart from "react-heart";
 import _ from "lodash";
+import "../../../../index.css";
 
 import DeleteMessage from "../../DeleteMessage/DeleteMessage";
 import Comment from "../Comment/Comment";
@@ -77,18 +78,19 @@ const Post = (post) => {
   };
 
   return (
-    <div className="w-3/4 m-auto mt-10 ">
+    <div className="w-3/4 m-auto">
       <main className="profile-page">
-        <section className="relative block h-500-px">
+        <section className="relative block h-[500px]">
           <div
-            className="absolute top-0 w-full h-full bg-center bg-cover"
+            className="absolute top-0 w-full h-full bg-cover bg-center"
             style={{
               backgroundImage: `url('${post.imageURL}')`,
+              backgroundRepeat: "no-repeat",
             }}
           >
             <span
               id="blackOverlay"
-              className="w-full h-full absolute opacity-50 bg-black"
+              className="w-full h-[1000px] absolute opacity-20 bg-black"
             ></span>
           </div>
           <div
