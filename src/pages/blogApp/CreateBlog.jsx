@@ -6,9 +6,9 @@ import {
 import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { ReactComponent as FileUploadIconSvg } from '../assets/svg/uploadFileIcon.svg';
-import { createBlog, updateBlog } from '../redux/blogs/actionCreator';
-import { RenderIf } from '../utils/commonMethods';
+import { ReactComponent as FileUploadIconSvg } from '../../assets/blogApp/svg/uploadFileIcon.svg';
+import { createBlog, updateBlog } from '../../redux/blogs/actionCreator';
+import { RenderIf } from '../../utils/blogApp/commonMethods';
 
 function CreateBlog() {
   const location = useLocation();

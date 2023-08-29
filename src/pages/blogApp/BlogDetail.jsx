@@ -10,16 +10,16 @@ import {
   EditOutlined,
 } from '@ant-design/icons';
 
-import Image from '../components/ProfileImage';
-import Avatar from '../components/Avatar';
-import Comment from '../components/BlogDetailsPage/CommentCard';
-import Spinner from '../components/Spinner';
+import Image from '../../components/blogApp/ProfileImage';
+import Avatar from '../../components/blogApp/Avatar';
+import Comment from '../../components/blogApp/BlogDetailsPage/CommentCard';
+import Spinner from '../../components/blogApp/Spinner';
 
-import likeAudio from '../assets/audio/likeSound.mp3';
-import { copyLink, likeBlog } from '../redux/blogs/actionCreator';
-import { createComment } from '../redux/comments/actionCreator';
-import { defaultImageUrl, dummyParagraph } from '../constants/constants';
-import { getInitials, RenderIf } from '../utils/commonMethods';
+import likeAudio from '../../assets/blogApp/audio/likeSound.mp3';
+import { copyLink, likeBlog } from '../../redux/blogs/actionCreator';
+import { createComment } from '../../redux/comments/actionCreator';
+import { defaultImageUrl, dummyParagraph } from '../../constants/blogApp/constants';
+import { getInitials, RenderIf } from '../../utils/blogApp/commonMethods';
 
 function BlogDetail() {
   const { id } = useParams();

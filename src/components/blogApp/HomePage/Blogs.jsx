@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 import Card from './Card';
 import Pagination from './Pagination';
 import CardSkeleton from './CardSkeleton';
-import { RenderIf } from '../../utils/commonMethods';
+import { RenderIf } from '../../../utils/blogApp/commonMethods';
 
 function Blogs({ userId }) {
   const [searchParams, setSearchParams] = useSearchParams();

@@ -2,10 +2,10 @@
 import { cloneDeep } from 'lodash';
 
 import actions from './actions';
-import api from '../../utils/fetchData';
-import sendErrorNotification from '../../utils/slackNotification';
-import uploadImage from '../../utils/imageUpload';
-import { isSuccess } from '../../utils/commonMethods';
+import api from '../../utils/blogApp/fetchData';
+import sendErrorNotification from '../../utils/blogApp/slackNotification';
+import uploadImage from '../../utils/blogApp/imageUpload';
+import { isSuccess } from '../../utils/blogApp/commonMethods';
 
 const {
   fetchBlogsBegin,

@@ -3,11 +3,11 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import Switcher from './Switcher';
-import { ReactComponent as HamburgerSvg } from '../assets/svg/hamburger.svg';
-import { ReactComponent as CrossSvg } from '../assets/svg/cross.svg';
+import { ReactComponent as HamburgerSvg } from '../../assets/blogApp/svg/hamburger.svg';
+import { ReactComponent as CrossSvg } from '../../assets/blogApp/svg/cross.svg';
 
-import logo from '../assets/image/png/logo512.png';
-import { RenderIf } from '../utils/commonMethods';
+import logo from '../../assets/blogApp/image/png/logo512.png';
+import { RenderIf } from '../../utils/blogApp/commonMethods';
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);

@@ -4,14 +4,14 @@ import {
 } from 'react-router-dom';
 
 import './App.css';
-import MainLayout from './layout/MainLayout';
-import Spinner from './components/Spinner';
-import ScrollToTop from './utils/scrollToTop';
+import MainLayout from './layout/blogApp/MainLayout';
+import Spinner from './components/blogApp/Spinner';
+import ScrollToTop from './utils/blogApp/scrollToTop';
 
-const Home = lazy(() => import(/* webpackChunkName: "Home" */ './pages/Home'));
-const BlogDetail = lazy(() => import(/* webpackChunkName: "BlogDetail" */ './pages/BlogDetail'));
-const CreateBlog = lazy(() => import(/* webpackChunkName: "CreateBlog" */ './pages/CreateBlog'));
-const UserBlogs = lazy(() => import(/* webpackChunkName: "UserBlogs" */ './pages/UserBlogs'));
+const Home = lazy(() => import(/* webpackChunkName: "Home" */ './pages/blogApp/Home'));
+const BlogDetail = lazy(() => import(/* webpackChunkName: "BlogDetail" */ './pages/blogApp/BlogDetail'));
+const CreateBlog = lazy(() => import(/* webpackChunkName: "CreateBlog" */ './pages/blogApp/CreateBlog'));
+const UserBlogs = lazy(() => import(/* webpackChunkName: "UserBlogs" */ './pages/blogApp/UserBlogs'));
 
 function App() {
   return (

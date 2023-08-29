@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import logo from '../assets/image/png/logo512.png';
+import logo from '../../assets/blogApp/image/png/logo512.png';
 
 function Footer() {
   return (

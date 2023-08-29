@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 import Avatar from '../Avatar';
 
-import { deleteComment } from '../../redux/comments/actionCreator';
+import { deleteComment } from '../../../redux/comments/actionCreator';
 
 function Comment({ commentDetails }) {
   const dispatch = useDispatch();

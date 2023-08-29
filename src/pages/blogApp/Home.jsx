@@ -1,7 +1,7 @@
 import React from 'react';
-import Blogs from '../components/HomePage/Blogs';
+import Blogs from '../../components/blogApp/HomePage/Blogs';
 
-import cover from '../assets/image/jpeg/cover.jpeg';
+import cover from '../../assets/blogApp/image/jpeg/cover.jpeg';
 
 function Home() {
   return (

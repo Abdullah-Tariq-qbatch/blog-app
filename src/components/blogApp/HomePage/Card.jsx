@@ -7,8 +7,8 @@ import PropTypes from 'prop-types';
 import Image from '../ProfileImage';
 import Avatar from '../Avatar';
 
-import { defaultImageUrl } from '../../constants/constants';
-import { getInitials, RenderIf } from '../../utils/commonMethods';
+import { defaultImageUrl } from '../../../constants/blogApp/constants';
+import { getInitials, RenderIf } from '../../../utils/blogApp/commonMethods';
 
 function Card({ blog, user, comments }) {
   const imageSrc = blog?.file ? blog.file : defaultImageUrl;

@@ -1,8 +1,8 @@
 import React from 'react';
 import { HeartOutlined, CommentOutlined } from '@ant-design/icons';
 
-import { ReactComponent as FileSkeletonSvg } from '../../assets/svg/fileSkeleton.svg';
-import { ReactComponent as ProfileSkeleton } from '../../assets/svg/profileSkeleton.svg';
+import { ReactComponent as FileSkeletonSvg } from '../../../assets/blogApp/svg/fileSkeleton.svg';
+import { ReactComponent as ProfileSkeleton } from '../../../assets/blogApp/svg/profileSkeleton.svg';
 
 function CardSkeleton() {
   return (

@@ -1,11 +1,11 @@
 /* eslint-disable jsx-a11y/interactive-supports-focus */
 import React, { useState } from 'react';
 
-import { ReactComponent as SunSvg } from '../assets/svg/sun.svg';
-import { ReactComponent as MoonSvg } from '../assets/svg/moon.svg';
+import { ReactComponent as SunSvg } from '../../assets/blogApp/svg/sun.svg';
+import { ReactComponent as MoonSvg } from '../../assets/blogApp/svg/moon.svg';
 
-import useDarkSide from '../utils/useDarkSide';
-import { RenderIf } from '../utils/commonMethods';
+import useDarkSide from '../../utils/blogApp/useDarkSide';
+import { RenderIf } from '../../utils/blogApp/commonMethods';
 
 export default function Switcher() {
   const [colorTheme, setTheme] = useDarkSide();

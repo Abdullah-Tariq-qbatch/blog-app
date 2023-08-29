@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { ReactComponent as CheckIconSvg } from '../assets/svg/checkIcon.svg';
-import { ReactComponent as CloseIconSvg } from '../assets/svg/closeIcon.svg';
+import { ReactComponent as CheckIconSvg } from '../../assets/blogApp/svg/checkIcon.svg';
+import { ReactComponent as CloseIconSvg } from '../../assets/blogApp/svg/closeIcon.svg';
 
-import { clearMessage } from '../redux/blogs/actionCreator';
-import { clearMessageComments } from '../redux/comments/actionCreator';
-import { clearMessageUser } from '../redux/users/actionCreator';
+import { clearMessage } from '../../redux/blogs/actionCreator';
+import { clearMessageComments } from '../../redux/comments/actionCreator';
+import { clearMessageUser } from '../../redux/users/actionCreator';
 
 function Toast() {
   const Blogs = useSelector((state) => state.Blogs);
