@@ -11,18 +11,47 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import Spinner from './components/social-media-feed/Spinner/Spinner';
 
+import { Provider } from "react-redux";
+import store from "./redux/store";
+import Root from "./components/tvShowApp/Root";
+
+import Loader from "./components/tvShowApp/Loader";
+
 const Header = lazy(() => import('./components/social-media-feed/Header/Header'));
 const UsersFeed = lazy(() => import('./pages/social-media-feed/UsersFeed/UsersFeed'));
 const AddPost = lazy(() => import('./pages/social-media-feed/AddPost/AddPost'));
 const PostsFeed = lazy(() => import('./pages/social-media-feed/PostsFeed/PostsFeed'));
 
+
+
+const AllTvShows = lazy(() =>
+  import(/* webpackChunkName: "allTvShows" */ "./pages/tvShowApp/AllTvShows")
+);
+const AddTvShow = lazy(() =>
+  import(/* webpackChunkName: "addTvShow " */ "./pages/tvShowApp/AddTvShow")
+);
+const TvShowDetails = lazy(() =>
+  import(/* webpackChunkName: "addTvShow " */ "./pages/tvShowApp/TvShowDetails")
+);
+
+const Page404 = lazy(() =>
+  import(/* webpackChunkName: "page404 " */ "./components/tvShowApp/Page404")
+);
+
 function App() {
   return (
     <BrowserRouter>
-      <ToastContainer />
-      <Suspense fallback={<Spinner />}>
-        <Routes>
-          <Route path="/" element={<Header />}>
+      <Provider store={store}>
+        <Suspense fallback={<Loader />}>
+          <Routes>
+            <Route path="/tvShows" element={<Root />}>
+              <Route path="add-tv-show" element={<AddTvShow />} />
+              <Route path="all-tv-shows" element={<AllTvShows />} />
+              <Route path="tv-show-details/:id" element={<TvShowDetails />} />
+              <Route path="*" element={<Page404 />} />
+            </Route>
+            <ToastContainer />
+           <Route path="/" element={<Header />}>
             <Route path="/" element={<PostsFeed />} />
             <Route path="/users-feed" element={<UsersFeed />} />
             <Route
@@ -39,8 +68,9 @@ function App() {
               element={<AddPost pageLink="edit" />}
             />
           </Route>
-        </Routes>
-      </Suspense>
+          </Routes>
+        </Suspense>
+      </Provider>
     </BrowserRouter>
   );
 }
