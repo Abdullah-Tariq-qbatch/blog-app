@@ -1,5 +1,5 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
-import PropTypes from 'prop-types';
 
 function ProfileImage({ src }) {
   return (
@@ -10,9 +10,5 @@ function ProfileImage({ src }) {
     </div>
   );
 }
-
-ProfileImage.propTypes = {
-  src: PropTypes.string.isRequired,
-};
 
 export default ProfileImage;

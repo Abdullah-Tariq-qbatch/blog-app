@@ -36,7 +36,6 @@ function Blogs({ userId }) {
         setList(() => tempList[userId]);
       } else setList(() => BlogsData.blogs);
     }
-    console.log(UserData);
     if (!BlogsData.loading && !UserData.loading) { setUsers(() => keyBy(UserData.users, 'id')); }
     if (!BlogsData.loading && !CommentData.loading) { SetPostComments(() => countBy(CommentData.comments, 'postId')); }
     if (userId) {
@@ -44,10 +43,6 @@ function Blogs({ userId }) {
       setUser(tempList[userId]);
     }
   }, [BlogsData, UserData, CommentData]);
-
-  useEffect(() => {
-    console.log(users);
-  }, [users])
 
   const debouncedFilter = useCallback(
     debounce((value) => {

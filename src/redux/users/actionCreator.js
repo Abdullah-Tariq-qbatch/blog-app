@@ -24,6 +24,7 @@ export const fetchUsers = () => async (dispatch) => {
     }
   }
 };
+
 export const fetchUsersSocialMediaFeed = (limit = 0, skip = 0) => {
   return async (dispatch) => {
     try {
@@ -32,7 +33,7 @@ export const fetchUsersSocialMediaFeed = (limit = 0, skip = 0) => {
         `https://dummyjson.com/users?limit=${limit}&skip=${skip}`
       );
       if (isSuccess(response)) {
-        dispatch(actions.fetchUsersSuccess(response.data));
+        dispatch(actions.fetchUsersSuccess(response.data.users));
       }
     } catch (err) {
       dispatch(actions.API_ERROR(err));
@@ -55,7 +56,7 @@ export const searchAllUsers = (data) => {
         dispatch(actions.searchUserSuccess(response.data.users));
       }
     } catch (err) {
-      dispatch(actions.API_ERROR(err));
+      dispatch(actions.apiError(err));
     }
   };
 };
@@ -66,7 +67,7 @@ export const deleteAUser = (userId) => {
       dispatch(actions.deleteUserBegin());
       dispatch(actions.deleteUserSuccess(userId));
     } catch (err) {
-      dispatch(actions.API_ERROR(err));
+      dispatch(actions.apiError(err));
     }
   };
 };

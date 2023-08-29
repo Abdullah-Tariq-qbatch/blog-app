@@ -11,7 +11,6 @@ import { defaultImageUrl } from '../../../constants/blogApp/constants';
 import { getInitials, RenderIf } from '../../../utils/blogApp/commonMethods';
 
 function Card({ blog, user, comments }) {
-  console.log(user);
   const imageSrc = blog?.file ? blog.file : defaultImageUrl;
   return (
     <div className="max-w-sm bg-white dark:bg-gray-950 border dark:border-gray-950 border-gray-200 rounded-lg shadow flex flex-col">
