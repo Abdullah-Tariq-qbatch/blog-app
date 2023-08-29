@@ -42,12 +42,12 @@ module.exports = {
         tealProfessional: "hsl(0, 0%, 2%)",
         cyanProfessional: "hsl(208, 85%, 63%)",
       },
-      // keyframes: {
-      //   typing: {
-      //     from: { width: "0" },
-      //     to: { width: "25ch" },
-      //   },
-      // },
+      keyframes: {
+        typing: {
+          from: { width: "0" },
+          to: { width: "25ch" },
+        },
+      },
       animation: {
         typing: "typing 3s steps(25)",
       },

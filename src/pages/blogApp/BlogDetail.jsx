@@ -28,6 +28,7 @@ function BlogDetail() {
   const BlogsData = useSelector((state) => state.Blogs);
   const UserData = useSelector((state) => state.Users);
   const CommentData = useSelector((state) => state.Comments);
+  const currentUser = useSelector(state => state.Users.currentUser);
 
   const memoizedFindBlog = memoize(
     (Id) => find(BlogsData.blogs, (obj) => obj.id === parseInt(Id, 10)),
@@ -77,7 +78,7 @@ function BlogDetail() {
   const handleAddComment = () => {
     setCommentText('');
     dispatch(
-      createComment({ body: commentText, postId: blog.id, userId: 1 }),
+      createComment({ body: commentText, postId: blog.id, userId: currentUser.id }),
     );
   };
 
