@@ -1,6 +1,7 @@
 import React from "react";
-import logo from "../../assets/catalogApp/Images/logo512.png";
 import { Link } from "react-router-dom";
+
+import logo from "../../assets/catalogApp/Images/logo512.png";
 
 function Footer() {
   return (

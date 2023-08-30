@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { fetchAllProducts } from "../../redux/Products/actionCreator";
+import { fetchAllProducts } from "../../redux/products/actionCreator";
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";

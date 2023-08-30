@@ -1,14 +1,17 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import { CaretDownFilled } from "@ant-design/icons";
-
 import { useNavigate } from "react-router-dom";
 
 const CategoryDropDown = ({ selectedCategory, categories }) => {
   const navigate = useNavigate();
+
   const handleCategoryClick = (category) => {
-    category ? navigate(`/catalog/?category=${category}`) : navigate(`/catalog`);
+    category
+      ? navigate(`/catalog/?category=${category}`)
+      : navigate(`/catalog`);
   };
+
   return (
     <>
       <div className="flex items-center border border-gray-300 w-auto rounded-md px-4 py-2 float-right hover:bg-gray-50 ">

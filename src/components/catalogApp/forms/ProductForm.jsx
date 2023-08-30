@@ -1,17 +1,19 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect } from "react";
-import { fetchAllCategory } from "../../../redux/Categories/actionCreator";
-import { addProduct, editProduct } from "../../../redux/Products/actionCreator";
-import "../../../catalog.css";
 import * as Yup from "yup";
-import Button from "../Button";
 import { useSelector, useDispatch } from "react-redux";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+
+import Button from "../Button";
 import ColorVariation from "../ColorVariation";
 import RenderIf from "../RenderIf";
 import ProductFormAPI from "./ProductFormAPI";
 import ProductFormResponsive from "./ProductFormResponsive";
+
+import { fetchAllCategory } from "../../../redux/categories/actionCreator";
+import { addProduct, editProduct } from "../../../redux/products/actionCreator";
+import "../../../catalog.css";
 
 const SizeVariation = React.lazy(() =>
   import(/* webpackChunkName: "SizeVariation" */ "../SizeVariation")

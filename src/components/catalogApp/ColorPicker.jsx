@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import { ChromePicker } from "react-color";
+
 import RenderIf from "./RenderIf";
 
 const ColorPicker = ({ field, form }) => {

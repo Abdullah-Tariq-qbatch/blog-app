@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+
 import Button from "./Button";
 
 const Pagination = ({ totalPages, selectedPage, category, searchParam }) => {
@@ -50,6 +51,7 @@ const Pagination = ({ totalPages, selectedPage, category, searchParam }) => {
     }
     handlePageNoClick(selectedPage + 2);
   };
+
   return (
     <div className="flex flex-col md:justify-center md:items-center mt-5 md:w-auto ">
       <div className="flex mr-0 items-center justify-center">
