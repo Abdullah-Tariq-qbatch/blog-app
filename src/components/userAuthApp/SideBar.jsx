@@ -2,17 +2,31 @@ import {
   DesktopOutlined,
   EditOutlined,
   LeftSquareOutlined,
+  LogoutOutlined,
   RightSquareOutlined,
   ShoppingCartOutlined,
   UserOutlined,
 } from "@ant-design/icons";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 
-import { Link } from "react-router-dom";
 import RenderIf from "../catalogApp/RenderIf";
+import { logout } from "../../redux/users/actionCreator";
+import { useDispatch } from "react-redux";
 
 const SideBar = () => {
   const [showSidebar, setShowSidebar] = useState(false);
+
+  const location = useLocation();
+
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
+  function handleLogout() {
+    dispatch(logout(navigate));
+    toggleSidebar();
+  }
 
   function toggleSidebar() {
     setShowSidebar(!showSidebar);
@@ -103,7 +117,18 @@ const SideBar = () => {
                 <UserOutlined />
                 <p>Social Media</p>
               </Link>
-            </li>
+            </li>{" "}
+            {location.pathname !== "/login" && location.pathname !== "/" && (
+              <li>
+                <button
+                  onClick={handleLogout}
+                  className="flex w-full cursor-pointer flex-row items-center justify-start space-x-2 rounded-md bg-gray-800 text-gray-200 px-4 py-2 text-start hover:bg-gray-950 dark:bg-gray-400 dark:text-gray-950 dark:hover:bg-gray-600 hover:shadow-md"
+                >
+                  <LogoutOutlined />
+                  <p>Logout</p>
+                </button>
+              </li>
+            )}
           </ul>
         </nav>
       </aside>
