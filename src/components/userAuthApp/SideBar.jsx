@@ -32,7 +32,7 @@ const SideBar = () => {
     setShowSidebar(!showSidebar);
   }
 
-  return (
+  return location.pathname !== "/login" && location.pathname !== "/" && (
     <RenderIf
       isTrue={showSidebar}
       fallback={
