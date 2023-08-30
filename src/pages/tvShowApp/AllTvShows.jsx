@@ -1,18 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import TvShowCard from "../../components/tvShowApp/TvShowCard";
-import Loader from "../../components/tvShowApp/Loader";
-import Pagination from "../../components/tvShowApp/Pagination";
-import FilterSection from "../../components/tvShowApp/FilterSection";
-import Page404 from "../../components/tvShowApp/Page404";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import React, { useEffect, useState } from "react";
 import {
+  fetchAllTvShows,
   reInit,
   searchTvShowAPI,
-  fetchAllTvShows,
 } from "../../redux/shows/actionCreator";
+import { useDispatch, useSelector } from "react-redux";
+
+import FilterSection from "../../components/tvShowApp/FilterSection";
+import Loader from "../../components/tvShowApp/Loader";
+import Page404 from "../../components/tvShowApp/Page404";
+import Pagination from "../../components/tvShowApp/Pagination";
+import TvShowCard from "../../components/tvShowApp/TvShowCard";
+import { toast } from "react-toastify";
 import { useLocation } from "react-router-dom";
 
 const AllTvShows = () => {
@@ -74,7 +75,7 @@ const AllTvShows = () => {
               <TvShowCard data={tvShow} key={index} />
             </div>
           ))}
-          <ToastContainer />
+          {/* <ToastContainer /> */}
         </div>
       ) : (
         <Page404 errorMsg="No Result Found" />
