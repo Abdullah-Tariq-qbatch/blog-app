@@ -80,6 +80,7 @@ function LoginPage() {
   const googleLogin = useGoogleLogin({
     onSuccess: responseGoogle,
     onError: errorGoogle,
+    redirect_uri: "https://blog-app-gamma-swart.vercel.app/home",
   });
 
   function responseFacebook(response) {
