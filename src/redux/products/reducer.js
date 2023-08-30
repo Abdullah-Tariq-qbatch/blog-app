@@ -5,7 +5,7 @@ const myProducts = 100;
 let latestId = 100;
 const initialState = {
   products: [],
-  loading: true,
+  loading: false,
   success: null,
   error: null,
   total: 0,
