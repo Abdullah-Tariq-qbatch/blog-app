@@ -12,11 +12,11 @@ const Header = () => {
 
   return (
     <>
-      <div className="bg-gray-800">
+      <div className="bg-[#374151]">
         <div className="flex justify-between mx-10 md:mx-10 items-center">
           <NavLink
             to={"/catalog"}
-            className="text-white text-lg hidden md:flow-root font-semibold bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-md "
+            className="text-white text-lg hidden md:flow-root font-semibold bg-gray-700 hover:text-indigo-500 rounded-md "
           >
             Home
           </NavLink>
@@ -27,7 +27,7 @@ const Header = () => {
             onClick={() => {
               navigate("/catalog/add", { state: { product: undefined } });
             }}
-            className="justify-center hidden md:flex text-white text-lg font-semibold bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-md whitespace-nowrap items-center"
+            className="justify-center hidden md:flex text-white text-lg font-semibold bg-gray-700 hover:text-indigo-500  rounded-md whitespace-nowrap items-center"
           >
             Add Product
             <PlusOutlined className="ml-2" />

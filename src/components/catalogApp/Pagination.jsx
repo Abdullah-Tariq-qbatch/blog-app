@@ -65,7 +65,7 @@ const Pagination = ({ totalPages, selectedPage, category, searchParam }) => {
           />
           <Button
             onClick={handlePrevClick}
-            className={`items-center justify-center hidden  md:flow-root px-4 md:px-6 h-10 leading-none text-gray-600 border border-gray-300 rounded-md hover:bg-gray-200 hover:text-gray-800`}
+            className={`items-center justify-center hidden  bg-white md:flow-root px-4 md:px-6 h-10 leading-none text-gray-600 border border-gray-300 rounded-md hover:bg-gray-200 hover:text-gray-800`}
             label="Previous"
           />
         </div>
@@ -73,7 +73,7 @@ const Pagination = ({ totalPages, selectedPage, category, searchParam }) => {
         <div className="flex">
           <Button
             onClick={handleNextClick}
-            className={`items-center hidden md:flow-root :contents md:visible justify-center px-4 md:px-6 h-10 leading-none  text-gray-600 border border-gray-300 rounded-md hover:bg-gray-200 hover:text-gray-800`}
+            className={`items-center hidden bg-white md:flow-root :contents md:visible justify-center px-4 md:px-6 h-10 leading-none  text-gray-600 border border-gray-300 rounded-md hover:bg-gray-200 hover:text-gray-800`}
             label="Next"
           />
           <Button
