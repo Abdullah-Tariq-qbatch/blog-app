@@ -56,6 +56,7 @@ const AllTvShows = () => {
   return (
     <>
       <FilterSection
+        pageNo={pageParam}
         data={{
           allShows: allShows?.tvShows,
           tvShowList: tvShowList,
