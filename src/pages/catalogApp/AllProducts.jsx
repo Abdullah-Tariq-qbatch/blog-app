@@ -2,11 +2,10 @@ import React, { useEffect } from "react";
 import { fetchAllProducts } from "../../redux/products/actionCreator";
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import CategorySelector from "../../components/catalogApp/CategorySelector";
- import Products from "../../components/catalogApp/Products";
+import Products from "../../components/catalogApp/Products";
 
 const AllProducts = () => {
   const { search } = useLocation();
@@ -30,9 +29,8 @@ const AllProducts = () => {
 
   return (
     <div className="m-10">
-      <ToastContainer />
       <CategorySelector category={category} />
-      <Products category={category} pageNo={pageNo} searchParam={searchParam} /> 
+      <Products category={category} pageNo={pageNo} searchParam={searchParam} />
     </div>
   );
 };
