@@ -89,8 +89,9 @@ function App() {
   return (
     <BrowserRouter>
       <LazyLoading>
-        <Spinner show={showLoader} />
+      <Spinner show={showLoader} />
         <Notify />
+        <ToastContainer />
         <ToastContext.Provider value={toast}>
           <AuthGuard>
             <Routes>
@@ -105,20 +106,20 @@ function App() {
                 <Route path="*" element={<Page404 />} />
               </Route>
 
-              <Route path="/socialMedia" element={<Header />}>
-                <Route path="postfeed" element={<PostsFeed />} />
-                <Route path="" element={<PostsFeed />} />
-                <Route path="users-feed" element={<UsersFeed />} />
-                <Route
-                  path="posts-feed/user"
-                  element={<PostsFeed pageLink="user" />}
-                />
-                <Route
-                  path="my-posts"
-                  element={<PostsFeed pageLink="my-posts" />}
-                />
-                <Route path="add-post" element={<AddPost />} />
-              </Route>
+              <Route path="/social-media" element={<Header />}>
+            <Route path="postfeed" element={<PostsFeed />} />
+            <Route path="" element={<PostsFeed />} />
+            <Route path="users-feed" element={<UsersFeed />} />
+            <Route
+              path="posts-feed/user"
+              element={<PostsFeed pageLink="user" />}
+            />
+            <Route
+              path="my-posts"
+              element={<PostsFeed pageLink="my-posts" />}
+            />
+            <Route path="add-post" element={<AddPost />} />
+          </Route>
 
               <Route path="/catalog" element={<Layout />}>
                 <Route exact path="" element={<AllProduct />} />

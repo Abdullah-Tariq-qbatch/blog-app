@@ -11,7 +11,7 @@ const Header = () => {
     <>
       <nav className="bg-gray-100 border-gray-300 dark:bg-[#e5e7eb]">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          <NavLink to="/socialMedia">
+          <NavLink to="/social-media">
             <div className="flex items-center">
               <img
                 src="https://flowbite.com/docs/images/logo.svg"
@@ -47,7 +47,7 @@ const Header = () => {
               <li>
                 <NavLink
                   className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#4E67E4] md:p-0 dark:text-black md:dark:hover:text-[#4E67E4] dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                  to="/socialMedia/postfeed"
+                  to="/social-media/postfeed"
                 >
                   Posts Feed
                 </NavLink>
@@ -55,7 +55,7 @@ const Header = () => {
               <li>
                 <NavLink
                   className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#4E67E4] md:p-0 dark:text-black md:dark:hover:text-[#4E67E4] dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                  to="/socialMedia/users-feed"
+                  to="/social-media/users-feed"
                 >
                   Users Feed
                 </NavLink>
@@ -63,7 +63,7 @@ const Header = () => {
               <li>
                 <NavLink
                   className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#4E67E4] md:p-0 dark:text-black md:dark:hover:text-[#4E67E4] dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                  to="/socialMedia/my-posts"
+                  to="/social-media/my-posts"
                 >
                   My Posts
                 </NavLink>
@@ -71,7 +71,7 @@ const Header = () => {
               <li>
                 <NavLink
                   className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#4E67E4] md:p-0 dark:text-black md:dark:hover:text-[#4E67E4] dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                  to="/socialMedia/add-post"
+                  to="/social-media/add-post"
                 >
                   Add Post
                 </NavLink>
