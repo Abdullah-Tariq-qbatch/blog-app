@@ -53,7 +53,7 @@ const AddPost = ({ pageLink }) => {
     var raw = `{"text": "New Post have been added"}`;
     slackNotification(raw);
     setSubmitting(false);
-    navigate("/socialMedia/my-posts");
+    navigate("/social-media/my-posts");
   };
   return (
     <div className="flex justify-center items-center mt-28 w-screen">

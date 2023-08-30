@@ -78,7 +78,7 @@ const Post = (post) => {
   };
 
   return (
-    <div className="w-3/4 m-auto mt-10">
+    <div className="w-3/4 m-auto">
       <main className="profile-page">
         <section className="block h-[500px]">
           <div
