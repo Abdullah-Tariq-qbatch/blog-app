@@ -10,7 +10,7 @@ import NotFound from "./NotFound";
 import Loader from "./Loader";
 import RenderIf from "./RenderIf";
 
-import { reset } from "../../redux/products/actionCreator";
+import { reset } from "../../redux/product/actionCreator";
 
 const ProductCard = React.lazy(() =>
   import(/* webpackChunkName: "ProductCard" */ "./Cards/ProductCard")
