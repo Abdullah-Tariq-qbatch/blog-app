@@ -6,7 +6,7 @@ import { calculateYear } from "../../utils/tvShowApp/utils";
 
 import { Formik, Form } from "formik";
 
-const FilterSection = ({ data }) => {
+const FilterSection = ({ data, pageNo }) => {
   const networkWiseShows = groupBy(data.allShows, "network");
   const availableNetworks = Object.keys(networkWiseShows);
 
@@ -74,6 +74,10 @@ const FilterSection = ({ data }) => {
       sorted: sortByYear,
     });
   };
+
+  useEffect(() => {
+    setSortByYear(false);
+  }, [pageNo]);
 
   return (
     <div>
