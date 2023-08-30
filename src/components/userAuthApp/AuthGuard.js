@@ -1,24 +1,26 @@
 /* eslint-disable react/prop-types */
-import React, { useCallback, useState } from "react";
 import {
   fetchFacebookUserData,
   fetchGoogleUserData,
   fetchUserData,
 } from "../../redux/users/actionCreator";
+import { useCallback, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import React from "react";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { useEffect } from "react";
 
 function AuthGuard({ children }) {
   const [renderChildren, setRenderChildren] = useState(false);
+
+  const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
-  const getUserDetails = useCallback(async () => {
+  const getUserData = useCallback(() => {
     const loginMethod = localStorage.getItem("loginMethod");
+
     switch (loginMethod) {
       case "google":
         dispatch(fetchGoogleUserData(navigate));
@@ -27,10 +29,10 @@ function AuthGuard({ children }) {
         dispatch(fetchFacebookUserData(navigate));
         break;
       default:
-        dispatch(fetchUserData(localStorage.getItem("userId"), navigate));
+        dispatch(fetchUserData(localStorage.userId, navigate));
         break;
     }
-  }, []);
+  }, [dispatch, navigate]);
 
   useEffect(() => {
     if (location.pathname === "/" || location.pathname === "/login") {
@@ -38,17 +40,20 @@ function AuthGuard({ children }) {
       return;
     }
 
-    const accessToken = localStorage.getItem("access_token");
+    const accessToken = localStorage.access_token;
     if (accessToken) {
-      getUserDetails();
+      getUserData();
       setRenderChildren(true);
       return;
     }
 
+    toast.error("Please login to continue!", {
+      position: "top-center",
+      autoClose: false,
+    });
     navigate("/login");
-    toast.error("Please login first!");
     setRenderChildren(true);
-  }, [location, getUserDetails]);
+  }, [location, getUserData, navigate]);
 
   return <>{renderChildren && children}</>;
 }
