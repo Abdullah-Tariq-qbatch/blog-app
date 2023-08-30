@@ -126,38 +126,12 @@ function App() {
                 <Route path="edit" element={<ProductForm />} />
               </Route>
 
-              <Route
-                path="/blog/"
-                element={
-                  <MainLayout>
-                    <BlogHome />
-                  </MainLayout>
-                }
-              />
-              <Route
-                path="/blog/:id"
-                element={
-                  <MainLayout>
-                    <BlogDetails />
-                  </MainLayout>
-                }
-              />
-              <Route
-                path="/blog/create-blog"
-                element={
-                  <MainLayout>
-                    <CreateBlog />
-                  </MainLayout>
-                }
-              />
-              <Route
-                path="/blog/user/:id/blogs"
-                element={
-                  <MainLayout>
-                    <UserBlogs />
-                  </MainLayout>
-                }
-              />
+              <Route path="/blog" element={<MainLayout />}>
+                <Route exact path="" element={<BlogHome />} />
+                <Route path=":id" element={<BlogDetails />} />
+                <Route path="create-blog" element={<CreateBlog />} />
+                <Route path="user/:id/blogs" element={<UserBlogs />} />
+              </Route>
             </Routes>
           </AuthGuard>
         </ToastContext.Provider>
