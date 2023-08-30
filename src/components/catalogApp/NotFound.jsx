@@ -2,6 +2,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { WarningFilled } from "@ant-design/icons";
+
 import RenderIf from "./RenderIf";
 
 const NotFound = ({ errorMsg }) => {

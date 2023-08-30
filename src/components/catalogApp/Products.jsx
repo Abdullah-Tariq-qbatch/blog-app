@@ -1,14 +1,17 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useMemo, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Loader from "./Loader";
 import { toast } from "react-toastify";
-import Pagination from "./Pagination";
-import NotFound from "./NotFound";
-import LazyLoading from "./LazyLoading";
-import { reset } from "../../redux/Products/actionCreator";
 import { ceil } from "lodash";
+
+import Pagination from "./Pagination";
+import LazyLoading from "./LazyLoading";
+import NotFound from "./NotFound";
+import Loader from "./Loader";
 import RenderIf from "./RenderIf";
+
+import { reset } from "../../redux/products/actionCreator";
+
 const ProductCard = React.lazy(() =>
   import(/* webpackChunkName: "ProductCard" */ "./Cards/ProductCard")
 );

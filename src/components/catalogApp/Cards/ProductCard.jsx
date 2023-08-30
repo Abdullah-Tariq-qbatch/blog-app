@@ -1,17 +1,18 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { deleteProduct } from "../../../redux/Products/actionCreator";
 import { useNavigate } from "react-router-dom";
-import DeleteDialog from "../DeleteDialog";
-import "../../../catalog.css";
 import { groupBy } from "lodash";
-
 import { EditOutlined, DeleteOutlined, StarFilled } from "@ant-design/icons";
+
+import DeleteDialog from "../DeleteDialog";
 import Colors from "./Colors";
 import Sizes from "./Sizes";
 import Button from "../Button";
 import RenderIf from "../RenderIf";
+
+import { deleteProduct } from "../../../redux/products/actionCreator";
+import "../../../catalog.css";
 
 const ProductCard = ({ product }) => {
   const [selectedSize, setSelectedSize] = useState(0);

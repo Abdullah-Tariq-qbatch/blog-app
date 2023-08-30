@@ -1,9 +1,11 @@
 /* eslint-disable react/prop-types */
 import React from "react";
-import ColorPicker from "./ColorPicker";
-import "../../catalog.css";
 import { FieldArray, Field, ErrorMessage } from "formik";
+
+import ColorPicker from "./ColorPicker";
 import Button from "./Button";
+
+import "../../catalog.css";
 
 const ColorVariation = ({ values }) => {
   return (

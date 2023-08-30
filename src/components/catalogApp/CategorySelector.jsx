@@ -1,12 +1,14 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect } from "react";
-import LazyLoading from "./LazyLoading";
-import { fetchAllCategory } from "../../redux/Categories/actionCreator";
 import { useSelector, useDispatch } from "react-redux";
-import Loader from "./Loader";
 import { toast } from "react-toastify";
 import { startCase } from "lodash";
+
+import Loader from "./Loader";
 import RenderIf from "./RenderIf";
+import LazyLoading from "./LazyLoading";
+
+import { fetchAllCategory } from "../../redux/categories/actionCreator";
 
 const CategoriesSider = React.lazy(() =>
   import(/* webpackChunkName: "CategoriesSider" */ "./CategoriesSider")
@@ -17,6 +19,7 @@ const CategoriesDropDown = React.lazy(() =>
 
 const CategorySelector = ({ category }) => {
   const dispatch = useDispatch();
+
   const {
     loading: categoryLoading,
     categories,

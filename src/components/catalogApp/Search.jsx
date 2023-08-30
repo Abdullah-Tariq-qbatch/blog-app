@@ -1,11 +1,13 @@
 /* eslint-disable react/prop-types */
 
 import React, { useRef } from "react";
-import "../../catalog.css";
 import { debounce } from "lodash";
 import { SearchOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
+
 import Button from "./Button";
+
+import "../../catalog.css";
 
 const Search = () => {
   const navigate = useNavigate();

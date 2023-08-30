@@ -1,7 +1,9 @@
 /* eslint-disable react/prop-types */
 import React from "react";
-import "../../catalog.css";
+
 import Button from "./Button";
+
+import "../../catalog.css";
 
 const DeleteConfirmation = ({ id, handleDelete, setIsDialogVisible }) => {
   return (

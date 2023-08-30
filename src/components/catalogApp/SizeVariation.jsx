@@ -1,8 +1,10 @@
 /* eslint-disable react/prop-types */
 import React from "react";
-import "../../catalog.css";
 import { FieldArray, Field, ErrorMessage } from "formik";
+
 import Button from "./Button";
+
+import "../../catalog.css";
 
 const SizeVariation = ({ values }) => {
   return (

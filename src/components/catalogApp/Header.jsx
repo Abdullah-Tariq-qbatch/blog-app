@@ -2,6 +2,7 @@
 import React from "react";
 import { useNavigate, NavLink } from "react-router-dom";
 import { PlusOutlined } from "@ant-design/icons";
+
 import Search from "./Search";
 
 import "../../catalog.css";

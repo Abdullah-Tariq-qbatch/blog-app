@@ -1,16 +1,20 @@
 /* eslint-disable react/prop-types */
 import React from "react";
+import { useNavigate } from "react-router-dom";
+
+import Button from "./Button";
 
 import "../../catalog.css";
-import { useNavigate } from "react-router-dom";
-import Button from "./Button";
 
 const CategorySlider = ({ categories, selectedCategory }) => {
   const navigate = useNavigate();
 
   const handleCategoryClick = (category) => {
-    category ? navigate(`/catalog/?category=${category}`) : navigate(`/catalog/`);
+    category
+      ? navigate(`/catalog/?category=${category}`)
+      : navigate(`/catalog/`);
   };
+
   return (
     <div className="flex overflow-x-auto whitespace-nowrap p-4 mt-10">
       <Button
