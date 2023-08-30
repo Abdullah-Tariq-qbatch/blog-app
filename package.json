@@ -39,6 +39,7 @@
   "proxy": "https://hooks.slack.com",
   "homepage": "http://localhost:3000",
   "scripts": {
+    "https start": "HTTPS=true SSL_CRT_FILE=localhost.crt SSL_KEY_FILE=localhost.key react-scripts start",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

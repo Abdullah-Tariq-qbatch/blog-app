@@ -10,6 +10,7 @@ import { ReactComponent as FacebookLogo } from "../../assets/userAuthApp/svgs/fa
 import { ReactComponent as GitHubLogo } from "../../assets/userAuthApp/svgs/github-logo.svg";
 import { ReactComponent as LinkedInLogo } from "../../assets/userAuthApp/svgs/linkedin-logo.svg";
 import React from "react";
+import Spinner from "../../components/userAuthApp/Spinner";
 import ThemeSwitcher from "../../components/userAuthApp/ThemeSwitcher";
 import { ReactComponent as TwitterLogo } from "../../assets/userAuthApp/svgs/twitter-logo.svg";
 import _ from "lodash";
@@ -18,6 +19,8 @@ import { useNavigate } from "react-router-dom";
 import userImage from "../../assets/userAuthApp/images/user.png";
 
 function HomePage() {
+  const showLoader = useSelector((state) => state.Users.loading);
+
   const userData = useSelector((state) => state.Users.currentUser);
 
   const dispatch = useDispatch();
@@ -30,6 +33,7 @@ function HomePage() {
 
   return (
     <>
+      <Spinner show={showLoader} />
       <div className="flex h-screen w-screen flex-col items-center justify-start overflow-hidden bg-[#E2E8F0] dark:bg-gray-800">
         <header className="flex w-full items-center justify-start bg-gray-700 px-4 text-white dark:bg-gray-900">
           <SearchOutlined className="ml-4" />
