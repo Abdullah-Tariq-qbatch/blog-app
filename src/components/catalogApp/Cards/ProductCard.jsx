@@ -35,7 +35,7 @@ const ProductCard = ({ product }) => {
       <div className="relative bg-white border border-gray-200 rounded-lg shadow flex justify-center h-[390px]">
         <img
           src={product.thumbnail}
-          className="object-cover h-48 w-96 rounded-lg"
+          className="object-cover h-48 w-96 rounded-t-lg"
         />
         <div className="absolute top-40 w-11/12">
           <div className="px-5 py-3 bg-white border border-gray-200 rounded-lg bg-opacity-70">
