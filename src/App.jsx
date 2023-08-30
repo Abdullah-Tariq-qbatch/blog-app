@@ -1,8 +1,3 @@
-import "./App.css";
-import "react-toastify/dist/ReactToastify.css";
-import "./index.css";
-import "react-toastify/dist/ReactToastify.css";
-
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import React, { lazy } from "react";
 
@@ -14,8 +9,11 @@ import Notify from "./components/userAuthApp/Notify";
 import Root from "./components/tvShowApp/Root";
 import ScrollTopButton from "./components/blogApp/ScrollTopButton";
 import SideBar from "./components/userAuthApp/SideBar";
-import { ToastContext } from "./contexts/userAuthApp/ToastContext";
-import { toast } from "react-toastify";
+
+import "./App.css";
+import "react-toastify/dist/ReactToastify.css";
+import "./index.css";
+import "react-toastify/dist/ReactToastify.css";
 
 const Header = lazy(() =>
   import("./components/social-media-feed/Header/Header")
@@ -100,7 +98,7 @@ function App() {
               </Route>
 
               <Route path="/social-media" element={<Header />}>
-                <Route path="postfeed" element={<PostsFeed />} />
+                <Route path="posts-feed" element={<PostsFeed />} />
                 <Route path="" element={<PostsFeed />} />
                 <Route path="users-feed" element={<UsersFeed />} />
                 <Route
