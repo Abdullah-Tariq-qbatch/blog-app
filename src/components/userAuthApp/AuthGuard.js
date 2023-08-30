@@ -35,11 +35,6 @@ function AuthGuard({ children }) {
   }, [dispatch, navigate]);
 
   useEffect(() => {
-    if (location.pathname === "/" || location.pathname === "/login") {
-      setRenderChildren(true);
-      return;
-    }
-
     const accessToken = localStorage.access_token;
     if (accessToken) {
       getUserData();

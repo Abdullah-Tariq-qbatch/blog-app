@@ -82,49 +82,82 @@ function App() {
     <BrowserRouter>
       <LazyLoading>
         <Notify />
-        <AuthGuard>
-          <SideBar />
-          <Routes>
-            <Route exact path="/" element={<SignUpPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/home" element={<HomePage />} />
+        <SideBar />
+        <Routes>
+          <Route exact path="/" element={<SignUpPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route
+            path="/home"
+            element={
+              <AuthGuard>
+                <HomePage />
+              </AuthGuard>
+            }
+          />
 
-            <Route path="/tv-shows" element={<Root />}>
-              <Route path="" element={<AllTvShows />} />
-              <Route path="add-tv-show" element={<AddTvShow />} />
-              <Route path="tv-show-details/:id" element={<TvShowDetails />} />
-              <Route path="*" element={<Page404 />} />
-            </Route>
+          <Route
+            path="/tv-shows"
+            element={
+              <AuthGuard>
+                <Root />
+              </AuthGuard>
+            }
+          >
+            <Route path="" element={<AllTvShows />} />
+            <Route path="add-tv-show" element={<AddTvShow />} />
+            <Route path="tv-show-details/:id" element={<TvShowDetails />} />
+            <Route path="*" element={<Page404 />} />
+          </Route>
 
-            <Route path="/social-media" element={<Header />}>
-              <Route path="posts-feed" element={<PostsFeed />} />
-              <Route path="" element={<PostsFeed />} />
-              <Route path="users-feed" element={<UsersFeed />} />
-              <Route
-                path="posts-feed/user"
-                element={<PostsFeed pageLink="user" />}
-              />
-              <Route
-                path="my-posts"
-                element={<PostsFeed pageLink="my-posts" />}
-              />
-              <Route path="add-post" element={<AddPost />} />
-            </Route>
+          <Route
+            path="/social-media"
+            element={
+              <AuthGuard>
+                <Header />
+              </AuthGuard>
+            }
+          >
+            <Route path="posts-feed" element={<PostsFeed />} />
+            <Route path="" element={<PostsFeed />} />
+            <Route path="users-feed" element={<UsersFeed />} />
+            <Route
+              path="posts-feed/user"
+              element={<PostsFeed pageLink="user" />}
+            />
+            <Route
+              path="my-posts"
+              element={<PostsFeed pageLink="my-posts" />}
+            />
+            <Route path="add-post" element={<AddPost />} />
+          </Route>
 
-            <Route path="/catalog" element={<Layout />}>
-              <Route exact path="" element={<AllProduct />} />
-              <Route path="add" element={<ProductForm />} />
-              <Route path="edit" element={<ProductForm />} />
-            </Route>
+          <Route
+            path="/catalog"
+            element={
+              <AuthGuard>
+                <Layout />
+              </AuthGuard>
+            }
+          >
+            <Route exact path="" element={<AllProduct />} />
+            <Route path="add" element={<ProductForm />} />
+            <Route path="edit" element={<ProductForm />} />
+          </Route>
 
-            <Route path="/blog" element={<MainLayout />}>
-              <Route exact path="" element={<BlogHome />} />
-              <Route path=":id" element={<BlogDetails />} />
-              <Route path="create-blog" element={<CreateBlog />} />
-              <Route path="user/:id/blogs" element={<UserBlogs />} />
-            </Route>
-          </Routes>
-        </AuthGuard>
+          <Route
+            path="/blog"
+            element={
+              <AuthGuard>
+                <MainLayout />
+              </AuthGuard>
+            }
+          >
+            <Route exact path="" element={<BlogHome />} />
+            <Route path=":id" element={<BlogDetails />} />
+            <Route path="create-blog" element={<CreateBlog />} />
+            <Route path="user/:id/blogs" element={<UserBlogs />} />
+          </Route>
+        </Routes>
         <ScrollTopButton />
       </LazyLoading>
     </BrowserRouter>

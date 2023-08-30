@@ -60,7 +60,7 @@ const SideBar = () => {
 
         <div className="flex flex-row items-center justify-around px-4 dark:text-white text-gray-800">
           <h1 className="text-md px-2 py-4 text-center font-semibold md:text-xl">
-            User Auth System
+            One App 2.0
           </h1>
         </div>
 

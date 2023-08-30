@@ -48,21 +48,23 @@ const Post = (post) => {
         body: userCommentInput.current.value,
         postId: post.id,
         user: {
-          firstname: currentUser.firstName,
-          lastname: currentUser.lastName,
-          id: currentUser.id,
-          username: currentUser.username,
+          firstname: currentUser.firstName || currentUser.given_name,
+          lastname: currentUser.lastName || currentUser.family_name,
+          id: currentUser.id || 1000,
+          username: currentUser.username || currentUser.name,
         },
       };
       const newComments = _.concat(comment, post.comments);
       const newPost = { ...post, comments: [comment, ...post.comments] };
       const existingComments = getDataFromLocalStorage("userComments");
       existingComments.push(comment);
+      setShowComments();
       const updatedCommentsJSON = JSON.stringify(existingComments);
       localStorage.setItem("userComments", updatedCommentsJSON);
       dispatch(updateUserPost(newPost));
       dispatch(updateUserComments(newComments));
       userCommentInput.current.value = "";
+      setShowComments((state) => !state);
     } else {
       toast.error("Alert: Please enter comment");
     }
@@ -197,20 +199,19 @@ const Post = (post) => {
                             </form>
                           </div>
                           <div className="w-1/2">
-                            <Button onClick={() => setShowComments(state => !state)}>
+                            <Button
+                              onClick={() => setShowComments((state) => !state)}
+                            >
                               <ViewIcon />
                               View Comments
                             </Button>
                           </div>
                         </div>
-                        <div className={showComments? 'block' : 'hidden'}>
+                        <div className={showComments ? "block" : "hidden"}>
                           {comments &&
-                            comments.map(
-                              (comment, id) =>
-                                comment.postId === post.id && (
-                                  <Comment {...comment} key={id}></Comment>
-                                )
-                            )}
+                            comments.map((comment, id) => (
+                              <Comment {...comment} key={id}></Comment>
+                            ))}
                         </div>
                       </div>
                     </div>
