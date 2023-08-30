@@ -1,5 +1,6 @@
 import { Form, Formik } from "formik";
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import AuthModal from "../../../components/userAuthApp/forms/AuthModal";
 import BackgroundImage from "../../../components/userAuthApp/BackgroundImage";
@@ -7,15 +8,16 @@ import FormikInput from "../../../components/userAuthApp/forms/FormikInput";
 import Joi from "joi";
 import RedirectionLink from "../../../components/userAuthApp/forms/RedirectionLink";
 import ShowPasswordCheckBox from "../../../components/userAuthApp/forms/ShowPasswordCheckBox";
+import Spinner from "../../../components/userAuthApp/Spinner";
 import SubmitButton from "../../../components/userAuthApp/forms/SubmitButton";
 import _ from "lodash";
 import getInvalidPasswordMessage from "../../../utils/userAuthApp/getInvalidPasswordMessage";
 import { signUpUser } from "../../../redux/users/actionCreator";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import validatePassword from "../../../utils/userAuthApp/validatePassword";
 
 function SignUpPage() {
+  const showLoader = useSelector((state) => state.Users.loading);
   const [showPassword, setShowPassword] = useState(false);
 
   const dispatch = useDispatch();
@@ -94,6 +96,7 @@ function SignUpPage() {
 
   return (
     <>
+      <Spinner show={showLoader} />
       <BackgroundImage>
         <AuthModal text={"Sign Up"}>
           <Formik

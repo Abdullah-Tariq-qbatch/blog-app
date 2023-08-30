@@ -1,5 +1,6 @@
 import { Form, Formik } from "formik";
 import React, { useContext, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import AuthModal from "../../../components/userAuthApp/forms/AuthModal";
 import BackgroundImage from "../../../components/userAuthApp/BackgroundImage";
@@ -9,16 +10,17 @@ import GoogleLoginButton from "../../../components/userAuthApp/buttons/GoogleLog
 import Joi from "joi";
 import RedirectionLink from "../../../components/userAuthApp/forms/RedirectionLink";
 import ShowPasswordCheckBox from "../../../components/userAuthApp/forms/ShowPasswordCheckBox";
+import Spinner from "../../../components/userAuthApp/Spinner";
 import SubmitButton from "../../../components/userAuthApp/forms/SubmitButton";
 import { ToastContext } from "../../../contexts/userAuthApp/ToastContext";
 import { loginUser } from "../../../redux/users/actionCreator";
 import playNotification from "../../../utils/userAuthApp/playNotification";
-import { useDispatch } from "react-redux";
 import { useFacebookLogin } from "facebook-oauth-react";
 import { useGoogleLogin } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
+  const showLoader = useSelector((state) => state.Users.loading);
   const [showPassword, setShowPassword] = useState(false);
 
   const dispatch = useDispatch();
@@ -94,6 +96,7 @@ function LoginPage() {
 
   return (
     <>
+      <Spinner show={showLoader} />
       <BackgroundImage>
         <AuthModal text={"Login"}>
           <Formik

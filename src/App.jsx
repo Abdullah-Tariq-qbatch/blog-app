@@ -1,8 +1,10 @@
-import React, { lazy } from "react";
+import "./App.css";
+import "react-toastify/dist/ReactToastify.css";
+import "./index.css";
+import "react-toastify/dist/ReactToastify.css";
+
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
-import { ToastContainer } from "react-toastify";
+import React, { lazy } from "react";
 
 import AuthGuard from "./components/userAuthApp/AuthGuard";
 import Layout from "./components/catalogApp/Layout";
@@ -10,16 +12,10 @@ import LazyLoading from "./components/catalogApp/LazyLoading";
 import MainLayout from "./layout/blogApp/MainLayout";
 import Notify from "./components/userAuthApp/Notify";
 import Root from "./components/tvShowApp/Root";
-import Spinner from "./components/userAuthApp/Spinner";
-import { ToastContext } from "./contexts/userAuthApp/ToastContext";
 import ScrollTopButton from "./components/blogApp/ScrollTopButton";
 import SideBar from "./components/userAuthApp/SideBar";
-
-import "./App.css";
-import "react-toastify/dist/ReactToastify.css";
-import "./index.css";
-import "react-toastify/dist/ReactToastify.css";
-
+import { ToastContext } from "./contexts/userAuthApp/ToastContext";
+import { toast } from "react-toastify";
 
 const Header = lazy(() =>
   import("./components/social-media-feed/Header/Header")
@@ -48,18 +44,15 @@ const AddTvShow = lazy(() =>
 const TvShowDetails = lazy(() =>
   import(/* webpackChunkName: "addTvShow " */ "./pages/tvShowApp/TvShowDetails")
 );
-
 const Page404 = lazy(() =>
   import(/* webpackChunkName: "page404 " */ "./components/tvShowApp/Page404")
 );
-
 const ProductForm = lazy(() =>
   import(/* webpackChunkName: "productForm" */ "./pages/catalogApp/ProductForm")
 );
 const AllProduct = lazy(() =>
   import(/* webpackChunkName: "allProducts" */ "./pages/catalogApp/AllProducts")
 );
-
 const BlogDetails = lazy(() =>
   import(/* webpackChunkName: "BlogDetail" */ "./pages/blogApp/BlogDetail")
 );
@@ -72,7 +65,6 @@ const BlogHome = lazy(() =>
 const UserBlogs = lazy(() =>
   import(/* webpackChunkName: "UserBlogs" */ "./pages/blogApp/UserBlogs")
 );
-
 const HomePage = lazy(() =>
   import(/* webpackChunkName: "HomePage" */ "./pages/userAuthApp/HomePage")
 );
@@ -88,13 +80,10 @@ const SignUpPage = lazy(() =>
 );
 
 function App() {
-  const showLoader = useSelector((state) => state.Users.loading);
   return (
     <BrowserRouter>
       <LazyLoading>
-        <Spinner show={showLoader} />
         <Notify />
-        <ToastContainer />
         <ToastContext.Provider value={toast}>
           <AuthGuard>
             <SideBar />
