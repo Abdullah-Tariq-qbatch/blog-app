@@ -6,7 +6,6 @@ import { Outlet } from "react-router-dom";
 import Navbar from '../../components/blogApp/Navbar';
 import Footer from '../../components/blogApp/Footer';
 import Toast from '../../components/blogApp/Toast';
-import ScrollTopButton from '../../components/blogApp/ScrollTopButton';
 
 import { fetchUsers } from '../../redux/users/actionCreator';
 import { fetchBlogs } from '../../redux/blogs/actionCreator';
@@ -26,7 +25,6 @@ export default function MainLayout() {
       <Navbar />
       <Toast />
       <Outlet />
-      <ScrollTopButton />
       <Footer />
     </div>
   );
