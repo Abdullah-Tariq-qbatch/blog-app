@@ -5,7 +5,7 @@ import logo from "../../assets/catalogApp/Images/logo512.png";
 
 function Footer() {
   return (
-    <footer className="bg-gray-800 shadow">
+    <footer className="bg-[#374151] shadow">
       <div className="mx-10 p-4 md:py-8">
         <div className="sm:flex sm:items-center sm:justify-between">
           <a href="#" className="flex items-center mb-4 sm:mb-0">
