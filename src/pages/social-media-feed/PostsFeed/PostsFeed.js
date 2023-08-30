@@ -23,16 +23,15 @@ const PostsFeed = ({ pageLink }) => {
   const { posts, loading, success, error } = useSelector(
     (state) => state.Posts
   );
-  const usersData = useSelector((state) => state.Users);
+  const { currentUser } = useSelector((state) => state.Users);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const userId = searchParams.get("userid");
-  const { currentUser } = usersData;
   const comments = useSelector((state) => state.UserComments);
 
   useEffect(() => {
     if (pageLink === "my-posts") {
-      dispatch(fetchPosts(currentUser.id));
+      dispatch(fetchPosts(currentUser.id || 1));
     } else if (pageLink !== "user") {
       dispatch(fetchPosts());
       dispatch(fetchUsersSocialMediaFeed());

@@ -28,7 +28,7 @@ const User = ({ id, firstName, lastName, gender }) => {
   };
 
   const handleNavigate = () => {
-    navigate(`/posts-feed/user?userid=${id}`);
+    navigate(`/social-media/posts-feed/user?userid=${id}`);
   };
 
   return (
