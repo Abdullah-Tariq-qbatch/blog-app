@@ -70,6 +70,20 @@ const UserBlogs = lazy(() =>
   import(/* webpackChunkName: "UserBlogs" */ "./pages/blogApp/UserBlogs")
 );
 
+const HomePage = lazy(() =>
+  import(/* webpackChunkName: "HomePage" */ "./pages/userAuthApp/HomePage")
+);
+const LoginPage = lazy(() =>
+  import(
+    /* webpackChunkName: "LoginPage" */ "./pages/userAuthApp/auth/LoginPage"
+  )
+);
+const SignUpPage = lazy(() =>
+  import(
+    /* webpackChunkName: "SignUpPage" */ "./pages/userAuthApp/auth/SignUpPage"
+  )
+);
+
 function App() {
   const showLoader = useSelector((state) => state.Users.loading);
   return (
@@ -80,6 +94,10 @@ function App() {
         <ToastContext.Provider value={toast}>
           <AuthGuard>
             <Routes>
+              <Route exact path="/" element={<SignUpPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/home" element={<HomePage />} />
+
               <Route path="/tv-shows" element={<Root />}>
                 <Route path="" element={<AllTvShows />} />
                 <Route path="add-tv-show" element={<AddTvShow />} />

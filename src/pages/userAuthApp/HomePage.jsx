@@ -77,7 +77,7 @@ function HomePage() {
             </li>
             <li>
               <Link
-                to={"/tvShows"}
+                to={"/tv-shows"}
                 className="flex w-full cursor-pointer flex-row items-center justify-start space-x-2 rounded-md bg-indigo-custom px-4 py-2 text-start text-white hover:bg-indigo-500 hover:shadow-md"
               >
                 <p>TV Shows</p>
