@@ -8,7 +8,7 @@ import Loader from "./Loader";
 import RenderIf from "./RenderIf";
 import LazyLoading from "./LazyLoading";
 
-import { fetchAllCategory } from "../../redux/categories/actionCreator";
+import { fetchAllCategory } from "../../redux/categorie/actionCreator";
 
 const CategoriesSider = React.lazy(() =>
   import(/* webpackChunkName: "CategoriesSider" */ "./CategoriesSider")

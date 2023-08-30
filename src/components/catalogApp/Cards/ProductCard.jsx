@@ -11,7 +11,7 @@ import Sizes from "./Sizes";
 import Button from "../Button";
 import RenderIf from "../RenderIf";
 
-import { deleteProduct } from "../../../redux/products/actionCreator";
+import { deleteProduct } from "../../../redux/product/actionCreator";
 import "../../../catalog.css";
 
 const ProductCard = ({ product }) => {
