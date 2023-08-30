@@ -84,16 +84,17 @@ function App() {
         <Notify />
         <SideBar />
         <Routes>
-          <Route exact path="/" element={<SignUpPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route
-            path="/home"
+        <Route
+            path="/"
             element={
               <AuthGuard>
                 <HomePage />
               </AuthGuard>
             }
           />
+          <Route exact path="/signup" element={<SignUpPage />} />
+          <Route path="/login" element={<LoginPage />} />
+         
 
           <Route
             path="/tv-shows"
