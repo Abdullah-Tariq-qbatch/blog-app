@@ -1,6 +1,6 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { ReactComponent as FileUploadIconSvg } from "../../assets/blogApp/svg/uploadFileIcon.svg";
@@ -11,6 +11,7 @@ function CreateBlog() {
   const location = useLocation();
   const navigate = useNavigate();
   const blog = location.state;
+  const CurrentUser = useSelector((state) => state.Users.currentUser);
 
   const dispatch = useDispatch();
 
@@ -38,7 +39,7 @@ function CreateBlog() {
             title: values.title,
             body: values.body,
             reactions: 0,
-            userId: 1,
+            userId: CurrentUser.id || 1,
           },
           values.file
         )
