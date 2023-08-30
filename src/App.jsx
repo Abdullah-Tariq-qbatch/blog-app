@@ -97,7 +97,7 @@ function App() {
             </Route>
 
             <Route path="/social-media" element={<Header />}>
-              <Route path="posts-feed" element={<PostsFeed />} />
+              <Route exact path="posts-feed" element={<PostsFeed />} />
               <Route path="" element={<PostsFeed />} />
               <Route path="users-feed" element={<UsersFeed />} />
               <Route
