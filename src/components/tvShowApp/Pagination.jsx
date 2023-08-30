@@ -10,7 +10,7 @@ const Pagination = ({ searchParam, pageParam }) => {
   const navigate = useNavigate();
 
   const currPage = useSelector((shows) => shows.TvShows.summary.page);
-  const totalPages = useSelector((shows) => shows.TvShows.summary.pages);
+  const totalPages = useSelector((shows) => shows.TvShows.summary.pages) - 1;
 
   const pageRange = 5;
 
@@ -20,7 +20,11 @@ const Pagination = ({ searchParam, pageParam }) => {
   });
 
   useEffect(() => {
-    const newStart = toNumber(pageParam);
+    const remPage = totalPages - pageRange + 1;
+
+    const newStart =
+      Math.min(toNumber(pageParam), remPage < 0 || remPage) ||
+      toNumber(pageParam);
     const newEnd =
       Math.min(pageRange + (newStart || 1) - 1, totalPages) ||
       pageRange + (newStart || 1) - 1;
@@ -28,6 +32,7 @@ const Pagination = ({ searchParam, pageParam }) => {
   }, [pageParam]);
 
   const goToNextPageRange = () => {
+    if (currentPageRange.end >= totalPages) return;
     const newStart = currentPageRange.start + 1;
     const newEnd = currentPageRange.end + 1;
 
@@ -39,6 +44,7 @@ const Pagination = ({ searchParam, pageParam }) => {
   };
 
   const goToPrevPageRange = () => {
+    if (currentPageRange.start <= 1) return;
     const newStart = currentPageRange.start - 1;
     const newEnd = currentPageRange.end - 1;
 
