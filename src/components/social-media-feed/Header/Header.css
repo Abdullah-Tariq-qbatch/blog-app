@@ -1,4 +1,13 @@
 .active {
     color: rgb(156 163 175); /* Highlight active link */
   }
+
+  .navbar__link--active {
+    background-color: #4e67e4;
+    color: white;
+  }  
+  
+  
+  
+  
   
