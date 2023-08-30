@@ -27,7 +27,8 @@ const Post = (post) => {
   const [like, setLike] = useState(false);
   const { currentUser } = useSelector((state) => state.Users);
   const [alert, setAlert] = useState(false);
-  const { comments } = useSelector((state) => state.UserComments);
+  const [showComments, setShowComments] = useState(false);
+  const { comments } = post;
   const dispatch = useDispatch();
 
   const handlePostLike = () => {
@@ -196,13 +197,13 @@ const Post = (post) => {
                             </form>
                           </div>
                           <div className="w-1/2">
-                            <Button onClick={post.onClick}>
+                            <Button onClick={() => setShowComments(state => !state)}>
                               <ViewIcon />
                               View Comments
                             </Button>
                           </div>
                         </div>
-                        <div>
+                        <div className={showComments? 'block' : 'hidden'}>
                           {comments &&
                             comments.map(
                               (comment, id) =>
