@@ -11,8 +11,8 @@ import RenderIf from "../RenderIf";
 import ProductFormAPI from "./ProductFormAPI";
 import ProductFormResponsive from "./ProductFormResponsive";
 
-import { fetchAllCategory } from "../../../redux/categorie/actionCreator";
-import { addProduct, editProduct } from "../../../redux/product/actionCreator";
+import { fetchAllCategory } from "../../../redux/categories/actionCreator";
+import { addProduct, editProduct } from "../../../redux/products/actionCreator";
 import "../../../catalog.css";
 
 const SizeVariation = React.lazy(() =>
