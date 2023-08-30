@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import AuthModal from "../../../components/userAuthApp/forms/AuthModal";
@@ -12,9 +12,9 @@ import RedirectionLink from "../../../components/userAuthApp/forms/RedirectionLi
 import ShowPasswordCheckBox from "../../../components/userAuthApp/forms/ShowPasswordCheckBox";
 import Spinner from "../../../components/userAuthApp/Spinner";
 import SubmitButton from "../../../components/userAuthApp/forms/SubmitButton";
-import { ToastContext } from "../../../contexts/userAuthApp/ToastContext";
 import { loginUser } from "../../../redux/users/actionCreator";
 import playNotification from "../../../utils/userAuthApp/playNotification";
+import { toast } from "react-toastify";
 import { useFacebookLogin } from "facebook-oauth-react";
 import { useGoogleLogin } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
@@ -45,8 +45,6 @@ function LoginPage() {
     username: "",
     password: "",
   };
-
-  const toast = useContext(ToastContext);
 
   const navigate = useNavigate();
 
