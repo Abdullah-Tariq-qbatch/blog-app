@@ -11,7 +11,6 @@ import MainLayout from "./layout/blogApp/MainLayout";
 import Notify from "./components/userAuthApp/Notify";
 import Root from "./components/tvShowApp/Root";
 import Spinner from "./components/userAuthApp/Spinner";
-import { ToastContainer } from "react-toastify";
 import { ToastContext } from "./contexts/userAuthApp/ToastContext";
 import ScrollTopButton from "./components/blogApp/ScrollTopButton";
 import SideBar from "./components/userAuthApp/SideBar";
