@@ -1,10 +1,8 @@
-import "./App.css";
-import "react-toastify/dist/ReactToastify.css";
-import "./index.css";
-import "react-toastify/dist/ReactToastify.css";
-
-import { BrowserRouter, Route, Routes } from "react-router-dom";
 import React, { lazy } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
+import { ToastContainer } from "react-toastify";
 
 import AuthGuard from "./components/userAuthApp/AuthGuard";
 import Layout from "./components/catalogApp/Layout";
@@ -13,10 +11,15 @@ import MainLayout from "./layout/blogApp/MainLayout";
 import Notify from "./components/userAuthApp/Notify";
 import Root from "./components/tvShowApp/Root";
 import Spinner from "./components/userAuthApp/Spinner";
-// import { ToastContainer } from "react-toastify";
 import { ToastContext } from "./contexts/userAuthApp/ToastContext";
-import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
+import ScrollTopButton from "./components/blogApp/ScrollTopButton";
+import SideBar from "./components/userAuthApp/SideBar";
+
+import "./App.css";
+import "react-toastify/dist/ReactToastify.css";
+import "./index.css";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const Header = lazy(() =>
   import("./components/social-media-feed/Header/Header")
@@ -89,11 +92,12 @@ function App() {
   return (
     <BrowserRouter>
       <LazyLoading>
-      <Spinner show={showLoader} />
+        <Spinner show={showLoader} />
         <Notify />
         <ToastContainer />
         <ToastContext.Provider value={toast}>
           <AuthGuard>
+            <SideBar />
             <Routes>
               <Route exact path="/" element={<SignUpPage />} />
               <Route path="/login" element={<LoginPage />} />
@@ -107,19 +111,19 @@ function App() {
               </Route>
 
               <Route path="/social-media" element={<Header />}>
-            <Route path="postfeed" element={<PostsFeed />} />
-            <Route path="" element={<PostsFeed />} />
-            <Route path="users-feed" element={<UsersFeed />} />
-            <Route
-              path="posts-feed/user"
-              element={<PostsFeed pageLink="user" />}
-            />
-            <Route
-              path="my-posts"
-              element={<PostsFeed pageLink="my-posts" />}
-            />
-            <Route path="add-post" element={<AddPost />} />
-          </Route>
+                <Route path="postfeed" element={<PostsFeed />} />
+                <Route path="" element={<PostsFeed />} />
+                <Route path="users-feed" element={<UsersFeed />} />
+                <Route
+                  path="posts-feed/user"
+                  element={<PostsFeed pageLink="user" />}
+                />
+                <Route
+                  path="my-posts"
+                  element={<PostsFeed pageLink="my-posts" />}
+                />
+                <Route path="add-post" element={<AddPost />} />
+              </Route>
 
               <Route path="/catalog" element={<Layout />}>
                 <Route exact path="" element={<AllProduct />} />
@@ -136,6 +140,7 @@ function App() {
             </Routes>
           </AuthGuard>
         </ToastContext.Provider>
+        <ScrollTopButton />
       </LazyLoading>
     </BrowserRouter>
   );

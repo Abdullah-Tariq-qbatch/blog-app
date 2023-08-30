@@ -1,19 +1,14 @@
 import {
-  CheckCircleOutlined,
-  LeftSquareOutlined,
   LogoutOutlined,
-  RightSquareOutlined,
   SearchOutlined,
   SettingOutlined,
-  UserOutlined,
 } from "@ant-design/icons";
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { ReactComponent as DribbleLogo } from "../../assets/userAuthApp/svgs/dribble-logo.svg";
 import { ReactComponent as FacebookLogo } from "../../assets/userAuthApp/svgs/facebook-logo.svg";
 import { ReactComponent as GitHubLogo } from "../../assets/userAuthApp/svgs/github-logo.svg";
-import { Link } from "react-router-dom";
 import { ReactComponent as LinkedInLogo } from "../../assets/userAuthApp/svgs/linkedin-logo.svg";
 import ThemeSwitcher from "../../components/userAuthApp/ThemeSwitcher";
 import { ReactComponent as TwitterLogo } from "../../assets/userAuthApp/svgs/twitter-logo.svg";
@@ -23,7 +18,6 @@ import { useNavigate } from "react-router-dom";
 import userImage from "../../assets/userAuthApp/images/user.png";
 
 function HomePage() {
-  const [showSidebar, setShowSidebar] = useState(false);
 
   const userData = useSelector((state) => state.Users.currentUser);
 
@@ -35,102 +29,11 @@ function HomePage() {
     dispatch(logout(navigate));
   }
 
-  function toggleSidebar() {
-    setShowSidebar(!showSidebar);
-  }
-
   return (
     <>
-      <aside
-        className={`${
-          showSidebar ? "translate-x-0" : "-translate-x-full"
-        } fixed inset-0 z-40 w-2/3 transform flex-col items-center justify-start bg-gray-700 transition-transform duration-300 ease-in-out dark:bg-gray-900 md:w-1/3 lg:w-1/6`}
-      >
-        {showSidebar && (
-          <div
-            className="absolute left-[105%] mt-1 flex h-12 w-12 cursor-pointer items-center justify-center rounded-sm bg-indigo-custom text-white hover:bg-indigo-500"
-            onClick={toggleSidebar}
-          >
-            <LeftSquareOutlined />
-          </div>
-        )}
-
-        <div className="flex flex-row items-center justify-around px-4 text-white">
-          <CheckCircleOutlined />
-          <h1 className="text-md px-2 py-4 text-center font-semibold md:text-xl">
-            User Auth System
-          </h1>
-        </div>
-
-        <hr className="mx-2 border-white" />
-
-        <nav>
-          <ul className="flex flex-col justify-center space-y-4 p-2">
-            <li>
-              <Link
-                to={"/home"}
-                className="flex w-full cursor-pointer flex-row items-center justify-start space-x-2 rounded-md bg-indigo-custom px-4 py-2 text-start text-white hover:bg-indigo-500 hover:shadow-md"
-              >
-                <UserOutlined />
-                <p>Home</p>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to={"/tv-shows"}
-                className="flex w-full cursor-pointer flex-row items-center justify-start space-x-2 rounded-md bg-indigo-custom px-4 py-2 text-start text-white hover:bg-indigo-500 hover:shadow-md"
-              >
-                <p>TV Shows</p>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to={"/catalog"}
-                className="flex w-full cursor-pointer flex-row items-center justify-start space-x-2 rounded-md bg-indigo-custom px-4 py-2 text-start text-white hover:bg-indigo-500 hover:shadow-md"
-              >
-                <p>Products Catalog</p>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to={"/blog"}
-                className="flex w-full cursor-pointer flex-row items-center justify-start space-x-2 rounded-md bg-indigo-custom px-4 py-2 text-start text-white hover:bg-indigo-500 hover:shadow-md"
-              >
-                <p>Blogs</p>
-              </Link>
-            </li>
-            <li>
-              <Link
-                to={"/socialMedia"}
-                className="flex w-full cursor-pointer flex-row items-center justify-start space-x-2 rounded-md bg-indigo-custom px-4 py-2 text-start text-white hover:bg-indigo-500 hover:shadow-md"
-              >
-                <UserOutlined />
-                <p>Social Media</p>
-              </Link>
-            </li>
-            <li>
-              <button
-                onClick={handleLogout}
-                className="flex w-full cursor-pointer flex-row items-center justify-start space-x-2 rounded-md bg-indigo-custom px-4 py-2 text-start text-white hover:bg-indigo-500 hover:shadow-md"
-              >
-                <LogoutOutlined />
-                <p>Logout</p>
-              </button>
-            </li>
-          </ul>
-        </nav>
-      </aside>
-
+     
       <div className="flex h-screen w-screen flex-col items-center justify-start overflow-hidden bg-[#E2E8F0] dark:bg-gray-800">
         <header className="flex w-full items-center justify-start bg-gray-700 px-4 text-white dark:bg-gray-900">
-          <div className="flex items-center justify-center">
-            <div
-              className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-sm bg-indigo-custom text-white hover:bg-indigo-500"
-              onClick={toggleSidebar}
-            >
-              <RightSquareOutlined />
-            </div>
-          </div>
 
           <SearchOutlined className="ml-4" />
           <input
