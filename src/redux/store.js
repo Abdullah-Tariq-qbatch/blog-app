@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { applyMiddleware, compose, createStore } from "redux";
 
 import api from "../utils/blogApp/fetchData";
@@ -5,11 +6,13 @@ import rootReducer from "./rootReducer";
 import thunk from "redux-thunk";
 
 const devtools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
-const composeEnhancers = devtools || compose;
+
+const composer =
+  process.env.NODE_ENV === "production" ? compose : devtools
 
 const store = createStore(
   rootReducer,
-  composeEnhancers(applyMiddleware(thunk.withExtraArgument(api)))
+  composer(applyMiddleware(thunk.withExtraArgument(api)))
 );
 
 export default store;
