@@ -1,8 +1,10 @@
-import React, { lazy } from "react";
+import "./App.css";
+import "react-toastify/dist/ReactToastify.css";
+import "./index.css";
+import "react-toastify/dist/ReactToastify.css";
+
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
-import { ToastContainer } from "react-toastify";
+import React, { lazy } from "react";
 
 import AuthGuard from "./components/userAuthApp/AuthGuard";
 import Layout from "./components/catalogApp/Layout";
@@ -10,16 +12,12 @@ import LazyLoading from "./components/catalogApp/LazyLoading";
 import MainLayout from "./layout/blogApp/MainLayout";
 import Notify from "./components/userAuthApp/Notify";
 import Root from "./components/tvShowApp/Root";
-import Spinner from "./components/userAuthApp/Spinner";
-import { ToastContext } from "./contexts/userAuthApp/ToastContext";
 import ScrollTopButton from "./components/blogApp/ScrollTopButton";
 import SideBar from "./components/userAuthApp/SideBar";
-
-import "./App.css";
-import "react-toastify/dist/ReactToastify.css";
-import "./index.css";
-import "react-toastify/dist/ReactToastify.css";
-
+import Spinner from "./components/userAuthApp/Spinner";
+import { ToastContext } from "./contexts/userAuthApp/ToastContext";
+import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 const Header = lazy(() =>
   import("./components/social-media-feed/Header/Header")
@@ -94,7 +92,6 @@ function App() {
       <LazyLoading>
         <Spinner show={showLoader} />
         <Notify />
-        <ToastContainer />
         <ToastContext.Provider value={toast}>
           <AuthGuard>
             <SideBar />
