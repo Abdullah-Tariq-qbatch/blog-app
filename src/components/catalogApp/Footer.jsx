@@ -11,7 +11,7 @@ function Footer() {
           <a href="#" className="flex items-center mb-4 sm:mb-0">
             <img src={logo} className="h-8 mr-3" alt="Logo" />
             <span className=" text-2xl text-white font-semibold whitespace-nowrap">
-              Prodcut Catalog App
+              Product Catalog App
             </span>
           </a>
           <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-700 sm:mb-0">
