@@ -48,8 +48,14 @@ const Post = (post) => {
         body: userCommentInput.current.value,
         postId: post.id,
         user: {
-          firstname: currentUser.firstName || currentUser.given_name,
-          lastname: currentUser.lastName || currentUser.family_name,
+          firstname:
+            currentUser.firstName ||
+            currentUser.given_name ||
+            currentUser.name.split(" ")[0],
+          lastname:
+            currentUser.lastName ||
+            currentUser.family_name ||
+            currentUser.name.split(" ")[1],
           id: currentUser.id || 1000,
           username: currentUser.username || currentUser.name,
         },
