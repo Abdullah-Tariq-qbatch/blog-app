@@ -1,11 +1,12 @@
 import {
   DesktopOutlined,
   EditOutlined,
+  HomeOutlined,
   LeftSquareOutlined,
   LogoutOutlined,
   RightSquareOutlined,
   ShoppingCartOutlined,
-  UserOutlined,
+  UserOutlined
 } from "@ant-design/icons";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
@@ -32,7 +33,7 @@ const SideBar = () => {
     setShowSidebar(!showSidebar);
   }
 
-  return location.pathname !== "/login" && location.pathname !== "/" && (
+  return location.pathname !== "/signup" && location.pathname !== "/login" && (
     <RenderIf
       isTrue={showSidebar}
       fallback={
@@ -70,11 +71,11 @@ const SideBar = () => {
           <ul className="flex flex-col justify-center space-y-4 p-2">
             <li>
               <Link
-                to={"/home"}
+                to={"/"}
                 onClick={toggleSidebar}
                 className="flex w-full cursor-pointer flex-row items-center justify-start space-x-2 rounded-md bg-gray-800 text-gray-200 px-4 py-2 text-start hover:bg-gray-950 dark:bg-gray-400 dark:text-gray-950 dark:hover:bg-gray-600 hover:shadow-md"
               >
-                <UserOutlined />
+                <HomeOutlined />
                 <p>Home</p>
               </Link>
             </li>
@@ -118,7 +119,6 @@ const SideBar = () => {
                 <p>Social Media</p>
               </Link>
             </li>{" "}
-            {location.pathname !== "/login" && location.pathname !== "/" && (
               <li>
                 <button
                   onClick={handleLogout}
@@ -128,7 +128,6 @@ const SideBar = () => {
                   <p>Logout</p>
                 </button>
               </li>
-            )}
           </ul>
         </nav>
       </aside>

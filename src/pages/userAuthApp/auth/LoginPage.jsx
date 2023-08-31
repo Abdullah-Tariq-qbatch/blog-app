@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import AuthModal from "../../../components/userAuthApp/forms/AuthModal";
@@ -24,6 +24,14 @@ function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const accessToken = localStorage.access_token;
+    if (accessToken) {
+      navigate("/")
+      return;
+    }
+  }, []);
 
   const validationSchema = Joi.object({
     username: Joi.string().alphanum().max(20).required().label("Username"),
@@ -68,7 +76,7 @@ function LoginPage() {
   async function responseGoogle(tokenResponse) {
     localStorage.setItem("access_token", tokenResponse.access_token);
     localStorage.setItem("loginMethod", "google");
-    navigate("/home");
+    navigate("/");
     toast.success("Google login successful!");
     playNotification();
   }
@@ -86,7 +94,7 @@ function LoginPage() {
   function responseFacebook(response) {
     localStorage.setItem("access_token", response.accessToken);
     localStorage.setItem("loginMethod", "facebook");
-    navigate("/home");
+    navigate("/");
     toast.success("Facebook login successful!");
     playNotification();
   }
@@ -131,7 +139,7 @@ function LoginPage() {
           </Formik>
           <RedirectionLink
             linkText={"Not a user?"}
-            redirectTo={"/"}
+            redirectTo={"/signup"}
             pageTitle={"Sign Up"}
           />
         </AuthModal>

@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import AuthModal from "../../../components/userAuthApp/forms/AuthModal";
@@ -21,6 +21,14 @@ function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const accessToken = localStorage.access_token;
+    if (accessToken) {
+      navigate("/")
+      return;
+    }
+  }, []);
 
   const validationSchema = Joi.object({
     firstName: Joi.string()

@@ -4,6 +4,7 @@ import axios from "axios";
 import axiosInstance from "../../utils/userAuthApp/axiosUtils";
 import { isSuccess } from "../../utils/blogApp/commonMethods";
 import sendErrorNotification from "../../utils/blogApp/slackNotification";
+
 const { fetchUsersBegin, fetchUsersSuccess, apiError, clearMessageError } =
   actions;
 
@@ -30,7 +31,7 @@ export const loginUser = (body, navigate) => {
       if (actions.isSuccess(response)) {
         localStorage.setItem("userId", response.data.id);
         localStorage.setItem("access_token", response.data.token);
-        navigate("/home");
+        navigate("/");
         dispatch(actions.loginUserSuccess(response.data));
       }
     } catch (error) {
