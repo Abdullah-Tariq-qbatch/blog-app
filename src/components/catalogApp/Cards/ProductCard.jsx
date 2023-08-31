@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { groupBy } from "lodash";
-import { EditOutlined, DeleteOutlined, StarFilled } from "@ant-design/icons";
+import StarRatingComponent from "react-star-rating-component";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
 import DeleteDialog from "../DeleteDialog";
 import Colors from "./Colors";
@@ -86,10 +87,7 @@ const ProductCard = ({ product }) => {
               }
             >
               <div className="flex items-center h-6 sm:h-7">
-                <StarFilled className="w-4 h-4 text-yellow-300 mr-1" />
-                <span className="text-md font-semibold tracking-tight text-gray-900">
-                  {product.rating}
-                </span>
+                <StarRatingComponent value={product.rating} editing={false} />
               </div>
             </RenderIf>
 
