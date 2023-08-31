@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { Suspense } from "react";
 
 import Loader from "./Loader";

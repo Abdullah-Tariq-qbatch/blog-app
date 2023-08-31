@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+
 import React from "react";
 import ProductForm from "../../components/catalogApp/forms/ProductForm";
 import "../../catalog.css";

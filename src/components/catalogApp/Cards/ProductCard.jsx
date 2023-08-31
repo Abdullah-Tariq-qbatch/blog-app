@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +8,7 @@ import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import DeleteDialog from "../DeleteDialog";
 import Colors from "./Colors";
 import Sizes from "./Sizes";
+
 import Button from "../Button";
 import RenderIf from "../RenderIf";
 

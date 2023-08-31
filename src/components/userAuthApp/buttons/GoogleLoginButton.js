@@ -1,5 +1,4 @@
 import { ReactComponent as GoogleLogo } from "../../../assets/userAuthApp/svgs/google-logo.svg";
-/* eslint-disable react/prop-types */
 import React from "react";
 
 function GoogleLoginButton({ googleLogin }) {

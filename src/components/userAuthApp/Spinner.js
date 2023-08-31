@@ -1,6 +1,5 @@
 import React from "react";
 import { ReactComponent as SpinnerSVG } from "../../assets/userAuthApp/svgs/spinner.svg";
-/* eslint-disable react/prop-types */
 
 function Spinner({ show = true }) {
   return (

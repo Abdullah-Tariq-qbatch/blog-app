@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-
 import React, { useRef } from "react";
 import { debounce } from "lodash";
 import { SearchOutlined } from "@ant-design/icons";

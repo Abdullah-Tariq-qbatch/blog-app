@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-/* eslint-disable react/prop-types */
 import { DarkModeSwitch } from "react-toggle-dark-mode";
 
 function ThemeSwitcher() {

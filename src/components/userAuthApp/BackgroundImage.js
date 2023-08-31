@@ -1,5 +1,4 @@
 import React from "react";
-/* eslint-disable react/prop-types */
 
 const BACKGROUND_IMAGE_URL =
   "https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2710&amp;q=80";

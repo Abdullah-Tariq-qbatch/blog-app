@@ -1,5 +1,4 @@
 import { ReactComponent as FacebookLogo } from "../../../assets/userAuthApp/svgs/facebook-logo.svg";
-/* eslint-disable react/prop-types */
 import React from "react";
 
 function FacebookLoginButton({ facebookLogin }) {

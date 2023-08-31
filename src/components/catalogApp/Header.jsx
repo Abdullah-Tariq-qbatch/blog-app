@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from "react";
 import { useNavigate, NavLink } from "react-router-dom";
 import { PlusOutlined } from "@ant-design/icons";
