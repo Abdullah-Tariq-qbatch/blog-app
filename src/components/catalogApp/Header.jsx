@@ -34,11 +34,11 @@ const Header = () => {
           </button>
         </div>
       </div>
-      <div className="bg-gray-800 flow-root static md:hidden py-2">
+      <div className="bg-[#374151] flow-root static md:hidden py-2">
         <div className="grid gap-8 grid-cols-2 mx-10">
           <NavLink
             to="/catalog"
-            className="text-white text-[15px] md:text-lg font-semibold bg-gray-700 px-4 py-2 hover:bg-gray-600 flex justify-center items-center rounded-md"
+            className="text-white text-[15px] md:text-lg font-semibold bg-gray-700 px-4 py-2 hover:text-indigo-500 flex justify-center items-center rounded-md"
           >
             Home
           </NavLink>
@@ -46,7 +46,7 @@ const Header = () => {
             onClick={() => {
               navigate("/catalog/add", { state: { product: undefined } });
             }}
-            className="justify-center text-white text-[15px] md:text-lg font-semibold bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-md whitespace-nowrap flex items-center"
+            className="justify-center text-white text-[15px] md:text-lg font-semibold bg-gray-700 hover:text-indigo-500 px-4 py-2 rounded-md whitespace-nowrap flex items-center"
           >
             Add Product
             <PlusOutlined className="ml-2" />

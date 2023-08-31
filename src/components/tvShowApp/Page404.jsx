@@ -8,7 +8,7 @@ const Page404 = ({ errorMsg }) => {
     <section className={`dark:bg-gray-900 ${errorMsg || 'h-screen flex justify-center items-center'}`}>
       <div className="container flex mt-6 mx-auto">
         <div className="flex flex-col items-center max-w-sm mx-auto text-center">
-          <WarningFilled className=" text-3xl font-medium text-gray-500 rounded-full bg-gray-50" />
+          <WarningFilled className=" text-3xl font-medium text-gray-500 rounded-full" />
 
           <h1 className=" text-2xl font-semibold text-gray-800 dark:text-white md:text-3xl">
             {errorMsg ? errorMsg : "Page not found"}
