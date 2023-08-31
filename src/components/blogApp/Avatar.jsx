@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function Avatar({ initials, bgColor }) {
+  
   return (
     <div
       className={`w-6 h-6 flex items-center justify-center rounded-full text-white ${bgColor}`}

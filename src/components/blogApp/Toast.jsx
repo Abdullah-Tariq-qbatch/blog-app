@@ -28,23 +28,16 @@ function Toast() {
   };
 
   function getMessage() {
-    let content;
-    if (Blogs.success) {
-      content = Blogs.success;
-    } else if (Comments.success) {
-      content = Comments.success;
-    } else if (Users.success) {
-      content = Users.success;
-    } else if (Blogs.error) {
-      content = Blogs.error;
-    } else if (Comments.error) {
-      content = Comments.error;
-    } else if (Users.error) {
-      content = Users.error;
-    } else {
-      content = Users.error;
+    const sources = [Blogs, Comments, Users];
+
+    for (const source of sources) {
+      if (source.success) {
+        return source.success;
+      } else if (source.error) {
+        return source.error;
+      }
     }
-    return content;
+    return Users.error;
   }
 
   const BlogCheck = Blogs.success || Blogs.error;

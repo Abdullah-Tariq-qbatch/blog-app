@@ -32,16 +32,18 @@ function Blogs({ userId }) {
   useEffect(() => {
     if (!BlogsData.loading) {
       if (userId) {
-        const tempList = groupBy(BlogsData.blogs, 'userId');
-        setList(() => tempList[userId]);
+        const tempBlogList = groupBy(BlogsData.blogs, 'userId');
+        setList(() => tempBlogList[userId]);
+        const tempUserList = keyBy(UserData.users, 'id');
+        setUser(tempUserList[userId])
       } else setList(() => BlogsData.blogs);
     }
     if (!BlogsData.loading && !UserData.loading) { setUsers(() => keyBy(UserData.users, 'id')); }
     if (!BlogsData.loading && !CommentData.loading) { SetPostComments(() => countBy(CommentData.comments, 'postId')); }
-    if (userId) {
-      const tempList = keyBy(UserData.users, 'id');
-      setUser(tempList[userId]);
-    }
+    // if (userId) {
+    //   const tempList = keyBy(UserData.users, 'id');
+    //   setUser(tempList[userId]);
+    // }
   }, [BlogsData, UserData, CommentData]);
 
   const debouncedFilter = useCallback(
@@ -53,6 +55,7 @@ function Blogs({ userId }) {
     }, 600),
     [list],
   );
+
   const handleSearchChange = (event) => {
     const { value } = event.target;
     setSearchTerm(value);
@@ -60,11 +63,9 @@ function Blogs({ userId }) {
   };
 
   const memoizedFilteredItems = useMemo(() => list, [list]);
-
   const itemsPerPage = 8;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-
   let displayedItems = [...memoizedFilteredItems];
 
   if (filter === 'Likeness') {

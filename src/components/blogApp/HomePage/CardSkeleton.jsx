@@ -5,6 +5,7 @@ import { ReactComponent as FileSkeletonSvg } from '../../../assets/blogApp/svg/f
 import { ReactComponent as ProfileSkeleton } from '../../../assets/blogApp/svg/profileSkeleton.svg';
 
 function CardSkeleton() {
+  
   return (
     <div className="max-w-sm bg-white dark:bg-gray-950 border dark:border-gray-950 border-gray-200 rounded-lg shadow flex flex-col animate-pulse">
       <div className="flex items-start pt-5 justify-center rounded-t-lg w-full h-44 mb-4 bg-gray-300 dark:bg-gray-700">
