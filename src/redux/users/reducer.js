@@ -66,7 +66,6 @@ const Users = (state = initState, action) => {
       return produce(state, (draftState) => {
         draftState.currentUser = data;
         draftState.loading = false;
-        // draftState.success = "Successfully fetched user data!";
       });
 
     case actions.FETCH_GOOGLE_USER_DATA_BEGIN:
@@ -80,7 +79,6 @@ const Users = (state = initState, action) => {
       return produce(state, (draftState) => {
         draftState.currentUser = data;
         draftState.loading = false;
-        // draftState.success = "Successfully fetched google user data!";
       });
 
     case actions.FETCH_FACEBOOK_USER_DATA_BEGIN:
@@ -94,7 +92,6 @@ const Users = (state = initState, action) => {
       return produce(state, (draftState) => {
         draftState.currentUser = data;
         draftState.loading = false;
-        // draftState.success = "Successfully fetched facebook user data!";
       });
 
     case actions.LOGOUT_BEGIN:
@@ -110,13 +107,6 @@ const Users = (state = initState, action) => {
         draftState.loading = false;
         draftState.success = "Logout successful";
       });
-
-    // case actions.API_ERROR:
-    //   return produce(state, (draftState) => {
-    //     draftState.loading = false;
-    //     draftState.success = false;
-    //     draftState.error = data;
-    //   });
 
     case FETCH_USERS_BEGINS:
       return {
