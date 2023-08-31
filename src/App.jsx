@@ -109,8 +109,9 @@ function App() {
             <Route path="" element={<AllTvShows />} />
             <Route path="add-tv-show" element={<AddTvShow />} />
             <Route path="tv-show-details/:id" element={<TvShowDetails />} />
-            <Route path="*" element={<Page404 />} />
+            
           </Route>
+          <Route path="*" element={<Page404 />} />
 
           <Route
             path="/social-media"
