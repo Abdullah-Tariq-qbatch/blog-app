@@ -50,7 +50,6 @@ const Header = () => {
                     onClick={toggleMenu}
                     className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 dark:text-black dark:hover:text-[#4E67E4] dark:hover:bg-gray-700 dark:hover:text-white"
                     to="/social-media/posts-feed"
-                    activeClassName="navbar__link--active"
                   >
                     Posts Feed
                   </NavLink>
@@ -60,7 +59,6 @@ const Header = () => {
                     onClick={toggleMenu}
                     className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 dark:text-black dark:hover:text-[#4E67E4] dark:hover:bg-gray-700 dark:hover:text-white"
                     to="/social-media/users-feed"
-                    activeClassName="navbar__link--active"
                   >
                     Users Feed
                   </NavLink>
@@ -70,7 +68,6 @@ const Header = () => {
                     onClick={toggleMenu}
                     className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 dark:text-black dark:hover:text-[#4E67E4] dark:hover:bg-gray-700 dark:hover:text-white"
                     to="/social-media/my-posts"
-                    activeClassName="navbar__link--active"
                   >
                     My Posts
                   </NavLink>
@@ -80,7 +77,6 @@ const Header = () => {
                     onClick={toggleMenu}
                     className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 dark:text-black dark:hover:text-[#4E67E4] dark:hover:bg-gray-700 dark:hover:text-white"
                     to="/social-media/add-post"
-                    activeClassName="navbar__link--active"
                   >
                     Add Post
                   </NavLink>
@@ -101,7 +97,6 @@ const Header = () => {
                 <NavLink
                   className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#4E67E4] md:p-0 dark:text-black md:dark:hover:text-[#4E67E4] dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                   to="/social-media/posts-feed"
-                  activeClassName="navbar__link--active"
                 >
                   Posts Feed
                 </NavLink>
@@ -110,7 +105,6 @@ const Header = () => {
                 <NavLink
                   className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#4E67E4] md:p-0 dark:text-black md:dark:hover:text-[#4E67E4] dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                   to="/social-media/users-feed"
-                  activeClassName="navbar__link--active"
                 >
                   Users Feed
                 </NavLink>
@@ -119,7 +113,6 @@ const Header = () => {
                 <NavLink
                   className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#4E67E4] md:p-0 dark:text-black md:dark:hover:text-[#4E67E4] dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                   to="/social-media/my-posts"
-                  activeClassName="navbar__link--active"
                 >
                   My Posts
                 </NavLink>
@@ -128,7 +121,6 @@ const Header = () => {
                 <NavLink
                   className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#4E67E4] md:p-0 dark:text-black md:dark:hover:text-[#4E67E4] dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                   to="/social-media/add-post"
-                  activeClassName="navbar__link--active"
                 >
                   Add Post
                 </NavLink>

@@ -102,36 +102,7 @@ const Post = (post) => {
             <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64">
               <div className="px-6">
                 <div className="flex flex-wrap justify-center">
-                  <div className="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
-                    <div className="relative" style={{ marginTop: "-80px" }}>
-                      <Avatar initials={post.alias} type="profile"></Avatar>
-                    </div>
-                  </div>
-                  <div className="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
-                    <div className="flex flex-row py-6 px-3 sm:mt-0 ml-24 h-10 mb-14">
-                      <DeleteIcon
-                        height="40"
-                        width="50"
-                        strokeWidth="1.5"
-                        className="mr-4 cursor-pointer"
-                        onClick={deletePost}
-                      />
-                      <div>
-                        <Heart
-                          className="w-8 ml-3 mt-1"
-                          isActive={like}
-                          onClick={handlePostLike}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  {alert && (
-                    <DeleteMessage
-                      onClickDelete={handleOnClickDelete}
-                      onClickCancel={handleOnClickCancel}
-                    ></DeleteMessage>
-                  )}
-                  <div className="w-full lg:w-4/12 px-4 lg:order-1">
+                  <div className="w-full lg:w-4/12 px-4 order-2 lg:order-1">
                     <div className="flex justify-center py-4 lg:pt-4 pt-8">
                       <div className="mr-4 p-3 text-center">
                         <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
@@ -155,6 +126,40 @@ const Post = (post) => {
                       </div>
                     </div>
                   </div>
+
+                  <div className="w-full lg:w-3/12 px-4 lg:order-2 order-1 flex justify-center">
+                    <div className="relative" style={{ marginTop: "-80px" }}>
+                      <Avatar initials={post.alias} type="profile"></Avatar>
+                    </div>
+                  </div>
+
+                  {alert && (
+                    <DeleteMessage
+                      onClickDelete={handleOnClickDelete}
+                      onClickCancel={handleOnClickCancel}
+                    ></DeleteMessage>
+                  )}
+                  <div className="w-full lg:w-4/12 px-4 order-3">
+                    <div className="flex justify-center py-4 lg:pt-4 pt-8">
+                      <div className="mr-4 p-3 text-center">
+                        <DeleteIcon
+                          height="40"
+                          width="50"
+                          strokeWidth="1.5"
+                          className="mr-4 cursor-pointer"
+                          onClick={deletePost}
+                        />
+                      </div>
+
+                      <div className="lg:mr-4 p-3 text-center">
+                        <Heart
+                          className="w-8 ml-3 mt-1"
+                          isActive={like}
+                          onClick={handlePostLike}
+                        />
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div className="text-center mt-12">
                   <h3 className="text-4xl font-semibold leading-normal text-blueGray-700 mb-2">
@@ -172,13 +177,13 @@ const Post = (post) => {
                         {post.body}
                       </p>
                       <div className="text-center">
-                        <div className="flex xl:flex-row flex-col">
-                          <div className="xl:w-9/12 xl:mx-1 xl:my-0 mb-1">
+                        <div className="grid grid-cols-12">
+                          <div className=" xl:mx-1 xl:my-0 mb-1 col-span-9">
                             <form
                               onSubmit={handleUserComment}
                               className="flex flex-row"
                             >
-                              <div className="ml-10 xl:w-96">
+                              <div className="xl:w-96">
                                 <input
                                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                   type="text"
@@ -198,7 +203,7 @@ const Post = (post) => {
                               </div>
                             </form>
                           </div>
-                          <div className="w-1/2">
+                          <div className="w-full col-span-3">
                             <Button
                               onClick={() => setShowComments((state) => !state)}
                             >
