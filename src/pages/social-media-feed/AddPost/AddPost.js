@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import {toast} from "react-toastify"
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { ReactComponent as AddIcon } from "./../../../assets/social-media-feed/svgs/add-icon.svg";
@@ -31,29 +32,33 @@ const AddPost = ({ pageLink }) => {
   const handleSubmit = (values, { setSubmitting }) => {
     setSubmitting(true);
     const { id, firstName, email, lastName } = currentUser;
-    const { title, post, image } = values;
-    const existingPosts = getDataFromLocalStorage("posts");
-    const maxId = posts.reduce((acc, { id }) => (id > acc ? id : acc), 0);
-    const newPost = {
-      id: maxId + existingPosts.length + 1,
-      title: title,
-      body: post,
-      userId: id,
-      imageURL: image,
-      alias: firstName[0].toUpperCase() + lastName[0].toUpperCase(),
-      email: email,
-      name: firstName + " " + lastName,
-      comments: [],
-      reactions: 0,
-      tags: [],
-    };
-    dispatch(addUserPost(newPost));
-    existingPosts.push(newPost);
-    localStorage.setItem("posts", JSON.stringify(existingPosts));
-    var raw = `{"text": "New Post have been added"}`;
-    slackNotification(raw);
-    setSubmitting(false);
-    navigate("/social-media/my-posts");
+    if (id) {
+      const { title, post, image } = values;
+      const existingPosts = getDataFromLocalStorage("posts");
+      const maxId = posts.reduce((acc, { id }) => (id > acc ? id : acc), 0);
+      const newPost = {
+        id: maxId + existingPosts.length + 1,
+        title: title,
+        body: post,
+        userId: id,
+        imageURL: image,
+        alias: firstName[0].toUpperCase() + lastName[0].toUpperCase(),
+        email: email,
+        name: firstName + " " + lastName,
+        comments: [],
+        reactions: 0,
+        tags: [],
+      };
+      dispatch(addUserPost(newPost));
+      existingPosts.push(newPost);
+      localStorage.setItem("posts", JSON.stringify(existingPosts));
+      var raw = `{"text": "New Post have been added"}`;
+      slackNotification(raw);
+      setSubmitting(false);
+      navigate("/social-media/my-posts");
+    } else {
+      toast.error("Current user does not exist!");
+    }
   };
   return (
     <div className="flex justify-center items-center mt-28 w-screen">
