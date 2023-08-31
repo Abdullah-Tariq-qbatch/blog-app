@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+
 import React, { useEffect } from "react";
 import * as Yup from "yup";
 import { useSelector, useDispatch } from "react-redux";

@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
 import NetworkList from "./NetworkList";
 import { orderBy, toNumber, groupBy, intersection } from "lodash";

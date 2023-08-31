@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { ErrorMessage, Field } from "formik";
 
 import React from "react";

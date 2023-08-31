@@ -1,6 +1,5 @@
 import { ToastContainer, toast } from "react-toastify";
 
-/* eslint-disable react/prop-types */
 import React from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";

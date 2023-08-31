@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from "react";
 import { removeTvShow } from "../../redux/shows/actionCreator";
 import { useDispatch } from "react-redux";
