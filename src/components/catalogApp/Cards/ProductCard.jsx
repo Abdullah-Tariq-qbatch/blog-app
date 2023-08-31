@@ -38,17 +38,17 @@ const ProductCard = ({ product }) => {
           className="object-cover h-48 w-96 rounded-t-lg"
         />
         <div className="absolute top-40 w-11/12">
-          <div className="px-5 py-3 bg-white border border-gray-200 rounded-lg bg-opacity-70">
-            <p className="text-xl font-bold text-gray-900  overflow-hidden whitespace-nowrap overflow-ellipsis w-auto">
+          <div className="px-5 py-3 bg-white border border-gray-200 rounded-lg bg-opacity-70 h-[230px]">
+            <p className="text-md md:text-xl font-bold text-gray-900  overflow-hidden whitespace-nowrap overflow-ellipsis w-auto">
               {product.title}
             </p>
 
-            <p className="text-md text-gray-500 overflow-hidden whitespace-nowrap overflow-ellipsis">
+            <p className="text-sm md:text-md text-gray-500 overflow-hidden whitespace-nowrap overflow-ellipsis">
               {product.category}
             </p>
 
-            <div className="flex justify-between">
-              <p className="text-gray-600">
+            <div className="sm:flex sm:justify-between">
+              <p className="text-gray-600 text-md md:text-lg">
                 Price: $
                 {product.sizeData
                   ? product.sizeData[selectedSize].price
@@ -63,7 +63,7 @@ const ProductCard = ({ product }) => {
                     : product.stock !== 0
                     ? "text-green-600"
                     : "text-red-600"
-                }`}
+                } text-md md:text-lg`}
               >
                 {product.sizeData
                   ? product.sizeData[selectedSize].stock !== 0
@@ -79,10 +79,13 @@ const ProductCard = ({ product }) => {
             <RenderIf
               isTrue={product.rating}
               fallback={
-                <Button className="text-sm h-7" label="Rating Not Available" />
+                <Button
+                  className="text-sm h-6 sm:h-7"
+                  label="Rating Not Available"
+                />
               }
             >
-              <div className="flex items-center h-7">
+              <div className="flex items-center h-6 sm:h-7">
                 <StarFilled className="w-4 h-4 text-yellow-300 mr-1" />
                 <span className="text-md font-semibold tracking-tight text-gray-900">
                   {product.rating}
@@ -91,12 +94,13 @@ const ProductCard = ({ product }) => {
             </RenderIf>
 
             {/* Displaying Sizes If any other wise Not Available */}
-            <div className="flex overflow-x-auto items-center h-7">
+            <div className="flex overflow-x-auto items-center h-6 sm:h-7">
               <RenderIf
                 isTrue={product?.sizeData}
                 fallback={
                   <Button
-                    className="text-sm border-0 border-black mr-3"
+                    title="Sizes Not Available"
+                    className="text-sm border-0 border-black mr-3 overflow-hidden whitespace-nowrap overflow-ellipsis "
                     label="Size Not Available"
                   />
                 }
@@ -110,12 +114,13 @@ const ProductCard = ({ product }) => {
             </div>
 
             {/* Displaying Color by selected size If any other wise Not Available */}
-            <div className="flex overflow-x-auto h-7 items-center">
+            <div className="flex overflow-x-auto h-6 sm:h-7 items-center">
               <RenderIf
                 isTrue={product.colors && colors}
                 fallback={
                   <Button
-                    className="text-sm border-0 border-black mr-3"
+                    title="Colors Not Available"
+                    className="text-sm border-0 border-black mr-3 overflow-hidden whitespace-nowrap overflow-ellipsis "
                     label="Colors Not Available"
                   />
                 }
@@ -131,7 +136,7 @@ const ProductCard = ({ product }) => {
             <div className="grid grid-cols-2 gap-2">
               <button
                 onClick={() => setIsDialogVisible(true)}
-                className={`flex items-center justify-center w-3/4 px-4 py-2 text-white bg-gradient-to-r to-red-400 from-red-600 hover:bg-red-600 focus:outline-none border border-transparent rounded-md transition duration-300 ease-in-out hover:scale-110`}
+                className={`flex items-center justify-center w-3/4 lg:px-4 lg:py-2 text-white bg-gradient-to-r to-red-400 from-red-600 hover:bg-red-600 focus:outline-none border border-transparent rounded-md transition duration-300 ease-in-out hover:scale-110`}
               >
                 <DeleteOutlined className="lg:mr-2 md:text-[25px]" />
                 <span className="hidden lg:flex"> Delete</span>
