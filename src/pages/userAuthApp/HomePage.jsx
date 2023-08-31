@@ -73,7 +73,12 @@ function HomePage() {
               <div className="p-4 text-center">
                 <div className="mx-auto -mt-20 h-32 w-32 ">
                   <img
-                    src={userData.image || userData.picture || userImage}
+                    src={
+                      userData?.image ||
+                      userData?.picture?.data?.url ||
+                      userData?.picture ||
+                      userImage
+                    }
                     alt="profile"
                     className="relative z-30 rounded-full w-full h-full border-2 border-indigo-custom bg-white "
                   />
