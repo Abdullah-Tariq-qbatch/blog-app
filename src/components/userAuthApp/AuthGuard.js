@@ -45,7 +45,6 @@ function AuthGuard({ children }) {
     navigate("/login");
     toast.error("Please login to continue!", {
       position: "top-center",
-      autoClose: false,
     });
   }, [location, getUserData, navigate]);
 
