@@ -38,7 +38,7 @@ const ProductCard = ({ product }) => {
           className="object-cover h-48 w-96 rounded-t-lg"
         />
         <div className="absolute top-40 w-11/12">
-          <div className="px-5 py-3 bg-white border border-gray-200 rounded-lg bg-opacity-70 min-h-54 max-h-54 h-[230px]">
+          <div className="px-5 py-3 bg-white border border-gray-200 rounded-lg bg-opacity-70 h-[230px]">
             <p className="text-md md:text-xl font-bold text-gray-900  overflow-hidden whitespace-nowrap overflow-ellipsis w-auto">
               {product.title}
             </p>
