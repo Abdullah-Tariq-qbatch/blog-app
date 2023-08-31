@@ -40,10 +40,6 @@ function Blogs({ userId }) {
     }
     if (!BlogsData.loading && !UserData.loading) { setUsers(() => keyBy(UserData.users, 'id')); }
     if (!BlogsData.loading && !CommentData.loading) { SetPostComments(() => countBy(CommentData.comments, 'postId')); }
-    // if (userId) {
-    //   const tempList = keyBy(UserData.users, 'id');
-    //   setUser(tempList[userId]);
-    // }
   }, [BlogsData, UserData, CommentData]);
 
   const debouncedFilter = useCallback(
