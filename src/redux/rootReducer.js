@@ -8,7 +8,7 @@ import UserComments from "./user-comments/reducers";
 import Users from "./users/reducer";
 import { combineReducers } from "redux";
 
-const rootReducer = combineReducers({
+const appReducer = combineReducers({
   Blogs,
   Users,
   Comments,
@@ -18,5 +18,12 @@ const rootReducer = combineReducers({
   Posts,
   TvShows,
 });
+
+const rootReducer = (state, action) => {
+  if (action.type === "LOGOUT_SUCCESS") {
+    return appReducer(undefined, action);
+  }
+  return appReducer(state, action);
+};
 
 export default rootReducer;
