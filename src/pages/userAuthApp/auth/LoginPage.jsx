@@ -28,7 +28,7 @@ function LoginPage() {
   useEffect(() => {
     const accessToken = localStorage.access_token;
     if (accessToken) {
-      navigate("/")
+      navigate("/");
       return;
     }
   }, []);
@@ -88,7 +88,7 @@ function LoginPage() {
   const googleLogin = useGoogleLogin({
     onSuccess: responseGoogle,
     onError: errorGoogle,
-    redirect_uri: "https://blog-app-gamma-swart.vercel.app/home",
+    redirect_uri: "https://blog-app-gamma-swart.vercel.app",
   });
 
   function responseFacebook(response) {
