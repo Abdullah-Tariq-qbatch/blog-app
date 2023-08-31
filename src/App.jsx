@@ -16,7 +16,9 @@ import ScrollTopButton from "./components/blogApp/ScrollTopButton";
 import SideBar from "./components/userAuthApp/SideBar";
 
 const Header = lazy(() =>
-  import("./components/social-media-feed/Header/Header")
+  import(
+    /* webpackChunkName: "Header" */ "./components/social-media-feed/Header/Header"
+  )
 );
 const UsersFeed = lazy(() =>
   import(
