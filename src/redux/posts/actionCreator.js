@@ -1,35 +1,41 @@
+/* eslint-disable no-undef */
 import actions from "./actions";
 import axios from "axios";
 import { makePosts } from "./api-data";
+import { concat } from "lodash";
 
 const fetchPosts = (userId = null) => {
   return async (dispatch) => {
     dispatch(actions.fetchPostsBegin());
     axios
       .all([
-        axios.get("https://dummyjson.com/posts", { params: { limit: 0 } }),
-        axios.get("https://dummyjson.com/comments", { params: { limit: 0 } }),
-        axios.get("https://dummyjson.com/users", { params: { limit: 0 } }),
         axios.get(
-          "https://image.dummyjson.com/750x200/008080/ffffff?text=Random+Post!&fontSize=20"
+          concat([process.env.REACT_APP_BACKEND_URL, "/posts"]).join(""),
+          {
+            params: { limit: 0 },
+          }
+        ),
+        axios.get(
+          concat([process.env.REACT_APP_BACKEND_URL, "/comments"]).join(""),
+          {
+            params: { limit: 0 },
+          }
+        ),
+        axios.get(
+          concat([process.env.REACT_APP_BACKEND_URL, "/users"]).join(""),
+          {
+            params: { limit: 0 },
+          }
         ),
       ])
       .then(
-        axios.spread(
-          async (postsData, commentsData, usersData, pictureData) => {
-            dispatch(
-              actions.fetchPostsSuccess(
-                makePosts(
-                  postsData,
-                  commentsData,
-                  usersData,
-                  pictureData,
-                  userId
-                )
-              )
-            );
-          }
-        )
+        axios.spread(async (postsData, commentsData, usersData) => {
+          dispatch(
+            actions.fetchPostsSuccess(
+              makePosts(postsData, commentsData, usersData, userId)
+            )
+          );
+        })
       )
       .catch((err) => {
         dispatch(actions.apiError(err));

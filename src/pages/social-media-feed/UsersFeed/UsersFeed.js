@@ -38,11 +38,9 @@ const UsersFeed = () => {
 
   useEffect(() => {
     if (success) {
-      toast.success(success);
       dispatch(reInitializeUsers());
     }
     if (error) {
-      toast.error(error);
       dispatch(reInitializeUsers());
     }
   }, [success, error]);

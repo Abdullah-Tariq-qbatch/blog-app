@@ -86,7 +86,7 @@ function App() {
         <Notify />
         <SideBar />
         <Routes>
-        <Route
+          <Route
             path="/"
             element={
               <AuthGuard>
@@ -96,7 +96,6 @@ function App() {
           />
           <Route exact path="/signup" element={<SignUpPage />} />
           <Route path="/login" element={<LoginPage />} />
-         
 
           <Route
             path="/tv-shows"
@@ -109,7 +108,6 @@ function App() {
             <Route path="" element={<AllTvShows />} />
             <Route path="add-tv-show" element={<AddTvShow />} />
             <Route path="tv-show-details/:id" element={<TvShowDetails />} />
-            
           </Route>
           <Route path="*" element={<Page404 />} />
 
