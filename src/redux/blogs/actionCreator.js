@@ -30,7 +30,10 @@ export const fetchBlogs = () => async (dispatch) => {
     try {
       dispatch(fetchBlogsBegin());
       const response = await api.blogs.getAll();
-      if (isSuccess(response)) dispatch(fetchBlogsSuccess(response.data.posts));
+      if (isSuccess(response)) {
+        dispatch(fetchBlogsSuccess(response.data.posts));
+        localStorage.setItem('blogs', JSON.stringify(response.data.posts));
+      }
     } catch (error) {
       sendErrorNotification(error, import.meta.url, 'fetch blogs');
       dispatch(apiError(error.message));

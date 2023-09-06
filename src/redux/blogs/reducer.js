@@ -34,7 +34,6 @@ const Blogs = (state = initState, action) => {
         error: null,
       };
     case FETCH_BLOGS_SUCCESS:
-      localStorage.setItem('blogs', JSON.stringify(data));
       return { ...state, blogs: data, loading: false };
     case CREATE_BLOG_BEGIN:
       return {

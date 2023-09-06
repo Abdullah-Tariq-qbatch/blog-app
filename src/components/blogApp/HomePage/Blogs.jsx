@@ -38,8 +38,8 @@ function Blogs({ userId }) {
         setUser(tempUserList[userId])
       } else setList(() => BlogsData.blogs);
     }
-    if (!BlogsData.loading && !UserData.loading) { setUsers(() => keyBy(UserData.users, 'id')); }
-    if (!BlogsData.loading && !CommentData.loading) { SetPostComments(() => countBy(CommentData.comments, 'postId')); }
+    if (!UserData.loading)  setUsers(() => keyBy(UserData.users, 'id')); 
+    if (!CommentData.loading) SetPostComments(() => countBy(CommentData.comments, 'postId')); 
   }, [BlogsData, UserData, CommentData]);
 
   const debouncedFilter = useCallback(
