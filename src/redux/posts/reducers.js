@@ -1,7 +1,7 @@
 /* eslint-disable no-case-declarations */
 import actions from "./actions";
 import { getDataFromLocalStorage } from "./api-data";
-import _ from "lodash";
+import { concat } from "lodash";
 
 const initialState = {
   posts: [],
@@ -42,7 +42,7 @@ const Posts = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        posts: _.concat(state.posts, data.post),
+        posts: concat(state.posts, data.post),
         error: null,
         success: "Success: Post added successfully",
       };
@@ -64,7 +64,7 @@ const Posts = (state = initialState, action) => {
         error: null,
       };
     case DELETE_POST_SUCCESS:
-       newPosts = getDataFromLocalStorage("posts").filter(
+      newPosts = getDataFromLocalStorage("posts").filter(
         (post) => data.postId !== post.id
       );
       localStorage.setItem("posts", JSON.stringify(newPosts));

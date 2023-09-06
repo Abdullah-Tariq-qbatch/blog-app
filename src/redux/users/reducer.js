@@ -157,7 +157,7 @@ const Users = (state = initState, action) => {
         error: null,
       };
     case DELETE_USER_BEGIN:
-      return { ...state, loading: true };
+      return { ...state, loading: true, success: null };
     case DELETE_USER_SUCCESS:
       return {
         ...state,

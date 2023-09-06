@@ -86,6 +86,11 @@ const Post = (post) => {
     setAlert(false);
   };
 
+  const handleCommentsClick = () => {
+    setShowComments((state) => !state);
+    post.onClick();
+  };
+
   return (
     <div className="w-3/4 m-auto">
       <main className="profile-page">
@@ -210,9 +215,7 @@ const Post = (post) => {
                             </form>
                           </div>
                           <div className="w-full col-span-3">
-                            <Button
-                              onClick={() => setShowComments((state) => !state)}
-                            >
+                            <Button onClick={handleCommentsClick}>
                               <ViewIcon />
                               View Comments
                             </Button>
