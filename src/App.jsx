@@ -16,13 +16,15 @@ import ScrollTopButton from "./components/blogApp/ScrollTopButton";
 import SideBar from "./components/userAuthApp/SideBar";
 
 import bloglogo from "./assets/blogApp/image/png/logo512.png";
+
 import tvShow_logo from "./assets/tvShowApp/movie_logo.png";
 
-const Header = lazy(() =>
-  import(
-    /* webpackChunkName: "Header" */ "./components/social-media-feed/Header/Header"
-  )
-);
+
+//const Header = lazy(() =>
+//  import(
+//    /* webpackChunkName: "Header" */ "./components/social-media-feed/Header/Header"
+//  )
+//);
 const UsersFeed = lazy(() =>
   import(
     /* webpackChunkName: "usersFeed" */ "./pages/social-media-feed/UsersFeed/UsersFeed"
@@ -104,6 +106,7 @@ function App() {
     },
   ];
 
+
   const tvShowslinks = [
     {
       text: "Home",
@@ -114,6 +117,26 @@ function App() {
       url: "/tv-shows/add-tv-show",
     },
   ];
+
+  const socialMediaLinks = [
+    {
+      text: "Posts Feed",
+      url: "/social-media/posts-feed",
+    },
+    {
+      text: "Users Feed",
+      url: "/social-media/users-feed",
+    },
+    {
+      text: "My Posts",
+      url: "/social-media/my-posts",
+    },
+    {
+      text: "Add Post",
+      url: "/social-media/add-post",
+    },
+  ];
+
   return (
     <BrowserRouter>
       <LazyLoading>
@@ -153,7 +176,11 @@ function App() {
             path="/social-media"
             element={
               <AuthGuard>
-                <Header />
+                <MainLayout
+                  links={socialMediaLinks}
+                  logo={bloglogo}
+                  appName={"Social Media Feed"}
+                />
               </AuthGuard>
             }
           >
