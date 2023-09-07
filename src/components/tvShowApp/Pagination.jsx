@@ -72,8 +72,8 @@ const Pagination = ({ searchParam, pageParam }) => {
           onClick={() => loadContent(i)}
           className={`relative inline-flex items-center px-4 py-2 text-sm font-semibold ${
             currPage === i
-              ? "z-10  bg-indigo-600 text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              : "text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+              ? "text-blue-custom bg-blue-50 dark:bg-blue-900 hover:bg-blue-100 dark:hover:bg-blue-950 hover:text-blue-custom dark:hover:text-blue-700 border-gray-300 dark:border-gray-700 border"
+              : "dark:text-gray-200 text-gray-500 dark:bg-gray-600 bg-white border dark:border-gray-700 border-gray-300 dark:hover:bg-gray-800 hover:bg-gray-100 dark:hover:text-gray-300 hover:text-gray-700"
           } `}
         >
           {i}
@@ -119,10 +119,12 @@ const Pagination = ({ searchParam, pageParam }) => {
       </div>
       <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
         <div>
-          <p className="text-sm text-gray-700">
-            Showing <span className="font-medium">{`${currPage}`}</span> of{" "}
-            <span className="font-medium">{`${totalPages}`}</span> totalPages
-          </p>
+          <span className="text-sm text-gray-700 dark:text-gray-200 mt-3">
+            Page Number :{" "}
+            <span className="font-semibold text-blue-custom ">{`${currPage}`}</span>{" "}
+            out of{" "}
+            <span className="font-semibold text-blue-custom ">{`${totalPages}`}</span>
+          </span>
         </div>
         <div>
           <nav
@@ -131,7 +133,7 @@ const Pagination = ({ searchParam, pageParam }) => {
           >
             <button
               onClick={() => goToPrevPageRange()}
-              className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+              className="relative inline-flex items-center rounded-l-md px-2 py-2 ring-1 ring-inset  focus:outline-offset-0 dark:text-gray-200 text-gray-500 dark:bg-gray-600 bg-white focus:z-20 dark:hover:bg-gray-800 hover:bg-gray-100 dark:hover:text-gray-300 hover:text-gray-700"
             >
               <span className="sr-only">Previous</span>
               <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
@@ -141,7 +143,7 @@ const Pagination = ({ searchParam, pageParam }) => {
               aria-current="page"
               onClick={() => loadContent(1)}
               className={`relative inline-flex items-center px-4 py-2 text-sm font-semibold 
-            text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0`}
+              ring-gray-300 border dark:border-gray-700 border-gray-300 dark:text-gray-200 text-gray-500 dark:bg-gray-600 bg-white focus:z-20 dark:hover:bg-gray-800 hover:bg-gray-100 dark:hover:text-gray-300 hover:text-gray-700`}
             >
               First
             </a>
@@ -153,14 +155,14 @@ const Pagination = ({ searchParam, pageParam }) => {
               aria-current="page"
               onClick={() => loadContent(totalPages)}
               className={`relative inline-flex items-center px-4 py-2 text-sm font-semibold 
-            text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0`}
+              ring-gray-300 border dark:border-gray-700 border-gray-300 dark:text-gray-200 text-gray-500 dark:bg-gray-600 bg-white focus:z-20 dark:hover:bg-gray-800 hover:bg-gray-100 dark:hover:text-gray-300 hover:text-gray-700`}
             >
               Last
             </a>
 
             <button
               onClick={() => goToNextPageRange()}
-              className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+              className="relative inline-flex items-center rounded-r-md px-2 py-2 ring-1 ring-inset  focus:outline-offset-0 dark:text-gray-200 text-gray-500 dark:bg-gray-600 bg-white focus:z-20 dark:hover:bg-gray-800 hover:bg-gray-100 dark:hover:text-gray-300 hover:text-gray-700"
             >
               <span className="sr-only">Next</span>
               <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
