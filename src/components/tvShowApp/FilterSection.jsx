@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import NetworkList from "./NetworkList";
 import { orderBy, toNumber, groupBy, intersection } from "lodash";
 import { calculateYear } from "../../utils/tvShowApp/utils";
+import SearchBar from "./SearchBar";
 
 import { Formik, Form } from "formik";
 
@@ -81,25 +82,23 @@ const FilterSection = ({ data, pageNo }) => {
   return (
     <div>
       <div className="lg:px-8 flex flex-col lg:flex-row justify-between">
-        <div className="flex pt-4 lg:pt-0 items-center">
-          <input
-            id="checked-checkbox"
-            type="checkbox"
-            checked={sortByYear}
-            onChange={handleChangeCheckbox}
-            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
-          />
-          <label
-            htmlFor="checked-checkbox"
-            className="ml-2 text-sm font-medium text-gray-400 dark:focus:text-gray-200 focus:text-gray-800"
-          >
-            Sort By Year
-          </label>
-        </div>
-
         <Formik>
           <Form>
-            <div className="flex items-center justify-center mr-4 pt-4 flex-row space-x-4 ">
+            <div className="flex items-center justify-center mr-4 mt-10 flex-row space-x-4 ">
+              <label
+                htmlFor="checked-checkbox"
+                className="ml-2 text-sm font-medium text-gray-400 dark:focus:text-gray-200 focus:text-gray-800"
+              >
+                Sort By Year
+              </label>
+              <input
+                id="checked-checkbox"
+                type="checkbox"
+                checked={sortByYear}
+                onChange={handleChangeCheckbox}
+                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+              />
+
               <NetworkList
                 handleChange={handleChangeNetwork}
                 availableNetworks={availableNetworks}
@@ -113,6 +112,9 @@ const FilterSection = ({ data, pageNo }) => {
             </div>
           </Form>
         </Formik>
+        <div className="flex pt-4 lg:pt-0 items-center">
+          <SearchBar />
+        </div>
       </div>
     </div>
   );

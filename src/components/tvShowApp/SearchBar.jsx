@@ -2,7 +2,7 @@ import React from "react";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { debounce } from "lodash";
-import { searchIcon } from "../../assets/tvShowApp/svg/icons";
+// import { searchIcon } from "../../assets/tvShowApp/svg/icons";
 const SearchBar = () => {
   const searchInputRef = useRef();
 
@@ -29,11 +29,11 @@ const SearchBar = () => {
         <span className="sr-only">Search</span>
       </button>
 
-      <div className="relative w-full sm: px-12">
+      <div className="relative w-full ">
         <input
           type="search"
-          className=" p-2.5  w-full  text-sm text-gray-900 bg-white rounded-lg  border border-gray-300  focus:border-blue-500 "
-          placeholder="Search..."
+          className=" block md:w-60 h-11 mt-3 sm:mt-6  p-4 text-sm outline-none  dark:bg-gray-600 dark:border-gray-700 dark:text-gray-200 text-gray-900 border-2 border-gray-300 rounded-lg bg-gray-50 focus:ring-pink-500 focus:border-pink-500 dark:focus:ring-pink-800 dark:focus:border-pink-800"
+          placeholder="Search TV Shows..."
           ref={searchInputRef}
           onChange={(e) => debouncedHandleSearch(e.target.value)}
           required
@@ -43,7 +43,7 @@ const SearchBar = () => {
           onClick={() => handleSearch()}
           className="absolute top-0  p-2.5 text-sm font-medium h-full text-black rounded-r-lg   focus:ring-4 focus:outline-none focus:ring-blue-300"
         >
-          {searchIcon()}
+          {/* {searchIcon()} */}
           <span className="sr-only">Search</span>
         </button>
       </div>
