@@ -100,7 +100,7 @@ const Pagination = ({ searchParam, pageParam }) => {
   };
 
   return (
-    <div className="flex items-center justify-between   bg-gray-50 px-4 py-6 sm:px-6">
+    <div className="flex items-center justify-between   bg-white dark:bg-gray-800 px-4 py-6 sm:px-6">
       <div className="flex flex-1 justify-between sm:hidden">
         <a
           href="#"
