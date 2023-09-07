@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import DeleteConfirmation from "./DeleteConfirmation";
 import { Link } from "react-router-dom";
@@ -15,24 +14,24 @@ const TvShowCard = ({ data }) => {
   return (
     <>
       <div
-        className="relative w-full max-w-xs bg-white border flex justify-center border-gray-200 rounded-lg shadow"
+        className="relative w-full max-w-xs bg-white dark:bg-gray-950 border dark:border-gray-950  flex justify-center border-gray-200 rounded-lg shadow"
         style={{
           backgroundImage: `url(${data.image_thumbnail_path})`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "100% 200px",
         }}
       >
-        <div className="px-5 w-11/12 mt-36 pt-4 pb-6 bg-gray-50 shadow-lg hover:shadow-xl shadow-black-600 rounded-lg">
+        <div className="px-5 w-11/12 mt-36 pt-4 pb-6 bg-gray-50 dark:bg-gray-800 border-2 border-gray-100 dark:border-gray-900 shadow-lg hover:shadow-xl shadow-black-600 rounded-lg">
           <a href="#">
-            <p className="text-xl  font-bold text-gray-900  overflow-hidden whitespace-nowrap overflow-ellipsis">
+            <p className="text-base font-bold tracking-tight text-gray-700 dark:text-gray-50 hover:text-pink-custom dark:hover:text-pink-800  overflow-hidden whitespace-nowrap overflow-ellipsis">
               {data.name}{" "}
             </p>
             {endDate ? (
-              <p className="text-l font-semibold tracking-tight text-gray-400">
+              <p className="text-s text-gray-400 dark:text-gray-200 flex items-center dark:hover:text-pink-800 hover:text-pink-custom">
                 {calculateYear(startDate)} - {calculateYear(endDate)}
               </p>
             ) : (
-              <p className="text-l font-semibold tracking-tight text-gray-400">
+              <p className="text-s text-gray-400 dark:text-gray-200 flex items-center dark:hover:text-pink-800 hover:text-pink-custom">
                 {calculateYear(startDate)} - Present
               </p>
             )}
