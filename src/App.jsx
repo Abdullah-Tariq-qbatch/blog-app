@@ -7,13 +7,15 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import React, { lazy } from "react";
 
 import AuthGuard from "./components/userAuthApp/AuthGuard";
-import Layout from "./components/catalogApp/Layout";
+//import Layout from "./components/catalogApp/Layout";
 import LazyLoading from "./components/catalogApp/LazyLoading";
 import MainLayout from "./layout/blogApp/MainLayout";
 import Notify from "./components/userAuthApp/Notify";
 import Root from "./components/tvShowApp/Root";
 import ScrollTopButton from "./components/blogApp/ScrollTopButton";
 import SideBar from "./components/userAuthApp/SideBar";
+
+import bloglogo from './assets/blogApp/image/png/logo512.png';
 
 const Header = lazy(() =>
   import(
@@ -80,6 +82,26 @@ const SignUpPage = lazy(() =>
 );
 
 function App() {
+  const blogLinks = [
+    {
+      text: 'Blog Home',
+      url: '/blog/'
+    },
+    {
+      text: 'Write a Blog',
+      url: '/blog/create-blog'
+    },
+  ]
+  const ProductCataloglinks = [
+    {
+      text: "Home",
+      url: "/catalog",
+    },
+    {
+      text: "Add Product",
+      url: "/catalog/add",
+    },
+  ];
   return (
     <BrowserRouter>
       <LazyLoading>
@@ -137,7 +159,7 @@ function App() {
             path="/catalog"
             element={
               <AuthGuard>
-                <Layout />
+                <MainLayout links={ProductCataloglinks} logo={bloglogo} appName={'Product Catalog'}/>
               </AuthGuard>
             }
           >
@@ -150,7 +172,7 @@ function App() {
             path="/blog"
             element={
               <AuthGuard>
-                <MainLayout />
+                <MainLayout links={blogLinks} logo={bloglogo} appName={'Blog App'} />
               </AuthGuard>
             }
           >
