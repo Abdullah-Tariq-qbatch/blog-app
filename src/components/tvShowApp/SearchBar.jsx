@@ -2,7 +2,7 @@ import React from "react";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { debounce } from "lodash";
-// import { searchIcon } from "../../assets/tvShowApp/svg/icons";
+
 const SearchBar = () => {
   const searchInputRef = useRef();
 
@@ -43,7 +43,6 @@ const SearchBar = () => {
           onClick={() => handleSearch()}
           className="absolute top-0  p-2.5 text-sm font-medium h-full text-black rounded-r-lg   focus:ring-4 focus:outline-none focus:ring-blue-300"
         >
-          {/* {searchIcon()} */}
           <span className="sr-only">Search</span>
         </button>
       </div>
