@@ -52,10 +52,10 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       <button
         onClick={onClick}
         disabled={disabled}
-        className={`p-2 rounded ${
+        className={`${
           disabled
-            ? "flex items-center justify-center px-1 sm:px-3 h-8 leading-tight rounded-l-lg dark:text-gray-200 text-gray-500 dark:bg-gray-600 bg-white border dark:border-gray-700 border-gray-300 dark:hover:bg-gray-800 hover:bg-gray-100 dark:hover:text-gray-300  cursor-not-allowed"
-            : "flex items-center justify-center px-1 sm:px-3 h-8 leading-tight rounded-l-lg dark:text-gray-200 text-gray-500 dark:bg-gray-600 bg-white border dark:border-gray-700 border-gray-300 dark:hover:bg-gray-800 hover:bg-gray-100 dark:hover:text-gray-300 hover:text-gray-700"
+            ? "flex items-center justify-center px-1 sm:px-3 h-8 leading-tight dark:text-gray-200 text-gray-500 dark:bg-gray-600 bg-white border dark:border-gray-700 border-gray-300 dark:hover:bg-gray-800 hover:bg-gray-100 dark:hover:text-gray-300  cursor-not-allowed"
+            : "flex items-center justify-center px-1 sm:px-3 h-8 leading-tight dark:text-gray-200 text-gray-500 dark:bg-gray-600 bg-white border dark:border-gray-700 border-gray-300 dark:hover:bg-gray-800 hover:bg-gray-100 dark:hover:text-gray-300 hover:text-gray-700"
         }`}
       >
         {name}
@@ -65,31 +65,41 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
 
   return (
     <div className="flex justify-end mt-4 mr-4 mb-4">
+      {/* <Button
+        onClick={() => handlePageChange(currentPage - 1)}
+        disabled={isFirstPage}
+        name="<"
+      ></Button> */}
+      <button
+        onClick={() => handlePageChange(currentPage - 1)}
+        className="rounded-l-lg flex items-center justify-center px-1 sm:px-3 h-8 leading-tight dark:text-gray-200 text-gray-500 dark:bg-gray-600 bg-white border dark:border-gray-700 border-gray-300 dark:hover:bg-gray-800 hover:bg-gray-100 dark:hover:text-gray-300 hover:text-gray-700"
+        disabled={isFirstPage}
+        // name=">"
+      >
+        {"<"}
+      </button>
+
       <Button
         onClick={() => handlePageChange(1)}
         disabled={isFirstPage}
         name="First"
       ></Button>
 
-      <Button
-        onClick={() => handlePageChange(currentPage - 1)}
-        disabled={isFirstPage}
-        name="<<"
-      ></Button>
-
       {renderPageNumbers()}
-
-      <Button
-        onClick={() => handlePageChange(currentPage + 1)}
-        disabled={isLastPage}
-        name=">>"
-      ></Button>
 
       <Button
         onClick={() => handlePageChange(totalPages)}
         disabled={isLastPage}
         name="Last"
       ></Button>
+      <button
+        onClick={() => handlePageChange(currentPage + 1)}
+        className="rounded-r-lg flex items-center justify-center px-1 sm:px-3 h-8 leading-tight dark:text-gray-200 text-gray-500 dark:bg-gray-600 bg-white border dark:border-gray-700 border-gray-300 dark:hover:bg-gray-800 hover:bg-gray-100 dark:hover:text-gray-300 hover:text-gray-700"
+        disabled={isLastPage}
+        // name=">"
+      >
+        {">"}
+      </button>
     </div>
   );
 };
