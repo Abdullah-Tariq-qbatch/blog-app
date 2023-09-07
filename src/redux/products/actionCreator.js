@@ -13,17 +13,17 @@ export const fetchAllProducts = (params) => {
       dispatch(actions.fetchProductsBegin());
 
       const response = await axios.get(
-        `${productURL}/${
+        `${productURL}${
           params.category
-            ? `category/${params.category}`
+            ? `/category/${params.category}`
             : params.q
-            ? `search`
+            ? `/search`
             : ""
         }`,
         {
           params: {
             ...params,
-            limit: 15,
+            limit: 16,
           },
         }
       );

@@ -29,7 +29,7 @@ const Products = ({ category, pageNo, searchParam }) => {
   } = useSelector((state) => state.Products);
 
   useMemo(() => {
-    setTotalPages(ceil(total / 15));
+    setTotalPages(ceil(total / 16));
   }, [total]);
 
   useEffect(() => {

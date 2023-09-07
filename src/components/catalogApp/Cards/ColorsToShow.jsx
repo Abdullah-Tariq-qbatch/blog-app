@@ -1,7 +1,6 @@
 import React from "react";
-import Button from "../Button";
 
-const Colors = ({ sizeData, colors, selectedSize }) => {
+const ColorsToShow = ({ sizeData, colors, selectedSize }) => {
   return (
     <>
       {colors[sizeData[selectedSize]?.name] ? (
@@ -15,13 +14,12 @@ const Colors = ({ sizeData, colors, selectedSize }) => {
           );
         })
       ) : (
-        <Button
-          className="text-sm border-0 border-black mr-3"
-          label="Colors Not Available"
-        />
+        <p className="text-sm border-0 border-black mr-3">
+          Colors Not Available
+        </p>
       )}
     </>
   );
 };
 
-export default Colors;
+export default ColorsToShow;

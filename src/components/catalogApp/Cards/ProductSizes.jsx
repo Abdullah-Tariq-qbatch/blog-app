@@ -2,7 +2,7 @@ import React from "react";
 
 import Button from "../Button";
 
-const Sizes = ({ sizes, selectedSize, setSelectedSize }) => {
+const ProductSizes = ({ sizes, selectedSize, setSelectedSize }) => {
   return (
     <>
       {sizes.map((size, index) => {
@@ -23,4 +23,4 @@ const Sizes = ({ sizes, selectedSize, setSelectedSize }) => {
   );
 };
 
-export default Sizes;
+export default ProductSizes;
