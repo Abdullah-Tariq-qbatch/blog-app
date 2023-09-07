@@ -8,7 +8,6 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { ReactComponent as AddIcon } from "./../../../assets/social-media-feed/svgs/add-icon.svg";
 
 import slackNotification from "./../../../utils/social-media-feed/SlackNotification";
-import Button from "./../../../components/social-media-feed/Button/Button";
 
 import { fetchPosts, addUserPost } from "./../../../redux/posts/actionCreator";
 import { getDataFromLocalStorage } from "./../../../redux/posts/api-data";
@@ -19,7 +18,7 @@ const validationSchema = Yup.object({
   image: Yup.string().required("*Image is required"),
 });
 
-const AddPost = ({ pageLink }) => {
+const AddPost = () => {
   const dispatch = useDispatch();
   const { posts } = useSelector((state) => state.Posts);
   const { currentUser } = useSelector((state) => state.Users);
@@ -133,10 +132,13 @@ const AddPost = ({ pageLink }) => {
                 />
               </div>
               <div className="flex ml-24 mt-3">
-                <Button type="submit">
+                <button
+                  type="submit"
+                  className="mt-auto mb-auto inline-flex text-white bg-gradient-to-r from-[#3C57E2] via-[#4E67E4] to-blueProfessional hover:bg-gradient-to-br font-medium rounded-lg text-sm px-4 py-2.5 text-center"
+                >
                   <AddIcon className="h-5 w-5 mr-2" />
-                  {pageLink === "edit" ? <>Update Post</> : <>Add Post</>}
-                </Button>
+                  <>Add Post</>
+                </button>
               </div>
             </Form>
           )}
