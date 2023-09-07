@@ -19,6 +19,7 @@ const Search = () => {
   const handleChange = debounce(handleSearch, 1000);
 
   const searchInputRef = useRef();
+  
   return (
     <div className="flex items-center justify-center">
       <div className="relative w-full">

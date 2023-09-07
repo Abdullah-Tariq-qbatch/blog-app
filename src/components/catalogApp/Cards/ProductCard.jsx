@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { groupBy } from "lodash";
-import StarRatingComponent from "react-star-rating-component";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { EditOutlined, DeleteOutlined, StarFilled } from "@ant-design/icons";
 
 import DeleteDialog from "../DeleteDialog";
-import Colors from "./Colors";
-import Sizes from "./Sizes";
+import Colors from "./ColorsToShow";
+import ProductSizes from "./ProductSizes";
 
 import RenderIf from "../RenderIf";
 
@@ -30,6 +29,7 @@ const ProductCard = ({ product }) => {
   useEffect(() => {
     product.colors && setColors(groupBy(product.colors, "size"));
   }, [product.colors]);
+  
   return (
     <>
       <div className="relative bg-white border border-gray-200 rounded-lg shadow flex justify-center h-[390px]">
@@ -83,7 +83,10 @@ const ProductCard = ({ product }) => {
               }
             >
               <div className="flex items-center h-6 sm:h-7">
-                <StarRatingComponent value={product.rating} editing={false} />
+                <StarFilled className="w-4 h-4 text-yellow-300 mr-1" />
+                <span className="text-md font-semibold tracking-tight text-gray-900">
+                  {product.rating}
+                </span>
               </div>
             </RenderIf>
 
@@ -95,7 +98,7 @@ const ProductCard = ({ product }) => {
                 <p className="text-sm border-0 border-black mr-3 overflow-hidden whitespace-nowrap overflow-ellipsis">Size Not Available</p>
                 }
               >
-                <Sizes
+                <ProductSizes
                   sizes={product?.sizeData}
                   selectedSize={selectedSize}
                   setSelectedSize={setSelectedSize}
