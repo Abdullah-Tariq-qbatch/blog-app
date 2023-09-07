@@ -48,9 +48,13 @@ const AddTvShow = () => {
 
   return (
     <>
-      <div className="flex items-center justify-center h-screen">
-        <div className="w-full md:w-1/2  flex flex-col items-center justify-center rounded-lg bg-white p-8 shadow-md">
-          <h1 className="mb-4 text-2xl font-bold">Add TV-Show</h1>
+      {/* <div className="flex items-center justify-center h-screen">
+        <div className="w-full md:w-1/2  flex flex-col items-center justify-center rounded-lg bg-white p-8 shadow-md"> */}
+      <section className="bg-white dark:bg-gray-800">
+        <div className="py-8 px-4 mx-auto max-w-2xl lg:py-16">
+          <h2 className="mb-4 flex justify-center text-xl font-bold text-gray-700 dark:text-gray-200">
+            Add TV-Show
+          </h2>
 
           <Formik
             initialValues={initialValues}
@@ -102,7 +106,10 @@ const AddTvShow = () => {
 
                 <div className="grid grid-cols-1 gap-2 w-full lg:grid-cols-2 mb-2">
                   <div className="flex-col">
-                    <label htmlFor="start-date" className="font-bold">
+                    <label
+                      htmlFor="start-date"
+                      className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
+                    >
                       Starting Date
                     </label>
                     <Field
@@ -120,7 +127,10 @@ const AddTvShow = () => {
                     />
                   </div>
                   <div>
-                    <label htmlFor="end-date" className="font-bold">
+                    <label
+                      htmlFor="end-date"
+                      className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
+                    >
                       Ending Date
                     </label>
                     <Field
@@ -191,7 +201,7 @@ const AddTvShow = () => {
                 />
 
                 <button
-                  className="w-1/2  my-2 rounded-full bg-slate-500 px-4 py-2 text-white hover:bg-slate-600 "
+                  className="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 bg-blue-custom hover:bg-blue-800"
                   type="submit"
                 >
                   Add TV-Show
@@ -200,7 +210,8 @@ const AddTvShow = () => {
             )}
           </Formik>
         </div>
-      </div>
+        {/* </div> */}
+      </section>
     </>
   );
 };
