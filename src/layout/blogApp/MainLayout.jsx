@@ -26,8 +26,7 @@ export default function MainLayout({links, logo, appName}) {
     <div className="flex flex-col min-h-screen ">
      <Header links={links} logo={logo} />
       <main className="mt-20 flex-grow flex justify-center items-center bg-white dark:bg-gray-800">
-      <Toast />
-      <div className='w-full h-full'><Outlet /></div>
+      <div className='w-full h-full'><Toast /><Outlet /></div>
       </main>
       <Footer appName={appName} logo={logo} />
     </div>

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink, Link, useLocation } from 'react-router-dom';
 
 import Switcher from '../blogApp/Switcher';
 import { ReactComponent as HamburgerSvg } from '../../assets/blogApp/svg/hamburger.svg';
@@ -14,6 +14,13 @@ function Header({ logo, links }) {
   const handleClick = () => {
     setIsOpen(!isOpen);
   };
+
+  const location = useLocation();
+
+  
+  
+
+  
 
   return (
     <nav className="fixed top-0 left-0 w-full bg-gray-100 dark:bg-gray-900 p-5 mb-8 z-40">
@@ -31,7 +38,7 @@ function Header({ logo, links }) {
               isTrue={isOpen}
               fallback={(
                 <HamburgerSvg className="fill-current h-3 w-3 block" />
-            )}
+              )}
             >
               <CrossSvg className="fill-current h-3 w-3 block" />
             </RenderIf>
@@ -44,14 +51,20 @@ function Header({ logo, links }) {
         >
           <div className="text-sm lg:flex-grow flex-col lg:flex-row flex items-start mb-5 lg:mb-0">
             {links?.map((link) => (
-              <Link to={link.url} key={link.text} className="block mt-4 lg:inline-block lg:mt-0 text-gray-700 dark:text-gray-200 mr-4" onClick={handleClick}>{link.text}</Link>
+              <NavLink
+                to={link.url}
+                key={link.text}
+                className={`block mt-4 lg:inline-block lg:mt-0 mr-4 ${location.pathname === link.url ? 'text-pink-custom dark:text-pink-500' : 'text-gray-700 dark:text-gray-200'} `}
+                onClick={handleClick}
+              >
+                {link.text}
+              </NavLink>
             ))}
           </div>
           <Switcher />
         </div>
       </div>
     </nav>
-
   );
 }
 export default Header;
