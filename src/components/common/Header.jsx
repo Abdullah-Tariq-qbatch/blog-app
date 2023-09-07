@@ -18,7 +18,7 @@ function Header({ logo, links }) {
   return (
     <nav className="fixed top-0 left-0 w-full bg-gray-100 dark:bg-gray-900 p-5 mb-8 z-40">
       <div className="flex items-center justify-between flex-wrap mx-10">
-        <Link to="/blog/" className="flex items-center flex-shrink-0 text-white mr-16 cursor-pointer">
+        <Link to={links[0].url} className="flex items-center flex-shrink-0 text-white mr-16 cursor-pointer">
           <img src={logo} className="w-10 h-10 invert-0 dark:invert" alt="Logo" />
         </Link>
         <div className="block lg:hidden">

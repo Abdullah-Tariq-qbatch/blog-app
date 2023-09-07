@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Outlet } from "react-router-dom";
 
 import Header from '../../components/common/Header'
-import Footer from '../../components/blogApp/Footer';
+import Footer from '../../components/common/Footer';
 import Toast from '../../components/blogApp/Toast';
 import logo from '../../assets/blogApp/image/png/logo512.png';
 
@@ -36,7 +36,7 @@ export default function MainLayout() {
       <Header links={links} logo={logo} />
       <Toast />
       <Outlet />
-      <Footer />
+      <Footer appName={'Blog App'} logo={logo} />
     </div>
   );
 }
