@@ -28,7 +28,6 @@ const Post = (post) => {
   const { currentUser } = useSelector((state) => state.Users);
   const [alert, setAlert] = useState(false);
   const [showComments, setShowComments] = useState(false);
-  const { comments } = post;
   const dispatch = useDispatch();
 
   const handlePostLike = () => {
@@ -222,8 +221,8 @@ const Post = (post) => {
                           </div>
                         </div>
                         <div className={showComments ? "block" : "hidden"}>
-                          {comments &&
-                            comments.map((comment, id) => (
+                          {post.comments &&
+                            post.comments.map((comment, id) => (
                               <Comment {...comment} key={id}></Comment>
                             ))}
                         </div>

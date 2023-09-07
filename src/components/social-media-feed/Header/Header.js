@@ -48,7 +48,7 @@ const Header = () => {
                 <li>
                   <NavLink
                     onClick={toggleMenu}
-                    className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 dark:text-black dark:hover:text-[#4E67E4] dark:hover:bg-gray-700 dark:hover:text-white"
+                    className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 dark:text-black dark:hover:text-[#4E67E4] dark:hover:bg-gray-700"
                     to="/social-media/posts-feed"
                   >
                     Posts Feed
@@ -57,7 +57,7 @@ const Header = () => {
                 <li>
                   <NavLink
                     onClick={toggleMenu}
-                    className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 dark:text-black dark:hover:text-[#4E67E4] dark:hover:bg-gray-700 dark:hover:text-white"
+                    className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 dark:text-black dark:hover:text-[#4E67E4] dark:hover:bg-gray-700"
                     to="/social-media/users-feed"
                   >
                     Users Feed
@@ -66,7 +66,7 @@ const Header = () => {
                 <li>
                   <NavLink
                     onClick={toggleMenu}
-                    className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 dark:text-black dark:hover:text-[#4E67E4] dark:hover:bg-gray-700 dark:hover:text-white"
+                    className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 dark:text-black dark:hover:text-[#4E67E4] dark:hover:bg-gray-700"
                     to="/social-media/my-posts"
                   >
                     My Posts
@@ -75,7 +75,7 @@ const Header = () => {
                 <li>
                   <NavLink
                     onClick={toggleMenu}
-                    className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 dark:text-black dark:hover:text-[#4E67E4] dark:hover:bg-gray-700 dark:hover:text-white"
+                    className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 dark:text-black dark:hover:text-[#4E67E4] dark:hover:bg-gray-700"
                     to="/social-media/add-post"
                   >
                     Add Post

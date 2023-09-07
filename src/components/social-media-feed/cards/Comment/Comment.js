@@ -3,10 +3,10 @@ import "../../../../index.css";
 
 import Avatar from "../../Avatar/Avatar";
 
-const Comment = ({ body, user, onClick }) => {
+const Comment = ({ body, user }) => {
   const { firstname, lastname } = user;
   return (
-    <div className="mt-4 rounded-xl sm:p-5 bg-grayColour" onClick={onClick}>
+    <div className="mt-4 rounded-xl sm:p-5 bg-grayColour">
       <div className="flex flex-col space-y-2 md:space-y-0 md:space-x-4 md:flex-row">
         <Avatar
           initials={firstname[0].toUpperCase() + lastname[0].toUpperCase()}

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
-import {toast} from "react-toastify"
+import { toast } from "react-toastify";
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { ReactComponent as AddIcon } from "./../../../assets/social-media-feed/svgs/add-icon.svg";
@@ -145,4 +145,4 @@ const AddPost = ({ pageLink }) => {
     </div>
   );
 };
-export default React.memo(AddPost);
+export default AddPost;
