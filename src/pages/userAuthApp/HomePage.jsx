@@ -36,7 +36,7 @@ function HomePage() {
       <Spinner show={showLoader} />
       <div className="flex h-screen w-screen flex-col items-center justify-start overflow-hidden bg-[#E2E8F0] dark:bg-gray-800">
         <header className="flex w-full items-center justify-start bg-gray-700 px-4 text-white dark:bg-gray-900">
-          <div>
+          <div className="flex items-center justify-start flex-1">
             <SearchOutlined className="ml-4" />
             <input
               name="searchBar"
