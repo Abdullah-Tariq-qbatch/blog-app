@@ -41,7 +41,7 @@ function AuthGuard({ children }) {
       return;
     }
 
-    navigate("/login");
+    navigate("/login", { state: { redirectPath: location.pathname } });
     toast.error("Please login to continue!", {
       position: "top-center",
     });

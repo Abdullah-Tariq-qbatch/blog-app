@@ -12,7 +12,7 @@ export const signUpUser = (body, navigate) => {
   return async (dispatch) => {
     try {
       dispatch(actions.signUpUserBegin());
-      const response = await axiosInstance.post("users/add", body);
+      const response = await axiosInstance.post("users", body);
       if (actions.isSuccess(response)) {
         dispatch(actions.signUpUserSuccess(response.data));
         navigate("/login");
@@ -23,15 +23,16 @@ export const signUpUser = (body, navigate) => {
   };
 };
 
-export const loginUser = (body, navigate) => {
+export const loginUser = (body, navigate, redirectPath) => {
   return async (dispatch) => {
     try {
       dispatch(actions.loginUserBegin());
       const response = await axiosInstance.post("auth/login", body);
       if (actions.isSuccess(response)) {
         localStorage.setItem("userId", response.data.id);
-        localStorage.setItem("access_token", response.data.token);
-        navigate("/");
+        localStorage.setItem("access_token", response.data.access_token);
+        localStorage.setItem("refresh_token", response.data.refresh_token);
+        navigate(redirectPath);
         dispatch(actions.loginUserSuccess(response.data));
       }
     } catch (error) {
@@ -44,7 +45,7 @@ export const fetchUserData = (userId, navigate) => {
   return async (dispatch) => {
     try {
       dispatch(actions.fetchUserDataBegin());
-      const response = await axiosInstance.get(`auth/users/${userId}`);
+      const response = await axiosInstance.get("auth/profile");
       if (actions.isSuccess(response)) {
         dispatch(actions.fetchUserDataSuccess(response.data));
       }
@@ -52,7 +53,7 @@ export const fetchUserData = (userId, navigate) => {
       if (error?.response?.status === 401) {
         dispatch(logout(navigate));
         dispatch(
-          actions.apiError("Your session has expired please login again!")
+          actions.apiError("Your session has expired please login again!"),
         );
         return;
       }
@@ -66,7 +67,7 @@ export const fetchGoogleUserData = (navigate) => {
     try {
       dispatch(actions.fetchGoogleUserDataBegin());
       const response = await axiosInstance.get(
-        "https://www.googleapis.com/oauth2/v3/userinfo"
+        "https://www.googleapis.com/oauth2/v3/userinfo",
       );
       if (actions.isSuccess(response)) {
         dispatch(actions.fetchGoogleUserDataSuccess(response.data));
@@ -75,7 +76,7 @@ export const fetchGoogleUserData = (navigate) => {
       if (error?.response?.status === 401) {
         dispatch(logout(navigate));
         dispatch(
-          actions.apiError("Your session has expired please login again!")
+          actions.apiError("Your session has expired please login again!"),
         );
         return;
       }
@@ -94,7 +95,7 @@ export const fetchFacebookUserData = (navigate) => {
       };
       const response = await axiosInstance.get(
         "https://graph.facebook.com/me",
-        { params }
+        { params },
       );
 
       if (actions.isSuccess(response)) {
@@ -104,7 +105,7 @@ export const fetchFacebookUserData = (navigate) => {
       if (error?.response?.status === 401) {
         dispatch(logout(navigate));
         dispatch(
-          actions.apiError("Your session has expired please login again!")
+          actions.apiError("Your session has expired please login again!"),
         );
         return;
       }
@@ -149,7 +150,7 @@ export const fetchUsersSocialMediaFeed = (limit = 0, skip = 0) => {
     try {
       dispatch(actions.fetchUsersBegin());
       const response = await axios.get(
-        `https://dummyjson.com/users?limit=${limit}&skip=${skip}`
+        `https://dummyjson.com/users?limit=${limit}&skip=${skip}`,
       );
       if (isSuccess(response)) {
         dispatch(actions.fetchUsersSuccessSocialMedia(response.data));
@@ -169,7 +170,7 @@ export const searchAllUsers = (data) => {
     try {
       dispatch(actions.searchUserBegin());
       const response = await axios.get(
-        `https://dummyjson.com/users/search?q=${data}`
+        `https://dummyjson.com/users/search?q=${data}`,
       );
       if (isSuccess(response)) {
         dispatch(actions.searchUserSuccess(response.data.users));

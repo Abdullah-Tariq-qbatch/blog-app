@@ -9,7 +9,7 @@ let setInvalidRefreshToken = false;
 let retryCount = 0;
 
 const axiosInstance = axios.create({
-  baseURL: "https://dummyjson.com/",
+  baseURL: "https://api.escuelajs.co/api/v1/",
   timeout: 5000,
 });
 
@@ -46,7 +46,7 @@ axiosInstance.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
-  }
+  },
 );
 
 axiosInstance.interceptors.response.use(
@@ -54,7 +54,7 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   async (error) => {
-    const statusCode = error?.response?.data?.statusCode;
+    const statusCode = error?.response?.status;
 
     if (statusCode === 401 && retryCount < MAX_RETRIES) {
       retryCount++;
@@ -68,17 +68,36 @@ axiosInstance.interceptors.response.use(
       }
 
       if (refreshToken) {
-        const refreshResponse = await axiosInstance.post("auth/refresh-token", {
-          refreshToken: refreshToken,
-        });
+        if (localStorage.getItem("loginMethod") === "google") {
+          const body = {
+            grant_type: "refresh_token",
+            client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+            client_secret: process.env.REACT_APP_GOOGLE_CLIENT_SECRET,
+            refresh_token: refreshToken,
+          };
 
-        const newAccessToken = refreshResponse.data.access_token;
-        const newRefreshToken = refreshResponse.data.refresh_token;
+          const refreshResponse = await axiosInstance.post(
+            "https://oauth2.googleapis.com/token",
+            body,
+          );
 
-        localStorage.setItem("access_token", newAccessToken);
-        localStorage.setItem("refresh_token", newRefreshToken);
+          const newAccessToken = refreshResponse.data.access_token;
+          localStorage.setItem("access_token", newAccessToken);
+        } else {
+          const refreshResponse = await axiosInstance.post(
+            "auth/refresh-token",
+            {
+              refreshToken: refreshToken,
+            },
+          );
 
-        // api returns 401 for all invalid requests thus to prevent an infinite loop I have commented this line
+          const newAccessToken = refreshResponse.data.access_token;
+          const newRefreshToken = refreshResponse.data.refresh_token;
+          localStorage.setItem("access_token", newAccessToken);
+          localStorage.setItem("refresh_token", newRefreshToken);
+        }
+
+        // platzi fake store api returns 401 for all invalid requests thus to prevent an infinite loop I have commented this line
         // retryCount--;
 
         const originalRequest = error.config;
@@ -87,7 +106,7 @@ axiosInstance.interceptors.response.use(
     }
 
     return Promise.reject(error);
-  }
+  },
 );
 
 export default axiosInstance;
