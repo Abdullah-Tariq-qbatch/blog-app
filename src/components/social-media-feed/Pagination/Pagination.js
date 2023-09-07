@@ -34,7 +34,11 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         <button
           key={i + 1}
           onClick={() => handlePageChange(i + 1)}
-          className={`p-2 rounded ${selectedPage === i + 1 ? "active" : ""}`}
+          className={`flex items-center justify-center px-3 h-8 ${
+            selectedPage === i + 1
+              ? "text-blue-custom bg-blue-50 dark:bg-blue-900 hover:bg-blue-100 dark:hover:bg-blue-950 hover:text-blue-custom dark:hover:text-blue-700 border-gray-300 dark:border-gray-700 border active"
+              : "dark:text-gray-200 text-gray-500 dark:bg-gray-600 bg-white border dark:border-gray-700 border-gray-300 dark:hover:bg-gray-800 hover:bg-gray-100 dark:hover:text-gray-300 hover:text-gray-700"
+          }`}
         >
           {i + 1}
         </button>
@@ -50,8 +54,8 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         disabled={disabled}
         className={`p-2 rounded ${
           disabled
-            ? "bg-gray-200 text-gray-700 cursor-not-allowed"
-            : "bg-blueProfessional text-white"
+            ? "flex items-center justify-center px-1 sm:px-3 h-8 leading-tight rounded-l-lg dark:text-gray-200 text-gray-500 dark:bg-gray-600 bg-white border dark:border-gray-700 border-gray-300 dark:hover:bg-gray-800 hover:bg-gray-100 dark:hover:text-gray-300  cursor-not-allowed"
+            : "flex items-center justify-center px-1 sm:px-3 h-8 leading-tight rounded-l-lg dark:text-gray-200 text-gray-500 dark:bg-gray-600 bg-white border dark:border-gray-700 border-gray-300 dark:hover:bg-gray-800 hover:bg-gray-100 dark:hover:text-gray-300 hover:text-gray-700"
         }`}
       >
         {name}
@@ -60,7 +64,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   };
 
   return (
-    <div className="flex justify-end space-x-2 mt-4 mr-4">
+    <div className="flex justify-end mt-4 mr-4 mb-4">
       <Button
         onClick={() => handlePageChange(1)}
         disabled={isFirstPage}
@@ -70,7 +74,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       <Button
         onClick={() => handlePageChange(currentPage - 1)}
         disabled={isFirstPage}
-        name="Previous"
+        name="<<"
       ></Button>
 
       {renderPageNumbers()}
@@ -78,7 +82,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       <Button
         onClick={() => handlePageChange(currentPage + 1)}
         disabled={isLastPage}
-        name="Next"
+        name=">>"
       ></Button>
 
       <Button
