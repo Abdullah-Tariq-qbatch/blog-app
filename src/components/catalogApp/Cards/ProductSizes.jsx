@@ -1,24 +1,23 @@
 import React from "react";
 
-import Button from "../Button";
-
-const ProductSizes = ({ sizes, selectedSize, setSelectedSize }) => {
+const ProductSizes = ({ sizes, setSelectedSize }) => {
   return (
     <>
-      {sizes.map((size, index) => {
-        return (
-          <Button
-            key={`${index}`}
-            className={`px-4 rounded-md hover:bg-gray-300 mr-4 h-7 ${
-              selectedSize === index ? "bg-gray-800 text-white" : "bg-gray-200"
-            }`}
-            onClick={() => {
-              setSelectedSize(index);
-            }}
-            label={size.name}
-          />
-        );
-      })}
+    <label className="text-gray-950 dark:text-gray-200 pr-1 text-sm">Size:</label>
+      <select
+        className={`px-2 text-sm rounded-sm bg-gray-50 w-auto max-w-full dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-950 h-7 focus:outline-none text-gray-950 dark:text-gray-200`}
+        onChange={(e) => {
+          setSelectedSize(e.target.value);
+        }}
+      >
+        {sizes.map((size, index) => {
+          return (
+            <option key={`${index}`} value={index}>
+              {size.name}
+            </option>
+          );
+        })}
+      </select>
     </>
   );
 };

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { groupBy } from "lodash";
-import { EditOutlined, DeleteOutlined, StarFilled } from "@ant-design/icons";
+import { EditFilled, DeleteFilled, StarFilled } from "@ant-design/icons";
 
 import DeleteDialog from "../DeleteDialog";
 import Colors from "./ColorsToShow";
@@ -11,6 +11,7 @@ import ProductSizes from "./ProductSizes";
 import RenderIf from "../RenderIf";
 
 import { deleteProduct } from "../../../redux/products/actionCreator";
+
 import "../../../catalog.css";
 
 const ProductCard = ({ product }) => {
@@ -18,7 +19,6 @@ const ProductCard = ({ product }) => {
   const [isDialogVisible, setIsDialogVisible] = useState(false);
 
   const [colors, setColors] = useState(undefined);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleDelete = (id) => {
@@ -29,122 +29,113 @@ const ProductCard = ({ product }) => {
   useEffect(() => {
     product.colors && setColors(groupBy(product.colors, "size"));
   }, [product.colors]);
-  
+
   return (
     <>
-      <div className="relative bg-white border border-gray-200 rounded-lg shadow flex justify-center h-[390px]">
-        <img
-          src={product.thumbnail}
-          className="object-cover h-48 w-96 rounded-t-lg"
-        />
-        <div className="absolute top-40 w-11/12">
-          <div className="px-5 py-3 bg-white border border-gray-200 rounded-lg bg-opacity-70 h-[230px]">
-            <p className="text-md md:text-xl font-bold text-gray-900  overflow-hidden whitespace-nowrap overflow-ellipsis w-auto">
+      <div className="max-w-sm bg-white dark:bg-gray-950 border dark:border-gray-950 border-gray-200 rounded-lg shadow flex flex-col">
+        <div className="relative z-10">
+          <img src={product.thumbnail} className="rounded-t-lg w-96 h-44" />
+          <span
+            id="blackOverlay"
+            className="w-full rounded-t-lg h-full absolute top-0 left-1/2 transform -translate-x-1/2 bg-black opacity-0 dark:opacity-30 flex justify-center items-center"
+          />
+        </div>
+        <div className="bg-gray-50 dark:bg-gray-800 border-2 border-gray-100 dark:border-gray-900 rounded-lg px-5 -mt-14 mx-auto w-11/12 mb-5 z-10">
+          <div className="flex justify-center h-[50px] items-center">
+            <p className="w-[90%] text-base font-bold text-center tracking-tight text-gray-700 dark:text-gray-50 hover:text-pink-custom dark:hover:text-pink-800">
               {product.title}
             </p>
+          </div>
 
-            <p className="text-sm md:text-md text-gray-500 overflow-hidden whitespace-nowrap overflow-ellipsis">
+          <div className="flex justify-center">
+            <p className="text-xs text-gray-400 dark:text-gray-200 flex items-center">
               {product.category}
             </p>
+          </div>
 
-            <div className="sm:flex sm:justify-between">
-              <p className="text-gray-600 text-md md:text-lg">
-                Price: $
-                {product.sizeData
-                  ? product.sizeData[selectedSize].price
-                  : product.price}
-              </p>
-              <p
-                className={`${
-                  product.sizeData
-                    ? product.sizeData[selectedSize].stock !== 0
-                      ? "text-green-600"
-                      : "text-red-600"
-                    : product.stock !== 0
+          <div className="sm:flex sm:justify-between mt-5">
+            <p className="text-gray-600 dark:text-gray-200 text-md md:text-lg">
+              Price: $
+              {product.sizeData
+                ? product.sizeData[selectedSize].price
+                : product.price}
+            </p>
+            <p
+              className={`${
+                product.sizeData
+                  ? product.sizeData[selectedSize].stock !== 0
                     ? "text-green-600"
                     : "text-red-600"
-                } text-md md:text-lg`}
-              >
-                {product.sizeData
-                  ? product.sizeData[selectedSize].stock !== 0
-                    ? "In Stock"
-                    : "Out of Stock"
                   : product.stock !== 0
-                  ? "In Stock"
-                  : "Out of Stock"}
-              </p>
-            </div>
-
-            {/* Displaying Rating if any otherwise Not Available*/}
-            <RenderIf
-              isTrue={product.rating}
-              fallback={
-              <p className="text-sm h-6 sm:h-7">Rating Not Available</p>
-              }
+                  ? "text-green-600"
+                  : "text-red-600"
+              } text-md md:text-lg`}
             >
-              <div className="flex items-center h-6 sm:h-7">
-                <StarFilled className="w-4 h-4 text-yellow-300 mr-1" />
-                <span className="text-md font-semibold tracking-tight text-gray-900">
-                  {product.rating}
-                </span>
-              </div>
-            </RenderIf>
+              {product.sizeData
+                ? product.sizeData[selectedSize].stock !== 0
+                  ? "In Stock"
+                  : "Out of Stock"
+                : product.stock !== 0
+                ? "In Stock"
+                : "Out of Stock"}
+            </p>
+          </div>
 
-            {/* Displaying Sizes If any other wise Not Available */}
-            <div className="flex overflow-x-auto items-center h-6 sm:h-7">
+          <div className="flex justify-between mt-2">
+            <div className="flex items-center h-6 sm:h-7">
               <RenderIf
                 isTrue={product?.sizeData}
                 fallback={
-                <p className="text-sm border-0 border-black mr-3 overflow-hidden whitespace-nowrap overflow-ellipsis">Size Not Available</p>
+                  <p className="text-sm border-0 border-black text-gray-950 dark:text-gray-200 mr-3">
+                    Size: <b>N/A</b>
+                  </p>
                 }
               >
                 <ProductSizes
                   sizes={product?.sizeData}
-                  selectedSize={selectedSize}
                   setSelectedSize={setSelectedSize}
                 />
               </RenderIf>
             </div>
-
-            {/* Displaying Color by selected size If any other wise Not Available */}
-            <div className="flex overflow-x-auto h-6 sm:h-7 items-center">
-              <RenderIf
-                isTrue={product.colors && colors}
-                fallback={
-                  <p className="text-sm border-0 border-black mr-3 overflow-hidden whitespace-nowrap overflow-ellipsis">Colors Not Available</p>
-                }
-              >
-                <Colors
-                  colors={colors}
-                  sizeData={product.sizeData}
-                  selectedSize={selectedSize}
-                />
-              </RenderIf>
+            <div className="flex items-center h-6 sm:h-7">
+              <StarFilled className="w-4 h-4 text-yellow-300 mr-1" />
+              <span className="text-sm font-semibold tracking-tight text-gray-900 dark:text-gray-200">
+                {product.rating ? product.rating : "N/A"}
+              </span>
             </div>
+          </div>
 
-            <div className="grid grid-cols-2 gap-2">
-              <button
-                onClick={() => setIsDialogVisible(true)}
-                className={`flex items-center justify-center w-3/4 lg:px-4 lg:py-2 text-white bg-gradient-to-r to-red-400 from-red-600 hover:bg-red-600 focus:outline-none border border-transparent rounded-md transition duration-300 ease-in-out hover:scale-110`}
-              >
-                <DeleteOutlined className="lg:mr-2 md:text-[25px]" />
-                <span className="hidden lg:flex"> Delete</span>
-              </button>
+          <div className="h-16">
+            <RenderIf isTrue={product.colors && colors}>
+              <Colors
+                colors={colors}
+                sizeData={product.sizeData}
+                selectedSize={selectedSize}
+              />
+            </RenderIf>
+          </div>
 
-              <button
-                onClick={() => {
-                  navigate("/catalog/edit", { state: { product: product } });
-                }}
-                className="flex items-center justify-center w-auto text-white hover:bg-blue-800 bg-gradient-to-r from-purple-600 to-blue-600  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition duration-300 ease-in-out hover:scale-110"
-              >
-                Edit
-                <EditOutlined className="ml-2" />
-              </button>
-            </div>
+          <div className="flex justify-between items-end mb-5 pt-2 border-t-[1px] border-black">
+            <Link
+              to="/catalog/edit"
+              state={{ product: product }}
+              className="inline-flex items-center p-2 text-lg font-medium text-center text-gray-400 dark:bg-gray-800 bg-gray-50 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 focus:ring-[1px] focus:outline-none focus:ring-gray-50"
+              type="button"
+            >
+              <EditFilled className="text-blue-custom" />
+            </Link>
+
+            <button
+              onClick={() => setIsDialogVisible(true)}
+              className="inline-flex items-center p-2 text-lg font-medium text-center text-gray-400 dark:bg-gray-800 bg-gray-50 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 focus:ring-[1px] focus:outline-none focus:ring-gray-50"
+              type="button"
+            >
+              <DeleteFilled className="text-red-custom" />
+            </button>
           </div>
         </div>
 
-        <div className="z-10">
+        <div className="z-20">
           <RenderIf isTrue={isDialogVisible}>
             <DeleteDialog
               handleDelete={handleDelete}

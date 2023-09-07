@@ -1,10 +1,10 @@
-
 import React, { useEffect, useMemo, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { ceil } from "lodash";
+import { useNavigate } from "react-router-dom";
 
-import Pagination from "./Pagination";
+import Pagination from "../blogApp/HomePage/Pagination";
 import LazyLoading from "./LazyLoading";
 import NotFound from "./NotFound";
 import Loader from "./Loader";
@@ -18,6 +18,7 @@ const ProductCard = React.lazy(() =>
 
 const Products = ({ category, pageNo, searchParam }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [totalPages, setTotalPages] = useState();
 
   const {
@@ -40,11 +41,20 @@ const Products = ({ category, pageNo, searchParam }) => {
     success && toast.success(success) && dispatch(reset());
   }, [success]);
 
+  const handlePageNoClick = (currentPage) => {
+    if (!searchParam && !category) navigate(`/catalog/?pageNo=${currentPage}`);
+    else if (category) {
+      navigate(`/catalog/?pageNo=${currentPage}&category=${category}`);
+    } else {
+      navigate(`/catalog/?pageNo=${currentPage}&search=${searchParam}`);
+    }
+  };
+
   return (
     <RenderIf
       isTrue={!productLoading}
       fallback={
-        <div className="flex flex-col items-center justify-center h-screen ">
+        <div className="flex flex-col items-center justify-between">
           <Loader />
         </div>
       }
@@ -53,21 +63,20 @@ const Products = ({ category, pageNo, searchParam }) => {
         isTrue={products.length !== 0}
         fallback={<NotFound errorMsg={"Data not Found"} />}
       >
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {products.map((product, index) => (
-            <LazyLoading key={index}>
-              <ProductCard product={product} />
-            </LazyLoading>
-          ))}
+        <div className="flex justify-center items-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-center">
+            {products.map((product, index) => (
+              <LazyLoading key={index}>
+                <ProductCard product={product} />
+              </LazyLoading>
+            ))}
+          </div>
         </div>
       </RenderIf>
-
       <Pagination
-        category={category}
-        selectedPage={pageNo - 1}
-        searchParam={searchParam}
-        key={"page"}
-        totalPages={totalPages}
+        currentPage={pageNo ?? 1}
+        totalPages={totalPages ?? 0}
+        handlePageNoClick={handlePageNoClick}
       />
     </RenderIf>
   );

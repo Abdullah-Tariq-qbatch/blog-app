@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
@@ -10,9 +9,9 @@ import LazyLoading from "./LazyLoading";
 
 import { fetchAllCategory } from "../../redux/categories/actionCreator";
 
-const CategoriesSider = React.lazy(() =>
-  import(/* webpackChunkName: "CategoriesSider" */ "./CategoriesSider")
-);
+// const CategoriesSider = React.lazy(() =>
+//   import(/* webpackChunkName: "CategoriesSider" */ "./CategoriesSider")
+// );
 const CategoriesDropDown = React.lazy(() =>
   import(/* webpackChunkName: "CategoriesDropDown" */ "./CategoriesDropDown")
 );
@@ -45,15 +44,18 @@ const CategorySelector = ({ category }) => {
         }
       >
         <LazyLoading>
-          <CategoriesDropDown
+          <div className="pb-10">
+            <CategoriesDropDown
+              categories={categories}
+              selectedCategory={category ?? ""}
+            />
+            {/* <CategoriesSider
             categories={categories}
             selectedCategory={category ?? ""}
-          />
-          <CategoriesSider
-            categories={categories}
-            selectedCategory={category ?? ""}
-          />
+          /> */}
+          </div>
         </LazyLoading>
+
         <h1 className="text-3xl font-bold text-gray-900 overflow-hidden whitespace-nowrap overflow-ellipsis mb-4">
           {startCase(category)}
         </h1>

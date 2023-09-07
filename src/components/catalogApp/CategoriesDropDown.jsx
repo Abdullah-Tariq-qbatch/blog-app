@@ -13,9 +13,9 @@ const CategoryDropDown = ({ selectedCategory, categories }) => {
 
   return (
     <>
-      <div className="flex items-center border border-gray-300 w-auto rounded-md px-4 py-2 float-right hover:bg-gray-50 ">
+      <div className="flex items-center border border-gray-300 w-auto rounded-md px-4 py-2 float-right hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-200">
         <select
-          className="appearance-none pr-1 text-sm font-medium text-gray-700 focus:outline-none border-r-[1px] bg-transparent"
+          className="appearance-none pr-1 text-sm font-medium text-gray-700 focus:outline-none border-r-[1px] bg-transparent dark:bg-gray-800 dark:text-gray-200"
           value={selectedCategory}
           name="category"
           onChange={(e) => {
