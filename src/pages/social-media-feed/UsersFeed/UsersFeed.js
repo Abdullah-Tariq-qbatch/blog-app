@@ -69,11 +69,11 @@ const UsersFeed = () => {
   });
   return (
     <>
-      <div className="flex justify-center w-full mt-4">
+      <div className="flex justify-center w-full mt-4 dark:text-white">
         <input
           type="search"
           id="default-search"
-          className="w-1/3 block lg:w-1/4 p-4 text-center pl-10 text-sm text-black border border-gray-300 rounded-lg bg-gray-50 focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-200 dark:border-gray-600 dark:placeholder-black dark:text-black dark:focus:ring-gray-500 dark:focus:border-gray-500"
+          className="w-1/3 block lg:w-1/4 p-4 text-center pl-10 text-sm text-black border border-gray-300 rounded-lg bg-gray-50 focus:ring-gray-500 focus:border-gray-500 dark:border-gray-600 dark:placeholder-white dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500 dark:bg-[#4b5563]"
           placeholder="Search Users"
           ref={searchRef}
           onChange={(event) => updateDebounceText(event.target.value)}

@@ -109,7 +109,7 @@ const Post = (post) => {
         </section>
         <section className="relative py-16 bg-blueGray-200">
           <div className="container mx-auto px-4">
-            <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64">
+            <div className="relative flex flex-col min-w-0 break-words dark:text-white bg-white dark:bg-[#4b5563] w-full mb-6 shadow-xl rounded-lg -mt-64">
               <div className="px-6">
                 <div className="flex flex-wrap justify-center">
                   <div className="w-full lg:w-4/12 px-4 order-2 lg:order-1">
@@ -162,11 +162,22 @@ const Post = (post) => {
                       </div>
 
                       <div className="lg:mr-4 p-3 text-center">
-                        <Heart
-                          className="w-8 ml-3 mt-1"
-                          isActive={like}
-                          onClick={handlePostLike}
-                        />
+                        {localStorage.theme === "dark" && (
+                          <Heart
+                            inactiveColor="white"
+                            className="w-8 ml-3 mt-1"
+                            isActive={like}
+                            onClick={handlePostLike}
+                          />
+                        )}{" "}
+                        {localStorage.theme !== "dark" && (
+                          <Heart
+                            inactiveColor="black"
+                            className="w-8 ml-3 mt-1"
+                            isActive={like}
+                            onClick={handlePostLike}
+                          />
+                        )}
                       </div>
                     </div>
                   </div>
