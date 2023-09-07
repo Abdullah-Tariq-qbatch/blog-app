@@ -74,7 +74,7 @@ const Products = ({ category, pageNo, searchParam }) => {
         </div>
       </RenderIf>
       <Pagination
-        currentPage={pageNo ?? 1}
+        currentPage={parseInt(pageNo ?? 1)}
         totalPages={totalPages ?? 0}
         handlePageNoClick={handlePageNoClick}
       />

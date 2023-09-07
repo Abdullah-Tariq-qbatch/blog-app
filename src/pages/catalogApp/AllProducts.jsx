@@ -28,7 +28,7 @@ const AllProducts = () => {
   }, [pageNo, searchParam, category]);
 
   return (
-    <div className="m-10">
+    <div className="mx-10">
       <CategorySelector category={category} />
       <Products category={category} pageNo={pageNo} searchParam={searchParam} />
     </div>
