@@ -6,7 +6,7 @@ const LazyLoading = ({ children }) => {
   return (
     <Suspense
       fallback={
-        <div className="flex flex-col items-center justify-center h-screen ">
+        <div className="flex flex-col items-center justify-center w-full h-full ">
           <Loader />
         </div>
       }

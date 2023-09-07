@@ -7,7 +7,6 @@ import "../../catalog.css";
 const DeleteConfirmation = ({ id, handleDelete, setIsDialogVisible }) => {
   return (
     <div
-      id="confirmation-alert"
       className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-80"
     >
       <div className="bg-white p-6 rounded-lg shadow-lg">
