@@ -36,13 +36,15 @@ function HomePage() {
       <Spinner show={showLoader} />
       <div className="flex h-screen w-screen flex-col items-center justify-start overflow-hidden bg-[#E2E8F0] dark:bg-gray-800">
         <header className="flex w-full items-center justify-start bg-gray-700 px-4 text-white dark:bg-gray-900">
-          <SearchOutlined className="ml-4" />
-          <input
-            name="searchBar"
-            type="search"
-            placeholder="Type to search..."
-            className="m-2 w-2/3 rounded-md bg-gray-700 p-2 focus:outline-none focus:ring focus:ring-indigo-custom dark:bg-gray-900"
-          />
+          <div>
+            <SearchOutlined className="ml-4" />
+            <input
+              name="searchBar"
+              type="search"
+              placeholder="Type to search..."
+              className="m-2 w-2/3 rounded-md bg-gray-700 p-2 focus:outline-none focus:ring focus:ring-indigo-custom dark:bg-gray-900"
+            />
+          </div>
 
           <div className="ml-auto flex items-center justify-center space-x-4">
             <ThemeSwitcher />
