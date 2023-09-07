@@ -18,6 +18,7 @@ import {
 } from "./../../../../redux/posts/actionCreator";
 import { ReactComponent as AddIcon } from "./../../../../assets/social-media-feed/svgs/add-icon.svg";
 import { ReactComponent as ViewIcon } from "./../../../../assets/social-media-feed/svgs/view-icon.svg";
+import { ReactComponent as HideIcon } from "./../../../../assets/social-media-feed/svgs/hide-icon.svg";
 
 import { ReactComponent as DeleteIcon } from "./../../../../assets/social-media-feed/svgs/delete-icon.svg";
 import { getDataFromLocalStorage } from "./../../../../redux/posts/api-data";
@@ -243,8 +244,17 @@ const Post = (post) => {
                           </div>
                           <div className="w-full col-span-3">
                             <Button onClick={handleCommentsClick}>
-                              <ViewIcon />
-                              View Comments
+                              {showComments ? (
+                                <>
+                                  <HideIcon />
+                                  Hide Comments
+                                </>
+                              ) : (
+                                <>
+                                  <ViewIcon />
+                                  View Comments
+                                </>
+                              )}
                             </Button>
                           </div>
                         </div>

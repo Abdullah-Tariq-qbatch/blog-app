@@ -69,7 +69,7 @@ const UsersFeed = () => {
   });
   return (
     <>
-      <div className="flex justify-center w-full mt-4 dark:text-white">
+      <div className="flex justify-center w-full mt-2 dark:text-white">
         <input
           type="search"
           id="default-search"
