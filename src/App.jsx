@@ -11,11 +11,14 @@ import AuthGuard from "./components/userAuthApp/AuthGuard";
 import LazyLoading from "./components/catalogApp/LazyLoading";
 import MainLayout from "./layout/blogApp/MainLayout";
 import Notify from "./components/userAuthApp/Notify";
-import Root from "./components/tvShowApp/Root";
+// import Root from "./components/tvShowApp/Root";
 import ScrollTopButton from "./components/blogApp/ScrollTopButton";
 import SideBar from "./components/userAuthApp/SideBar";
 
 import bloglogo from "./assets/blogApp/image/png/logo512.png";
+
+import tvShow_logo from "./assets/tvShowApp/movie_logo.png";
+
 
 //const Header = lazy(() =>
 //  import(
@@ -103,6 +106,18 @@ function App() {
     },
   ];
 
+
+  const tvShowslinks = [
+    {
+      text: "Home",
+      url: "/tv-shows",
+    },
+    {
+      text: "Add TV Show",
+      url: "/tv-shows/add-tv-show",
+    },
+  ];
+
   const socialMediaLinks = [
     {
       text: "Posts Feed",
@@ -143,7 +158,11 @@ function App() {
             path="/tv-shows"
             element={
               <AuthGuard>
-                <Root />
+                <MainLayout
+                  links={tvShowslinks}
+                  logo={tvShow_logo}
+                  appName={"TV Shows"}
+                />
               </AuthGuard>
             }
           >
