@@ -33,7 +33,7 @@ const User = ({ id, firstName, lastName, gender }) => {
   return (
     <>
       <div className="flex justify-center dark:text-white">
-        <div className="w-full bg-white-400 max-w-sm my-1 text-center border-[1px] shadow-lg border-white rounded-lg bg-gray-200 dark:bg-[#4b5563] dark:border-[#4b5563]">
+        <div className="w-full bg-white-400 max-w-sm text-center border-[1px] shadow-lg border-white rounded-lg bg-gray-200 dark:bg-[#4b5563] dark:border-[#4b5563]">
           <div className="flex flex-col items-center py-10 ">
             <Avatar
               initials={firstName[0] + lastName[0]}

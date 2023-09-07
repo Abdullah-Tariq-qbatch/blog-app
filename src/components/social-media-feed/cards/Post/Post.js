@@ -21,8 +21,11 @@ import { ReactComponent as ViewIcon } from "./../../../../assets/social-media-fe
 
 import { ReactComponent as DeleteIcon } from "./../../../../assets/social-media-feed/svgs/delete-icon.svg";
 import { getDataFromLocalStorage } from "./../../../../redux/posts/api-data";
+// import useDarkSide from "../../../../utils/blogApp/useDarkSide";
 
 const Post = (post) => {
+  // const [colorTheme] = useDarkSide();
+  // const [darkSide, setDarkSide] = useState(colorTheme === "light");
   const userCommentInput = useRef();
   const [like, setLike] = useState(false);
   const { currentUser } = useSelector((state) => state.Users);
@@ -89,6 +92,22 @@ const Post = (post) => {
     setShowComments((state) => !state);
     post.onClick();
   };
+
+  // const { theme } = localStorage;
+
+  // useEffect(() => {
+  //   console.log("Current colour theme: ", darkSide);
+  //   setDarkSide(!darkSide);
+  //   console.log("theme: ", theme);
+  // }, [colorTheme]);
+
+  // console.log("Theme: ", localStorage.getItem("theme"));
+  // const currentTheme = localStorage.getItem("theme");
+  // const [mode, setMode] = useState(false);
+
+  // useEffect(() => {
+  //   setMode(!mode);
+  // }, [currentTheme]);
 
   return (
     <div className="w-3/4 m-auto">
@@ -162,22 +181,20 @@ const Post = (post) => {
                       </div>
 
                       <div className="lg:mr-4 p-3 text-center">
-                        {localStorage.theme === "dark" && (
-                          <Heart
-                            inactiveColor="white"
-                            className="w-8 ml-3 mt-1"
-                            isActive={like}
-                            onClick={handlePostLike}
-                          />
-                        )}{" "}
-                        {localStorage.theme !== "dark" && (
-                          <Heart
-                            inactiveColor="black"
-                            className="w-8 ml-3 mt-1"
-                            isActive={like}
-                            onClick={handlePostLike}
-                          />
-                        )}
+                        {/* {console.log(
+                          "current theme: ",
+                          localStorage.getItem("theme")
+                        )} */}
+                        <Heart
+                          inactiveColor={`${
+                            localStorage.getItem("theme") === "dark"
+                              ? "white"
+                              : "black"
+                          }`}
+                          className="w-8 ml-3 mt-1 text:white"
+                          isActive={like}
+                          onClick={handlePostLike}
+                        />
                       </div>
                     </div>
                   </div>
