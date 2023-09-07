@@ -15,13 +15,13 @@ import Root from "./components/tvShowApp/Root";
 import ScrollTopButton from "./components/blogApp/ScrollTopButton";
 import SideBar from "./components/userAuthApp/SideBar";
 
-import bloglogo from './assets/blogApp/image/png/logo512.png';
+import bloglogo from "./assets/blogApp/image/png/logo512.png";
 
-const Header = lazy(() =>
-  import(
-    /* webpackChunkName: "Header" */ "./components/social-media-feed/Header/Header"
-  )
-);
+//const Header = lazy(() =>
+//  import(
+//    /* webpackChunkName: "Header" */ "./components/social-media-feed/Header/Header"
+//  )
+//);
 const UsersFeed = lazy(() =>
   import(
     /* webpackChunkName: "usersFeed" */ "./pages/social-media-feed/UsersFeed/UsersFeed"
@@ -84,14 +84,14 @@ const SignUpPage = lazy(() =>
 function App() {
   const blogLinks = [
     {
-      text: 'Blog Home',
-      url: '/blog/'
+      text: "Blog Home",
+      url: "/blog/",
     },
     {
-      text: 'Write a Blog',
-      url: '/blog/create-blog'
+      text: "Write a Blog",
+      url: "/blog/create-blog",
     },
-  ]
+  ];
   const ProductCataloglinks = [
     {
       text: "Home",
@@ -102,6 +102,26 @@ function App() {
       url: "/catalog/add",
     },
   ];
+
+  const socialMediaLinks = [
+    {
+      text: "Posts Feed",
+      url: "/social-media/posts-feed",
+    },
+    {
+      text: "Users Feed",
+      url: "/social-media/users-feed",
+    },
+    {
+      text: "My Posts",
+      url: "/social-media/my-posts",
+    },
+    {
+      text: "Add Post",
+      url: "/social-media/add-post",
+    },
+  ];
+
   return (
     <BrowserRouter>
       <LazyLoading>
@@ -137,7 +157,11 @@ function App() {
             path="/social-media"
             element={
               <AuthGuard>
-                <Header />
+                <MainLayout
+                  links={socialMediaLinks}
+                  logo={bloglogo}
+                  appName={"Social Media Feed"}
+                />
               </AuthGuard>
             }
           >
@@ -159,7 +183,11 @@ function App() {
             path="/catalog"
             element={
               <AuthGuard>
-                <MainLayout links={ProductCataloglinks} logo={bloglogo} appName={'Product Catalog'}/>
+                <MainLayout
+                  links={ProductCataloglinks}
+                  logo={bloglogo}
+                  appName={"Product Catalog"}
+                />
               </AuthGuard>
             }
           >
@@ -172,7 +200,11 @@ function App() {
             path="/blog"
             element={
               <AuthGuard>
-                <MainLayout links={blogLinks} logo={bloglogo} appName={'Blog App'} />
+                <MainLayout
+                  links={blogLinks}
+                  logo={bloglogo}
+                  appName={"Blog App"}
+                />
               </AuthGuard>
             }
           >
