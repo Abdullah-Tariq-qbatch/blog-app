@@ -137,9 +137,7 @@ function CreateBlog() {
                       const file = event.currentTarget.files[0];
                       if (file) {
                         const reader = new FileReader();
-                        reader.onload = (e) => {
-                          setFieldValue("file", e.target.result);
-                        };
+                        reader.onload = (e) => setFieldValue("file", e.target.result);
                         reader.readAsDataURL(file);
                       }
                     }}

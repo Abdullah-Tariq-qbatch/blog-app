@@ -9,7 +9,6 @@ import DeleteDialog from "../DeleteDialog";
 import Colors from "./Colors";
 import Sizes from "./Sizes";
 
-import Button from "../Button";
 import RenderIf from "../RenderIf";
 
 import { deleteProduct } from "../../../redux/products/actionCreator";
@@ -80,10 +79,7 @@ const ProductCard = ({ product }) => {
             <RenderIf
               isTrue={product.rating}
               fallback={
-                <Button
-                  className="text-sm h-6 sm:h-7"
-                  label="Rating Not Available"
-                />
+              <p className="text-sm h-6 sm:h-7">Rating Not Available</p>
               }
             >
               <div className="flex items-center h-6 sm:h-7">
@@ -96,11 +92,7 @@ const ProductCard = ({ product }) => {
               <RenderIf
                 isTrue={product?.sizeData}
                 fallback={
-                  <Button
-                    title="Sizes Not Available"
-                    className="text-sm border-0 border-black mr-3 overflow-hidden whitespace-nowrap overflow-ellipsis "
-                    label="Size Not Available"
-                  />
+                <p className="text-sm border-0 border-black mr-3 overflow-hidden whitespace-nowrap overflow-ellipsis">Size Not Available</p>
                 }
               >
                 <Sizes
@@ -116,11 +108,7 @@ const ProductCard = ({ product }) => {
               <RenderIf
                 isTrue={product.colors && colors}
                 fallback={
-                  <Button
-                    title="Colors Not Available"
-                    className="text-sm border-0 border-black mr-3 overflow-hidden whitespace-nowrap overflow-ellipsis "
-                    label="Colors Not Available"
-                  />
+                  <p className="text-sm border-0 border-black mr-3 overflow-hidden whitespace-nowrap overflow-ellipsis">Colors Not Available</p>
                 }
               >
                 <Colors

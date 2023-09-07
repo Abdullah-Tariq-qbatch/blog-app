@@ -4,14 +4,13 @@ import Button from "../Button";
 const Colors = ({ sizeData, colors, selectedSize }) => {
   return (
     <>
-      {colors[sizeData[selectedSize]?.name] !== undefined ? (
+      {colors[sizeData[selectedSize]?.name] ? (
         colors[sizeData[selectedSize]?.name].map((color, index) => {
           return (
             <span
               key={`${index}`}
               className={`border-2 rounded-full border-transparent mr-3 p-2`}
               style={{ backgroundColor: color.hex }}
-              onClick={() => {}}
             ></span>
           );
         })
