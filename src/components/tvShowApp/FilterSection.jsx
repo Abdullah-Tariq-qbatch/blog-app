@@ -91,7 +91,7 @@ const FilterSection = ({ data, pageNo }) => {
           />
           <label
             htmlFor="checked-checkbox"
-            className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            className="ml-2 text-sm font-medium text-gray-400 dark:focus:text-gray-200 focus:text-gray-800"
           >
             Sort By Year
           </label>
