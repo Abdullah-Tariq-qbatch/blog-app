@@ -28,7 +28,7 @@ function AuthGuard({ children }) {
         dispatch(fetchFacebookUserData(navigate));
         break;
       default:
-        dispatch(fetchUserData(localStorage.userId, navigate));
+        dispatch(fetchUserData(navigate));
         break;
     }
   }, [dispatch, navigate]);
@@ -41,6 +41,7 @@ function AuthGuard({ children }) {
       return;
     }
 
+    localStorage.clear();
     navigate("/login", { state: { redirectPath: location.pathname } });
     toast.error("Please login to continue!", {
       position: "top-center",

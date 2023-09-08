@@ -1,28 +1,36 @@
-import React from "react";
-import { FieldArray, Field, ErrorMessage } from "formik";
-
-import ColorPicker from "./ColorPicker";
-import Button from "./Button";
-
 import "../../catalog.css";
+
+import { ErrorMessage, Field, FieldArray } from "formik";
+
+import Button from "./Button";
+import ColorPicker from "./ColorPicker";
+import React from "react";
 
 const ColorVariation = ({ values }) => {
   return (
-    <div className="w-full mb-2">
-      <label>Colors</label>
+    <div className="m-2 w-full border-t-[1px] border-gray-300 p-2">
+      <h1 className="text-center text-xl font-semibold dark:text-gray-300">
+        Colors
+      </h1>
       <FieldArray name="colors">
         {(arrayHelpers) => (
           <>
             {values.colors.map((_, index) => (
               <div
                 key={index}
-                className="grid grid-cols-1 gap-2 mb-2 lg:grid-cols-2 lg:mb-2"
+                className="mb-2 grid grid-cols-1 gap-2 lg:mb-2 lg:grid-cols-2"
               >
                 <div>
+                  <label
+                    htmlFor={`colors[${index}].hex`}
+                    className="mb-2 dark:text-gray-300"
+                  >
+                    Color
+                  </label>
                   <Field
                     name={`colors[${index}].hex`}
-                    placeholder="Color"
-                    className="w-full rounded-md bg-slate-300 p-2"
+                    placeholder="Enter color"
+                    className="w-full rounded-md bg-slate-300 p-2 placeholder:text-gray-600"
                   />
                   <ErrorMessage
                     className="text-red-500"
@@ -32,10 +40,16 @@ const ColorVariation = ({ values }) => {
                 </div>
 
                 <div className="flex flex-col">
+                  <label
+                    htmlFor={`colors[${index}].size`}
+                    className="dark:text-gray-300"
+                  >
+                    Size
+                  </label>
                   <Field
                     name={`colors[${index}].size`}
                     as="select"
-                    className="border border-gray-300 shadow-sm pr-10 pl-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none bg-[linear-gradient(45deg,transparent_50%,gray_50%),linear-gradient(135deg,gray_50%,transparent_50%),linear-gradient(to_right,#ccc,#ccc)] bg-[calc(100%_-_20px)_calc(1em_+_2px),calc(100%_-_15px)_calc(1em_+_2px),calc(100%_-_2.5em)_0.5em] bg-[5px_5px,5px_5px,1px_1.5em] bg-no-repeat appearance-none mb-2 rounded-md bg-slate-300"
+                    className="mb-2 appearance-none rounded-md border border-gray-300 bg-slate-300 bg-[linear-gradient(45deg,transparent_50%,gray_50%),linear-gradient(135deg,gray_50%,transparent_50%),linear-gradient(to_right,#ccc,#ccc)] bg-[5px_5px,5px_5px,1px_1.5em] bg-[calc(100%_-_20px)_calc(1em_+_2px),calc(100%_-_15px)_calc(1em_+_2px),calc(100%_-_2.5em)_0.5em] bg-no-repeat py-2 pl-4 pr-10 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none"
                   >
                     <option value="">Select a Size</option>
                     {values.sizeData.map((size, index) => {
@@ -62,9 +76,9 @@ const ColorVariation = ({ values }) => {
                 <hr className="lg:invisible" />
               </div>
             ))}
-            <div className="flex justify-between">
+            <div className="flex justify-between space-x-2">
               <Button
-                className="w-1/2 rounded-full bg-slate-500 px-4 py-2 text-white hover:bg-slate-600 lg:w-1/4"
+                className=" w-1/2 flex-1 rounded-md bg-blue-custom px-4 py-2 text-white hover:bg-blue-800 lg:w-1/4"
                 type="button"
                 onClick={() => {
                   arrayHelpers.push({ hex: "", size: "" });
@@ -73,7 +87,7 @@ const ColorVariation = ({ values }) => {
               />
               <Button
                 type="button"
-                className="w-1/2 rounded-full bg-slate-500 px-4 py-2 text-white hover:bg-slate-600 lg:w-1/4"
+                className=" w-1/2 flex-1 rounded-md bg-blue-custom px-4 py-2 text-white hover:bg-blue-800 lg:w-1/4"
                 onClick={() =>
                   values.colors.length > 1
                     ? arrayHelpers.remove(values.colors.length - 1)
