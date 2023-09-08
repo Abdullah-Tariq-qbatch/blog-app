@@ -2,25 +2,25 @@ import React from "react";
 
 const TvShowPerformanceDetail = ({ tvShowDetail }) => {
   return (
-    <div className="flex justify-center  px-6 flex-col md:px-12 lg:px-30 lg:flex-row lg:space-x-48">
+    <div className="lg:px-30 flex  flex-col justify-center px-6 md:px-12 lg:flex-row lg:space-x-48">
       <div>
-        <h1 className="mb-4 text-2xl dark:text-gray-400 font-bold">
+        <h1 className="mb-4 break-words text-2xl font-bold dark:text-gray-400">
           Genres:{" "}
           {tvShowDetail?.genres?.map((genre, id) => (
             <span key={id}>
-              {id > 0 && <span className="text-black mx-1 font-normal">|</span>}
+              {id > 0 && <span className="mx-1 font-normal text-black">|</span>}
 
-              <span className="text-red-600 font-normal">{genre}</span>
+              <span className="font-normal text-red-600">{genre}</span>
             </span>
           ))}
         </h1>
-        <h1 className="mb-4 text-2xl dark:text-gray-400 font-bold">
+        <h1 className="mb-4 text-2xl font-bold dark:text-gray-400">
           Station:{" "}
           <span className=" font-normal">
             {tvShowDetail?.network} ({tvShowDetail?.country})
           </span>
         </h1>
-        <h1 className="mb-4 text-2xl dark:text-gray-400 font-bold">
+        <h1 className="mb-4 text-2xl font-bold dark:text-gray-400">
           Rating:{" "}
           <span className=" font-normal">
             <span className="text-red-600">
@@ -35,7 +35,7 @@ const TvShowPerformanceDetail = ({ tvShowDetail }) => {
         </h1>
       </div>
       <div>
-        <h1 className="mb-4 text-2xl dark:text-gray-400 font-bold">
+        <h1 className="mb-4 text-2xl font-bold dark:text-gray-400">
           Status:{" "}
           {tvShowDetail?.status === "Ended" ? (
             <span className=" font-normal text-red-600">
@@ -48,12 +48,12 @@ const TvShowPerformanceDetail = ({ tvShowDetail }) => {
           )}
         </h1>
 
-        <h1 className="mb-4 text-2xl dark:text-gray-400 font-bold">
+        <h1 className="mb-4 text-2xl font-bold dark:text-gray-400">
           Start Date:{" "}
           <span className=" font-normal">{tvShowDetail?.start_date}</span>
         </h1>
 
-        <h1 className="mb-4 text-2xl dark:text-gray-400 font-bold">
+        <h1 className="mb-4 text-2xl font-bold dark:text-gray-400">
           Total Episodes:{" "}
           <span className=" font-normal">{tvShowDetail?.episodes?.length}</span>
         </h1>

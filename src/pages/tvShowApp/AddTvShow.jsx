@@ -1,13 +1,16 @@
-import React from "react";
 import "../../App.css";
+
+import * as Yup from "yup";
+
+import { ErrorMessage, Field, Form, Formik } from "formik";
+
+import CountryList from "../../components/tvShowApp/CountryList";
+import NetworkList from "../../components/tvShowApp/NetworkList";
+import React from "react";
+import { addTvShow } from "../../redux/shows/actionCreator";
+import moment from "moment";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import moment from "moment";
-import CountryList from "../../components/tvShowApp/CountryList";
-import { addTvShow } from "../../redux/shows/actionCreator";
-import NetworkList from "../../components/tvShowApp/NetworkList";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
 
 const initialValues = {
   id: "",
@@ -30,9 +33,9 @@ const AddTvShow = () => {
 
   const errorStyle = "text-red-500";
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required("Tv Show name is required"),
+    name: Yup.string().required("TV Show name is required"),
     permalink: Yup.string().required("Permalink is required"),
-    start_date: Yup.string().required("start_date is required"),
+    start_date: Yup.string().required("Starting Date is required"),
     country: Yup.string().required("Country is required"),
     network: Yup.string().required("Network is required"),
     image_thumbnail_path: Yup.string().required("Poster is required"),
@@ -51,7 +54,7 @@ const AddTvShow = () => {
       {/* <div className="flex items-center justify-center h-screen">
         <div className="w-full md:w-1/2  flex flex-col items-center justify-center rounded-lg bg-white p-8 shadow-md"> */}
       <section className="bg-white dark:bg-gray-800">
-        <div className="py-8 px-4 mx-auto max-w-2xl lg:py-16">
+        <div className="mx-auto max-w-2xl px-4 py-8 lg:py-16">
           <h2 className="mb-4 flex justify-center text-xl font-bold text-gray-700 dark:text-gray-200">
             Add TV-Show
           </h2>
@@ -60,26 +63,40 @@ const AddTvShow = () => {
             initialValues={initialValues}
             onSubmit={onSubmit}
             validationSchema={validationSchema}
-            className="w-full flex flex-col items-center justify-center"
+            className="flex w-full flex-col items-center justify-center"
           >
-            {({ values, setFieldValue }) => (
-              <Form className="w-full flex flex-col items-center justify-center">
+            {({ errors, touched, values, setFieldValue }) => (
+              <Form className="flex w-full flex-col items-center justify-center">
                 {values.image_thumbnail_path && (
                   <img
-                    className="h-6/12 w-6/12 border-[6px] border-white bg-white hover:bg-gray-50 mx-auto"
+                    className="h-6/12 mx-auto w-6/12 border-[6px] border-white bg-white hover:bg-gray-50"
                     src={values.image_thumbnail_path}
                     alt="Selected"
                     style={{ maxWidth: "300px" }}
                   />
                 )}
-                <div className="grid grid-cols-1 gap-2 w-full lg:grid-cols-2 mb-2">
-                  <div className="flex-col">
+                <div className="mb-2 grid w-full grid-cols-1 gap-2 lg:grid-cols-2">
+                  <div
+                    className={`${
+                      errors.name && touched.name ? "animate-pulse" : ""
+                    } flex-col`}
+                  >
+                    <label
+                      htmlFor="Name"
+                      className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
+                    >
+                      Name
+                    </label>
                     <Field
                       type="text"
                       id="name"
                       name="name"
-                      placeholder="Name of Tv Show"
-                      className="w-full rounded-md bg-slate-300 p-2 hover:bg-gray-50"
+                      placeholder="Name of TV Show"
+                      className={`${
+                        errors.name && touched.name
+                          ? "border-2 border-red-500"
+                          : ""
+                      }  w-full rounded-md bg-slate-300 p-2 hover:bg-gray-50`}
                     />
                     <ErrorMessage
                       name="name"
@@ -88,13 +105,29 @@ const AddTvShow = () => {
                     />
                   </div>
 
-                  <div className="flex-col">
+                  <div
+                    className={`${
+                      errors.permalink && touched.permalink
+                        ? "animate-pulse"
+                        : ""
+                    } flex-col`}
+                  >
+                    <label
+                      htmlFor="permalink"
+                      className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
+                    >
+                      Permalink
+                    </label>
                     <Field
                       type="text"
                       id="permalink"
                       name="permalink"
                       placeholder="Permalink"
-                      className="w-full rounded-md bg-slate-300 p-2 hover:bg-gray-50"
+                      className={`${
+                        errors.permalink && touched.permalink
+                          ? "border-2 border-red-500"
+                          : ""
+                      }  w-full rounded-md bg-slate-300 p-2 hover:bg-gray-50`}
                     />
                     <ErrorMessage
                       name="permalink"
@@ -104,11 +137,17 @@ const AddTvShow = () => {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 gap-2 w-full lg:grid-cols-2 mb-2">
-                  <div className="flex-col">
+                <div className="mb-2 grid w-full grid-cols-1 gap-2 lg:grid-cols-2">
+                  <div
+                    className={`${
+                      errors.start_date && touched.start_date
+                        ? "animate-pulse"
+                        : ""
+                    } flex-col`}
+                  >
                     <label
                       htmlFor="start-date"
-                      className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
+                      className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
                     >
                       Starting Date
                     </label>
@@ -129,7 +168,7 @@ const AddTvShow = () => {
                   <div>
                     <label
                       htmlFor="end-date"
-                      className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
+                      className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
                     >
                       Ending Date
                     </label>
@@ -157,12 +196,25 @@ const AddTvShow = () => {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 gap-2 w-full lg:grid-cols-2 lg:gap-2">
-                  <div className="flex-col">
+                <div className="grid w-full grid-cols-1 gap-2 lg:grid-cols-2 lg:gap-2">
+                  <div
+                    className={`${
+                      errors.image_thumbnail_path &&
+                      touched.image_thumbnail_path
+                        ? "animate-pulse"
+                        : ""
+                    } flex-col`}
+                  >
+                    <label
+                      htmlFor="image_thumbnail_path"
+                      className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
+                    >
+                      Poster
+                    </label>
                     <Field
                       name="image_thumbnail_path"
                       type="file"
-                      className="mb-2 w-full rounded-md bg-slate-300 p-1 mr-2 h-auto"
+                      className="mb-2 mr-2 h-auto w-full rounded-md bg-slate-300 p-1"
                       accept="image/*"
                       value=""
                       onChange={(e) => {
@@ -170,7 +222,7 @@ const AddTvShow = () => {
                         if (file) {
                           setFieldValue(
                             "image_thumbnail_path",
-                            URL.createObjectURL(file)
+                            URL.createObjectURL(file),
                           );
                         }
                       }}
@@ -182,7 +234,17 @@ const AddTvShow = () => {
                     />
                   </div>
                   {/* <div className="grid grid-cols-1 "> */}
-                  <div className="flex flex-col">
+                  <div
+                    className={`${
+                      errors.country && touched.country ? "animate-pulse" : ""
+                    } flex flex-col`}
+                  >
+                    <label
+                      htmlFor="country"
+                      className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
+                    >
+                      Country
+                    </label>
                     <CountryList />
                     <ErrorMessage
                       name="country"
@@ -193,15 +255,27 @@ const AddTvShow = () => {
                   {/* </div> */}
                 </div>
 
-                <NetworkList />
-                <ErrorMessage
-                  name="network"
-                  component="div"
-                  className={errorStyle}
-                />
+                <div
+                  className={`${
+                    errors.network && touched.network ? "animate-pulse" : ""
+                  } flex w-full flex-col`}
+                >
+                  <label
+                    htmlFor="network"
+                    className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
+                  >
+                    Network
+                  </label>
+                  <NetworkList />
+                  <ErrorMessage
+                    name="network"
+                    component="div"
+                    className={errorStyle}
+                  />
+                </div>
 
                 <button
-                  className="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 bg-blue-custom hover:bg-blue-800"
+                  className="bg-primary-700 focus:ring-primary-200 mt-4 inline-flex items-center rounded-lg bg-blue-custom px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:ring-4 sm:mt-6"
                   type="submit"
                 >
                   Add TV-Show

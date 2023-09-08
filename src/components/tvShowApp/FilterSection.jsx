@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import NetworkList from "./NetworkList";
-import { orderBy, toNumber, groupBy, intersection } from "lodash";
-import { calculateYear } from "../../utils/tvShowApp/utils";
-import SearchBar from "./SearchBar";
+import { Form, Formik } from "formik";
+import React, { useEffect, useState } from "react";
+import { groupBy, intersection, orderBy, toNumber } from "lodash";
 
-import { Formik, Form } from "formik";
+import NetworkList from "./NetworkList";
+import SearchBar from "./SearchBar";
+import { calculateYear } from "../../utils/tvShowApp/utils";
 
 const FilterSection = ({ data, pageNo }) => {
   const networkWiseShows = groupBy(data.allShows, "network");
@@ -40,7 +40,7 @@ const FilterSection = ({ data, pageNo }) => {
       filteredShows = orderBy(
         filteredShows,
         (show) => toNumber(calculateYear(show?.start_date)),
-        "desc"
+        "desc",
       );
     }
 
@@ -81,38 +81,45 @@ const FilterSection = ({ data, pageNo }) => {
 
   return (
     <div>
-      <div className="lg:px-8 flex flex-col lg:flex-row justify-between">
-        <Formik>
-          <Form>
-            <div className="flex items-center justify-center mr-4 mt-10 flex-row space-x-4 ">
-              <label
-                htmlFor="checked-checkbox"
-                className="ml-2 text-sm font-medium text-gray-400 dark:focus:text-gray-200 focus:text-gray-800"
-              >
-                Sort By Year
-              </label>
-              <input
-                id="checked-checkbox"
-                type="checkbox"
-                checked={sortByYear}
-                onChange={handleChangeCheckbox}
-                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
-              />
+      <div className="flex flex-col items-center justify-between lg:flex-row lg:px-8">
+        <div className="mt-4 text-center">
+          <span className="text-md font-semibold text-gray-400">
+            Filter options for current page
+          </span>
+          <Formik>
+            <Form>
+              <div className="mr-4 flex flex-col items-center justify-center space-y-4 lg:flex-row lg:space-x-4 ">
+                <div className="mt-4 flex flex-row items-center justify-between">
+                  <input
+                    id="checked-checkbox"
+                    type="checkbox"
+                    checked={sortByYear}
+                    onChange={handleChangeCheckbox}
+                    className="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500"
+                  />
+                  <label
+                    htmlFor="checked-checkbox"
+                    className="ml-2 text-sm font-medium text-gray-400 focus:text-gray-800 dark:focus:text-gray-200"
+                  >
+                    Sort By Year
+                  </label>
+                </div>
 
-              <NetworkList
-                handleChange={handleChangeNetwork}
-                availableNetworks={availableNetworks}
-                labelText="Select Network"
-              />
-              <NetworkList
-                handleChange={handleChangeCountry}
-                availableNetworks={availableCountries}
-                labelText="Select Country"
-              />
-            </div>
-          </Form>
-        </Formik>
-        <div className="flex pt-4 lg:pt-0 items-center">
+                <NetworkList
+                  handleChange={handleChangeNetwork}
+                  availableNetworks={availableNetworks}
+                  labelText="Select Network"
+                />
+                <NetworkList
+                  handleChange={handleChangeCountry}
+                  availableNetworks={availableCountries}
+                  labelText="Select Country"
+                />
+              </div>
+            </Form>
+          </Formik>
+        </div>
+        <div className="flex items-center pt-4 lg:mt-6 lg:pt-0">
           <SearchBar />
         </div>
       </div>

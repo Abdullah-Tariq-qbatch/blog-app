@@ -14,11 +14,8 @@ import Notify from "./components/userAuthApp/Notify";
 // import Root from "./components/tvShowApp/Root";
 import ScrollTopButton from "./components/blogApp/ScrollTopButton";
 import SideBar from "./components/userAuthApp/SideBar";
-
 import bloglogo from "./assets/blogApp/image/png/logo512.png";
-
 import tvShow_logo from "./assets/tvShowApp/movie_logo.png";
-
 
 //const Header = lazy(() =>
 //  import(
@@ -28,60 +25,66 @@ import tvShow_logo from "./assets/tvShowApp/movie_logo.png";
 const UsersFeed = lazy(() =>
   import(
     /* webpackChunkName: "usersFeed" */ "./pages/social-media-feed/UsersFeed/UsersFeed"
-  )
+  ),
 );
 const AddPost = lazy(() =>
   import(
     /* webpackChunkName: "addPost" */ "./pages/social-media-feed/AddPost/AddPost"
-  )
+  ),
 );
 const PostsFeed = lazy(() =>
   import(
     /* webpackChunkName: "postsFeed" */ "./pages/social-media-feed/PostsFeed/PostsFeed"
-  )
+  ),
 );
 const AllTvShows = lazy(() =>
-  import(/* webpackChunkName: "allTvShows" */ "./pages/tvShowApp/AllTvShows")
+  import(/* webpackChunkName: "allTvShows" */ "./pages/tvShowApp/AllTvShows"),
 );
 const AddTvShow = lazy(() =>
-  import(/* webpackChunkName: "addTvShow " */ "./pages/tvShowApp/AddTvShow")
+  import(/* webpackChunkName: "addTvShow " */ "./pages/tvShowApp/AddTvShow"),
 );
 const TvShowDetails = lazy(() =>
-  import(/* webpackChunkName: "addTvShow " */ "./pages/tvShowApp/TvShowDetails")
+  import(
+    /* webpackChunkName: "addTvShow " */ "./pages/tvShowApp/TvShowDetails"
+  ),
 );
 const Page404 = lazy(() =>
-  import(/* webpackChunkName: "page404 " */ "./components/tvShowApp/Page404")
+  import(/* webpackChunkName: "page404 " */ "./components/tvShowApp/Page404"),
 );
 const ProductForm = lazy(() =>
-  import(/* webpackChunkName: "productForm" */ "./pages/catalogApp/ProductForm")
+  import(
+    /* webpackChunkName: "productForm" */ "./pages/catalogApp/ProductForm"
+  ),
 );
 const AllProduct = lazy(() =>
-  import(/* webpackChunkName: "allProducts" */ "./pages/catalogApp/AllProducts")
+  import(
+    /* webpackChunkName: "allProducts" */ "./pages/catalogApp/AllProducts"
+  ),
 );
 const BlogDetails = lazy(() =>
-  import(/* webpackChunkName: "BlogDetail" */ "./pages/blogApp/BlogDetail")
+  import(/* webpackChunkName: "BlogDetail" */ "./pages/blogApp/BlogDetail"),
 );
 const CreateBlog = lazy(() =>
-  import(/* webpackChunkName: "CreateBlog" */ "./pages/blogApp/CreateBlog")
+  import(/* webpackChunkName: "CreateBlog" */ "./pages/blogApp/CreateBlog"),
 );
 const BlogHome = lazy(() =>
-  import(/* webpackChunkName: "BlogHome" */ "./pages/blogApp/Home")
+  import(/* webpackChunkName: "BlogHome" */ "./pages/blogApp/Home"),
 );
 const UserBlogs = lazy(() =>
-  import(/* webpackChunkName: "UserBlogs" */ "./pages/blogApp/UserBlogs")
+  import(/* webpackChunkName: "UserBlogs" */ "./pages/blogApp/UserBlogs"),
 );
 const HomePage = lazy(() =>
-  import(/* webpackChunkName: "HomePage" */ "./pages/userAuthApp/HomePage")
+  import(/* webpackChunkName: "HomePage" */ "./pages/userAuthApp/HomePage"),
 );
 const LoginPage = lazy(() =>
   import(
     /* webpackChunkName: "LoginPage" */ "./pages/userAuthApp/auth/LoginPage"
-  )
+  ),
 );
 const SignUpPage = lazy(() =>
   import(
     /* webpackChunkName: "SignUpPage" */ "./pages/userAuthApp/auth/SignUpPage"
-  )
+  ),
 );
 
 function App() {
@@ -105,7 +108,6 @@ function App() {
       url: "/catalog/add",
     },
   ];
-
 
   const tvShowslinks = [
     {
@@ -168,7 +170,7 @@ function App() {
           >
             <Route path="" element={<AllTvShows />} />
             <Route path="add-tv-show" element={<AddTvShow />} />
-            <Route path="tv-show-details/:id" element={<TvShowDetails />} />
+            <Route path=":id" element={<TvShowDetails />} />
           </Route>
           <Route path="*" element={<Page404 />} />
 
