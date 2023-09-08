@@ -38,6 +38,7 @@ const Products = ({ category, pageNo, searchParam }) => {
   }, [success]);
 
   const handlePageNoClick = (currentPage) => {
+    
     if (!searchParam && !category) navigate(`/catalog/?pageNo=${currentPage}`);
     else if (category) {
       navigate(`/catalog/?pageNo=${currentPage}&category=${category}`);
@@ -67,6 +68,7 @@ const Products = ({ category, pageNo, searchParam }) => {
           </div>
         </div>
       </RenderIf>
+
       <Pagination
         currentPage={parseInt(pageNo ?? 1)}
         totalPages={totalPages ?? 0}
