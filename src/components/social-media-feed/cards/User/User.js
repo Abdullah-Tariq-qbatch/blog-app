@@ -32,18 +32,18 @@ const User = ({ id, firstName, lastName, gender }) => {
 
   return (
     <>
-      <div className="flex justify-center">
-        <div className="w-full bg-white-400 max-w-sm my-1 text-center border-[1px] shadow-lg border-white rounded-lg bg-gray-200 ">
+      <div className="flex justify-center dark:text-white">
+        <div className="w-full bg-white-400 max-w-sm text-center border-[1px] shadow-lg border-gray-300 rounded-lg bg-gray-200 dark:bg-[#4b5563] dark:border-[#4b5563]">
           <div className="flex flex-col items-center py-10 ">
             <Avatar
               initials={firstName[0] + lastName[0]}
               type="user-feed"
               size="sm"
             />
-            <h5 className="my-2 text-xl font-medium text-gray-900 dark:text-black">
+            <h5 className="my-2 text-xl font-medium text-gray-900 dark:text-white">
               {firstName + " " + lastName}
             </h5>
-            <span className="text-sm text-gray-500 dark:text-gray-400">
+            <span className="text-sm text-gray-500 dark:text-white">
               {gender.toUpperCase()}
             </span>
             <div className="flex mt-4 space-x-3 md:mt-6">

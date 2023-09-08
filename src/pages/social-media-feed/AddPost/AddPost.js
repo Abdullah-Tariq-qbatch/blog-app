@@ -60,7 +60,7 @@ const AddPost = () => {
     }
   };
   return (
-    <div className="flex justify-center items-center mt-28 w-screen">
+    <div className="flex justify-center items-center w-screen mt-12 mb-10 ">
       <div className="w-full flex justify-center items-center ">
         <Formik
           initialValues={{ title: "", post: "", image: null }}
@@ -68,16 +68,16 @@ const AddPost = () => {
           onSubmit={handleSubmit}
         >
           {({ setFieldValue }) => (
-            <Form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-              <div className="block text-gray-700 text-2xl font-bold mb-2">
+            <Form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 dark:bg-[#4b5563]">
+              <div className="block text-gray-700 text-2xl font-bold mb-2 dark:text-white">
                 Create Post:
               </div>
               <div>
-                <label className="block text-gray-700 text-sm font-bold mb-2">
+                <label className="block text-gray-700 text-sm font-bold mb-2 dark:text-white">
                   Upload Image:
                 </label>
                 <input
-                  className="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-indigo-200"
+                  className="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-indigo-200 dark:text-white"
                   type="file"
                   id="file"
                   name="image"
@@ -99,14 +99,14 @@ const AddPost = () => {
                 />
               </div>
               <div>
-                <label className="block text-gray-700 text-sm font-bold mb-2">
+                <label className="block text-gray-700 text-sm font-bold mb-2 dark:text-white mt-2">
                   Title:
                 </label>
                 <Field
                   type="text"
                   id="title"
                   name="title"
-                  className="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-indigo-200"
+                  className="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-indigo-200 "
                 />
                 <ErrorMessage
                   name="title"
@@ -115,7 +115,7 @@ const AddPost = () => {
                 />
               </div>
               <div>
-                <label className="block text-gray-700 text-sm font-bold mb-2">
+                <label className="block text-gray-700 text-sm font-bold mb-2 dark:text-white mt-2">
                   Post:
                 </label>
                 <Field
