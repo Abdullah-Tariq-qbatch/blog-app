@@ -36,7 +36,7 @@ function HomePage() {
       <Spinner show={showLoader} />
       <div className="flex h-screen w-screen flex-col items-center justify-start overflow-hidden bg-[#E2E8F0] dark:bg-gray-800">
         <header className="flex w-full items-center justify-start bg-gray-700 px-4 text-white dark:bg-gray-900">
-          <div className="flex items-center justify-start flex-1">
+          <div className="flex flex-1 items-center justify-start">
             <SearchOutlined className="ml-4" />
             <input
               name="searchBar"
@@ -53,7 +53,7 @@ function HomePage() {
               onClick={handleLogout}
             />
             <SettingOutlined className="cursor-pointer hover:text-indigo-500" />
-            <div className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-indigo-custom font-bold hover:animate-wiggle-more hover:animate-infinite">
+            <div className="hover:animate-wiggle-more hover:animate-infinite flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-indigo-custom font-bold">
               {_.first(userData.name || userData.firstName)}
             </div>
           </div>
@@ -76,13 +76,13 @@ function HomePage() {
                 <div className="mx-auto -mt-20 h-32 w-32 ">
                   <img
                     src={
-                      userData?.image ||
+                      userData?.avatar ||
                       userData?.picture?.data?.url ||
                       userData?.picture ||
                       userImage
                     }
                     alt="profile"
-                    className="relative z-30 rounded-full w-full h-full border-2 border-indigo-custom bg-white "
+                    className="relative z-30 h-full w-full rounded-full border-2 border-indigo-custom bg-white "
                   />
                 </div>
 

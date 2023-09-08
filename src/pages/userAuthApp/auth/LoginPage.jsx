@@ -1,6 +1,7 @@
 import { Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import AuthModal from "../../../components/userAuthApp/forms/AuthModal";
 import BackgroundImage from "../../../components/userAuthApp/BackgroundImage";
@@ -12,16 +13,19 @@ import RedirectionLink from "../../../components/userAuthApp/forms/RedirectionLi
 import ShowPasswordCheckBox from "../../../components/userAuthApp/forms/ShowPasswordCheckBox";
 import Spinner from "../../../components/userAuthApp/Spinner";
 import SubmitButton from "../../../components/userAuthApp/forms/SubmitButton";
+import axios from "axios";
 import { loginUser } from "../../../redux/users/actionCreator";
 import playNotification from "../../../utils/userAuthApp/playNotification";
 import { toast } from "react-toastify";
 import { useFacebookLogin } from "facebook-oauth-react";
 import { useGoogleLogin } from "@react-oauth/google";
-import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
   const showLoader = useSelector((state) => state.Users.loading);
   const [showPassword, setShowPassword] = useState(false);
+
+  const location = useLocation();
+  const redirectPath = location?.state?.redirectPath ?? "/";
 
   const dispatch = useDispatch();
 
@@ -34,7 +38,10 @@ function LoginPage() {
   }, []);
 
   const validationSchema = Joi.object({
-    username: Joi.string().alphanum().max(20).required().label("Username"),
+    email: Joi.string()
+      .email({ tlds: { allow: ["com", "net"] } })
+      .required()
+      .label("Email"),
     password: Joi.string().min(8).max(50).required().label("Password"),
   });
 
@@ -50,7 +57,7 @@ function LoginPage() {
   }
 
   const initialValues = {
-    username: "",
+    email: "",
     password: "",
   };
 
@@ -64,21 +71,37 @@ function LoginPage() {
     setSubmitting(true);
 
     const body = {
-      username: values.username,
+      email: values.email,
       password: values.password,
     };
 
-    dispatch(loginUser(body, navigate));
+    dispatch(loginUser(body, navigate, redirectPath));
 
     setSubmitting(false);
   }
 
-  async function responseGoogle(tokenResponse) {
-    localStorage.setItem("access_token", tokenResponse.access_token);
-    localStorage.setItem("loginMethod", "google");
-    navigate("/");
-    toast.success("Google login successful!");
-    playNotification();
+  async function responseGoogle(codeResponse) {
+    try {
+      const body = {
+        code: codeResponse.code,
+        grant_type: "authorization_code",
+        client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+        client_secret: process.env.REACT_APP_GOOGLE_CLIENT_SECRET,
+        redirect_uri: window.location.origin,
+      };
+      const response = await axios.post(
+        "https://oauth2.googleapis.com/token",
+        body,
+      );
+      localStorage.setItem("access_token", response.data.access_token);
+      localStorage.setItem("refresh_token", response.data.refresh_token);
+      localStorage.setItem("loginMethod", "google");
+      navigate(redirectPath);
+      toast.success("Google login successful!");
+      playNotification();
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   function errorGoogle() {
@@ -86,15 +109,15 @@ function LoginPage() {
   }
 
   const googleLogin = useGoogleLogin({
+    flow: "auth-code",
     onSuccess: responseGoogle,
     onError: errorGoogle,
-    redirect_uri: "https://blog-app-gamma-swart.vercel.app",
   });
 
   function responseFacebook(response) {
     localStorage.setItem("access_token", response.accessToken);
     localStorage.setItem("loginMethod", "facebook");
-    navigate("/");
+    navigate(redirectPath);
     toast.success("Facebook login successful!");
     playNotification();
   }
@@ -114,11 +137,11 @@ function LoginPage() {
             {({ errors, touched }) => (
               <Form className="w-52 md:w-72">
                 <FormikInput
-                  name="username"
+                  name="email"
                   type="text"
-                  placeholder="Username"
-                  error={errors.username}
-                  touched={touched.username}
+                  placeholder="Email"
+                  error={errors.email}
+                  touched={touched.email}
                 />
                 <FormikInput
                   name="password"
