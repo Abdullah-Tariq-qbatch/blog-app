@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import { startCase } from "lodash";
 
 import Loader from "./Loader";
 import RenderIf from "./RenderIf";
@@ -44,21 +43,15 @@ const CategorySelector = ({ category }) => {
         }
       >
         <LazyLoading>
-          <div className="py-10">
-            <CategoriesDropDown
-              categories={categories}
-              selectedCategory={category ?? ""}
-            />
-            {/* <CategoriesSider
+          <CategoriesDropDown
+            categories={categories}
+            selectedCategory={category ?? ""}
+          />
+          {/* <CategoriesSider
             categories={categories}
             selectedCategory={category ?? ""}
           /> */}
-          </div>
         </LazyLoading>
-
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-200 overflow-hidden whitespace-nowrap overflow-ellipsis mb-4">
-          {startCase(category)}
-        </h1>
       </RenderIf>
     </>
   );
