@@ -24,7 +24,7 @@ const TvShowDetails = () => {
       {stateData?.loading ? (
         <Loader />
       ) : (
-        <div>
+        <div className="md:mx-8 lg:mx-24">
           <div className="grid place-items-center pt-4 md:pb-6">
             <h1 className="text-4xl font-extrabold md:pb-6">
               {stateData?.tvShowDetail?.name}

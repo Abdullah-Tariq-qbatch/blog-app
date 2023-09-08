@@ -3,7 +3,7 @@ import DeleteConfirmation from "./DeleteConfirmation";
 import { Link } from "react-router-dom";
 import { calculateYear } from "../../utils/tvShowApp/utils";
 import { toast } from "react-toastify";
-import { viewDetailsIcon, deleteIcon } from "../../assets/tvShowApp/svg/icons";
+import { EyeFilled, DeleteFilled } from "@ant-design/icons";
 
 const TvShowCard = ({ data }) => {
   const [isConfirmationVisible, setConfirmationVisible] = useState(false);
@@ -13,37 +13,42 @@ const TvShowCard = ({ data }) => {
 
   return (
     <>
-      <div
-        className="relative w-full max-w-xs bg-white dark:bg-gray-950 border dark:border-gray-950  flex justify-center border-gray-200 rounded-lg shadow"
-        style={{
-          backgroundImage: `url(${data.image_thumbnail_path})`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "100% 200px",
-        }}
-      >
-        <div className="px-5 w-11/12 mt-36 pt-4 pb-6 bg-gray-50 dark:bg-gray-800 border-2 border-gray-100 dark:border-gray-900 shadow-lg hover:shadow-xl shadow-black-600 rounded-lg">
-          <a href="#">
-            <p className="text-base font-bold tracking-tight text-gray-700 dark:text-gray-50 hover:text-pink-custom dark:hover:text-pink-800  overflow-hidden whitespace-nowrap overflow-ellipsis">
-              {data.name}{" "}
+      <div className="max-w-sm bg-white dark:bg-gray-950 border dark:border-gray-950 border-gray-200 rounded-lg shadow flex flex-col">
+        <div className="relative z-10">
+          <img
+            src={data.image_thumbnail_path}
+            className="rounded-t-lg w-96 h-44"
+          />
+          <span
+            id="blackOverlay"
+            className="w-full rounded-t-lg h-full absolute top-0 left-1/2 transform -translate-x-1/2 bg-black opacity-0 dark:opacity-30 flex justify-center items-center"
+          />
+        </div>
+        <div className="bg-gray-50 dark:bg-gray-800 border-2 border-gray-100 dark:border-gray-900 rounded-lg px-5 -mt-14 mx-auto w-11/12 mb-5 z-10">
+          <div className="flex justify-center h-[50px] items-center">
+            <p className="w-[90%] text-base font-bold text-center tracking-tight text-gray-700 dark:text-gray-50 hover:text-pink-custom dark:hover:text-pink-800 overflow-hidden whitespace-nowrap overflow-ellipsis">
+              {data.name}
             </p>
+          </div>
+
+          <div className="flex justify-center">
             {endDate ? (
-              <p className="text-s text-gray-400 dark:text-gray-200 flex items-center dark:hover:text-pink-800 hover:text-pink-custom">
+              <p className="text-s text-gray-400 dark:text-gray-200 flex items-center">
                 {calculateYear(startDate)} - {calculateYear(endDate)}
               </p>
             ) : (
-              <p className="text-s text-gray-400 dark:text-gray-200 flex items-center dark:hover:text-pink-800 hover:text-pink-custom">
+              <p className="text-s text-gray-400 dark:text-gray-200 flex items-center">
                 {calculateYear(startDate)} - Present
               </p>
             )}
-          </a>
+          </div>
 
-          <div className="pt-4 items-center justify-between flex ">
+          <div className="pt-4 items-center justify-between flex border-t-[1px] border-black mt-4 mb-4">
             <button
               onClick={() => setConfirmationVisible(true)}
-              className="inline-flex items-center px-2.5 py-1.5 text-xs font-medium text-center text-white rounded-lg bg-gradient-to-r from-red-300 via-red-400 to-red-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800"
+              className="inline-flex items-center p-2 text-lg font-medium text-center text-gray-400 dark:bg-gray-800 bg-gray-50 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 focus:ring-[1px] focus:outline-none focus:ring-gray-50"
             >
-              {deleteIcon()}
-              Delete
+              <DeleteFilled className="text-red-custom" />
             </button>
 
             {data?.myShow ? (
@@ -51,26 +56,28 @@ const TvShowCard = ({ data }) => {
                 onClick={() =>
                   toast.error("You don't have any details of your own TV-Show")
                 }
-                className="inline-flex items-center px-2.5 py-2 text-xs font-medium text-center text-white rounded-lg bg-gradient-to-r from-blue-300 via-blue-400 to-blue-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800"
+                className="inline-flex items-center p-2 text-lg font-medium text-center text-gray-400 dark:bg-gray-800 bg-gray-50 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 focus:ring-[1px] focus:outline-none focus:ring-gray-50"
               >
-                {viewDetailsIcon()}
-                Details
+                {/* {viewDetailsIcon()} */}
+                <EyeFilled className="text-blue-custom" />
               </button>
             ) : (
               <Link
                 to={`/tv-shows/tv-show-details/${data.id}`}
-                className="inline-flex items-center px-2.5 py-2 text-xs font-medium text-center text-white rounded-lg bg-gradient-to-r from-blue-300 via-blue-400 to-blue-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800"
+                className="inline-flex items-center p-2 text-lg font-medium text-center text-gray-400 dark:bg-gray-800 bg-gray-50 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 focus:ring-[1px] focus:outline-none focus:ring-gray-50"
               >
-                {viewDetailsIcon()}
-                Details
+                {/* {viewDetailsIcon()} */}
+                <EyeFilled className="text-blue-custom" />
               </Link>
             )}
-            {isConfirmationVisible && (
-              <DeleteConfirmation
-                data={{ id: data.id, setConfirmationVisible }}
-              />
-            )}
           </div>
+        </div>
+        <div className="z-20">
+          {isConfirmationVisible && (
+            <DeleteConfirmation
+              data={{ id: data.id, setConfirmationVisible }}
+            />
+          )}
         </div>
       </div>
     </>
