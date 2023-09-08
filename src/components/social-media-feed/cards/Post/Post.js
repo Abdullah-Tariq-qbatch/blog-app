@@ -163,10 +163,10 @@ const Post = (post) => {
                       </div>
 
                       <div className="lg:mr-4 p-3 text-center">
-                        {console.log(
+                        {/* {console.log(
                           "current theme: ",
                           localStorage.getItem("theme")
-                        )}
+                        )} */}
                         <Heart
                           // inactiveColor={`${
                           //   localStorage.getItem("theme") === "dark"
