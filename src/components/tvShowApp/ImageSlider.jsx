@@ -1,10 +1,11 @@
-import React from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+
 import { Carousel } from "react-responsive-carousel";
+import React from "react";
 
 const ImageSlider = ({ images, backUpImg }) => {
   return (
-    <Carousel className="w-screen lg:w-5/12 lg:h-5/12 lg:items-center">
+    <Carousel className="lg:h-5/12 mx-auto w-[95vw] lg:w-5/12">
       {images ? (
         images.map((image, index) => (
           <div key={index}>

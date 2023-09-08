@@ -1,12 +1,13 @@
-import React, { useEffect, Suspense } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
-import { tvShowDetails } from "../../redux/shows/actionCreator";
-import TvShowPerformanceDetail from "../../components/tvShowApp/TvShowPerformanceDetail";
+import React, { Suspense, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import Loader from "../../components/tvShowApp/Loader";
+import TvShowPerformanceDetail from "../../components/tvShowApp/TvShowPerformanceDetail";
+import { tvShowDetails } from "../../redux/shows/actionCreator";
+import { useParams } from "react-router-dom";
 
 const ImageSlider = React.lazy(() =>
-  import("../../components/tvShowApp/ImageSlider")
+  import("../../components/tvShowApp/ImageSlider"),
 );
 
 const TvShowDetails = () => {
@@ -24,13 +25,13 @@ const TvShowDetails = () => {
       {stateData?.loading ? (
         <Loader />
       ) : (
-        <div className="md:mx-8 lg:mx-24">
-          <div className="grid place-items-center pt-4 md:pb-6">
-            <h1 className="text-4xl font-extrabold md:pb-6">
+        <div className="lg:mx-24">
+          <div className="mb-2 grid place-items-center border-b-[1px] border-gray-300 pt-4 md:pb-6">
+            <h1 className="text-4xl font-semibold dark:text-gray-400 md:pb-6">
               {stateData?.tvShowDetail?.name}
             </h1>
             <div />
-            {/* lg:p-12 lg:justify-between lg:space-x-12   lg:flex-row md:flex-col  md:space-y-8 items-center space-y-8 */}
+            {/* lg:p-12 lg:justify-between lg:space-x-12 lg:flex-row md:flex-col  md:space-y-8 items-center space-y-8 */}
             <div className="flex flex-col lg:flex-row lg:space-x-12">
               <Suspense fallback={<div>loading...</div>}>
                 <ImageSlider
@@ -39,22 +40,22 @@ const TvShowDetails = () => {
                 />
               </Suspense>
 
-              <div className="h-full lg:w-2/3">
-                <p className="mb-4 text-lg  dark:text-gray-400 font-bold">
+              <div className="h-full px-2 lg:w-2/3">
+                <h1 className="mb-4 text-xl font-bold dark:text-gray-400">
                   When will be {stateData?.tvShowDetail?.name} next episode air
                   date? Is {stateData?.tvShowDetail?.name} renewed or cancelled?
                   Where to countdown {stateData?.tvShowDetail?.name} air dates?
                   Is {stateData?.tvShowDetail?.name} worth watching?
-                </p>
-                <p className="text-lg  dark:text-gray-400 font-normal ">
+                </h1>
+                <p className="text-lg font-normal dark:text-gray-400 ">
                   {stateData?.tvShowDetail?.description}
                 </p>
                 {stateData?.tvShowDetail?.description_source && (
-                  <p>
-                    source:{" "}
+                  <p className="font-md font-bold dark:text-gray-400">
+                    Source:{" "}
                     <a
                       href={stateData?.tvShowDetail?.description_source}
-                      className="text-blue-600 break-all"
+                      className="break-all text-blue-600"
                     >
                       {" "}
                       {stateData?.tvShowDetail?.description_source}
