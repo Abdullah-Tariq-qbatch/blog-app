@@ -44,7 +44,7 @@ const CategorySelector = ({ category }) => {
         }
       >
         <LazyLoading>
-          <div className="pb-10">
+          <div className="py-10">
             <CategoriesDropDown
               categories={categories}
               selectedCategory={category ?? ""}
@@ -56,7 +56,7 @@ const CategorySelector = ({ category }) => {
           </div>
         </LazyLoading>
 
-        <h1 className="text-3xl font-bold text-gray-900 overflow-hidden whitespace-nowrap overflow-ellipsis mb-4">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-200 overflow-hidden whitespace-nowrap overflow-ellipsis mb-4">
           {startCase(category)}
         </h1>
       </RenderIf>

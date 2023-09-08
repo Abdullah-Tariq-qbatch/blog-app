@@ -142,23 +142,14 @@ function Blogs({ userId }) {
           </div>
         </RenderIf>
       </div>
-      <div className="flex flex-col justify-center items-center sm:items-end mt-5 mr-0 sm:mr-20 pb-10">
-        <nav aria-label="Page navigation example bg-white dark:bg-gray-700">
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            handlePageNoClick={(no) => {
-              setSearchParams({ page: no });
-            }}
-          
-          />
-        </nav>
-        <span className="text-sm text-gray-700 dark:text-gray-200 mt-3">
-          Page Number :{" "}
-          <span className="font-semibold text-blue-custom ">{currentPage}</span>{" "}
-          out of{" "}
-          <span className="font-semibold text-blue-custom ">{totalPages}</span>
-        </span>
+      <div className="sm:mr-20">
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          handlePageNoClick={(no) => {
+            setSearchParams({ page: no });
+          }}
+        />
       </div>
     </div>
   );

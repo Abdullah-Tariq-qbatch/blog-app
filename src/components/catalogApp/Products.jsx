@@ -5,16 +5,12 @@ import { ceil } from "lodash";
 import { useNavigate } from "react-router-dom";
 
 import Pagination from "../blogApp/HomePage/Pagination";
-import LazyLoading from "./LazyLoading";
 import NotFound from "./NotFound";
 import Loader from "./Loader";
 import RenderIf from "./RenderIf";
+import ProductCard from "./Cards/ProductCard";
 
 import { reset } from "../../redux/products/actionCreator";
-
-const ProductCard = React.lazy(() =>
-  import(/* webpackChunkName: "ProductCard" */ "./Cards/ProductCard")
-);
 
 const Products = ({ category, pageNo, searchParam }) => {
   const dispatch = useDispatch();
@@ -66,15 +62,13 @@ const Products = ({ category, pageNo, searchParam }) => {
         <div className="flex justify-center items-center">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-center">
             {products.map((product, index) => (
-              <LazyLoading key={index}>
-                <ProductCard product={product} />
-              </LazyLoading>
+              <ProductCard key={index} product={product} />
             ))}
           </div>
         </div>
       </RenderIf>
       <Pagination
-        currentPage={pageNo ?? 1}
+        currentPage={parseInt(pageNo ?? 1)}
         totalPages={totalPages ?? 0}
         handlePageNoClick={handlePageNoClick}
       />
