@@ -196,7 +196,7 @@ const Post = (post) => {
                             onSubmit={handleUserComment}
                             className="flex flex-col justify-center lg:flex-row"
                           >
-                            <div className="col-span-6 mx-auto xl:w-full">
+                            <div className="col-span-6 mx-auto w-full">
                               <input
                                 className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
                                 type="text"
@@ -205,14 +205,19 @@ const Post = (post) => {
                                 placeholder="Your comment"
                               />
                             </div>
-                            <div className="col-span-3 mx-2 mt-4 whitespace-nowrap lg:mx-1 lg:ml-4 lg:mt-0 xl:ml-4">
-                              <Button onClick={handleUserComment} type="submit">
+                            <div className="col-span-3 mt-4 whitespace-nowrap lg:mx-1 lg:ml-4 lg:mt-0 xl:ml-4">
+                              <Button
+                                className="my-auto flex w-full items-center justify-center rounded-lg bg-gradient-to-r from-[#3C57E2] via-[#4E67E4] to-blueProfessional px-4 py-2.5 text-sm font-medium text-white hover:bg-gradient-to-br"
+                                onClick={handleUserComment}
+                                type="submit"
+                              >
                                 <AddIcon className="mr-2 h-5 w-5" />
                                 Add Comment
                               </Button>
                             </div>
                             <div className="col-span-3 mt-4 whitespace-nowrap lg:mx-2 lg:mt-0 xl:ml-4">
                               <Button
+                                className="my-auto flex w-full items-center justify-center rounded-lg bg-gradient-to-r from-[#3C57E2] via-[#4E67E4] to-blueProfessional px-4 py-2.5 text-sm font-medium text-white hover:bg-gradient-to-br"
                                 onClick={handleCommentsClick}
                                 type="button"
                               >

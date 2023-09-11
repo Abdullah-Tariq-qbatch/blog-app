@@ -1,26 +1,26 @@
-import React from "react";
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useLocation } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
-
-import Alert from "./../../../components/social-media-feed/Alert/Alert";
-import Spinner from "./../../../components/social-media-feed/Spinner/Spinner";
-import Post from "./../../../components/social-media-feed/cards/Post/Post";
 
 import {
   fetchPosts,
   reInitializePosts,
 } from "./../../../redux/posts/actionCreator";
-import { reInitializeComments } from "./../../../redux/user-comments/actionCreator";
+import { useDispatch, useSelector } from "react-redux";
+
+import Alert from "./../../../components/social-media-feed/Alert/Alert";
+import Post from "./../../../components/social-media-feed/cards/Post/Post";
+import React from "react";
+import Spinner from "./../../../components/social-media-feed/Spinner/Spinner";
 import { fetchUsersSocialMediaFeed } from "./../../../redux/users/actionCreator";
-import { updateSingleUserComments } from "./../../../redux/user-comments/actionCreator";
+import { reInitializeComments } from "./../../../redux/user-comments/actionCreator";
 import { toast } from "react-toastify";
+import { updateSingleUserComments } from "./../../../redux/user-comments/actionCreator";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const PostsFeed = ({ pageLink }) => {
   const dispatch = useDispatch();
   const { posts, loading, success, error } = useSelector(
-    (state) => state.Posts
+    (state) => state.Posts,
   );
   const { currentUser } = useSelector((state) => state.Users);
   const location = useLocation();
@@ -30,7 +30,7 @@ const PostsFeed = ({ pageLink }) => {
 
   useEffect(() => {
     if (pageLink === "my-posts") {
-      dispatch(fetchPosts(currentUser.id || 1));
+      dispatch(fetchPosts(localStorage.loginMethod ? 1 : currentUser.id));
     } else if (pageLink !== "user") {
       dispatch(fetchPosts());
       dispatch(fetchUsersSocialMediaFeed());
@@ -73,7 +73,7 @@ const PostsFeed = ({ pageLink }) => {
   };
 
   return (
-    <div className="grid grid-cols-1 mt-10 ">
+    <div className="mt-10 grid grid-cols-1 ">
       {loading ? (
         <Spinner />
       ) : (

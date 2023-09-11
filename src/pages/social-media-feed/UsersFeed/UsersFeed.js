@@ -1,18 +1,18 @@
-import React, { useEffect, useState, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
-import { useLocation } from "react-router-dom";
-
-import User from "./../../../components/social-media-feed/cards/User/User";
-import Alert from "./../../../components/social-media-feed/Alert/Alert";
-import Pagination from "./../../../components/blogApp/HomePage/Pagination";
-
+import React, { useEffect, useRef, useState } from "react";
 import {
   fetchUsersSocialMediaFeed,
-  searchAllUsers,
   reInitializeUsers,
+  searchAllUsers,
 } from "./../../../redux/users/actionCreator";
+import { useDispatch, useSelector } from "react-redux";
+
+import Alert from "./../../../components/social-media-feed/Alert/Alert";
+import Pagination from "./../../../components/blogApp/HomePage/Pagination";
+import { SearchOutlined } from "@ant-design/icons";
+import User from "./../../../components/social-media-feed/cards/User/User";
 import { fetchPosts } from "./../../../redux/posts/actionCreator";
+import { toast } from "react-toastify";
+import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router";
 
 const debounce = (cb, delay = 1000) => {
@@ -34,6 +34,7 @@ const UsersFeed = () => {
   const searchParams = new URLSearchParams(location.search);
   const posts = useSelector((state) => state.Posts);
   const [page, onPageChange] = useState(Number(searchParams.get("page")) || 1);
+
   useEffect(() => {
     dispatch(
       fetchUsersSocialMediaFeed(limit, Math.floor(page * limit - limit)),
@@ -76,20 +77,23 @@ const UsersFeed = () => {
       dispatch(fetchUsersSocialMediaFeed(limit, page * limit - limit));
     }
   });
+
   return (
     <>
-      <div className="mt-2 flex w-full justify-center dark:text-white">
+      <div className="mt-2 flex w-full items-center justify-center space-x-2 dark:text-white">
+        <SearchOutlined />
         <input
           type="search"
           id="default-search"
-          className="block w-1/3 rounded-lg border border-gray-300 bg-gray-50 p-4 pl-10 text-center text-sm text-black focus:border-gray-500 focus:ring-gray-500 dark:border-gray-600 dark:bg-[#4b5563] dark:text-white dark:placeholder-white dark:focus:border-gray-500 dark:focus:ring-gray-500 lg:w-1/4"
-          placeholder="Search Users"
+          className="w-2/3 rounded-lg border border-gray-300 bg-gray-50 p-4 pl-10 text-center text-sm text-black focus:border-gray-500 focus:ring-gray-500 dark:border-gray-600 dark:bg-[#4b5563] dark:text-white dark:placeholder-white dark:focus:border-gray-500 dark:focus:ring-gray-500 lg:w-1/4"
+          placeholder="Search users..."
           ref={searchRef}
           onChange={(event) => updateDebounceText(event.target.value)}
-        ></input>
+        />
       </div>
       <div className="mx-2 mt-2 grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {users &&
+        {page > 0 &&
+          users &&
           users.map((user) => (
             <User
               key={user.id}
@@ -97,7 +101,7 @@ const UsersFeed = () => {
               onClick={() => handleOnClick(user.id)}
             />
           ))}
-        {!users.length && (
+        {(page < 1 || !users.length) && (
           <div className="mt-12 ">
             <Alert title="Alert: " message="No users exist!" />
           </div>

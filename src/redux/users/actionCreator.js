@@ -29,7 +29,6 @@ export const loginUser = (body, navigate, redirectPath) => {
       dispatch(actions.loginUserBegin());
       const response = await axiosInstance.post("auth/login", body);
       if (actions.isSuccess(response)) {
-        localStorage.setItem("userId", response.data.id);
         localStorage.setItem("access_token", response.data.access_token);
         localStorage.setItem("refresh_token", response.data.refresh_token);
         navigate(redirectPath);
@@ -47,6 +46,7 @@ export const fetchUserData = (navigate) => {
       dispatch(actions.fetchUserDataBegin());
       const response = await axiosInstance.get("auth/profile");
       if (actions.isSuccess(response)) {
+        localStorage.setItem("userId", response.data.id);
         dispatch(actions.fetchUserDataSuccess(response.data));
       }
     } catch (error) {

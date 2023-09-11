@@ -1,16 +1,18 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+
 import * as Yup from "yup";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import React, { useEffect } from "react";
+import { addUserPost, fetchPosts } from "./../../../redux/posts/actionCreator";
+import { useDispatch, useSelector } from "react-redux";
+
 import { ReactComponent as AddIcon } from "./../../../assets/social-media-feed/svgs/add-icon.svg";
-
-import slackNotification from "./../../../utils/social-media-feed/SlackNotification";
-
-import { fetchPosts, addUserPost } from "./../../../redux/posts/actionCreator";
+// import { current } from "immer";
 import { getDataFromLocalStorage } from "./../../../redux/posts/api-data";
+import slackNotification from "./../../../utils/social-media-feed/SlackNotification";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const validationSchema = Yup.object({
   title: Yup.string().required("*Title is required"),
@@ -21,7 +23,9 @@ const validationSchema = Yup.object({
 const AddPost = () => {
   const dispatch = useDispatch();
   const { posts } = useSelector((state) => state.Posts);
-  const { currentUser } = useSelector((state) => state.Users);
+  const { currentUser, users } = useSelector((state) => state.Users);
+  const currentDummyJSONUser =
+    users[localStorage.loginMethod ? 0 : currentUser.id - 1];
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,7 +34,7 @@ const AddPost = () => {
 
   const handleSubmit = (values, { setSubmitting }) => {
     setSubmitting(true);
-    const { id, firstName, email, lastName } = currentUser;
+    const { id, firstName, email, lastName } = currentDummyJSONUser;
     if (id) {
       const { title, post, image } = values;
       const existingPosts = getDataFromLocalStorage("posts");
@@ -60,24 +64,28 @@ const AddPost = () => {
     }
   };
   return (
-    <div className="flex justify-center items-center w-screen mt-12 mb-10 ">
-      <div className="w-full flex justify-center items-center ">
+    <div className="mb-10 mt-12 flex items-center justify-center ">
+      <div className="flex w-full items-center justify-center ">
         <Formik
           initialValues={{ title: "", post: "", image: null }}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
-          {({ setFieldValue }) => (
-            <Form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 dark:bg-[#4b5563]">
-              <div className="block text-gray-700 text-2xl font-bold mb-2 dark:text-white">
+          {({ setFieldValue, errors, touched }) => (
+            <Form className="mb-4 rounded bg-white px-8 pb-8 pt-6 shadow-md dark:bg-[#4b5563]">
+              <div className="mb-2 block text-2xl font-bold text-gray-700 dark:text-white">
                 Create Post:
               </div>
-              <div>
-                <label className="block text-gray-700 text-sm font-bold mb-2 dark:text-white">
+              <div
+                className={`${
+                  errors.image && touched.image ? "animate-pulse" : ""
+                }`}
+              >
+                <label className="mb-2 block text-sm font-bold text-gray-700 dark:text-white">
                   Upload Image:
                 </label>
                 <input
-                  className="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-indigo-200 dark:text-white"
+                  className="mt-1 w-full rounded-md border p-2 focus:ring focus:ring-indigo-200 dark:text-white"
                   type="file"
                   id="file"
                   name="image"
@@ -98,15 +106,24 @@ const AddPost = () => {
                   className="text-red-500"
                 />
               </div>
-              <div>
-                <label className="block text-gray-700 text-sm font-bold mb-2 dark:text-white mt-2">
+              <div
+                className={`${
+                  errors.title && touched.title ? "animate-pulse" : ""
+                }`}
+              >
+                <label className="mb-2 mt-2 block text-sm font-bold text-gray-700 dark:text-white">
                   Title:
                 </label>
                 <Field
                   type="text"
                   id="title"
                   name="title"
-                  className="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-indigo-200 "
+                  placeholder="Enter title..."
+                  className={`${
+                    errors.title && touched.title
+                      ? "border-2 border-red-500"
+                      : ""
+                  } mt-1 w-full rounded-md border p-2 placeholder:text-gray-500 focus:ring focus:ring-indigo-200`}
                 />
                 <ErrorMessage
                   name="title"
@@ -114,8 +131,12 @@ const AddPost = () => {
                   className="text-red-500"
                 />
               </div>
-              <div>
-                <label className="block text-gray-700 text-sm font-bold mb-2 dark:text-white mt-2">
+              <div
+                className={`${
+                  errors.post && touched.post ? "animate-pulse" : ""
+                }`}
+              >
+                <label className="mb-2 mt-2 block text-sm font-bold text-gray-700 dark:text-white">
                   Post:
                 </label>
                 <Field
@@ -123,7 +144,10 @@ const AddPost = () => {
                   type="text"
                   id="post"
                   name="post"
-                  className="mt-1 p-2 w-full border rounded-md focus:ring focus:ring-indigo-200"
+                  placeholder="Enter description..."
+                  className={`${
+                    errors.post && touched.post ? "border-2 border-red-500" : ""
+                  } mt-1 w-full rounded-md border p-2 placeholder:text-gray-500 focus:ring focus:ring-indigo-200`}
                 />
                 <ErrorMessage
                   name="post"
@@ -131,12 +155,12 @@ const AddPost = () => {
                   className="text-red-500"
                 />
               </div>
-              <div className="flex ml-24 mt-3">
+              <div className="mt-3 flex">
                 <button
                   type="submit"
-                  className="mt-auto mb-auto inline-flex text-white bg-gradient-to-r from-[#3C57E2] via-[#4E67E4] to-blueProfessional hover:bg-gradient-to-br font-medium rounded-lg text-sm px-4 py-2.5 text-center"
+                  className="mx-auto mb-auto mt-auto inline-flex w-full justify-center rounded-lg bg-gradient-to-r from-[#3C57E2] via-[#4E67E4] to-blueProfessional px-4 py-2.5 text-center text-sm font-medium text-white hover:bg-gradient-to-br"
                 >
-                  <AddIcon className="h-5 w-5 mr-2" />
+                  <AddIcon className="mr-2 h-5 w-5" />
                   <>Add Post</>
                 </button>
               </div>
