@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { ChromePicker } from "react-color";
 
+import { ChromePicker } from "react-color";
 import RenderIf from "./RenderIf";
 
 const ColorPicker = ({ field, form }) => {
@@ -11,13 +11,13 @@ const ColorPicker = ({ field, form }) => {
   };
 
   return (
-    <div>
-      <p
-        className="bg-blue-500 text-white px-4 py-2 rounded float-left"
+    <div className="flex flex-col items-center justify-between space-y-4">
+      <button
+        className="w-full rounded-md bg-blue-custom px-4 py-2 text-white hover:bg-blue-800"
         onClick={() => setShowColorPicker(!showColorPicker)}
       >
-        Choose Color
-      </p>
+        {!showColorPicker ? "Choose Color" : "Cancel"}
+      </button>
       <RenderIf isTrue={showColorPicker}>
         <ChromePicker color={field.value} onChange={handleChange} />
       </RenderIf>

@@ -41,7 +41,7 @@ export const loginUser = (body, navigate, redirectPath) => {
   };
 };
 
-export const fetchUserData = (userId, navigate) => {
+export const fetchUserData = (navigate) => {
   return async (dispatch) => {
     try {
       dispatch(actions.fetchUserDataBegin());
