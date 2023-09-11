@@ -27,6 +27,7 @@ const Post = (post) => {
   const userCommentInput = useRef();
   const [like, setLike] = useState(false);
   const { currentUser } = useSelector((state) => state.Users);
+  console.log("current user: ", currentUser);
   const [alert, setAlert] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const dispatch = useDispatch();
@@ -51,11 +52,13 @@ const Post = (post) => {
           firstname:
             currentUser.firstName ||
             currentUser.given_name ||
-            currentUser.name.split(" ")[0],
+            currentUser.name.split(" ")[0] ||
+            currentUser.name,
           lastname:
             currentUser.lastName ||
             currentUser.family_name ||
-            currentUser.name.split(" ")[1],
+            currentUser.name.split(" ")[1] ||
+            currentUser.name,
           id: currentUser.id || 1000,
           username: currentUser.username || currentUser.name,
         },
