@@ -191,57 +191,76 @@ function ProductForm() {
             <ProductFormResponsive
               containers={[
                 <>
-                  <label
-                    htmlFor="thumbnail"
-                    className="mb-2 dark:text-gray-300"
+                  <div
+                    className={`${
+                      errors.description && touched.description
+                        ? "animate-pulse"
+                        : ""
+                    } flex flex-col`}
                   >
-                    Thumbnail
-                  </label>
-                  <Field
-                    name="thumbnail"
-                    type="file"
-                    className="mb-2 mr-2 h-auto w-full rounded-md bg-slate-300 p-1 placeholder:text-gray-600"
-                    accept="image/*"
-                    value=""
-                    onChange={(e) => {
-                      const file = e.target.files[0];
-                      file &&
-                        setFieldValue("thumbnail", URL.createObjectURL(file));
-                    }}
-                  />
-                  <ErrorMessage
-                    className="text-red-500"
-                    name="thumbnail"
-                    component={"div"}
-                  />
+                    <label
+                      htmlFor="thumbnail"
+                      className="mb-2 dark:text-gray-300"
+                    >
+                      Thumbnail
+                    </label>
+                    <Field
+                      name="thumbnail"
+                      type="file"
+                      className="mb-2 mr-2 h-auto w-full rounded-md bg-slate-300 p-1 placeholder:text-gray-600"
+                      accept="image/*"
+                      value=""
+                      onChange={(e) => {
+                        const file = e.target.files[0];
+                        file &&
+                          setFieldValue("thumbnail", URL.createObjectURL(file));
+                      }}
+                    />
+                    <ErrorMessage
+                      className="text-red-500"
+                      name="thumbnail"
+                      component={"div"}
+                    />
+                  </div>
                 </>,
                 <>
-                  <label htmlFor="category" className="mb-2 dark:text-gray-300">
-                    Category
-                  </label>
-                  <Field
-                    name="category"
-                    as="select"
-                    className="mb-2 appearance-none rounded-md border border-gray-300 bg-slate-300 bg-[linear-gradient(45deg,transparent_50%,gray_50%),linear-gradient(135deg,gray_50%,transparent_50%),linear-gradient(to_right,#ccc,#ccc)] bg-[5px_5px,5px_5px,1px_1.5em] bg-[calc(100%_-_20px)_calc(1em_+_2px),calc(100%_-_15px)_calc(1em_+_2px),calc(100%_-_2.5em)_0.5em] bg-no-repeat py-2 pl-4 pr-10 text-sm font-medium text-gray-700 shadow-sm placeholder:text-gray-600 hover:bg-gray-50 focus:outline-none"
+                  <div
+                    className={`${
+                      errors.description && touched.description
+                        ? "animate-pulse"
+                        : ""
+                    } flex flex-col`}
                   >
-                    <option value="">Select a category</option>
-                    {categories.map((category, index) => {
-                      return (
-                        <option
-                          className="mb-4 w-full rounded-md bg-slate-300 p-2"
-                          value={`${category}`}
-                          key={index}
-                        >
-                          {category}
-                        </option>
-                      );
-                    })}
-                  </Field>
-                  <ErrorMessage
-                    className="text-red-500"
-                    name="category"
-                    component={"div"}
-                  />
+                    <label
+                      htmlFor="category"
+                      className="mb-2 dark:text-gray-300"
+                    >
+                      Category
+                    </label>
+                    <Field
+                      name="category"
+                      as="select"
+                      className="mb-2 appearance-none rounded-md border border-gray-300 bg-slate-300 bg-[linear-gradient(45deg,transparent_50%,gray_50%),linear-gradient(135deg,gray_50%,transparent_50%),linear-gradient(to_right,#ccc,#ccc)] bg-[5px_5px,5px_5px,1px_1.5em] bg-[calc(100%_-_20px)_calc(1em_+_2px),calc(100%_-_15px)_calc(1em_+_2px),calc(100%_-_2.5em)_0.5em] bg-no-repeat py-2 pl-4 pr-10 text-sm font-medium text-gray-700 shadow-sm placeholder:text-gray-600 hover:bg-gray-50 focus:outline-none"
+                    >
+                      <option value="">Select a category</option>
+                      {categories.map((category, index) => {
+                        return (
+                          <option
+                            className="mb-4 w-full rounded-md bg-slate-300 p-2"
+                            value={`${category}`}
+                            key={index}
+                          >
+                            {category}
+                          </option>
+                        );
+                      })}
+                    </Field>
+                    <ErrorMessage
+                      className="text-red-500"
+                      name="category"
+                      component={"div"}
+                    />
+                  </div>
                 </>,
               ]}
             />
@@ -255,11 +274,15 @@ function ProductForm() {
                     errors={errors}
                     touched={touched}
                   />
-                  <ColorVariation values={values} errors={errors.colors} />
+                  <ColorVariation
+                    values={values}
+                    errors={errors}
+                    touched={touched}
+                  />
                 </>
               }
             >
-              <ProductFormAPI />
+              <ProductFormAPI errors={errors} touched={touched} />
             </RenderIf>
 
             <Button

@@ -1,16 +1,15 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { toast } from "react-toastify";
-import { ceil } from "lodash";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
-import Pagination from "../blogApp/HomePage/Pagination";
-import NotFound from "./NotFound";
 import Loader from "./Loader";
-import RenderIf from "./RenderIf";
+import NotFound from "./NotFound";
+import Pagination from "../blogApp/HomePage/Pagination";
 import ProductCard from "./Cards/ProductCard";
-
+import RenderIf from "./RenderIf";
+import { ceil } from "lodash";
 import { reset } from "../../redux/products/actionCreator";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Products = ({ category, pageNo, searchParam }) => {
   const dispatch = useDispatch();
@@ -38,7 +37,6 @@ const Products = ({ category, pageNo, searchParam }) => {
   }, [success]);
 
   const handlePageNoClick = (currentPage) => {
-    
     if (!searchParam && !category) navigate(`/catalog/?pageNo=${currentPage}`);
     else if (category) {
       navigate(`/catalog/?pageNo=${currentPage}&category=${category}`);
@@ -60,8 +58,8 @@ const Products = ({ category, pageNo, searchParam }) => {
         isTrue={products.length !== 0}
         fallback={<NotFound errorMsg={"Data not Found"} />}
       >
-        <div className="flex justify-center items-center">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-center">
+        <div className="flex items-center justify-center">
+          <div className="grid grid-cols-1 justify-center gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {products.map((product, index) => (
               <ProductCard key={index} product={product} />
             ))}

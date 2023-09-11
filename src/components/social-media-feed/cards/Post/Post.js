@@ -1,33 +1,31 @@
-import React from "react";
-import { useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import Heart from "react-heart";
-import _ from "lodash";
 import "../../../../index.css";
 
-import DeleteMessage from "../../DeleteMessage/DeleteMessage";
-import Comment from "../Comment/Comment";
+import {
+  deleteUserPost,
+  updateUserPost,
+} from "./../../../../redux/posts/actionCreator";
+import { useDispatch, useSelector } from "react-redux";
+import { useRef, useState } from "react";
+
+import { ReactComponent as AddIcon } from "./../../../../assets/social-media-feed/svgs/add-icon.svg";
 import Avatar from "../../Avatar/Avatar";
 import Button from "../../Button/Button";
-
+import Comment from "../Comment/Comment";
+import { ReactComponent as DeleteIcon } from "./../../../../assets/social-media-feed/svgs/delete-icon.svg";
+import DeleteMessage from "../../DeleteMessage/DeleteMessage";
+import Heart from "react-heart";
+import { ReactComponent as HideIcon } from "./../../../../assets/social-media-feed/svgs/hide-icon.svg";
+import React from "react";
+import { ReactComponent as ViewIcon } from "./../../../../assets/social-media-feed/svgs/view-icon.svg";
+import _ from "lodash";
+import { getDataFromLocalStorage } from "./../../../../redux/posts/api-data";
 import { toast } from "react-toastify";
 import { updateUserComments } from "./../../../../redux/user-comments/actionCreator";
-import {
-  updateUserPost,
-  deleteUserPost,
-} from "./../../../../redux/posts/actionCreator";
-import { ReactComponent as AddIcon } from "./../../../../assets/social-media-feed/svgs/add-icon.svg";
-import { ReactComponent as ViewIcon } from "./../../../../assets/social-media-feed/svgs/view-icon.svg";
-import { ReactComponent as HideIcon } from "./../../../../assets/social-media-feed/svgs/hide-icon.svg";
-
-import { ReactComponent as DeleteIcon } from "./../../../../assets/social-media-feed/svgs/delete-icon.svg";
-import { getDataFromLocalStorage } from "./../../../../redux/posts/api-data";
 
 const Post = (post) => {
   const userCommentInput = useRef();
   const [like, setLike] = useState(false);
   const { currentUser } = useSelector((state) => state.Users);
-  console.log("current user: ", currentUser);
   const [alert, setAlert] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const dispatch = useDispatch();
