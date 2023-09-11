@@ -27,6 +27,7 @@ const Post = (post) => {
   const userCommentInput = useRef();
   const [like, setLike] = useState(false);
   const { currentUser } = useSelector((state) => state.Users);
+  console.log("current user: ", currentUser);
   const [alert, setAlert] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const dispatch = useDispatch();
@@ -51,11 +52,13 @@ const Post = (post) => {
           firstname:
             currentUser.firstName ||
             currentUser.given_name ||
-            currentUser.name.split(" ")[0],
+            currentUser.name.split(" ")[0] ||
+            currentUser.name,
           lastname:
             currentUser.lastName ||
             currentUser.family_name ||
-            currentUser.name.split(" ")[1],
+            currentUser.name.split(" ")[1] ||
+            currentUser.name,
           id: currentUser.id || 1000,
           username: currentUser.username || currentUser.name,
         },
@@ -92,11 +95,11 @@ const Post = (post) => {
   };
 
   return (
-    <div className="w-3/4 m-auto">
+    <div className="m-auto w-3/4">
       <main className="profile-page">
         <section className="block h-[500px]">
           <div
-            className="w-full h-full bg-cover bg-center"
+            className="h-full w-full bg-cover bg-center"
             style={{
               backgroundImage: `url('${post.imageURL}')`,
               backgroundRepeat: "no-repeat",
@@ -104,32 +107,32 @@ const Post = (post) => {
           >
             <span
               id="blackOverlay"
-              className="w-full h-[1000px] opacity-20 bg-black"
+              className="h-[1000px] w-full bg-black opacity-20"
             ></span>
           </div>
         </section>
-        <section className="relative py-16 bg-blueGray-200">
+        <section className="bg-blueGray-200 relative py-16">
           <div className="container mx-auto px-4">
-            <div className="relative flex flex-col min-w-0 break-words dark:text-white bg-white dark:bg-[#4b5563] w-full mb-6 shadow-xl rounded-lg -mt-64">
+            <div className="relative -mt-64 mb-6 flex w-full min-w-0 flex-col break-words rounded-lg bg-white shadow-xl dark:bg-[#4b5563] dark:text-white">
               <div className="px-6">
                 <div className="flex flex-wrap justify-center">
-                  <div className="w-full lg:w-4/12 px-4 order-2 lg:order-1">
-                    <div className="flex justify-center py-4 lg:pt-4 pt-8">
+                  <div className="order-2 w-full px-4 lg:order-1 lg:w-4/12">
+                    <div className="flex justify-center py-4 pt-8 lg:pt-4">
                       <div className="mr-4 p-3 text-center">
-                        <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
+                        <span className="text-blueGray-600 block text-xl font-bold uppercase tracking-wide">
                           {post.reactions}
                         </span>
-                        <span className="text-sm text-blueGray-400">Likes</span>
+                        <span className="text-blueGray-400 text-sm">Likes</span>
                       </div>
-                      <div className="lg:mr-4 p-3 text-center">
+                      <div className="p-3 text-center lg:mr-4">
                         <span
                           onClick={post.onClick}
-                          className="text-xl font-bold block uppercase tracking-wide text-blueGray-600"
+                          className="text-blueGray-600 block text-xl font-bold uppercase tracking-wide"
                         >
                           {post.comments.length}
                         </span>
                         <span
-                          className="text-sm text-blueGray-400"
+                          className="text-blueGray-400 text-sm"
                           onClick={post.onClick}
                         >
                           Comments
@@ -138,7 +141,7 @@ const Post = (post) => {
                     </div>
                   </div>
 
-                  <div className="w-full lg:w-3/12 px-4 lg:order-2 order-1 flex justify-center">
+                  <div className="order-1 flex w-full justify-center px-4 lg:order-2 lg:w-3/12">
                     <div className="relative" style={{ marginTop: "-80px" }}>
                       <Avatar initials={post.alias} type="profile"></Avatar>
                     </div>
@@ -150,8 +153,8 @@ const Post = (post) => {
                       onClickCancel={handleOnClickCancel}
                     ></DeleteMessage>
                   )}
-                  <div className="w-full lg:w-4/12 px-4 order-3">
-                    <div className="flex justify-center py-4 lg:pt-4 pt-8">
+                  <div className="order-3 w-full px-4 lg:w-4/12">
+                    <div className="flex justify-center py-4 pt-8 lg:pt-4">
                       <div className="mr-4 p-3 text-center">
                         <DeleteIcon
                           height="40"
@@ -162,20 +165,11 @@ const Post = (post) => {
                         />
                       </div>
 
-                      <div className="lg:mr-4 p-3 text-center">
-                        {/* {console.log(
-                          "current theme: ",
-                          localStorage.getItem("theme")
-                        )} */}
+                      <div className="p-3 text-center lg:mr-4">
                         <Heart
-                          // inactiveColor={`${
-                          //   localStorage.getItem("theme") === "dark"
-                          //     ? "white"
-                          //     : "black"
-                          // }`}
                           inactiveColor="#e83f8c"
                           activeColor="#e83f8c"
-                          className="w-8 ml-3 mt-1 text:white"
+                          className="text:white ml-3 mt-1 w-8"
                           isActive={like}
                           onClick={handlePostLike}
                         />
@@ -183,70 +177,68 @@ const Post = (post) => {
                     </div>
                   </div>
                 </div>
-                <div className="text-center mt-12">
-                  <h3 className="text-4xl font-semibold leading-normal text-blueGray-700 mb-2">
+                <div className="mt-12 text-center">
+                  <h3 className="text-blueGray-700 mb-2 text-4xl font-semibold leading-normal">
                     {post.name}
                   </h3>
-                  <div className="mb-2 text-blueGray-600 mt-10">
-                    <i className="fas fa-envelope-open mr-2 text-lg text-blueGray-400"></i>
+                  <div className="text-blueGray-600 mb-2 mt-10">
+                    <i className="fas fa-envelope-open text-blueGray-400 mr-2 text-lg"></i>
                     {post.title}
                   </div>
                 </div>
-                <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
+                <div className="border-blueGray-200 mt-10 border-t py-10 text-center">
                   <div className="flex flex-wrap justify-center">
-                    <div className="w-full lg:w-9/12 px-4">
-                      <p className="mb-4 text-lg leading-relaxed text-blueGray-700">
+                    <div className="w-full px-4 lg:w-9/12">
+                      <p className="text-blueGray-700 mb-4 text-lg leading-relaxed">
                         {post.body}
                       </p>
-                      <div className="text-center">
-                        <div className="grid grid-cols-12">
-                          <div className=" xl:mx-1 xl:my-0 mb-1 col-span-9">
-                            <form
-                              onSubmit={handleUserComment}
-                              className="flex flex-row"
-                            >
-                              <div className="xl:w-96">
-                                <input
-                                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                  type="text"
-                                  ref={userCommentInput}
-                                  required
-                                  placeholder="Enter your comment"
-                                />
-                              </div>
-                              <div className="w-1/2 xl:ml-4">
-                                <Button
-                                  onClick={handleUserComment}
-                                  type="submit"
-                                >
-                                  <AddIcon className="h-5 w-5 mr-2" />
-                                  Add Comment
-                                </Button>
-                              </div>
-                            </form>
-                          </div>
-                          <div className="w-full col-span-3">
-                            <Button onClick={handleCommentsClick}>
-                              {showComments ? (
-                                <>
-                                  <HideIcon />
-                                  Hide Comments
-                                </>
-                              ) : (
-                                <>
-                                  <ViewIcon />
-                                  View Comments
-                                </>
-                              )}
-                            </Button>
-                          </div>
+                      <div className="grid grid-cols-12 gap-1">
+                        <div className="col-span-12 mb-1 xl:mx-1 xl:my-0">
+                          <form
+                            onSubmit={handleUserComment}
+                            className="flex flex-col justify-center lg:flex-row"
+                          >
+                            <div className="col-span-6 mx-auto xl:w-full">
+                              <input
+                                className="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+                                type="text"
+                                ref={userCommentInput}
+                                required
+                                placeholder="Your comment"
+                              />
+                            </div>
+                            <div className="col-span-3 mx-2 mt-4 whitespace-nowrap lg:mx-1 lg:ml-4 lg:mt-0 xl:ml-4">
+                              <Button onClick={handleUserComment} type="submit">
+                                <AddIcon className="mr-2 h-5 w-5" />
+                                Add Comment
+                              </Button>
+                            </div>
+                            <div className="col-span-3 mt-4 whitespace-nowrap lg:mx-2 lg:mt-0 xl:ml-4">
+                              <Button
+                                onClick={handleCommentsClick}
+                                type="button"
+                              >
+                                {showComments ? (
+                                  <>
+                                    <HideIcon />
+                                    Hide Comments
+                                  </>
+                                ) : (
+                                  <>
+                                    <ViewIcon />
+                                    View Comments
+                                  </>
+                                )}
+                              </Button>
+                            </div>
+                          </form>
                         </div>
-                        <div className={showComments ? "block" : "hidden"}>
-                          {post.comments &&
-                            post.comments.map((comment, id) => (
-                              <Comment {...comment} key={id}></Comment>
-                            ))}
-                        </div>
+                      </div>
+                      <div className={showComments ? "block" : "hidden"}>
+                        {post.comments &&
+                          post.comments.map((comment, id) => (
+                            <Comment {...comment} key={id}></Comment>
+                          ))}
                       </div>
                     </div>
                   </div>

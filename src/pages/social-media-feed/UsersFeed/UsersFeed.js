@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 
 import User from "./../../../components/social-media-feed/cards/User/User";
 import Alert from "./../../../components/social-media-feed/Alert/Alert";
-import Pagination from "./../../../components/social-media-feed/Pagination/Pagination";
+import Pagination from "./../../../components/blogApp/HomePage/Pagination";
 
 import {
   fetchUsersSocialMediaFeed,
@@ -13,6 +13,7 @@ import {
   reInitializeUsers,
 } from "./../../../redux/users/actionCreator";
 import { fetchPosts } from "./../../../redux/posts/actionCreator";
+import { useNavigate } from "react-router";
 
 const debounce = (cb, delay = 1000) => {
   let timeout;
@@ -23,17 +24,20 @@ const debounce = (cb, delay = 1000) => {
     }, delay);
   };
 };
-const limit = 10;
+const limit = 12;
 const UsersFeed = () => {
   const dispatch = useDispatch();
   const searchRef = useRef();
+  const navigate = useNavigate();
   const { users, success, error, total } = useSelector((state) => state.Users);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const posts = useSelector((state) => state.Posts);
-  const [page, onPageChange] = useState(Number(searchParams.get("page")));
+  const [page, onPageChange] = useState(Number(searchParams.get("page")) || 1);
   useEffect(() => {
-    dispatch(fetchUsersSocialMediaFeed(limit, page * limit - limit));
+    dispatch(
+      fetchUsersSocialMediaFeed(limit, Math.floor(page * limit - limit)),
+    );
   }, [dispatch, page]);
 
   useEffect(() => {
@@ -44,6 +48,11 @@ const UsersFeed = () => {
       dispatch(reInitializeUsers());
     }
   }, [success, error]);
+
+  const handlePageClick = (page) => {
+    onPageChange(page);
+    navigate(`/social-media/users-feed?page=${page}`);
+  };
 
   useEffect(() => {
     if (posts.success) {
@@ -69,17 +78,17 @@ const UsersFeed = () => {
   });
   return (
     <>
-      <div className="flex justify-center w-full mt-2 dark:text-white">
+      <div className="mt-2 flex w-full justify-center dark:text-white">
         <input
           type="search"
           id="default-search"
-          className="w-1/3 block lg:w-1/4 p-4 text-center pl-10 text-sm text-black border border-gray-300 rounded-lg bg-gray-50 focus:ring-gray-500 focus:border-gray-500 dark:border-gray-600 dark:placeholder-white dark:text-white dark:focus:ring-gray-500 dark:focus:border-gray-500 dark:bg-[#4b5563]"
+          className="block w-1/3 rounded-lg border border-gray-300 bg-gray-50 p-4 pl-10 text-center text-sm text-black focus:border-gray-500 focus:ring-gray-500 dark:border-gray-600 dark:bg-[#4b5563] dark:text-white dark:placeholder-white dark:focus:border-gray-500 dark:focus:ring-gray-500 lg:w-1/4"
           placeholder="Search Users"
           ref={searchRef}
           onChange={(event) => updateDebounceText(event.target.value)}
         ></input>
       </div>
-      <div className="grid grid-cols-1 gap-2 mx-2 mt-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="mx-2 mt-2 grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {users &&
           users.map((user) => (
             <User
@@ -88,13 +97,17 @@ const UsersFeed = () => {
               onClick={() => handleOnClick(user.id)}
             />
           ))}
-        {!users.length && <Alert title="Alert: " message="No users exist!" />}
+        {!users.length && (
+          <div className="mt-12 ">
+            <Alert title="Alert: " message="No users exist!" />
+          </div>
+        )}
       </div>
-      <div>
+      <div className="mr-2">
         <Pagination
           currentPage={page}
-          onPageChange={onPageChange}
-          totalPages={total / limit}
+          handlePageNoClick={handlePageClick}
+          totalPages={Math.ceil(total / limit)}
         />
       </div>
     </>
