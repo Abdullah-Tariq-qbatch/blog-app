@@ -1,13 +1,14 @@
-import React from 'react';
 import "../../../index.css";
 
-function Button({ onClick, children }) {
+import React from "react";
+
+function Button({
+  onClick,
+  children,
+  className = "mb-auto mt-auto inline-flex rounded-lg bg-gradient-to-r from-[#3C57E2] via-[#4E67E4] to-blueProfessional px-4 py-2.5 text-center text-sm font-medium text-white hover:bg-gradient-to-br",
+}) {
   return (
-    <button
-      onClick={onClick}
-      className="mt-auto mb-auto inline-flex text-white bg-gradient-to-r from-[#3C57E2] via-[#4E67E4] to-blueProfessional hover:bg-gradient-to-br font-medium rounded-lg text-sm px-4 py-2.5 text-center"
-      type="button"
-    >
+    <button onClick={onClick} className={className} type="button">
       {children}
     </button>
   );

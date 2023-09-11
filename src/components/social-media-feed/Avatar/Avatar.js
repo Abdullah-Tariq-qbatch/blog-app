@@ -1,6 +1,7 @@
+import "../../../index.css";
+
 import React from "react";
 import _ from "lodash";
-import "../../../index.css";
 
 const PROFILE = "profile";
 const colors = [
@@ -15,15 +16,15 @@ const colors = [
 ];
 const Avatar = ({ initials, type }) => {
   const avatarStyle = {
-    width: type === PROFILE ? "150px" : "80px",
-    height: type === PROFILE ? "150px" : "80px",
-    fontSize: type === PROFILE ? "48px" : "36px",
+    width: type === PROFILE ? "10rem" : "4rem",
+    height: type === PROFILE ? "10rem" : "4rem",
+    fontSize: type === PROFILE ? "3.75rem" : "1.25rem",
   };
 
   return (
     <div
-      className={`flex justify-center items-center font-bold uppercase rounded-full text-white ${_.sample(
-        colors
+      className={`flex items-center justify-center rounded-full text-lg font-bold uppercase text-white ${_.sample(
+        colors,
       )}`}
       style={avatarStyle}
     >
