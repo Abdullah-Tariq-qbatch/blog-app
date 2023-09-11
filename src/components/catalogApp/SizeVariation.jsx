@@ -5,7 +5,7 @@ import { ErrorMessage, Field, FieldArray } from "formik";
 import Button from "./Button";
 import React from "react";
 
-const SizeVariation = ({ values }) => {
+const SizeVariation = ({ values, errors, touched }) => {
   return (
     <div className="m-2 w-full border-t-[1px] border-gray-300 p-2">
       <h1 className="text-center text-xl font-semibold dark:text-gray-300">
@@ -17,9 +17,18 @@ const SizeVariation = ({ values }) => {
             {values.sizeData.map((_, index) => (
               <div
                 key={index}
-                className="mb-2 grid grid-cols-1 gap-2 lg:mb-2 lg:grid-cols-3"
+                className="mb-2 grid grid-cols-1 gap-2 border-b-2 border-gray-300 pb-4 lg:mb-2 lg:grid-cols-3"
               >
-                <div>
+                <div
+                  className={`${
+                    errors?.sizeData?.length > 0 &&
+                    errors?.sizeData[index]?.name &&
+                    touched?.sizeData?.length > 0 &&
+                    touched?.sizeData[index]?.name
+                      ? "animate-pulse"
+                      : ""
+                  }`}
+                >
                   <label
                     htmlFor={`sizeData[${index}].name`}
                     className="mb-2 dark:text-gray-300"
@@ -29,7 +38,14 @@ const SizeVariation = ({ values }) => {
                   <Field
                     name={`sizeData[${index}].name`}
                     placeholder="Enter name"
-                    className="w-full rounded-md bg-slate-300 p-2 placeholder:text-gray-600"
+                    className={`${
+                      errors?.sizeData?.length > 0 &&
+                      errors?.sizeData[index]?.name &&
+                      touched?.sizeData?.length > 0 &&
+                      touched?.sizeData[index]?.name
+                        ? "border-2 border-red-500"
+                        : ""
+                    } w-full rounded-md bg-slate-300 p-2 placeholder:text-gray-600`}
                   />
                   <ErrorMessage
                     className="text-red-500"
@@ -38,7 +54,16 @@ const SizeVariation = ({ values }) => {
                   />
                 </div>
 
-                <div>
+                <div
+                  className={`${
+                    errors?.sizeData?.length > 0 &&
+                    errors?.sizeData[index]?.stock &&
+                    touched?.sizeData?.length > 0 &&
+                    touched?.sizeData[index]?.stock
+                      ? "animate-pulse"
+                      : ""
+                  }`}
+                >
                   <label
                     htmlFor={`sizeData[${index}].stock`}
                     className="mb-2 dark:text-gray-300"
@@ -49,7 +74,14 @@ const SizeVariation = ({ values }) => {
                     name={`sizeData[${index}].stock`}
                     type="number"
                     placeholder="Enter stock"
-                    className="w-full rounded-md bg-slate-300 p-2 placeholder:text-gray-600"
+                    className={`${
+                      errors?.sizeData?.length > 0 &&
+                      errors?.sizeData[index]?.stock &&
+                      touched?.sizeData?.length > 0 &&
+                      touched?.sizeData[index]?.stock
+                        ? "border-2 border-red-500"
+                        : ""
+                    } w-full rounded-md bg-slate-300 p-2 placeholder:text-gray-600`}
                   />
                   <ErrorMessage
                     className="text-red-500"
@@ -58,7 +90,16 @@ const SizeVariation = ({ values }) => {
                   />
                 </div>
 
-                <div>
+                <div
+                  className={`${
+                    errors?.sizeData?.length > 0 &&
+                    errors?.sizeData[index]?.price &&
+                    touched?.sizeData?.length > 0 &&
+                    touched?.sizeData[index]?.price
+                      ? "animate-pulse"
+                      : ""
+                  }`}
+                >
                   <label
                     htmlFor={`sizeData[${index}].price`}
                     className="mb-2 dark:text-gray-300"
@@ -69,7 +110,14 @@ const SizeVariation = ({ values }) => {
                     name={`sizeData[${index}].price`}
                     type="number"
                     placeholder="Enter price"
-                    className="w-full rounded-md bg-slate-300 p-2 placeholder:text-gray-600"
+                    className={`${
+                      errors?.sizeData?.length > 0 &&
+                      errors?.sizeData[index]?.price &&
+                      touched?.sizeData?.length > 0 &&
+                      touched?.sizeData[index]?.price
+                        ? "border-2 border-red-500"
+                        : ""
+                    } w-full rounded-md bg-slate-300 p-2 placeholder:text-gray-600`}
                   />
                   <ErrorMessage
                     className="text-red-500"
@@ -77,9 +125,6 @@ const SizeVariation = ({ values }) => {
                     component={"div"}
                   />
                 </div>
-
-                <hr className="lg:invisible" />
-                <hr className="lg:invisible" />
               </div>
             ))}
             <div className="flex justify-between space-x-2">

@@ -6,7 +6,7 @@ import Button from "./Button";
 import ColorPicker from "./ColorPicker";
 import React from "react";
 
-const ColorVariation = ({ values }) => {
+const ColorVariation = ({ values, errors, touched }) => {
   return (
     <div className="m-2 w-full border-t-[1px] border-gray-300 p-2">
       <h1 className="text-center text-xl font-semibold dark:text-gray-300">
@@ -18,9 +18,18 @@ const ColorVariation = ({ values }) => {
             {values.colors.map((_, index) => (
               <div
                 key={index}
-                className="mb-2 grid grid-cols-1 gap-2 lg:mb-2 lg:grid-cols-2"
+                className="mb-2 grid grid-cols-1 gap-2 border-b-2 border-gray-300 pb-4 lg:mb-2 lg:grid-cols-2"
               >
-                <div>
+                <div
+                  className={`${
+                    errors?.colors?.length > 0 &&
+                    errors?.colors[index]?.hex &&
+                    touched?.colors?.length > 0 &&
+                    touched?.colors[index]?.hex
+                      ? "animate-pulse"
+                      : ""
+                  }`}
+                >
                   <label
                     htmlFor={`colors[${index}].hex`}
                     className="mb-2 dark:text-gray-300"
@@ -30,7 +39,14 @@ const ColorVariation = ({ values }) => {
                   <Field
                     name={`colors[${index}].hex`}
                     placeholder="Enter color"
-                    className="w-full rounded-md bg-slate-300 p-2 placeholder:text-gray-600"
+                    className={`${
+                      errors?.colors?.length > 0 &&
+                      errors?.colors[index]?.hex &&
+                      touched?.colors?.length > 0 &&
+                      touched?.colors[index]?.hex
+                        ? "border-2 border-red-500"
+                        : ""
+                    } w-full rounded-md bg-slate-300 p-2 placeholder:text-gray-600`}
                   />
                   <ErrorMessage
                     className="text-red-500"
@@ -39,7 +55,16 @@ const ColorVariation = ({ values }) => {
                   />
                 </div>
 
-                <div className="flex flex-col">
+                <div
+                  className={`${
+                    errors?.colors?.length > 0 &&
+                    errors?.colors[index]?.size &&
+                    touched?.colors?.length > 0 &&
+                    touched?.colors[index]?.size
+                      ? "animate-pulse"
+                      : ""
+                  } flex flex-col`}
+                >
                   <label
                     htmlFor={`colors[${index}].size`}
                     className="dark:text-gray-300"
@@ -72,8 +97,6 @@ const ColorVariation = ({ values }) => {
                 </div>
 
                 <Field name={`colors[${index}].hex`} component={ColorPicker} />
-                <hr className="lg:invisible" />
-                <hr className="lg:invisible" />
               </div>
             ))}
             <div className="flex justify-between space-x-2">

@@ -1,15 +1,20 @@
-import React from "react";
-import { Field, ErrorMessage } from "formik";
+import { ErrorMessage, Field } from "formik";
 
-const ProductFormAPI = () => {
+import React from "react";
+
+const ProductFormAPI = ({ errors, touched }) => {
   return (
     <>
-      <div className="grid grid-cols-1 gap-2 w-full lg:grid-cols-2 mb-2">
-        <div>
+      <div className="mb-2 grid w-full grid-cols-1 gap-2 lg:grid-cols-2">
+        <div
+          className={`${errors.price && touched.price ? "animate-pulse" : ""}`}
+        >
           <Field
             name="price"
             type="number"
-            className="w-full rounded-md bg-slate-300 p-2"
+            className={`${
+              errors.price && touched.price ? "border-2 border-red-500" : ""
+            } w-full rounded-md bg-slate-300 p-2`}
           />
           <ErrorMessage
             className="text-red-500"
@@ -17,11 +22,15 @@ const ProductFormAPI = () => {
             component={"div"}
           />
         </div>
-        <div>
+        <div
+          className={`${errors.price && touched.price ? "animate-pulse" : ""}`}
+        >
           <Field
             name="stock"
             type="number"
-            className="w-full rounded-md bg-slate-300 p-2"
+            className={`${
+              errors.price && touched.price ? "border-2 border-red-500" : ""
+            } w-full rounded-md bg-slate-300 p-2`}
           />
           <ErrorMessage
             className="text-red-500"

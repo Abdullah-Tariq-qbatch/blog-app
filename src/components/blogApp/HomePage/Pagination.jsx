@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+
 import PropTypes from "prop-types";
 
 function Pagination({ currentPage, totalPages, handlePageNoClick }) {
@@ -11,7 +12,7 @@ function Pagination({ currentPage, totalPages, handlePageNoClick }) {
   let endPage = Math.min(currentPage + pagesToShow, totalPages);
 
   const [screenWidth, setScreenWidth] = useState(
-    parseInt(window.innerWidth, 10)
+    parseInt(window.innerWidth, 10),
   );
 
   useEffect(() => {
@@ -32,27 +33,27 @@ function Pagination({ currentPage, totalPages, handlePageNoClick }) {
         <button
           type="button"
           onClick={() => handlePageNoClick(i)}
-          className={`flex items-center justify-center px-3 h-8 ${
+          className={`flex h-8 items-center justify-center px-3 ${
             isActive
-              ? "text-blue-custom bg-blue-50 dark:bg-blue-900 hover:bg-blue-100 dark:hover:bg-blue-950 hover:text-blue-custom dark:hover:text-blue-700 border-gray-300 dark:border-gray-700 border"
-              : "dark:text-gray-200 text-gray-500 dark:bg-gray-600 bg-white border dark:border-gray-700 border-gray-300 dark:hover:bg-gray-800 hover:bg-gray-100 dark:hover:text-gray-300 hover:text-gray-700"
+              ? "border border-gray-300 bg-blue-50 text-blue-custom hover:bg-blue-100 hover:text-blue-custom dark:border-gray-700 dark:bg-blue-900 dark:hover:bg-blue-950 dark:hover:text-blue-700"
+              : "border border-gray-300 bg-white text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-gray-300"
           }`}
         >
           {i}
         </button>
-      </li>
+      </li>,
     );
   }
 
   return (
-    <div className="flex flex-col justify-center items-center sm:items-end mt-5 mr-0 pb-10">
+    <div className="mr-0 mt-5 flex flex-col items-center justify-center pb-10 sm:items-end">
       <nav aria-label="Page navigation example bg-white dark:bg-gray-700">
         <ul className="inline-flex -space-x-px text-sm">
           <li key="first">
             <button
               type="button"
               onClick={() => currentPage > 1 && handlePageNoClick(1)}
-              className="flex items-center justify-center px-1 sm:px-3 h-8 leading-tight rounded-l-lg dark:text-gray-200 text-gray-500 dark:bg-gray-600 bg-white border dark:border-gray-700 border-gray-300 dark:hover:bg-gray-800 hover:bg-gray-100 dark:hover:text-gray-300 hover:text-gray-700"
+              className="flex h-8 items-center justify-center rounded-l-lg border border-gray-300 bg-white px-1 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-gray-300 sm:px-3"
             >
               {screenWidth <= 640 ? "<<" : "First"}
             </button>
@@ -64,14 +65,14 @@ function Pagination({ currentPage, totalPages, handlePageNoClick }) {
               onClick={() =>
                 currentPage < totalPages && handlePageNoClick(totalPages)
               }
-              className="flex items-center justify-center px-1 sm:px-3 h-8 leading-tight rounded-r-lg dark:text-gray-200 text-gray-500 dark:bg-gray-600 bg-white border dark:border-gray-700 border-gray-300 dark:hover:bg-gray-800 hover:bg-gray-100 dark:hover:text-gray-300 hover:text-gray-700"
+              className="flex h-8 items-center justify-center rounded-r-lg border border-gray-300 bg-white px-1 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-gray-300 sm:px-3"
             >
               {screenWidth <= 640 ? ">>" : "Last"}
             </button>
           </li>
         </ul>
       </nav>
-      <span className="text-sm text-gray-700 dark:text-gray-200 mt-3">
+      <span className="mt-3 text-sm text-gray-700 dark:text-gray-200">
         Page Number :{" "}
         <span className="font-semibold text-blue-custom ">{currentPage}</span>{" "}
         out of{" "}

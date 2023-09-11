@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useCallback, useMemo } from "react";
-import { useSelector } from "react-redux";
-import { useSearchParams } from "react-router-dom";
-import { groupBy, keyBy, countBy, debounce } from "lodash";
-import { WarningOutlined } from "@ant-design/icons";
-import PropTypes from "prop-types";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { countBy, debounce, groupBy, keyBy } from "lodash";
 
 import Card from "./Card";
-import Pagination from "./Pagination";
 import CardSkeleton from "./CardSkeleton";
+import Pagination from "./Pagination";
+import PropTypes from "prop-types";
 import { RenderIf } from "../../../utils/blogApp/commonMethods";
+import { WarningOutlined } from "@ant-design/icons";
+import { useSearchParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Blogs({ userId }) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -42,11 +42,11 @@ function Blogs({ userId }) {
   const debouncedFilter = useCallback(
     debounce((value) => {
       const filtered = BlogsData.blogs.filter((item) =>
-        item.title.toLowerCase().includes(value.toLowerCase())
+        item.title.toLowerCase().includes(value.toLowerCase()),
       );
       setList(filtered);
     }, 600),
-    [list]
+    [list],
   );
 
   const handleSearchChange = (event) => {
@@ -56,10 +56,22 @@ function Blogs({ userId }) {
   };
 
   const memoizedFilteredItems = useMemo(() => list, [list]);
-  const itemsPerPage = 8;
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
   let displayedItems = [...memoizedFilteredItems];
+
+  const itemsPerPage = 8;
+  const totalPages = Math.ceil(displayedItems.length / itemsPerPage);
+
+  let startIndex = undefined;
+  let endIndex = undefined;
+  let currentItems = [];
+  let tempArray = [];
+
+  if (currentPage > 0) {
+    startIndex = (currentPage - 1) * itemsPerPage;
+    endIndex = startIndex + itemsPerPage;
+    currentItems = displayedItems.slice(startIndex, endIndex);
+    tempArray = Array.from({ length: 8 }, (_, index) => index);
+  }
 
   if (filter === "Likeness") {
     displayedItems = displayedItems.sort((a, b) => b.reactions - a.reactions);
@@ -67,30 +79,26 @@ function Blogs({ userId }) {
     displayedItems = displayedItems.sort(
       (a, b) =>
         (b.reactions + postComments[b.id] || 0) -
-        (a.reactions + postComments[a.id] || 0)
+        (a.reactions + postComments[a.id] || 0),
     );
   }
 
-  const currentItems = displayedItems.slice(startIndex, endIndex);
-  const totalPages = Math.ceil(displayedItems.length / itemsPerPage);
-  const tempArray = Array.from({ length: 8 }, (_, index) => index);
-
   return (
-    <div className="mt-10 text-center text-2xl bg-white dark:bg-gray-800">
-      <div className="text-center mt-12">
-        <h3 className="text-2xl font-semibold leading-normal text-gray-700 dark:text-gray-200 mb-2">
+    <div className="mt-10 bg-white text-center text-2xl dark:bg-gray-800">
+      <div className="mt-12 text-center">
+        <h3 className="mb-2 text-2xl font-semibold leading-normal text-gray-700 dark:text-gray-200">
           Some Interesting Reads{" "}
           {userId
             ? `by ${user?.firstName} ${user?.maidenName} ${user?.lastName}`
             : ""}
         </h3>
       </div>
-      <div className="flex flex-col sm:flex-row justify-between w-full">
+      <div className="flex w-full flex-col justify-between sm:flex-row">
         <select
           id="countries"
           value={filter}
           onChange={(e) => setFilter(() => e.target.value)}
-          className="block md:w-60 h-11 mx-10 sm:ml-10 text-sm outline-none dark:bg-gray-600 dark:border-gray-700 text-gray-400 dark:focus:text-gray-200 focus:text-gray-800 border-2 border-gray-300 rounded-lg bg-gray-50 dark:focus:ring-pink-800 dark:focus:border-pink-800 focus:ring-pink-500 focus:border-pink-500"
+          className="mx-10 block h-11 rounded-lg border-2 border-gray-300 bg-gray-50 text-sm text-gray-400 outline-none focus:border-pink-500 focus:text-gray-800 focus:ring-pink-500 dark:border-gray-700 dark:bg-gray-600 dark:focus:border-pink-800 dark:focus:text-gray-200 dark:focus:ring-pink-800 sm:ml-10 md:w-60"
         >
           <option value="">Choose a filter</option>
           <option value="Likeness">Likeness</option>
@@ -102,27 +110,27 @@ function Blogs({ userId }) {
           value={searchTerm}
           onChange={handleSearchChange}
           id="default-search"
-          className="block md:w-60 h-11 mt-3 sm:mt-0  mx-10 sm:mr-10 p-4 text-sm outline-none  dark:bg-gray-600 dark:border-gray-700 dark:text-gray-200 text-gray-900 border-2 border-gray-300 rounded-lg bg-gray-50 focus:ring-pink-500 focus:border-pink-500 dark:focus:ring-pink-800 dark:focus:border-pink-800"
+          className="mx-10 mt-3 block h-11 rounded-lg  border-2 border-gray-300 bg-gray-50 p-4 text-sm  text-gray-900 outline-none focus:border-pink-500 focus:ring-pink-500 dark:border-gray-700 dark:bg-gray-600 dark:text-gray-200 dark:focus:border-pink-800 dark:focus:ring-pink-800 sm:mr-10 sm:mt-0 md:w-60"
           placeholder="Search Blogs..."
           required
         />
       </div>
-      <div className="flex justify-center mt-8 mx-5 sm:mx-10">
+      <div className="mx-5 mt-8 flex justify-center sm:mx-10">
         <RenderIf
           isTrue={BlogsData.loading || UserData.loading || CommentData.loading}
           fallback={
             <RenderIf
               isTrue={currentItems.length}
               fallback={
-                <div className="w-full flex flex-col justify-center items-center mt-10 text-black dark:text-gray-200">
-                  <WarningOutlined className="text-4xl mb-3 text-indigo-custom" />
+                <div className="mt-10 flex w-full flex-col items-center justify-center text-black dark:text-gray-200">
+                  <WarningOutlined className="mb-3 text-4xl text-indigo-custom" />
                   <h1 className="text-gray-700 dark:text-gray-200">
                     Sorry, Your search has yielded no result
                   </h1>
                 </div>
               }
             >
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 {currentItems.map((blog) => (
                   <Card
                     blog={blog}
@@ -135,7 +143,7 @@ function Blogs({ userId }) {
             </RenderIf>
           }
         >
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {tempArray.map((item) => (
               <CardSkeleton key={item} />
             ))}
