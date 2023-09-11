@@ -29,8 +29,9 @@ function LoginPage() {
 
   const dispatch = useDispatch();
 
+  const accessToken = localStorage.access_token;
+
   useEffect(() => {
-    const accessToken = localStorage.access_token;
     if (accessToken) {
       navigate("/");
       return;
@@ -125,49 +126,51 @@ function LoginPage() {
   const facebookLogin = useFacebookLogin({ onSuccess: responseFacebook });
 
   return (
-    <>
-      <Spinner show={showLoader} />
-      <BackgroundImage>
-        <AuthModal text={"Login"}>
-          <Formik
-            initialValues={initialValues}
-            validate={validate}
-            onSubmit={handleLogin}
-          >
-            {({ errors, touched }) => (
-              <Form className="w-52 md:w-72">
-                <FormikInput
-                  name="email"
-                  type="text"
-                  placeholder="Email"
-                  error={errors.email}
-                  touched={touched.email}
-                />
-                <FormikInput
-                  name="password"
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Password"
-                  error={errors.password}
-                  touched={touched.password}
-                />
-                <ShowPasswordCheckBox
-                  showPassword={showPassword}
-                  togglePasswordVisibility={togglePasswordVisibility}
-                />
-                <SubmitButton text={"Login"} />
-                <GoogleLoginButton googleLogin={googleLogin} />
-                <FacebookLoginButton facebookLogin={facebookLogin} />
-              </Form>
-            )}
-          </Formik>
-          <RedirectionLink
-            linkText={"Not a user?"}
-            redirectTo={"/signup"}
-            pageTitle={"Sign Up"}
-          />
-        </AuthModal>
-      </BackgroundImage>
-    </>
+    !accessToken && (
+      <>
+        <Spinner show={showLoader} />
+        <BackgroundImage>
+          <AuthModal text={"Login"}>
+            <Formik
+              initialValues={initialValues}
+              validate={validate}
+              onSubmit={handleLogin}
+            >
+              {({ errors, touched }) => (
+                <Form className="w-52 md:w-72">
+                  <FormikInput
+                    name="email"
+                    type="text"
+                    placeholder="Email"
+                    error={errors.email}
+                    touched={touched.email}
+                  />
+                  <FormikInput
+                    name="password"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Password"
+                    error={errors.password}
+                    touched={touched.password}
+                  />
+                  <ShowPasswordCheckBox
+                    showPassword={showPassword}
+                    togglePasswordVisibility={togglePasswordVisibility}
+                  />
+                  <SubmitButton text={"Login"} />
+                  <GoogleLoginButton googleLogin={googleLogin} />
+                  <FacebookLoginButton facebookLogin={facebookLogin} />
+                </Form>
+              )}
+            </Formik>
+            <RedirectionLink
+              linkText={"Not a user?"}
+              redirectTo={"/signup"}
+              pageTitle={"Sign Up"}
+            />
+          </AuthModal>
+        </BackgroundImage>
+      </>
+    )
   );
 }
 
