@@ -1,64 +1,22 @@
-import {
-  LogoutOutlined,
-  SearchOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
-import { useDispatch, useSelector } from "react-redux";
-
 import { ReactComponent as DribbleLogo } from "../../assets/userAuthApp/svgs/dribble-logo.svg";
 import { ReactComponent as FacebookLogo } from "../../assets/userAuthApp/svgs/facebook-logo.svg";
 import { ReactComponent as GitHubLogo } from "../../assets/userAuthApp/svgs/github-logo.svg";
 import { ReactComponent as LinkedInLogo } from "../../assets/userAuthApp/svgs/linkedin-logo.svg";
 import React from "react";
 import Spinner from "../../components/userAuthApp/Spinner";
-import ThemeSwitcher from "../../components/userAuthApp/ThemeSwitcher";
 import { ReactComponent as TwitterLogo } from "../../assets/userAuthApp/svgs/twitter-logo.svg";
-import _ from "lodash";
-import { logout } from "../../redux/users/actionCreator";
-import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import userImage from "../../assets/userAuthApp/images/user.png";
 
-function HomePage() {
+function ProfilePage() {
   const showLoader = useSelector((state) => state.Users.loading);
 
   const userData = useSelector((state) => state.Users.currentUser);
 
-  const dispatch = useDispatch();
-
-  const navigate = useNavigate();
-
-  function handleLogout() {
-    dispatch(logout(navigate));
-  }
-
   return (
     <>
       <Spinner show={showLoader} />
-      <div className="flex h-screen w-screen flex-col items-center justify-start overflow-hidden bg-[#E2E8F0] dark:bg-gray-800">
-        <header className="flex w-full items-center justify-start bg-gray-700 px-4 text-white dark:bg-gray-900">
-          <div className="flex flex-1 items-center justify-start">
-            <SearchOutlined className="ml-4" />
-            <input
-              name="searchBar"
-              type="search"
-              placeholder="Type to search..."
-              className="m-2 w-2/3 rounded-md bg-gray-700 p-2 focus:outline-none focus:ring focus:ring-indigo-custom dark:bg-gray-900"
-            />
-          </div>
-
-          <div className="ml-auto flex items-center justify-center space-x-4">
-            <ThemeSwitcher />
-            <LogoutOutlined
-              className="cursor-pointer hover:text-indigo-500"
-              onClick={handleLogout}
-            />
-            <SettingOutlined className="cursor-pointer hover:text-indigo-500" />
-            <div className="hover:animate-wiggle-more hover:animate-infinite flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-indigo-custom font-bold">
-              {_.first(userData.name || userData.firstName)}
-            </div>
-          </div>
-        </header>
-
+      <div className="flex flex-col items-center justify-start overflow-hidden bg-[#E2E8F0] dark:bg-gray-800">
         <main className="flex h-full w-full flex-col items-center justify-start overflow-y-auto overflow-x-hidden dark:text-gray-200">
           <div className="mx-auto p-6">
             <div>
@@ -139,4 +97,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default ProfilePage;
