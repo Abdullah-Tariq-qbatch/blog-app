@@ -3,12 +3,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { memoize, find, groupBy } from "lodash";
-import {
-  HeartOutlined,
-  ShareAltOutlined,
-  HeartFilled,
-  EditOutlined,
-} from "@ant-design/icons";
+import { HeartOutlined, HeartFilled, EditOutlined } from "@ant-design/icons";
 
 import Image from "../../components/blogApp/ProfileImage";
 import Avatar from "../../components/blogApp/Avatar";

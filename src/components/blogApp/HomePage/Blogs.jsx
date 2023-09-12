@@ -13,7 +13,6 @@ function Blogs({ userId }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const currentPage = parseInt(searchParams.get("page"), 10) || 1;
   const searchParam = searchParams.get("search");
-  console.log(searchParam);
 
   const BlogsData = useSelector((state) => state.Blogs);
   const UserData = useSelector((state) => state.Users);
@@ -70,7 +69,6 @@ function Blogs({ userId }) {
   const [currentItems, setCurrentItems] = useState([]);
 
   useEffect(() => {
-    console.log(filter);
     if (filter === "Likeness") {
       setList((state) =>
         state.slice().sort((a, b) => b.reactions - a.reactions),
@@ -89,8 +87,6 @@ function Blogs({ userId }) {
   }, [filter]);
 
   useEffect(() => {
-    console.log(currentPage);
-    console.log(list);
     startIndex = (currentPage - 1) * itemsPerPage;
     endIndex = startIndex + itemsPerPage;
     setTotalPages(Math.ceil(list.length / itemsPerPage));
