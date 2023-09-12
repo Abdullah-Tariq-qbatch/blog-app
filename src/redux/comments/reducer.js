@@ -36,12 +36,12 @@ const Comments = (state = initState, action) => {
         ...state, loading: true, success: null, error: null,
       };
     case CREATE_COMMENT_SUCCESS:
-      localStorage.setItem('comments', JSON.stringify([...state.comments, data]));
+      localStorage.setItem('comments', JSON.stringify([data, ...state.comments]));
       return {
         ...state,
         loading: false,
         success: 'Comment Added',
-        comments: [...state.comments, data],
+        comments: [data, ...state.comments],
       };
     case DELETE_COMMENT_BEGIN:
       return {
