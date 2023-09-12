@@ -129,7 +129,7 @@ function BlogDetail() {
             {blog.title}
           </p>
           <div className="m-auto flex w-2/3 justify-center">
-            <div className="flex w-1/3 items-center justify-center">
+            <div className="flex w-1/4 items-center justify-center">
               <RenderIf
                 isTrue={like}
                 fallback={
@@ -149,16 +149,12 @@ function BlogDetail() {
               </p>
             </div>
 
-            <div className="flex w-1/3 items-center justify-center">
+            <div className="flex w-1/4 items-center justify-center">
               <Link to="/blog/create-blog" state={blog}>
                 <EditOutlined className="text-xl text-indigo-custom" />
               </Link>
             </div>
-            <div className="flex w-1/3 items-center justify-center">
-              {/* <ShareAltOutlined
-                onClick={handleShare}
-                className=" text-xl text-blue-custom"
-              /> */}
+            <div className="flex w-1/4 items-center justify-center">
               <ShareButton />
             </div>
           </div>
