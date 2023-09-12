@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
-
 import PropTypes from "prop-types";
+import React from "react";
 
 function Pagination({ currentPage, totalPages, handlePageNoClick }) {
   if (currentPage > totalPages || currentPage < 1) {
@@ -10,14 +9,6 @@ function Pagination({ currentPage, totalPages, handlePageNoClick }) {
   const pagesToShow = 2;
   let startPage = Math.max(currentPage - pagesToShow, 1);
   let endPage = Math.min(currentPage + pagesToShow, totalPages);
-
-  const [screenWidth, setScreenWidth] = useState(
-    parseInt(window.innerWidth, 10),
-  );
-
-  useEffect(() => {
-    setScreenWidth(parseInt(window.innerWidth, 10));
-  }, [window.innerWidth]);
 
   if (currentPage <= pagesToShow) {
     endPage = Math.min(startPage + pagesToShow * 2, totalPages);
@@ -53,9 +44,16 @@ function Pagination({ currentPage, totalPages, handlePageNoClick }) {
             <button
               type="button"
               onClick={() => currentPage > 1 && handlePageNoClick(1)}
-              className="flex h-8 items-center justify-center rounded-l-lg border border-gray-300 bg-white px-1 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-gray-300 sm:px-3"
+              className="hidden h-8 items-center justify-center rounded-l-lg border border-gray-300 bg-white px-1 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-gray-300 sm:px-3 md:flex"
             >
-              {screenWidth <= 640 ? "<<" : "First"}
+              First
+            </button>
+            <button
+              type="button"
+              onClick={() => currentPage > 1 && handlePageNoClick(1)}
+              className="flex h-8 items-center justify-center rounded-l-lg border border-gray-300 bg-white px-1 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-gray-300 sm:px-3 md:hidden"
+            >
+              {`${"<<"}`}
             </button>
           </li>
           {paginationLinks}
@@ -65,9 +63,18 @@ function Pagination({ currentPage, totalPages, handlePageNoClick }) {
               onClick={() =>
                 currentPage < totalPages && handlePageNoClick(totalPages)
               }
-              className="flex h-8 items-center justify-center rounded-r-lg border border-gray-300 bg-white px-1 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-gray-300 sm:px-3"
+              className="md:flex hidden h-8 items-center justify-center rounded-r-lg border border-gray-300 bg-white px-1 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-gray-300 sm:px-3"
             >
-              {screenWidth <= 640 ? ">>" : "Last"}
+              Last
+            </button>
+            <button
+              type="button"
+              onClick={() =>
+                currentPage < totalPages && handlePageNoClick(totalPages)
+              }
+              className="md:hidden flex h-8 items-center justify-center rounded-r-lg border border-gray-300 bg-white px-1 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-gray-300 sm:px-3"
+            >
+              {">>"}
             </button>
           </li>
         </ul>
