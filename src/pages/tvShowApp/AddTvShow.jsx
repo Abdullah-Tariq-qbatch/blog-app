@@ -54,7 +54,7 @@ const AddTvShow = () => {
       {/* <div className="flex items-center justify-center h-screen">
         <div className="w-full md:w-1/2  flex flex-col items-center justify-center rounded-lg bg-white p-8 shadow-md"> */}
       <section className="bg-white dark:bg-gray-800">
-        <div className="mx-auto max-w-2xl px-4 py-8 lg:py-16">
+        <div className="m-2 mx-auto max-w-2xl rounded-md bg-gray-50 px-4 py-8 dark:bg-gray-700 lg:py-16">
           <h2 className="mb-4 flex justify-center text-xl font-bold text-gray-700 dark:text-gray-200">
             Add TV-Show
           </h2>
@@ -69,7 +69,7 @@ const AddTvShow = () => {
               <Form className="flex w-full flex-col items-center justify-center">
                 {values.image_thumbnail_path && (
                   <img
-                    className="h-6/12 mx-auto w-6/12 border-[6px] border-white bg-white hover:bg-gray-50"
+                    className="h-6/12 mx-auto w-6/12 rounded-md border-[6px] border-white bg-white hover:bg-gray-50"
                     src={values.image_thumbnail_path}
                     alt="Selected"
                     style={{ maxWidth: "300px" }}
@@ -216,7 +216,7 @@ const AddTvShow = () => {
                       type="file"
                       className="mb-2 mr-2 h-auto w-full rounded-md bg-slate-300 p-1"
                       accept="image/*"
-                      value=""
+                      value={undefined}
                       onChange={(e) => {
                         const file = e.target.files[0];
                         if (file) {
