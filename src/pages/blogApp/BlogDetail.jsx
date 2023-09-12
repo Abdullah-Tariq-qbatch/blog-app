@@ -17,7 +17,7 @@ import Spinner from "../../components/blogApp/Spinner";
 import ShareButton from "../../components/blogApp/ShareButton";
 
 import likeAudio from "../../assets/blogApp/audio/likeSound.mp3";
-import { copyLink, likeBlog } from "../../redux/blogs/actionCreator";
+import { likeBlog } from "../../redux/blogs/actionCreator";
 import { createComment } from "../../redux/comments/actionCreator";
 import {
   defaultImageUrl,
@@ -34,9 +34,9 @@ function BlogDetail() {
   const CommentData = useSelector((state) => state.Comments);
   const CurrentUser = useSelector((state) => state.Users.currentUser);
 
-  const memoizedFindBlog = memoize((Id) =>
-    find(BlogsData.blogs, (obj) => obj.id === parseInt(Id, 10)),
-  );
+  const memoizedFindBlog = memoize((Id) => {
+    return find(BlogsData.blogs, (obj) => obj.id === parseInt(Id, 10));
+  });
   const memoizedFindUser = memoize((userId) =>
     find(UserData.users, { id: userId }),
   );
@@ -45,9 +45,9 @@ function BlogDetail() {
   );
 
   const blog = memoizedFindBlog(id);
-  const user = memoizedFindUser(blog.userId);
+  const user = memoizedFindUser(blog?.userId);
   const commentsListedByPost = memoizedGroupComments(CommentData.comments);
-  const comments = commentsListedByPost[blog.id];
+  const comments = commentsListedByPost[blog?.id];
 
   const [like, setLike] = useState(false);
   const [commentText, setCommentText] = useState("");
@@ -93,12 +93,6 @@ function BlogDetail() {
     );
   };
 
-  const handleShare = () => {
-    const currentPageURL = window.location.href;
-    navigator.clipboard.writeText(currentPageURL);
-    dispatch(copyLink("Link Copied"));
-  };
-
   return (
     <>
       <RenderIf isTrue={BlogsData.loading}>
@@ -115,7 +109,7 @@ function BlogDetail() {
                 <Avatar initials={getInitials(user)} bgColor="bg-blue-500" />
               }
             >
-              <Image src={user.image} />
+              <Image src={user?.image} />
             </RenderIf>
           </div>
           <div className="mt-5 flex items-center justify-center">
@@ -126,7 +120,7 @@ function BlogDetail() {
             </Link>
           </div>
           <p className="py-10 text-center font-semibold text-gray-700 dark:text-gray-200 sm:text-xl md:text-4xl">
-            {blog.title}
+            {blog?.title}
           </p>
           <div className="m-auto flex w-2/3 justify-center">
             <div className="flex w-1/4 items-center justify-center">
@@ -145,7 +139,7 @@ function BlogDetail() {
                 />
               </RenderIf>
               <p className=" text-gray-600 dark:text-gray-400">
-                {blog.reactions}
+                {blog?.reactions}
               </p>
             </div>
 
@@ -162,7 +156,7 @@ function BlogDetail() {
           <hr className="m-auto my-8 w-4/5" />
 
           <div className="mx-auto my-10 max-w-3xl px-4 text-justify text-xs leading-relaxed text-gray-600 dark:text-gray-50 sm:text-xl">
-            <p>{blog.body}</p>
+            <p>{blog?.body}</p>
             <p className="my-2">{dummyParagraph}</p>
             <p className="my-2">{dummyParagraph}</p>
             <p className="my-2">{dummyParagraph}</p>
