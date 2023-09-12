@@ -33,12 +33,17 @@ const UsersFeed = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const posts = useSelector((state) => state.Posts);
-  const [page, onPageChange] = useState(Number(searchParams.get("page")) || 1);
+  const [page, setPage] = useState(Number(searchParams.get("page")) || 1);
+  const [searchText, setSearchText] = useState(
+    searchParams.get("search") || "",
+  );
 
   useEffect(() => {
-    dispatch(
-      fetchUsersSocialMediaFeed(limit, Math.floor(page * limit - limit)),
-    );
+    if (searchText === "") {
+      dispatch(
+        fetchUsersSocialMediaFeed(limit, Math.floor(page * limit - limit)),
+      );
+    }
   }, [dispatch, page]);
 
   useEffect(() => {
@@ -50,9 +55,23 @@ const UsersFeed = () => {
     }
   }, [success, error]);
 
+  useEffect(() => {
+    setPage(page);
+    if (searchText !== "") {
+      searchRef.current.value = searchText;
+      dispatch(searchAllUsers(searchText, limit, page * limit - limit));
+    }
+  }, [page, searchText]);
+
   const handlePageClick = (page) => {
-    onPageChange(page);
-    navigate(`/social-media/users-feed?page=${page}`);
+    setPage(page);
+    if (searchText != "") {
+      searchRef.current.value = searchText;
+      dispatch(searchAllUsers(searchText, limit, page * limit - limit));
+      navigate(`/social-media/users-feed?page=${page}&search=${searchText}`);
+    } else {
+      navigate(`/social-media/users-feed?page=${page}`);
+    }
   };
 
   useEffect(() => {
@@ -71,8 +90,15 @@ const UsersFeed = () => {
     dispatch(fetchPosts(userId));
   };
   const updateDebounceText = debounce((text) => {
+    setSearchText(text);
+    handlePageClick(1);
     searchRef.current.value = text;
-    dispatch(searchAllUsers(text));
+    if (text) {
+      navigate(`/social-media/users-feed?page=${1}&search=${text}`);
+    } else {
+      navigate(`/social-media/users-feed?page=${1}`);
+    }
+    dispatch(searchAllUsers(text, limit, page * limit - limit));
     if (text === "") {
       dispatch(fetchUsersSocialMediaFeed(limit, page * limit - limit));
     }

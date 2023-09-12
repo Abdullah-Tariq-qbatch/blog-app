@@ -153,7 +153,8 @@ const Users = (state = initState, action) => {
       return {
         ...state,
         loading: false,
-        users: data,
+        users: data.users,
+        total: data.total,
         error: null,
       };
     case DELETE_USER_BEGIN:
