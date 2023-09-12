@@ -34,9 +34,9 @@ let initialData = {
 function ProductForm() {
   const location = useLocation();
   const navigate = useNavigate();
-  
+
   const [unsavedChanges, setUnsavedChanges] = useState(false);
-  
+
   const { categories } = useSelector((state) => state.Categories);
   const dispatch = useDispatch();
 
@@ -79,6 +79,7 @@ function ProductForm() {
     description: Yup.string().required("Description is Required"),
     thumbnail: Yup.string().required("Image is Required"),
     category: Yup.string().required("Category is Required"),
+
     sizeData: Yup.array()
       .of(
         Yup.object({
@@ -87,8 +88,17 @@ function ProductForm() {
           stock: Yup.string().required("Stock is Required"),
         }),
       )
+      .test("is-unique", "Names must be unique", function (value) {
+        if (!value) return true;
+
+        const names = value.map((item) => item.name);
+        const uniqueNames = new Set(names);
+
+        return names.length === uniqueNames.size;
+      })
       .min(1, "You need at least one Size")
       .required("Required"),
+
     colors: Yup.array()
       .of(
         Yup.object({
