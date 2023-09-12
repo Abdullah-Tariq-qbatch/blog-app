@@ -165,15 +165,15 @@ export const clearMessageUser = () => async (dispatch) => {
   dispatch(clearMessageError());
 };
 
-export const searchAllUsers = (data) => {
+export const searchAllUsers = (data, limit = 0, skip = 0) => {
   return async (dispatch) => {
     try {
       dispatch(actions.searchUserBegin());
       const response = await axios.get(
-        `https://dummyjson.com/users/search?q=${data}`,
+        `https://dummyjson.com/users/search?q=${data}&limit=${limit}&skip=${skip}`,
       );
       if (isSuccess(response)) {
-        dispatch(actions.searchUserSuccess(response.data.users));
+        dispatch(actions.searchUserSuccess(response.data));
       }
     } catch (err) {
       dispatch(actions.apiError(err));

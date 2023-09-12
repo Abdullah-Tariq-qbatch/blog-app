@@ -12,7 +12,7 @@ import { deleteAUser } from "./../../../../redux/users/actionCreator";
 import { ReactComponent as DeleteIcon } from "./../../../../assets/social-media-feed/svgs/delete-icon.svg";
 import { ReactComponent as ViewIcon } from "./../../../../assets/social-media-feed/svgs/view-icon.svg";
 
-const User = ({ id, firstName, lastName, gender }) => {
+const User = ({ id, firstName, lastName, gender, maidenName }) => {
   const navigate = useNavigate();
   const [alert, setAlert] = useState(false);
   const dispatch = useDispatch();
@@ -33,7 +33,7 @@ const User = ({ id, firstName, lastName, gender }) => {
   return (
     <>
       <div className="flex justify-center dark:text-white">
-        <div className="w-full bg-white-400 max-w-sm text-center border-[1px] shadow-lg border-gray-300 rounded-lg bg-gray-200 dark:bg-[#4b5563] dark:border-[#4b5563]">
+        <div className="bg-white-400 w-full max-w-sm rounded-lg border-[1px] border-gray-300 bg-gray-200 text-center shadow-lg dark:border-[#4b5563] dark:bg-[#4b5563]">
           <div className="flex flex-col items-center py-10 ">
             <Avatar
               initials={firstName[0] + lastName[0]}
@@ -41,14 +41,14 @@ const User = ({ id, firstName, lastName, gender }) => {
               size="sm"
             />
             <h5 className="my-2 text-xl font-medium text-gray-900 dark:text-white">
-              {firstName + " " + lastName}
+              {firstName + " " + maidenName + " " + lastName}
             </h5>
             <span className="text-sm text-gray-500 dark:text-white">
               {gender.toUpperCase()}
             </span>
-            <div className="flex mt-4 space-x-3 md:mt-6">
+            <div className="mt-4 flex space-x-3 md:mt-6">
               <Button type="button" onClick={deleteUser}>
-                <DeleteIcon className="h-5 w-5 mr-2" />
+                <DeleteIcon className="mr-2 h-5 w-5" />
                 Delete
               </Button>
               <Button onClick={handleNavigate}>
