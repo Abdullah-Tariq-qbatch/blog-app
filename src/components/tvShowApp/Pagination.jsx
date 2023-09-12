@@ -9,7 +9,7 @@ const Pagination = ({ searchParam, pageParam }) => {
   const navigate = useNavigate();
 
   const currPage = useSelector((shows) => shows.TvShows.summary.page);
-  const totalPages = useSelector((shows) => shows.TvShows.summary.pages) - 1;
+  const totalPages = useSelector((shows) => shows.TvShows.summary.pages);
 
   const pageRange = 5;
 
@@ -106,14 +106,12 @@ const Pagination = ({ searchParam, pageParam }) => {
     <div className="flex items-center justify-between   bg-white px-4 py-6 dark:bg-gray-800 sm:px-6">
       <div className="flex flex-1 justify-between sm:hidden">
         <a
-          href="#"
           onClick={() => loadPrevPageContent()}
           className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
         >
           Previous
         </a>
         <a
-          href="#"
           onClick={() => loadNextPageContent()}
           className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
         >
@@ -142,7 +140,6 @@ const Pagination = ({ searchParam, pageParam }) => {
               <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
             </button>
             <a
-              href="#"
               aria-current="page"
               onClick={() => loadContent(1)}
               className={`relative inline-flex items-center border border-gray-300 bg-white px-4 
@@ -154,7 +151,6 @@ const Pagination = ({ searchParam, pageParam }) => {
             {pageNumber()}
 
             <a
-              href="#"
               aria-current="page"
               onClick={() => loadContent(totalPages)}
               className={`relative inline-flex items-center border border-gray-300 bg-white px-4 

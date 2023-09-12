@@ -70,7 +70,9 @@ const AllTvShows = () => {
 
         {allShows?.loading ? (
           <Loader />
-        ) : tvShowList?.length > 0 && pageParam < totalPages ? (
+        ) : tvShowList?.length > 0 &&
+          pageParam > 0 &&
+          pageParam <= totalPages ? (
           <div className="mx-2 flex items-center justify-center pt-8">
             <div className="grid grid-cols-1 justify-center gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
               {tvShowList?.map((tvShow, index) => (
