@@ -1,4 +1,3 @@
-import { CaretDownFilled } from "@ant-design/icons";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -13,9 +12,9 @@ const CategoryDropDown = ({ selectedCategory, categories }) => {
 
   return (
     <>
-      <div className="flex items-center border border-gray-300 w-full lg:w-60 rounded-md px-4 py-2 float-right hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-200">
         <select
-          className="appearance-none w-full lg:w-60 pr-1 text-sm font-medium text-gray-700 focus:outline-none border-r-[1px] bg-transparent dark:bg-gray-800 dark:text-gray-200"
+          className="appearance-none w-full lg:w-60 rounded-md border border-gray-300 py-2 pl-4 pr-10 text-sm font-medium text-gray-700 focus:outline-none bg-transparent dark:bg-gray-800 dark:text-gray-200 
+          bg-[linear-gradient(45deg,transparent_50%,gray_50%),linear-gradient(135deg,gray_50%,transparent_50%),linear-gradient(to_right,#ccc,#ccc)] bg-[5px_5px,5px_5px,1px_1.5em] bg-[calc(100%_-_20px)_calc(1em_+_2px),calc(100%_-_15px)_calc(1em_+_2px),calc(100%_-_2.5em)_0.5em] bg-no-repeat"
           value={selectedCategory}
           name="category"
           onChange={(e) => {
@@ -31,8 +30,6 @@ const CategoryDropDown = ({ selectedCategory, categories }) => {
             </option>
           ))}
         </select>
-        <CaretDownFilled className="text-[#808080] ml-2 text-sm " />
-      </div>
     </>
   );
 };
