@@ -1,10 +1,9 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { countBy, debounce, groupBy, keyBy } from "lodash";
 
 import Card from "./Card";
 import CardSkeleton from "./CardSkeleton";
 import Pagination from "./Pagination";
-import PropTypes from "prop-types";
 import { RenderIf } from "../../../utils/blogApp/commonMethods";
 import { WarningOutlined } from "@ant-design/icons";
 import { useSearchParams } from "react-router-dom";
@@ -13,6 +12,8 @@ import { useSelector } from "react-redux";
 function Blogs({ userId }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const currentPage = parseInt(searchParams.get("page"), 10) || 1;
+  const searchParam = searchParams.get("search");
+  console.log(searchParam);
 
   const BlogsData = useSelector((state) => state.Blogs);
   const UserData = useSelector((state) => state.Users);
@@ -32,56 +33,71 @@ function Blogs({ userId }) {
         setList(() => tempBlogList[userId]);
         const tempUserList = keyBy(UserData.users, "id");
         setUser(tempUserList[userId]);
-      } else setList(() => BlogsData.blogs);
+      } else {
+        if (searchParam) {
+          setList(() =>
+            BlogsData.blogs.filter((item) => {
+              return item.title
+                .toLowerCase()
+                .includes(searchParam.toLowerCase());
+            }),
+          );
+        } else setList(() => BlogsData.blogs);
+      }
     }
     if (!UserData.loading) setUsers(() => keyBy(UserData.users, "id"));
     if (!CommentData.loading)
       SetPostComments(() => countBy(CommentData.comments, "postId"));
   }, [BlogsData, UserData, CommentData]);
 
-  const debouncedFilter = useCallback(
+  const debouncedSetSearchParams = useCallback(
     debounce((value) => {
-      const filtered = BlogsData.blogs.filter((item) =>
-        item.title.toLowerCase().includes(value.toLowerCase()),
-      );
-      setList(filtered);
+      setSearchParams({ search: value });
     }, 600),
-    [list],
+    [],
   );
 
   const handleSearchChange = (event) => {
     const { value } = event.target;
     setSearchTerm(value);
-    debouncedFilter(value);
+    debouncedSetSearchParams(value);
   };
 
-  const memoizedFilteredItems = useMemo(() => list, [list]);
-  let displayedItems = [...memoizedFilteredItems];
-
   const itemsPerPage = 8;
-  const totalPages = Math.ceil(displayedItems.length / itemsPerPage);
-
+  const [totalPages, setTotalPages] = useState(0);
   let startIndex = undefined;
   let endIndex = undefined;
-  let currentItems = [];
-  let tempArray = [];
+  const [currentItems, setCurrentItems] = useState([]);
 
-  if (currentPage > 0) {
+  useEffect(() => {
+    console.log(filter);
+    if (filter === "Likeness") {
+      setList((state) =>
+        state.slice().sort((a, b) => b.reactions - a.reactions),
+      );
+    } else if (filter === "Popularity") {
+      setList((state) =>
+        state
+          .slice()
+          .sort(
+            (a, b) =>
+              (b.reactions + postComments[b.id] || 0) -
+              (a.reactions + postComments[a.id] || 0),
+          ),
+      );
+    }
+  }, [filter]);
+
+  useEffect(() => {
+    console.log(currentPage);
+    console.log(list);
     startIndex = (currentPage - 1) * itemsPerPage;
     endIndex = startIndex + itemsPerPage;
-    currentItems = displayedItems.slice(startIndex, endIndex);
-    tempArray = Array.from({ length: 8 }, (_, index) => index);
-  }
+    setTotalPages(Math.ceil(list.length / itemsPerPage));
+    setCurrentItems(list.slice(startIndex, endIndex));
+  }, [list, currentPage]);
 
-  if (filter === "Likeness") {
-    displayedItems = displayedItems.sort((a, b) => b.reactions - a.reactions);
-  } else if (filter === "Popularity") {
-    displayedItems = displayedItems.sort(
-      (a, b) =>
-        (b.reactions + postComments[b.id] || 0) -
-        (a.reactions + postComments[a.id] || 0),
-    );
-  }
+  let tempArray = Array.from({ length: 8 }, (_, index) => index);
 
   return (
     <div className="mt-10 bg-white text-center text-2xl dark:bg-gray-800">
@@ -155,20 +171,16 @@ function Blogs({ userId }) {
           currentPage={currentPage}
           totalPages={totalPages}
           handlePageNoClick={(no) => {
-            setSearchParams({ page: no });
+            if (searchParam) {
+              setSearchParams({ page: no, search: searchParam });
+            } else {
+              setSearchParams({ page: no });
+            }
           }}
         />
       </div>
     </div>
   );
 }
-
-Blogs.propTypes = {
-  userId: PropTypes.number,
-};
-
-Blogs.defaultProps = {
-  userId: 0,
-};
 
 export default Blogs;
