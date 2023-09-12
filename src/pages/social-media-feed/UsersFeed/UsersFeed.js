@@ -39,9 +39,11 @@ const UsersFeed = () => {
   );
 
   useEffect(() => {
-    dispatch(
-      fetchUsersSocialMediaFeed(limit, Math.floor(page * limit - limit)),
-    );
+    if (searchText === "") {
+      dispatch(
+        fetchUsersSocialMediaFeed(limit, Math.floor(page * limit - limit)),
+      );
+    }
   }, [dispatch, page]);
 
   useEffect(() => {
@@ -53,14 +55,19 @@ const UsersFeed = () => {
     }
   }, [success, error]);
 
+  useEffect(() => {
+    setPage(page);
+    if (searchText !== "") {
+      searchRef.current.value = searchText;
+      dispatch(searchAllUsers(searchText, limit, page * limit - limit));
+    }
+  }, [page, searchText]);
+
   const handlePageClick = (page) => {
     setPage(page);
     if (searchText != "") {
-      console.log("here");
-      console.log("search text: ", searchText);
       searchRef.current.value = searchText;
       dispatch(searchAllUsers(searchText, limit, page * limit - limit));
-      console.log("page: ", page);
       navigate(`/social-media/users-feed?page=${page}&search=${searchText}`);
     } else {
       navigate(`/social-media/users-feed?page=${page}`);
@@ -87,12 +94,11 @@ const UsersFeed = () => {
     handlePageClick(1);
     searchRef.current.value = text;
     if (text) {
-      navigate(`/social-media/users-feed?page=${page}&search=${text}`);
+      navigate(`/social-media/users-feed?page=${1}&search=${text}`);
     } else {
-      navigate(`/social-media/users-feed?page=${page}`);
+      navigate(`/social-media/users-feed?page=${1}`);
     }
     dispatch(searchAllUsers(text, limit, page * limit - limit));
-    // setPage(0);
     if (text === "") {
       dispatch(fetchUsersSocialMediaFeed(limit, page * limit - limit));
     }
