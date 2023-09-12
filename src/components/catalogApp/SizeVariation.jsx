@@ -6,6 +6,7 @@ import Button from "./Button";
 import React from "react";
 
 const SizeVariation = ({ values, errors, touched }) => {
+
   return (
     <div className="m-2 w-full border-t-[1px] border-gray-300 p-2">
       <h1 className="text-center text-xl font-semibold dark:text-gray-300">
@@ -127,6 +128,14 @@ const SizeVariation = ({ values, errors, touched }) => {
                 </div>
               </div>
             ))}
+
+            {typeof errors?.sizeData === "string" && (
+              <ErrorMessage
+                className="text-red-500"
+                name={`sizeData`}
+                component={"div"}
+              />
+            )}
             <div className="flex justify-between space-x-2">
               <Button
                 className=" w-1/2 flex-1 rounded-md bg-blue-custom px-4 py-2 text-white hover:bg-blue-800 lg:w-1/4"
