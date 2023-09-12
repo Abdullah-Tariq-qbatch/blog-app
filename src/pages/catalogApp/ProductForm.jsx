@@ -209,7 +209,7 @@ function ProductForm() {
                       type="file"
                       className="mb-2 mr-2 h-auto w-full rounded-md bg-slate-300 p-1 placeholder:text-gray-600"
                       accept="image/*"
-                      value=""
+                      value={undefined}
                       onChange={(e) => {
                         const file = e.target.files[0];
                         file &&

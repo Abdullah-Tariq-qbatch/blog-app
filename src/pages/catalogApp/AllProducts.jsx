@@ -33,10 +33,10 @@ const AllProducts = () => {
   }, [pageNo, searchParam, category]);
 
   return (
-    <div className="mx-10">
-      <div className="flex flex-col items-center py-10 md:flex-row md:justify-between">
+    <div className="container px-4 mx-auto">
+      <div className="flex flex-col justify-center items-center sm:mx-0 py-10 w-full md:w-auto md:flex-row md:justify-between">
         <Search />
-        <div className="mt-5 md:mt-0">
+        <div className="mt-5 w-full md:mt-0 md:w-auto">
           <CategorySelector category={category} />
         </div>
       </div>
