@@ -59,5 +59,5 @@ module.exports = {
     // Complex site-specific row configuration
     layout: "200px minmax(900px, 1fr) 100px",
   },
-  plugins: [],
+  plugins: [require("tailwindcss-animated")],
 };

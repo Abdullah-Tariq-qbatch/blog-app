@@ -7,21 +7,15 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import React, { lazy } from "react";
 
 import AuthGuard from "./components/userAuthApp/AuthGuard";
-//import Layout from "./components/catalogApp/Layout";
 import LazyLoading from "./components/catalogApp/LazyLoading";
 import MainLayout from "./layout/blogApp/MainLayout";
 import Notify from "./components/userAuthApp/Notify";
-// import Root from "./components/tvShowApp/Root";
+import QbatchLogo from "./assets/userAuthApp/svgs/qbatch.svg";
 import ScrollTopButton from "./components/blogApp/ScrollTopButton";
 import SideBar from "./components/userAuthApp/SideBar";
 import bloglogo from "./assets/blogApp/image/png/logo512.png";
 import tvShow_logo from "./assets/tvShowApp/movie_logo.png";
 
-//const Header = lazy(() =>
-//  import(
-//    /* webpackChunkName: "Header" */ "./components/social-media-feed/Header/Header"
-//  )
-//);
 const UsersFeed = lazy(() =>
   import(
     /* webpackChunkName: "usersFeed" */ "./pages/social-media-feed/UsersFeed/UsersFeed"
@@ -73,8 +67,13 @@ const BlogHome = lazy(() =>
 const UserBlogs = lazy(() =>
   import(/* webpackChunkName: "UserBlogs" */ "./pages/blogApp/UserBlogs"),
 );
-const HomePage = lazy(() =>
-  import(/* webpackChunkName: "HomePage" */ "./pages/userAuthApp/HomePage"),
+const ProfilePage = lazy(() =>
+  import(/* webpackChunkName: "HomePage" */ "./pages/userAuthApp/ProfilePage"),
+);
+const OneAppHomePage = lazy(() =>
+  import(
+    /* webpackChunkName: "OneAppHomePage" */ "./pages/userAuthApp/OneAppHomePage"
+  ),
 );
 const LoginPage = lazy(() =>
   import(
@@ -139,22 +138,41 @@ function App() {
     },
   ];
 
+  const oneAppLinks = [
+    {
+      text: "Home",
+      url: "/",
+    },
+    {
+      text: "Profile",
+      url: "/profile",
+    },
+  ];
+
   return (
     <BrowserRouter>
       <LazyLoading>
         <Notify />
         <SideBar />
         <Routes>
+          <Route exact path="/signup" element={<SignUpPage />} />
+          <Route exact path="/login" element={<LoginPage />} />
+
           <Route
             path="/"
             element={
               <AuthGuard>
-                <HomePage />
+                <MainLayout
+                  links={oneAppLinks}
+                  logo={QbatchLogo}
+                  appName={"One App 2.0"}
+                />
               </AuthGuard>
             }
-          />
-          <Route exact path="/signup" element={<SignUpPage />} />
-          <Route path="/login" element={<LoginPage />} />
+          >
+            <Route path="" element={<OneAppHomePage />} />
+            <Route path="profile" element={<ProfilePage />} />
+          </Route>
 
           <Route
             path="/tv-shows"
@@ -171,33 +189,6 @@ function App() {
             <Route path="" element={<AllTvShows />} />
             <Route path="add-tv-show" element={<AddTvShow />} />
             <Route path=":id" element={<TvShowDetails />} />
-          </Route>
-          <Route path="*" element={<Page404 />} />
-
-          <Route
-            path="/social-media"
-            element={
-              <AuthGuard>
-                <MainLayout
-                  links={socialMediaLinks}
-                  logo={bloglogo}
-                  appName={"Social Media Feed"}
-                />
-              </AuthGuard>
-            }
-          >
-            <Route path="posts-feed" element={<PostsFeed />} />
-            <Route path="" element={<PostsFeed />} />
-            <Route path="users-feed" element={<UsersFeed />} />
-            <Route
-              path="posts-feed/user"
-              element={<PostsFeed pageLink="user" />}
-            />
-            <Route
-              path="my-posts"
-              element={<PostsFeed pageLink="my-posts" />}
-            />
-            <Route path="add-post" element={<AddPost />} />
           </Route>
 
           <Route
@@ -234,6 +225,34 @@ function App() {
             <Route path="create-blog" element={<CreateBlog />} />
             <Route path="user/:id/blogs" element={<UserBlogs />} />
           </Route>
+
+          <Route
+            path="/social-media"
+            element={
+              <AuthGuard>
+                <MainLayout
+                  links={socialMediaLinks}
+                  logo={bloglogo}
+                  appName={"Social Media Feed"}
+                />
+              </AuthGuard>
+            }
+          >
+            <Route path="posts-feed" element={<PostsFeed />} />
+            <Route path="" element={<PostsFeed />} />
+            <Route path="users-feed" element={<UsersFeed />} />
+            <Route
+              path="posts-feed/user"
+              element={<PostsFeed pageLink="user" />}
+            />
+            <Route
+              path="my-posts"
+              element={<PostsFeed pageLink="my-posts" />}
+            />
+            <Route path="add-post" element={<AddPost />} />
+          </Route>
+
+          <Route path="*" element={<Page404 />} />
         </Routes>
         <ScrollTopButton />
       </LazyLoading>

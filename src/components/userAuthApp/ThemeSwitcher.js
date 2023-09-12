@@ -2,20 +2,20 @@ import React, { useEffect, useState } from "react";
 
 import { DarkModeSwitch } from "react-toggle-dark-mode";
 
-function ThemeSwitcher() {
+function ThemeSwitcher({ className = "" }) {
   const [theme, setTheme] = useState(
     localStorage.theme === "dark" ||
       (!("theme" in localStorage) &&
         window.matchMedia("(prefers-color-scheme: dark)").matches)
       ? "dark"
-      : "light"
+      : "light",
   );
   const [darkMode, setDarkMode] = useState(
     localStorage.theme === "dark" ||
       (!("theme" in localStorage) &&
         window.matchMedia("(prefers-color-scheme: dark)").matches)
       ? true
-      : false
+      : false,
   );
 
   useEffect(() => {
@@ -50,6 +50,7 @@ function ThemeSwitcher() {
         onChange={toggleDarkMode}
         sunColor="#111828"
         moonColor="#F3F4F6"
+        className={className}
       />
     </>
   );
