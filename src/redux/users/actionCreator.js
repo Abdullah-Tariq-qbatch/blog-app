@@ -40,7 +40,7 @@ export const loginUser = (body, navigate, redirectPath) => {
   };
 };
 
-export const fetchUserData = (navigate) => {
+export const fetchUserData = (navigate, setRenderChildren) => {
   return async (dispatch) => {
     try {
       dispatch(actions.fetchUserDataBegin());
@@ -48,9 +48,10 @@ export const fetchUserData = (navigate) => {
       if (actions.isSuccess(response)) {
         localStorage.setItem("userId", response.data.id);
         dispatch(actions.fetchUserDataSuccess(response.data));
+        setRenderChildren(true);
       }
     } catch (error) {
-      if (error?.response?.status === 401) {
+      if (error?.response?.status === 400 || error?.response?.status === 401) {
         dispatch(logout(navigate));
         dispatch(
           actions.apiError("Your session has expired please login again!"),
@@ -62,7 +63,7 @@ export const fetchUserData = (navigate) => {
   };
 };
 
-export const fetchGoogleUserData = (navigate) => {
+export const fetchGoogleUserData = (navigate, setRenderChildren) => {
   return async (dispatch) => {
     try {
       dispatch(actions.fetchGoogleUserDataBegin());
@@ -71,9 +72,10 @@ export const fetchGoogleUserData = (navigate) => {
       );
       if (actions.isSuccess(response)) {
         dispatch(actions.fetchGoogleUserDataSuccess(response.data));
+        setRenderChildren(true);
       }
     } catch (error) {
-      if (error?.response?.status === 401) {
+      if (error?.response?.status === 400 || error?.response?.status === 401) {
         dispatch(logout(navigate));
         dispatch(
           actions.apiError("Your session has expired please login again!"),
@@ -85,7 +87,7 @@ export const fetchGoogleUserData = (navigate) => {
   };
 };
 
-export const fetchFacebookUserData = (navigate) => {
+export const fetchFacebookUserData = (navigate, setRenderChildren) => {
   return async (dispatch) => {
     try {
       dispatch(actions.fetchFacebookUserDataBegin());
@@ -100,9 +102,10 @@ export const fetchFacebookUserData = (navigate) => {
 
       if (actions.isSuccess(response)) {
         dispatch(actions.fetchFacebookUserDataSuccess(response.data));
+        setRenderChildren(true);
       }
     } catch (error) {
-      if (error?.response?.status === 401) {
+      if (error?.response?.status === 400 || error?.response?.status === 401) {
         dispatch(logout(navigate));
         dispatch(
           actions.apiError("Your session has expired please login again!"),

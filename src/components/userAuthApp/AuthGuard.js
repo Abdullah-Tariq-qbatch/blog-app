@@ -22,13 +22,13 @@ function AuthGuard({ children }) {
 
     switch (loginMethod) {
       case "google":
-        dispatch(fetchGoogleUserData(navigate));
+        dispatch(fetchGoogleUserData(navigate, setRenderChildren));
         break;
       case "facebook":
-        dispatch(fetchFacebookUserData(navigate));
+        dispatch(fetchFacebookUserData(navigate, setRenderChildren));
         break;
       default:
-        dispatch(fetchUserData(navigate));
+        dispatch(fetchUserData(navigate, setRenderChildren));
         break;
     }
   }, [dispatch, navigate]);
@@ -36,8 +36,7 @@ function AuthGuard({ children }) {
   useEffect(() => {
     const accessToken = localStorage.access_token;
     if (accessToken) {
-      getUserData();
-      setRenderChildren(true);
+      getUserData(setRenderChildren);
       return;
     }
 
