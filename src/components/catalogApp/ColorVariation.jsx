@@ -99,6 +99,14 @@ const ColorVariation = ({ values, errors, touched }) => {
                 <Field name={`colors[${index}].hex`} component={ColorPicker} />
               </div>
             ))}
+
+            {typeof errors?.colors === "string" && (
+              <ErrorMessage
+                className="text-red-500"
+                name={`colors`}
+                component={"div"}
+              />
+            )}
             <div className="flex justify-between space-x-2">
               <Button
                 className=" w-1/2 flex-1 rounded-md bg-blue-custom px-4 py-2 text-white hover:bg-blue-800 lg:w-1/4"

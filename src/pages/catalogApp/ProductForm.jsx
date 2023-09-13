@@ -6,6 +6,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { addProduct, editProduct } from "../../redux/products/actionCreator";
+import { lowerCase, uniqWith } from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 
 import Button from "../../components/catalogApp/Button";
@@ -106,6 +107,17 @@ function ProductForm() {
           size: Yup.string().required("Please select a size"),
         }),
       )
+      .test("is-unique", "Color must be unique by Size", function (value) {
+        if (!value) return true;
+
+        const uniqueColors = uniqWith(
+          value,
+          (colorA, colorB) =>
+            lowerCase(colorA.hex) === lowerCase(colorB.hex) && colorA.size === colorB.size,
+        );
+
+        return value.length === uniqueColors.length;
+      })
       .min(1, "You need at least one Color")
       .required("Required"),
   });
