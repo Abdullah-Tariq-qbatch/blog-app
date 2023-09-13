@@ -79,7 +79,7 @@ function Blogs({ userId }) {
       const sendParam = {};
       if (currentPage > 1) sendParam.page = currentPage;
       if (filterParam) sendParam.search = searchParam;
-      sendParam.search = value;
+      if (value) sendParam.search = value;
       setSearchParams(sendParam);
     }, 600),
     [],
@@ -124,7 +124,7 @@ function Blogs({ userId }) {
             const sendParam = {};
             if (currentPage > 1) sendParam.page = currentPage;
             if (searchParam) sendParam.search = searchParam;
-            sendParam.filter = e.target.value;
+            if (e.target.value) sendParam.filter = e.target.value;
             setSearchParams(sendParam);
           }}
           className="mx-10 block h-11 rounded-lg border-2 border-gray-300 bg-gray-50 text-sm text-gray-400 outline-none focus:border-pink-500 focus:text-gray-800 focus:ring-pink-500 dark:border-gray-700 dark:bg-gray-600 dark:focus:border-pink-800 dark:focus:text-gray-200 dark:focus:ring-pink-800 sm:ml-10 md:w-60"
@@ -187,7 +187,7 @@ function Blogs({ userId }) {
             const sendParam = {};
             if (filterParam) sendParam.filter = filterParam;
             if (searchParam) sendParam.search = searchParam;
-            sendParam.page = no;
+            if (no > 1) sendParam.page = no;
             setSearchParams(sendParam);
           }}
         />
