@@ -37,7 +37,6 @@ const SideBar = () => {
 
   return (
     accessToken &&
-    location.pathname !== "/" &&
     location.pathname !== "/signup" &&
     location.pathname !== "/login" && (
       <RenderIf

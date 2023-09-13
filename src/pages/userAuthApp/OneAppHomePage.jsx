@@ -55,13 +55,13 @@ function OneAppHomePage() {
 
   return (
     <>
-      <div className="flex h-screen flex-col bg-gray-200 p-4 dark:bg-gray-800">
+      <div className="flex flex-col bg-gray-200 p-4 dark:bg-gray-800">
         <div className="mb-2 flex flex-row items-center justify-center border-b-2 border-gray-800 dark:border-white">
           <h1 className="mb-2 text-4xl font-bold text-gray-800 dark:text-white">
             One App 2.0
           </h1>
         </div>
-        <div className="grid h-full grid-cols-1 gap-4 md:grid-cols-3">
+        <div className="grid min-h-screen grid-cols-1 gap-4 md:grid-cols-3">
           {cardData.map((item, index) => (
             <Link
               key={index}
