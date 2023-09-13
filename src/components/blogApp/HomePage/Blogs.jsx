@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useCallback, useEffect, useState } from "react";
 import { countBy, debounce, groupBy, keyBy } from "lodash";
 
@@ -13,6 +14,7 @@ function Blogs({ userId }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const currentPage = parseInt(searchParams.get("page"), 10) || 1;
   const searchParam = searchParams.get("search");
+  const filterParam = searchParams.get("filter");
 
   const BlogsData = useSelector((state) => state.Blogs);
   const UserData = useSelector((state) => state.Users);
@@ -29,7 +31,15 @@ function Blogs({ userId }) {
     if (!BlogsData.loading) {
       if (userId) {
         const tempBlogList = groupBy(BlogsData.blogs, "userId");
-        setList(() => tempBlogList[userId]);
+        if (searchParam) {
+          setList(() =>
+            tempBlogList[userId].filter((item) => {
+              return item.title
+                .toLowerCase()
+                .includes(searchParam.toLowerCase());
+            }),
+          );
+        } else setList(() => tempBlogList[userId]);
         const tempUserList = keyBy(UserData.users, "id");
         setUser(tempUserList[userId]);
       } else {
@@ -43,6 +53,21 @@ function Blogs({ userId }) {
           );
         } else setList(() => BlogsData.blogs);
       }
+      if (filterParam === "Likeness") {
+        setList((state) =>
+          state.slice().sort((a, b) => b.reactions - a.reactions),
+        );
+      } else if (filterParam === "Popularity") {
+        setList((state) =>
+          state
+            .slice()
+            .sort(
+              (a, b) =>
+                (b.reactions + postComments[b.id] || 0) -
+                (a.reactions + postComments[a.id] || 0),
+            ),
+        );
+      }
     }
     if (!UserData.loading) setUsers(() => keyBy(UserData.users, "id"));
     if (!CommentData.loading)
@@ -51,7 +76,11 @@ function Blogs({ userId }) {
 
   const debouncedSetSearchParams = useCallback(
     debounce((value) => {
-      setSearchParams({ search: value });
+      const sendParam = {};
+      if (currentPage > 1) sendParam.page = currentPage;
+      if (filterParam) sendParam.search = searchParam;
+      sendParam.search = value;
+      setSearchParams(sendParam);
     }, 600),
     [],
   );
@@ -67,24 +96,6 @@ function Blogs({ userId }) {
   let startIndex = undefined;
   let endIndex = undefined;
   const [currentItems, setCurrentItems] = useState([]);
-
-  useEffect(() => {
-    if (filter === "Likeness") {
-      setList((state) =>
-        state.slice().sort((a, b) => b.reactions - a.reactions),
-      );
-    } else if (filter === "Popularity") {
-      setList((state) =>
-        state
-          .slice()
-          .sort(
-            (a, b) =>
-              (b.reactions + postComments[b.id] || 0) -
-              (a.reactions + postComments[a.id] || 0),
-          ),
-      );
-    }
-  }, [filter]);
 
   useEffect(() => {
     startIndex = (currentPage - 1) * itemsPerPage;
@@ -108,8 +119,14 @@ function Blogs({ userId }) {
       <div className="flex w-full flex-col justify-between sm:flex-row">
         <select
           id="countries"
-          value={filter}
-          onChange={(e) => setFilter(() => e.target.value)}
+          value={filterParam}
+          onChange={(e) => {
+            const sendParam = {};
+            if (currentPage > 1) sendParam.page = currentPage;
+            if (searchParam) sendParam.search = searchParam;
+            sendParam.filter = e.target.value;
+            setSearchParams(sendParam);
+          }}
           className="mx-10 block h-11 rounded-lg border-2 border-gray-300 bg-gray-50 text-sm text-gray-400 outline-none focus:border-pink-500 focus:text-gray-800 focus:ring-pink-500 dark:border-gray-700 dark:bg-gray-600 dark:focus:border-pink-800 dark:focus:text-gray-200 dark:focus:ring-pink-800 sm:ml-10 md:w-60"
         >
           <option value="">Choose a filter</option>
@@ -167,11 +184,11 @@ function Blogs({ userId }) {
           currentPage={currentPage}
           totalPages={totalPages}
           handlePageNoClick={(no) => {
-            if (searchParam) {
-              setSearchParams({ page: no, search: searchParam });
-            } else {
-              setSearchParams({ page: no });
-            }
+            const sendParam = {};
+            if (filterParam) sendParam.filter = filterParam;
+            if (searchParam) sendParam.search = searchParam;
+            sendParam.page = no;
+            setSearchParams(sendParam);
           }}
         />
       </div>
