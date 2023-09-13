@@ -45,7 +45,7 @@
     "https start": "HTTPS=true SSL_CRT_FILE=localhost.crt SSL_KEY_FILE=localhost.key react-scripts start",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "cypress open",
     "eject": "react-scripts eject",
     "custom-start": "react-app-rewired start",
     "custom-build": "react-app-rewired build",
