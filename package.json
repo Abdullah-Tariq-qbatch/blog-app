@@ -11,6 +11,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
+    "dotenv": "^16.3.1",
     "facebook-oauth-react": "^1.1.5",
     "formik": "^2.4.3",
     "heroicons": "^2.0.18",
@@ -48,7 +49,8 @@
     "custom-start": "react-app-rewired start",
     "custom-build": "react-app-rewired build",
     "custom-test": "react-app-rewired test",
-    "custom-eject": "react-scripts eject"
+    "custom-eject": "react-scripts eject",
+    "cypress test": "npx cypress open"
   },
   "eslintConfig": {
     "extends": [
