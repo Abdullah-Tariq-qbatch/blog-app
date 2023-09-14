@@ -25,6 +25,15 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
+// Cypress.Commands.add("login", () => {
+//   const email = "faiq@gmail.com";
+//   const password = "1234Faiq";
+
+//   cy.visit("/login");
+//   cy.get('[name="email"]').type(`${email}`);
+//   cy.get('[name="password"]').type(`${password}{enter}`);
+// });
+
 Cypress.Commands.add("login", () => {
   const email = "john@mail.com";
   const password = "changeme";
