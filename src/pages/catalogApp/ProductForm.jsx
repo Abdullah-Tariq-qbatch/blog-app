@@ -61,6 +61,7 @@ function ProductForm() {
   }, [unsavedChanges]);
 
   useEffect(() => {
+    location.pathname === "/catalog/edit" && !location.state && navigate("/catalog")
     !categories?.length && dispatch(fetchAllCategory());
   }, []);
 
