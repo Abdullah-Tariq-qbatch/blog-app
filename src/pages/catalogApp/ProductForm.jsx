@@ -61,33 +61,80 @@ function ProductForm() {
   }, [unsavedChanges]);
 
   useEffect(() => {
-    location.pathname === "/catalog/edit" && !location.state && navigate("/catalog")
+    location.pathname === "/catalog/edit" &&
+      !location.state &&
+      navigate("/catalog");
     !categories?.length && dispatch(fetchAllCategory());
   }, []);
 
   const validatorForAPI = Yup.object({
-    title: Yup.string().required("Title is Required"),
-    brand: Yup.string().required("Brand is Required"),
-    description: Yup.string().required("Description is Required"),
-    thumbnail: Yup.string().required("Image is Required"),
+    title: Yup.string()
+      .required("Title is Required")
+      .matches(
+        /^[a-zA-Z]+[a-zA-Z0-9\s]*$/,
+        "Title can be alphanumeric with at least one alphabet",
+      ),
+    brand: Yup.string()
+      .required("Brand is Required")
+      .matches(
+        /^[a-zA-Z]+[a-zA-Z0-9\s]*$/,
+        "Brand can be alphanumeric with at least one alphabet",
+      ),
+    description: Yup.string()
+      .required("Description is Required")
+      .matches(
+        /^[a-zA-Z]+[a-zA-Z0-9\s]*$/,
+        "Description can be alphanumeric with at least one alphabet",
+      ),
+    thumbnail: Yup.string()
+      .required("Image is Required")
+      .matches(
+        /^[a-zA-Z]+[a-zA-Z0-9\s]*$/,
+        "Thumbnail can be alphanumeric with at least one alphabet",
+      ),
     category: Yup.string().required("Category is Required"),
     price: Yup.number().required("Price is Required"),
     stock: Yup.number().required("Stock is Required"),
   });
 
   const validatorForNew = Yup.object({
-    title: Yup.string().required("Title is Required"),
-    brand: Yup.string().required("Brand is Required"),
-    description: Yup.string().required("Description is Required"),
-    thumbnail: Yup.string().required("Image is Required"),
+    title: Yup.string()
+      .required("Title is Required")
+      .matches(
+        /^[a-zA-Z]+[a-zA-Z0-9\s]*$/,
+        "Title can be alphanumeric with at least one alphabet",
+      ),
+    brand: Yup.string()
+      .required("Brand is Required")
+      .matches(
+        /^[a-zA-Z]+[a-zA-Z0-9\s]*$/,
+        "Brand can be alphanumeric with at least one alphabet",
+      ),
+    description: Yup.string()
+      .required("Description is Required")
+      .matches(
+        /^[a-zA-Z]+[a-zA-Z0-9\s]*$/,
+        "Description can be alphanumeric with at least one alphabet",
+      ),
+    thumbnail: Yup.string()
+      .required("Image is Required")
+      .matches(
+        /^[a-zA-Z]+[a-zA-Z0-9\s]*$/,
+        "Thumbnail can be alphanumeric with at least one alphabet",
+      ),
     category: Yup.string().required("Category is Required"),
 
     sizeData: Yup.array()
       .of(
         Yup.object({
-          name: Yup.string().required("Name is Required"),
-          price: Yup.string().required("Price is Required"),
-          stock: Yup.string().required("Stock is Required"),
+          name: Yup.string()
+            .required("Name is Required")
+            .matches(
+              /^[a-zA-Z]+[a-zA-Z0-9\s]*$/,
+              "Name can be alphanumeric with at least one alphabet",
+            ),
+          price: Yup.number().required("Price is Required"),
+          stock: Yup.number().required("Stock is Required"),
         }),
       )
       .test("is-unique", "Names must be unique", function (value) {
@@ -104,7 +151,12 @@ function ProductForm() {
     colors: Yup.array()
       .of(
         Yup.object({
-          hex: Yup.string().required("Color is Required"),
+          hex: Yup.string()
+            .required("Color is Required")
+            .matches(
+              /^[a-zA-Z]+[a-zA-Z0-9\s]*$/,
+              "Title can be alphanumeric with at least one alphabet",
+            ),
           size: Yup.string().required("Please select a size"),
         }),
       )
@@ -114,7 +166,8 @@ function ProductForm() {
         const uniqueColors = uniqWith(
           value,
           (colorA, colorB) =>
-            lowerCase(colorA.hex) === lowerCase(colorB.hex) && colorA.size === colorB.size,
+            lowerCase(colorA.hex) === lowerCase(colorB.hex) &&
+            colorA.size === colorB.size,
         );
 
         return value.length === uniqueColors.length;

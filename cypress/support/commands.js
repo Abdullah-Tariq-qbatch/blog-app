@@ -12,8 +12,6 @@
 // -- This is a parent command --
 // Cypress.Commands.add('login', (email, password) => { ... })
 
-
-
 //
 //
 // -- This is a child command --
@@ -41,7 +39,6 @@ Cypress.Commands.add("login", () => {
     },
     {
       validate: () => {
-
         cy.visit("/");
       },
       cacheAcrossSpecs: true,
@@ -49,7 +46,10 @@ Cypress.Commands.add("login", () => {
   );
 });
 
-
+Cypress.Commands.add("visitCatalog", () => {
+  cy.visit("/");
+  cy.get('[href="/catalog"]').click();
+});
 Cypress.Commands.add("goToBlog", () => {
   cy.visit("/");
   cy.get('[href="/blog"]').click();
@@ -111,4 +111,3 @@ Cypress.Commands.add("loginByGoogleApi", () => {
     });
   });
 });
-
