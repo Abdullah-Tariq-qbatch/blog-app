@@ -61,13 +61,25 @@ function ProductForm() {
   }, [unsavedChanges]);
 
   useEffect(() => {
-    location.pathname === "/catalog/edit" && !location.state && navigate("/catalog")
+    location.pathname === "/catalog/edit" &&
+      !location.state &&
+      navigate("/catalog");
     !categories?.length && dispatch(fetchAllCategory());
   }, []);
 
   const validatorForAPI = Yup.object({
-    title: Yup.string().required("Title is Required"),
-    brand: Yup.string().required("Brand is Required"),
+    title: Yup.string()
+      .required("Title is Required")
+      .matches(
+        /^[a-zA-Z]+[a-zA-Z0-9\s]*$/,
+        "Title can be alphanumeric with at least one alphabet",
+      ),
+    brand: Yup.string()
+      .required("Brand is Required")
+      .matches(
+        /^[a-zA-Z]+[a-zA-Z0-9\s]*$/,
+        "Brand can be alphanumeric with at least one alphabet",
+      ),
     description: Yup.string().required("Description is Required"),
     thumbnail: Yup.string().required("Image is Required"),
     category: Yup.string().required("Category is Required"),
@@ -76,8 +88,18 @@ function ProductForm() {
   });
 
   const validatorForNew = Yup.object({
-    title: Yup.string().required("Title is Required"),
-    brand: Yup.string().required("Brand is Required"),
+    title: Yup.string()
+      .required("Title is Required")
+      .matches(
+        /^[a-zA-Z]+[a-zA-Z0-9\s]*$/,
+        "Title can be alphanumeric with at least one alphabet",
+      ),
+    brand: Yup.string()
+      .required("Brand is Required")
+      .matches(
+        /^[a-zA-Z]+[a-zA-Z0-9\s]*$/,
+        "Brand can be alphanumeric with at least one alphabet",
+      ),
     description: Yup.string().required("Description is Required"),
     thumbnail: Yup.string().required("Image is Required"),
     category: Yup.string().required("Category is Required"),
@@ -86,8 +108,8 @@ function ProductForm() {
       .of(
         Yup.object({
           name: Yup.string().required("Name is Required"),
-          price: Yup.string().required("Price is Required"),
-          stock: Yup.string().required("Stock is Required"),
+          price: Yup.number().required("Price is Required"),
+          stock: Yup.number().required("Stock is Required"),
         }),
       )
       .test("is-unique", "Names must be unique", function (value) {
@@ -114,7 +136,8 @@ function ProductForm() {
         const uniqueColors = uniqWith(
           value,
           (colorA, colorB) =>
-            lowerCase(colorA.hex) === lowerCase(colorB.hex) && colorA.size === colorB.size,
+            lowerCase(colorA.hex) === lowerCase(colorB.hex) &&
+            colorA.size === colorB.size,
         );
 
         return value.length === uniqueColors.length;
