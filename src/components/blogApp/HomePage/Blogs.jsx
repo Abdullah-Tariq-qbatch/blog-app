@@ -28,6 +28,7 @@ function Blogs({ userId }) {
   const [filter, setFilter] = useState("");
 
   useEffect(() => {
+    const commentsArray = countBy(CommentData.comments, "postId")
     if (!BlogsData.loading) {
       if (userId) {
         const tempBlogList = groupBy(BlogsData.blogs, "userId");
@@ -63,15 +64,15 @@ function Blogs({ userId }) {
             .slice()
             .sort(
               (a, b) =>
-                (b.reactions + postComments[b.id] || 0) -
-                (a.reactions + postComments[a.id] || 0),
+                (b.reactions + commentsArray[b.id] || 0) -
+                (a.reactions + commentsArray[a.id] || 0),
             ),
         );
       }
     }
     if (!UserData.loading) setUsers(() => keyBy(UserData.users, "id"));
     if (!CommentData.loading)
-      SetPostComments(() => countBy(CommentData.comments, "postId"));
+      SetPostComments(() => commentsArray);
   }, [BlogsData, UserData, CommentData]);
 
   const debouncedSetSearchParams = useCallback(
