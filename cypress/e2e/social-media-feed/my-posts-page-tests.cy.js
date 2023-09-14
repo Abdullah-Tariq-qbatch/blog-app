@@ -15,6 +15,9 @@ describe("Post Comment Tests", function () {
     cy.get(
       `:nth-child(1) > .profile-page > .bg-blueGray-200 > .container > .-mt-64 > .px-6 > .border-blueGray-200 > .flex-wrap > .lg\\:w-9\\/12 > .grid > .col-span-12 > .flex-col > .lg\\:mx-1 > .my-auto`,
     ).click();
+    cy.get(".block > :nth-child(1) > .space-y-2 > .flex-col > .text-sm")
+      .invoke("text")
+      .should("equal", comment);
     cy.wait(2000);
   });
 
@@ -22,6 +25,11 @@ describe("Post Comment Tests", function () {
     cy.get(
       `:nth-child(1) > .profile-page > .bg-blueGray-200 > .container > .-mt-64 > .px-6 > .border-blueGray-200 > .flex-wrap > .lg\\:w-9\\/12 > .grid > .col-span-12 > .flex-col > .lg\\:mx-1 > .my-auto`,
     ).click();
+    cy.get(
+      ":nth-child(1) > .profile-page > .bg-blueGray-200 > .container > .-mt-64 > .px-6 > .border-blueGray-200 > .flex-wrap > .lg\\:w-9\\/12",
+    )
+      .children()
+      .should("have.length", 3);
     cy.wait(2000);
   });
 
@@ -35,8 +43,10 @@ describe("Post Comment Tests", function () {
     ).click();
     cy.wait(2000);
     cy.get(
-      `:nth-child(1) > .profile-page > .bg-blueGray-200 > .container > .-mt-64 > .px-6 > .border-blueGray-200 > .flex-wrap > .lg\\:w-9\\/12 > .grid > .col-span-12 > .flex-col > .lg\\:mx-2 > .my-auto`,
-    ).click();
+      ":nth-child(1) > .profile-page > .bg-blueGray-200 > .container > .-mt-64 > .px-6 > .border-blueGray-200 > .flex-wrap > .lg\\:w-9\\/12",
+    )
+      .children()
+      .should("have.length", 3);
     cy.wait(2000);
   });
 
@@ -55,6 +65,11 @@ describe("Post Comment Tests", function () {
     cy.get(
       `:nth-child(1) > .profile-page > .bg-blueGray-200 > .container > .-mt-64 > .px-6 > .border-blueGray-200 > .flex-wrap > .lg\\:w-9\\/12 > .grid > .col-span-12 > .flex-col > .lg\\:mx-2 > .my-auto`,
     ).click();
+    cy.get(
+      ":nth-child(1) > .profile-page > .bg-blueGray-200 > .container > .-mt-64 > .px-6 > .border-blueGray-200 > .flex-wrap > .lg\\:w-9\\/12",
+    )
+      .children()
+      .should("have.length", 3);
     cy.wait(2000);
   });
 });
@@ -95,7 +110,7 @@ describe("Post Icons Tests", function () {
     cy.wait(2000);
   });
 
-  it("Test case 04:  should not delete the post when clicked on delete button", () => {
+  it("Test case 04:  should not delete the post when clicked on cancel button", () => {
     cy.get(
       `:nth-child(1) > .profile-page > .bg-blueGray-200 > .container > .-mt-64 > .px-6 > :nth-child(1) > .order-3 > .flex > .mr-4.p-3`,
     ).click();
