@@ -11,14 +11,25 @@
 //
 // -- This is a parent command --
 // Cypress.Commands.add('login', (email, password) => { ... })
-Cypress.Commands.add("login", () => {
-  cy.viewport("macbook-16");
-  const email = "faiq@gmail.com";
-  const password = "1234Faiq";
 
-  cy.visit("/login");
-  cy.get('[name="email"]').type(`${email}`);
-  cy.get('[name="password"]').type(`${password}{enter}`);
+Cypress.Commands.add("login", () => {
+  const email = "john@mail.com";
+  const password = "changeme";
+  cy.session(
+    [email, password],
+    () => {
+      cy.visit("/login");
+      cy.get('[name="email"]').type(`${email}`);
+      cy.get('[name="password"]').type(`${password}{enter}`);
+      cy.get('[href="/tv-shows"]').click();
+    },
+    {
+      validate: () => {
+        cy.visit("/");
+      },
+      cacheAcrossSpecs: true,
+    },
+  );
 });
 //
 //
