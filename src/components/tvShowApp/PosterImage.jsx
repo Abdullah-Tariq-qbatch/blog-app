@@ -1,9 +1,9 @@
 import React from "react";
 
-const PosterImage = (props) => (
+const PosterImage = ({ img }) => (
   <img
-    className="w-full h-80 rounded-t-lg"
-    src={props.data.image_thumbnail_path}
+    src={img}
+    className="h-64 w-96 rounded-t-lg 2xl:object-scale-down"
     alt="TV Show Poster"
   />
 );
