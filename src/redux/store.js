@@ -2,12 +2,12 @@
 import { applyMiddleware, compose, createStore } from "redux";
 
 import api from "../utils/blogApp/fetchData";
+import { composeWithDevTools } from "redux-devtools-extension";
 import rootReducer from "./rootReducer";
 import thunk from "redux-thunk";
 
-const devtools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
-
-const composer = process.env.NODE_ENV === "production" ? compose : devtools;
+const composer =
+  process.env.NODE_ENV === "production" ? compose : composeWithDevTools;
 
 const store = createStore(
   rootReducer,
