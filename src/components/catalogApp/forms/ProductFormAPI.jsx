@@ -9,6 +9,9 @@ const ProductFormAPI = ({ errors, touched }) => {
         <div
           className={`${errors.price && touched.price ? "animate-pulse" : ""}`}
         >
+          <label htmlFor="title" className="mb-2 dark:text-gray-300">
+            Price
+          </label>
           <Field
             name="price"
             type="number"
@@ -25,6 +28,9 @@ const ProductFormAPI = ({ errors, touched }) => {
         <div
           className={`${errors.price && touched.price ? "animate-pulse" : ""}`}
         >
+          <label htmlFor="title" className="mb-2 dark:text-gray-300">
+            Stock
+          </label>
           <Field
             name="stock"
             type="number"
