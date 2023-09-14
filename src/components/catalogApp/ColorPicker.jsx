@@ -14,7 +14,10 @@ const ColorPicker = ({ field, form }) => {
     <div className="flex flex-col items-center justify-between space-y-4">
       <button
         className="w-full rounded-md bg-blue-custom px-4 py-2 text-white hover:bg-blue-800"
-        onClick={() => setShowColorPicker(!showColorPicker)}
+        onClick={(e) => {
+          e.preventDefault();
+          setShowColorPicker(!showColorPicker);
+        }}
       >
         {!showColorPicker ? "Choose Color" : "Cancel"}
       </button>

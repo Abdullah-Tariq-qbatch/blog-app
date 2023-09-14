@@ -80,18 +80,8 @@ function ProductForm() {
         /^[a-zA-Z]+[a-zA-Z0-9\s]*$/,
         "Brand can be alphanumeric with at least one alphabet",
       ),
-    description: Yup.string()
-      .required("Description is Required")
-      .matches(
-        /^[a-zA-Z]+[a-zA-Z0-9\s]*$/,
-        "Description can be alphanumeric with at least one alphabet",
-      ),
-    thumbnail: Yup.string()
-      .required("Image is Required")
-      .matches(
-        /^[a-zA-Z]+[a-zA-Z0-9\s]*$/,
-        "Thumbnail can be alphanumeric with at least one alphabet",
-      ),
+    description: Yup.string().required("Description is Required"),
+    thumbnail: Yup.string().required("Image is Required"),
     category: Yup.string().required("Category is Required"),
     price: Yup.number().required("Price is Required"),
     stock: Yup.number().required("Stock is Required"),
@@ -110,29 +100,14 @@ function ProductForm() {
         /^[a-zA-Z]+[a-zA-Z0-9\s]*$/,
         "Brand can be alphanumeric with at least one alphabet",
       ),
-    description: Yup.string()
-      .required("Description is Required")
-      .matches(
-        /^[a-zA-Z]+[a-zA-Z0-9\s]*$/,
-        "Description can be alphanumeric with at least one alphabet",
-      ),
-    thumbnail: Yup.string()
-      .required("Image is Required")
-      .matches(
-        /^[a-zA-Z]+[a-zA-Z0-9\s]*$/,
-        "Thumbnail can be alphanumeric with at least one alphabet",
-      ),
+    description: Yup.string().required("Description is Required"),
+    thumbnail: Yup.string().required("Image is Required"),
     category: Yup.string().required("Category is Required"),
 
     sizeData: Yup.array()
       .of(
         Yup.object({
-          name: Yup.string()
-            .required("Name is Required")
-            .matches(
-              /^[a-zA-Z]+[a-zA-Z0-9\s]*$/,
-              "Name can be alphanumeric with at least one alphabet",
-            ),
+          name: Yup.string().required("Name is Required"),
           price: Yup.number().required("Price is Required"),
           stock: Yup.number().required("Stock is Required"),
         }),
@@ -151,12 +126,7 @@ function ProductForm() {
     colors: Yup.array()
       .of(
         Yup.object({
-          hex: Yup.string()
-            .required("Color is Required")
-            .matches(
-              /^[a-zA-Z]+[a-zA-Z0-9\s]*$/,
-              "Title can be alphanumeric with at least one alphabet",
-            ),
+          hex: Yup.string().required("Color is Required"),
           size: Yup.string().required("Please select a size"),
         }),
       )
