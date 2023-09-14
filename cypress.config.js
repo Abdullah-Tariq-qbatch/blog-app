@@ -5,7 +5,7 @@ require("dotenv").config();
 
 module.exports = defineConfig({
   e2e: {
-    baseUrl: "https://localhost:3000",
+    baseUrl: "http://localhost:3000",
     env: {
       email: process.env.EMAIL,
       password: process.env.PASSWORD,

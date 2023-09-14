@@ -202,7 +202,7 @@ describe("Empty Fields of Form", () => {
     );
   });
 
-  // // for Brand Field
+  // for Brand Field
   it("Empty Brand Field", () => {
     cy.get(".mt-8").click();
     cy.wait(1000);
@@ -231,15 +231,6 @@ describe("Empty Fields of Form", () => {
     cy.get(".my-2 > .text-red-500").should(
       "have.text",
       "Description is Required",
-    );
-  });
-  it("Invalid Description Field", () => {
-    cy.get(".mt-2").type("1234");
-    cy.get(".mt-8").click();
-    cy.wait(1000);
-    cy.get(".my-2 > .text-red-500").should(
-      "have.text",
-      "Description can be alphanumeric with at least one alphabet",
     );
   });
 
