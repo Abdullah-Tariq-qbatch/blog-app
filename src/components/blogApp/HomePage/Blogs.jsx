@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useCallback, useEffect, useState } from "react";
 import { countBy, debounce, groupBy, keyBy } from "lodash";
 
@@ -13,6 +14,7 @@ function Blogs({ userId }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const currentPage = parseInt(searchParams.get("page"), 10) || 1;
   const searchParam = searchParams.get("search");
+  const filterParam = searchParams.get("filter");
 
   const BlogsData = useSelector((state) => state.Blogs);
   const UserData = useSelector((state) => state.Users);
@@ -26,32 +28,51 @@ function Blogs({ userId }) {
   const [filter, setFilter] = useState("");
 
   useEffect(() => {
-    if (!BlogsData.loading) {
-      if (userId) {
-        const tempBlogList = groupBy(BlogsData.blogs, "userId");
-        setList(() => tempBlogList[userId]);
-        const tempUserList = keyBy(UserData.users, "id");
-        setUser(tempUserList[userId]);
-      } else {
-        if (searchParam) {
-          setList(() =>
-            BlogsData.blogs.filter((item) => {
-              return item.title
-                .toLowerCase()
-                .includes(searchParam.toLowerCase());
-            }),
-          );
-        } else setList(() => BlogsData.blogs);
-      }
+    if (BlogsData.loading || UserData.loading || CommentData.loading) return;
+
+    const commentsArray = countBy(CommentData.comments, "postId");
+    const tempBlogList = groupBy(BlogsData.blogs, "userId");
+    const tempUserList = keyBy(UserData.users, "id");
+
+    if (userId) {
+      setList(() => {
+        const filteredBlogs = tempBlogList[userId].filter((item) =>
+          searchParam
+            ? item.title.toLowerCase().includes(searchParam.toLowerCase())
+            : true,
+        );
+        return filterBlogs(filteredBlogs);
+      });
+      setUser(tempUserList[userId]);
+    } else {
+      setList(() => filterBlogs(BlogsData.blogs));
     }
-    if (!UserData.loading) setUsers(() => keyBy(UserData.users, "id"));
-    if (!CommentData.loading)
-      SetPostComments(() => countBy(CommentData.comments, "postId"));
-  }, [BlogsData, UserData, CommentData]);
+
+    setUsers(() => tempUserList);
+    SetPostComments(() => commentsArray);
+
+    function filterBlogs(blogList) {
+      if (filterParam === "Likeness") {
+        return [...blogList].sort((a, b) => b.reactions - a.reactions);
+      } else if (filterParam === "Popularity") {
+        return [...blogList].sort(
+          (a, b) =>
+            b.reactions +
+            (commentsArray[b.id] || 0) -
+            (a.reactions + (commentsArray[a.id] || 0)),
+        );
+      } else if (!filterParam) return [...blogList];
+      else return [];
+    }
+  }, [BlogsData, UserData, CommentData, userId, searchParam, filterParam]);
 
   const debouncedSetSearchParams = useCallback(
     debounce((value) => {
-      setSearchParams({ search: value });
+      const sendParam = {};
+      if (currentPage > 1) sendParam.page = currentPage;
+      if (filterParam) sendParam.search = searchParam;
+      if (value) sendParam.search = value;
+      setSearchParams(sendParam);
     }, 600),
     [],
   );
@@ -67,24 +88,6 @@ function Blogs({ userId }) {
   let startIndex = undefined;
   let endIndex = undefined;
   const [currentItems, setCurrentItems] = useState([]);
-
-  useEffect(() => {
-    if (filter === "Likeness") {
-      setList((state) =>
-        state.slice().sort((a, b) => b.reactions - a.reactions),
-      );
-    } else if (filter === "Popularity") {
-      setList((state) =>
-        state
-          .slice()
-          .sort(
-            (a, b) =>
-              (b.reactions + postComments[b.id] || 0) -
-              (a.reactions + postComments[a.id] || 0),
-          ),
-      );
-    }
-  }, [filter]);
 
   useEffect(() => {
     startIndex = (currentPage - 1) * itemsPerPage;
@@ -107,9 +110,15 @@ function Blogs({ userId }) {
       </div>
       <div className="flex w-full flex-col justify-between sm:flex-row">
         <select
-          id="countries"
-          value={filter}
-          onChange={(e) => setFilter(() => e.target.value)}
+          id="filter"
+          value={filterParam}
+          onChange={(e) => {
+            const sendParam = {};
+            if (currentPage > 1) sendParam.page = currentPage;
+            if (searchParam) sendParam.search = searchParam;
+            if (e.target.value) sendParam.filter = e.target.value;
+            setSearchParams(sendParam);
+          }}
           className="mx-10 block h-11 rounded-lg border-2 border-gray-300 bg-gray-50 text-sm text-gray-400 outline-none focus:border-pink-500 focus:text-gray-800 focus:ring-pink-500 dark:border-gray-700 dark:bg-gray-600 dark:focus:border-pink-800 dark:focus:text-gray-200 dark:focus:ring-pink-800 sm:ml-10 md:w-60"
         >
           <option value="">Choose a filter</option>
@@ -167,11 +176,11 @@ function Blogs({ userId }) {
           currentPage={currentPage}
           totalPages={totalPages}
           handlePageNoClick={(no) => {
-            if (searchParam) {
-              setSearchParams({ page: no, search: searchParam });
-            } else {
-              setSearchParams({ page: no });
-            }
+            const sendParam = {};
+            if (filterParam) sendParam.filter = filterParam;
+            if (searchParam) sendParam.search = searchParam;
+            if (no > 1) sendParam.page = no;
+            setSearchParams(sendParam);
           }}
         />
       </div>

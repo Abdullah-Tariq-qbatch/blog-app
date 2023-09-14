@@ -22,13 +22,15 @@ const Pagination = ({ searchParam, pageParam }) => {
     const remPage = totalPages - pageRange + 1;
 
     const newStart =
-      Math.min(toNumber(pageParam), remPage < 0 || remPage) ||
-      toNumber(pageParam);
+      totalPages < pageRange
+        ? 1
+        : Math.min(toNumber(pageParam), remPage < 0 || remPage) ||
+          toNumber(pageParam);
     const newEnd =
       Math.min(pageRange + (newStart || 1) - 1, totalPages) ||
       pageRange + (newStart || 1) - 1;
     setCurrentPageRange({ start: newStart, end: newEnd });
-  }, [pageParam]);
+  }, [pageParam, searchParam]);
 
   const goToNextPageRange = () => {
     if (currentPageRange.end >= totalPages) return;
