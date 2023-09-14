@@ -54,20 +54,14 @@ function CreateBlog() {
 
   const validationSchema = Yup.object().shape({
     title: Yup.string()
-      .required("Title is required")
-      .matches(
-        /^[a-zA-Z]+[a-zA-Z0-9\s]*$/,
-        "Title can be alphanumeric with at least one alphabet",
-      ),
+      .required("Title")
+      .matches(/^(?=.*[a-zA-Z])[a-zA-Z0-9\s,.'0-9]*$/, "Title"),
 
     body: Yup.string()
-      .required("Body is required")
-      .matches(
-        /^[a-zA-Z]+[a-zA-Z0-9\s]*$/,
-        "Body can be alphanumeric with at least one alphabet",
-      ),
+      .required("Body")
+      .matches(/^(?=.*[a-zA-Z])[a-zA-Z0-9\s,.'0-9]*$/, "Body"),
 
-    file: Yup.mixed().required("Cover Photo is required"),
+    file: Yup.mixed().required("Cover Photo"),
   });
 
   useEffect(() => {
