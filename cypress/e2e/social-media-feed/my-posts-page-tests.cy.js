@@ -1,6 +1,6 @@
 describe("Post Comment Tests", function () {
   beforeEach(() => {
-    cy.login();
+    cy.loginAndGoToSocialMedia();
     cy.visit("/");
     cy.get('[href="/social-media"]').click();
     cy.get(`.lg\\:hidden > .flex`).click();
@@ -76,7 +76,7 @@ describe("Post Comment Tests", function () {
 
 describe("Post Icons Tests", function () {
   beforeEach(() => {
-    cy.login();
+    cy.loginAndGoToSocialMedia();
     cy.visit("/");
     cy.get('[href="/social-media"]').click();
     cy.get(`.lg\\:hidden > .flex`).click();

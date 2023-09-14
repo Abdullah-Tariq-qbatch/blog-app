@@ -1,6 +1,6 @@
 describe("Navigation Bar Tests", function () {
   beforeEach(() => {
-    cy.login();
+    cy.loginAndGoToSocialMedia();
     cy.visit("/");
     cy.get('[href="/social-media"]').click();
   });

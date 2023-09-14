@@ -55,6 +55,46 @@ Cypress.Commands.add("login", () => {
   );
 });
 
+Cypress.Commands.add("login", () => {
+  const email = "john@mail.com";
+  const password = "changeme";
+  cy.session(
+    [email, password],
+    () => {
+      cy.visit("/login");
+      cy.get('[name="email"]').type(`${email}`);
+      cy.get('[name="password"]').type(`${password}{enter}`);
+      cy.get('[href="/tv-shows"]').click();
+    },
+    {
+      validate: () => {
+        cy.visit("/");
+      },
+      cacheAcrossSpecs: true,
+    },
+  );
+});
+
+Cypress.Commands.add("loginAndGoToSocialMedia", () => {
+  const email = "john@mail.com";
+  const password = "changeme";
+  cy.session(
+    [email, password],
+    () => {
+      cy.visit("/login");
+      cy.get('[name="email"]').type(`${email}`);
+      cy.get('[name="password"]').type(`${password}{enter}`);
+      cy.get('[href="/social-media"]').click();
+    },
+    {
+      validate: () => {
+        cy.visit("/");
+      },
+      cacheAcrossSpecs: true,
+    },
+  );
+});
+
 Cypress.Commands.add("visitCatalog", () => {
   cy.visit("/");
   cy.get('[href="/catalog"]').click();

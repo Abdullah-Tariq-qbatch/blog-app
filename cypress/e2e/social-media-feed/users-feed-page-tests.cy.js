@@ -1,6 +1,6 @@
 describe("Pagination", function () {
   beforeEach(() => {
-    cy.login();
+    cy.loginAndGoToSocialMedia();
     cy.visit("/");
     cy.get('[href="/social-media"]').click();
     cy.get(`.lg\\:hidden > .flex`).click();
@@ -22,7 +22,7 @@ describe("Pagination", function () {
 
 describe("Buttons", function () {
   beforeEach(() => {
-    cy.login();
+    cy.loginAndGoToSocialMedia();
     cy.visit("/");
     cy.get('[href="/social-media"]').click();
     cy.get(`.lg\\:hidden > .flex`).click();
@@ -50,7 +50,7 @@ describe("Buttons", function () {
 
 describe("Search Bar", function () {
   beforeEach(() => {
-    cy.login();
+    cy.loginAndGoToSocialMedia();
     cy.visit("/");
     cy.get('[href="/social-media"]').click();
     cy.get(`.lg\\:hidden > .flex`).click();

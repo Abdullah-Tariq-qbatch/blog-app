@@ -2,7 +2,7 @@ const image = "/Users/mac/Downloads/web-image.jpg";
 
 describe("Add New Post", function () {
   beforeEach(() => {
-    cy.login();
+    cy.loginAndGoToSocialMedia();
     cy.visit("/");
     cy.get('[href="/social-media"]').click();
     cy.get(`.lg\\:hidden > .flex`).click();
