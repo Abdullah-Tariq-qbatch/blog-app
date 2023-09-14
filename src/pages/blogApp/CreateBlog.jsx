@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
+import * as Yup from "yup";
 
 import { ReactComponent as FileUploadIconSvg } from "../../assets/blogApp/svg/uploadFileIcon.svg";
 import { createBlog, updateBlog } from "../../redux/blogs/actionCreator";
@@ -51,21 +52,23 @@ function CreateBlog() {
     setUnsavedChanges(false);
   };
 
-  const validate = (values) => {
-    const errors = {};
+  const validationSchema = Yup.object().shape({
+    title: Yup.string()
+      .required("Title is required")
+      .matches(
+        /^[a-zA-Z]+[a-zA-Z0-9\s]*$/,
+        "Title can be alphanumeric with at least one alphabet",
+      ),
 
-    if (!values.title) {
-      errors.title = "Title";
-    }
-    if (!values.body) {
-      errors.body = "Body";
-    }
-    if (!values.file) {
-      errors.file = "Cover Photo";
-    }
+    body: Yup.string()
+      .required("Body is required")
+      .matches(
+        /^[a-zA-Z]+[a-zA-Z0-9\s]*$/,
+        "Body can be alphanumeric with at least one alphabet",
+      ),
 
-    return errors;
-  };
+    file: Yup.mixed().required("Cover Photo is required"),
+  });
 
   useEffect(() => {
     // Add an event listener for beforeunload
@@ -95,7 +98,7 @@ function CreateBlog() {
         <Formik
           initialValues={initialValues}
           onSubmit={onSubmit}
-          validate={validate}
+          validationSchema={validationSchema}
           enableReinitialize
         >
           {({
