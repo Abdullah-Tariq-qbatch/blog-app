@@ -1,4 +1,5 @@
 const { defineConfig } = require("cypress");
+
 // Populate process.env with values from .env file
 require("dotenv").config();
 
@@ -14,6 +15,7 @@ module.exports = defineConfig({
     },
     // defaultCommandTimeout: 20000, // Set a default command timeout of 10 seconds for all commands
     // execTimeout: 20000, // Set a global assertion timeout of 20 seconds
+
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },

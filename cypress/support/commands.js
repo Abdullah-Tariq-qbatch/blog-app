@@ -11,6 +11,9 @@
 //
 // -- This is a parent command --
 // Cypress.Commands.add('login', (email, password) => { ... })
+
+
+
 //
 //
 // -- This is a child command --
@@ -23,6 +26,7 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
 Cypress.Commands.add("login", () => {
   const email = "john@mail.com";
   const password = "changeme";
@@ -30,18 +34,21 @@ Cypress.Commands.add("login", () => {
     [email, password],
     () => {
       cy.visit("/login");
-      cy.get('[name="email"]').type(email);
+
+      cy.get('[name="email"]').type(`${email}`);
       cy.get('[name="password"]').type(`${password}{enter}`);
-      cy.get('[href="/blog"]').click();
+      cy.get('[href="/tv-shows"]').click();
     },
     {
-      validate() {
+      validate: () => {
+
         cy.visit("/");
       },
       cacheAcrossSpecs: true,
     },
   );
 });
+
 
 Cypress.Commands.add("goToBlog", () => {
   cy.visit("/");
@@ -104,3 +111,4 @@ Cypress.Commands.add("loginByGoogleApi", () => {
     });
   });
 });
+
