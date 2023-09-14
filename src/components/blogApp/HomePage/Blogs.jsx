@@ -118,7 +118,7 @@ function Blogs({ userId }) {
       </div>
       <div className="flex w-full flex-col justify-between sm:flex-row">
         <select
-          id="countries"
+          id="filter"
           value={filterParam}
           onChange={(e) => {
             const sendParam = {};
