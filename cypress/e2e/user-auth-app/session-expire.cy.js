@@ -1,7 +1,7 @@
 describe("Session Expire", function () {
   it("should logout a user when session expires", () => {
-    const email = "faiq@gmail.com";
-    const password = "1234Faiq";
+    const email = Cypress.env("email");
+    const password = Cypress.env("password");
 
     // interceptors
     cy.intercept("GET", "https://api.escuelajs.co/api/v1/auth/profile").as(

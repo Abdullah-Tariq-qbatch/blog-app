@@ -1,7 +1,7 @@
 describe("Logout", function () {
   it("should logout a user successfully", () => {
-    const email = "faiq@gmail.com";
-    const password = "1234Faiq";
+    const email = Cypress.env("email");
+    const password = Cypress.env("password");
 
     cy.login(email, password);
     cy.get(".top-1\\/2").should("be.visible").click();

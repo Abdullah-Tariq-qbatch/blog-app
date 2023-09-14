@@ -50,6 +50,8 @@
     "custom-build": "react-app-rewired build",
     "custom-test": "react-app-rewired test",
     "custom-eject": "react-scripts eject",
+    "serve": "serve -s build",
+    "https serve": "serve -s build -S -l 3000 --ssl-cert localhost.crt --ssl-key localhost.key",
     "cypress test": "npx cypress open"
   },
   "eslintConfig": {
