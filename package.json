@@ -11,6 +11,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
+    "cypress": "^13.2.0",
     "facebook-oauth-react": "^1.1.5",
     "formik": "^2.4.3",
     "heroicons": "^2.0.18",

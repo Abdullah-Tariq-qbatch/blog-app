@@ -1,10 +1,15 @@
 import { DeleteFilled, EyeFilled } from "@ant-design/icons";
-import React, { useState } from "react";
+import React, { Suspense, lazy, useState } from "react";
 
 import DeleteConfirmation from "./DeleteConfirmation";
 import { Link } from "react-router-dom";
 import { calculateYear } from "../../utils/tvShowApp/utils";
 import { toast } from "react-toastify";
+import Loader from "../catalogApp/Loader";
+
+const PosterImage = lazy(() =>
+  import(/* webpackChunkName: "posterImage" */ "./PosterImage"),
+);
 
 const TvShowCard = ({ data }) => {
   const [isConfirmationVisible, setConfirmationVisible] = useState(false);
@@ -16,10 +21,9 @@ const TvShowCard = ({ data }) => {
     <>
       <div className="flex max-w-sm flex-col rounded-lg border border-gray-200 bg-white shadow dark:border-gray-950 dark:bg-gray-950">
         <div className="relative z-10">
-          <img
-            src={data.image_thumbnail_path}
-            className="h-64 w-96 rounded-t-lg 2xl:object-scale-down"
-          />
+          <Suspense fallback={<Loader />}>
+            <PosterImage img={data.image_thumbnail_path} />
+          </Suspense>
           <span
             id="blackOverlay"
             className="absolute left-1/2 top-0 flex h-full w-full -translate-x-1/2 transform items-center justify-center rounded-t-lg bg-black opacity-0 dark:opacity-30"
