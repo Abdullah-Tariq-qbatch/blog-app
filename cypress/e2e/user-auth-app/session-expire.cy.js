@@ -13,7 +13,7 @@ describe("Session Expire", function () {
     ).as("refreshAccessToken");
 
     // first request should be successful
-    cy.login(email, password);
+    cy.loginWithoutSession(email, password);
     cy.wait("@getUserData").then((interception) => {
       expect(interception.response.statusCode).to.equal(200);
     });

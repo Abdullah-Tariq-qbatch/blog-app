@@ -7,7 +7,7 @@ describe("Protected route", function () {
   it("should not allow user to visit sign up page after login", () => {
     const email = Cypress.env("email");
     const password = Cypress.env("password");
-    cy.login(email, password);
+    cy.loginWithoutSession(email, password);
     cy.visit("/signup");
     cy.contains("One App 2.0");
   });
@@ -15,7 +15,7 @@ describe("Protected route", function () {
   it("should not allow user to visit login page after login", () => {
     const email = Cypress.env("email");
     const password = Cypress.env("password");
-    cy.login(email, password);
+    cy.loginWithoutSession(email, password);
     cy.visit("/login");
     cy.contains("One App 2.0");
   });
@@ -26,7 +26,7 @@ describe("Protected route", function () {
 
     cy.visit("/profile");
     cy.contains("Please login to continue");
-    cy.login(email, password);
+    cy.loginWithoutSession(email, password);
     cy.contains("Profile");
   });
 });

@@ -13,7 +13,7 @@ describe("Invalid Access Token", function () {
     ).as("refreshAccessToken");
 
     // first request will be valid as we have a valid access token
-    cy.login(email, password);
+    cy.loginWithoutSession(email, password);
     cy.wait("@getUserData").then((interception) => {
       expect(interception.response.statusCode).to.equal(200);
     });

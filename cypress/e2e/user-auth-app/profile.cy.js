@@ -3,7 +3,7 @@ describe("Profile", function () {
     const email = Cypress.env("email");
     const password = Cypress.env("password");
 
-    cy.login(email, password);
+    cy.loginWithoutSession(email, password);
   });
 
   it("should display the logged in user's name on the profile page", () => {

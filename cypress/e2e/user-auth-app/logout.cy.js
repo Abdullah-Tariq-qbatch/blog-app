@@ -3,7 +3,7 @@ describe("Logout", function () {
     const email = Cypress.env("email");
     const password = Cypress.env("password");
 
-    cy.login(email, password);
+    cy.loginWithoutSession(email, password);
     cy.get(".top-1\\/2").should("be.visible").click();
     cy.get(":nth-child(6) > .flex > p").should("be.visible").click();
     cy.contains("Logout successful");
